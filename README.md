@@ -1,1 +1,1 @@
-C
+Lo scopo di questo progetto è valutare alcune euristiche costruttive per il TSP asimmetrico, in particolare verranno valutate le prestazioni su grafi casuali (tempo medio, varianza...)
