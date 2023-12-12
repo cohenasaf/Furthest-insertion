@@ -1,0 +1,8 @@
+- libreria.h che contiene il codice comune
+- codice per creare matrici casuali e usarli per tutte le euristiche
+
+- nearest neighbor
+- nearest insertion
+- cheapest insertion
+- farthest insertion
+- furthest insertion <-
