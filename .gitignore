@@ -1,2 +1,4 @@
-!source/**/*.c
-!source/**/*.h
+*
+!*.c
+!*.h
+!Makefile
