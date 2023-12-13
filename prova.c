@@ -15,6 +15,7 @@ int main() {
     insertNodeByValue(n, 23, 5);
     insertNodeByValue(n, 232, 5);
     insertNodeByValue(n, 2132, 5);
+    insertNodeByValue(n, 2132, 6);
     printLinkedList(n);
     printf("%d\n", getValueByIndex(n, 5));
     printf("%s\n", contains(n, 9) ? "True" : "False");
