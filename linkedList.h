@@ -16,7 +16,7 @@ struct node *createNode(int value) {
 }
 
 // aggiunge il nodo "value" alla fine della lista
-struct node *add(struct node *n, int value) {
+struct node *addNode(struct node *n, int value) {
     while(n -> next != NULL) n = n -> next;
     struct node *m = malloc(sizeof(struct node));
     m -> data = value;
