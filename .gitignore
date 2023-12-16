@@ -1,5 +1,5 @@
 *
 !*.c
 !*.h
-!.ipynb
+!*.ipynb
 !Makefile
