@@ -73,7 +73,7 @@ void nearestInsertion() {
     tour[1] = r;
     lenTour = 2;
 
-    while(lenTour < numCities) {
+    while(lenTour < numCities - 1) {
         // Passo di selezione: scelgo il nodo r NON ancora visitato
         // tale che abbia distanza minima con un qualunque nodo j
         minDistance = INT_MAX;
@@ -82,7 +82,7 @@ void nearestInsertion() {
             if (visited[r2]) continue;
             int j2;
             for (j2 = 0; j2 < numCities; j2++) {
-                if (!visited[j2]) {
+                if (!visited[j2] || r2 == j2) {
                     continue;
                 }
                 if (adjacencyMatrix[r2][j2] < minDistance) {
@@ -119,7 +119,15 @@ void nearestInsertion() {
         insertNode(r, i, j);
         visited[r] = 1;
         lenTour++;
-    }  
+    }
+    // aggiungo l'ultima città non visitata
+    for (int r = 0; r < numCities; r++) {
+        if (!visited[r]) {
+            tour[numCities - 1] = r;
+            tour[numCities] = tour[0];
+            break;
+        }
+    }
 }
 
 void printMatrix() {
