@@ -7,9 +7,6 @@ Nearest Insertion è una euristica costruttiva per il problema del TSP
 #include <limits.h>
 #include <time.h>
 
-#include "linkedList.h"
-
-
 #define MAX_CITIES 20000
 
 int numCities;
