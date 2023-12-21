@@ -22,8 +22,8 @@ void writeRandomGraphFile(char *title, int n) {
 }
 
 // legge il file e importa in adjacencyMatrix la matrice
-void readRandomGraphFile(char *title) {
-    char folder[] = "grafi casuali/";
+void readRandomGraphFileStr(char *title) {
+    char folder[20] = "grafi casuali/";
 
     FILE *file = fopen(strcat(folder, title), "r");
     size_t n = 0;
@@ -56,16 +56,18 @@ void readRandomGraphFile(char *title) {
     fclose(file);
 }
 
+void readRandomGraphFileInt(int title) {
+    char name[10];
+    sprintf(name, "%d", title);
+    readRandomGraphFileStr(name);
+}
+
 // genera n matrici casuali grandi c città
 void generaNMatriciCasuali(int n, int c) {
+    printf("Genero %d matrici casuali...\n", n);
     for (int i = 0; i < n; i++) {
         char name[10];
         sprintf(name, "%d", i);
         writeRandomGraphFile(name, c);
-        printf("Generata la matrice casuale %d ...\n", i);
     }
-}
-
-int main(int argc, char **argv) {
-    generaNMatriciCasuali(100, 1000);
 }

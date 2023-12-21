@@ -91,7 +91,6 @@ void nearestInsertion() {
     for (int r = 0; r < numCities; r++) {
         if (!visited[r]) {
             tour[numCities - 1] = r;
-            tour[numCities] = tour[0];
             break;
         }
     }

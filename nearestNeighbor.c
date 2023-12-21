@@ -35,8 +35,5 @@ void nearestNeighbor() {
         current = nearestCity;
         lenTour++;
     }
-
-    // Aggiungiamo il ritorno al nodo di partenza
-    tour[numCities] = tour[0];
     cost = tourCost();
 }

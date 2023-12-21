@@ -22,7 +22,7 @@ int tourCost() {
     for (int i = 0; i < lenTour - 1; i++) {
         cost += adjacencyMatrix[tour[i]][tour[i + 1]];
     }
-    cost += adjacencyMatrix[tour[lenTour - 1]][0];
+    cost += adjacencyMatrix[tour[lenTour - 1]][tour[0]];
     return cost;
 }
 
@@ -75,6 +75,7 @@ void printMatrix() {
 }
 
 void printTour() {
+    printf("Il tour è: ");
     for (int i = 0; i < lenTour; i++) printf("%d ", tour[i]);
     printf("\n");
 }
@@ -109,7 +110,7 @@ void testEuristicCost(int n, void (*e)()) {
     numCities = n;
 
     //generateRandomMatrix(numCities, adjacencyMatrix);
-
+    clearDataStructures();
     //if (numCities < 30) printMatrix();
     
     (*e)();
