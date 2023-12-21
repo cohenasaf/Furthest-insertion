@@ -6,6 +6,7 @@ Breve libreria che consente di generare le matrici casuali, testare l'euristica 
 #include <stdlib.h>
 #include <limits.h>
 #include <time.h>
+#include <sys/time.h>
 
 #define MAX_CITIES 20000
 
@@ -25,9 +26,17 @@ int tourCost() {
     return cost;
 }
 
+// genera il seed basato su nanosecondi, utile per generare molte matrici casuali piccole
+unsigned int ottieni_seed() {
+    struct timeval tempo_corrente;
+    gettimeofday(&tempo_corrente, NULL);
+    unsigned int seed = tempo_corrente.tv_sec * 1000000 + tempo_corrente.tv_usec;
+    return seed;
+}
+
 // Genera un grafo non orientato casuale, vale 0 <= (i, j) < 100
 void generateRandomMatrix(int numCities, int adjacencyMatrix[MAX_CITIES][MAX_CITIES]) {
-    srand(time(NULL));
+    srand(ottieni_seed());
     for (int i = 0; i < numCities; i++) {
         for (int j = i + 1; j < numCities; j++) {
             if (i == j) {

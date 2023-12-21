@@ -2,6 +2,7 @@
 #include "nearestInsertion.c"
 #include "nearestNeighbor.c"
 #include <stdio.h>
+#include <sys/time.h>
 
 #define MAX_CITIES 20000
 
@@ -14,7 +15,9 @@ int cost = 0;
 
 // Genera un grafo non orientato casuale, vale 0 <= (i, j) < 100
 void generateRandomMatrix(int numCities, int adjacencyMatrix[MAX_CITIES][MAX_CITIES]) {
-    srand(time(NULL));
+    timeval t1;
+    gettimeofday(&t1, NULL);
+    srand(t1.tv_usec * t1.tv_sec);
     for (int i = 0; i < numCities; i++) {
         for (int j = i + 1; j < numCities; j++) {
             if (i == j) {
