@@ -3,8 +3,8 @@
 #include "nearestNeighbor.c"
 
 int main() {
-    generaNMatriciCasuali(5, 20);
-    readRandomGraphFileInt(0);
+    //generaNMatriciCasuali(5, 20);
+    readRandomGraphFileInt(1);
     
     printf("\n");
     printMatrix();

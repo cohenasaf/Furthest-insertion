@@ -1,10 +1,11 @@
 - libreria.h che contiene il codice comune
 - codice per creare matrici casuali e usarli per tutte le euristiche
-
-- risolvere duplicati! esempi corti nearestInsertion
-
+- risolvere duplicati! esempi nearestInsertion
 - nearest neighbor
 - nearest insertion
+_______________________________-
+
 - cheapest insertion
 - farthest insertion
 - furthest insertion <-
+- grafici python
