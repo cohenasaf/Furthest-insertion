@@ -1,9 +1,7 @@
-#include "linkedList.h"
-
+#include "euristicTest.h"
+#include "nearestInsertion.c"
+#include "nearestNeighbor.c"
 #include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <time.h>
 
 #define MAX_CITIES 20000
 
@@ -11,26 +9,40 @@ int numCities;
 int adjacencyMatrix[MAX_CITIES][MAX_CITIES];
 int tour[MAX_CITIES];
 int visited[MAX_CITIES];
-int lenTour = 20;
+int lenTour = 0;
+int cost = 0;
 
-void insertNode(int r, int i, int j) {
-    for (int k = 0; k < lenTour; k++) {
-        if (tour[k] == i || tour[k] == j) {
-            for (int q = lenTour - 1; q > k; q--) {
-                tour[q + 1] = tour[q];
+// Genera un grafo non orientato casuale, vale 0 <= (i, j) < 100
+void generateRandomMatrix(int numCities, int adjacencyMatrix[MAX_CITIES][MAX_CITIES]) {
+    srand(time(NULL));
+    for (int i = 0; i < numCities; i++) {
+        for (int j = i + 1; j < numCities; j++) {
+            if (i == j) {
+                adjacencyMatrix[i][i] = 0; // Nessun costo da una città a se stessa
+            } else {
+                int random = rand() % 100;
+                adjacencyMatrix[i][j] = random; // Peso casuale tra 0 e 100 escluso
+                adjacencyMatrix[j][i] = random; // Matrice simmetrica
             }
-            tour[k + 1] = r;
-            return;
         }
     }
-    return;
 }
 
-int main() {
-    for (int i = 0; i < 20; i++) tour[i] = i;
-    insertNode(500, 6, 5);
-    for (int i = 0; i < 21; i++) {
-        printf("%d ", tour[i]);
+void writeMatrixOnFile(File *fptr) {
+    fprintf(fptr, "%d\n", numCities);
+    for (int i = 0; i < numCities; i++) {
+        for (int j = 0; j < numCities; j++) {
+            fprintf(fptr, "%d ", adjacencyMatrix[i][j]);
+        }
+        fprintf(fptr, "\n");
     }
-    printf("\n");
+}
+
+
+int main() {
+    FILE *fptr;
+    fptr = fopen("filename.txt", "w");
+    //fprintf(fptr, "Some text");
+    fclose(fptr);
+    return 0;
 }
