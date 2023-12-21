@@ -2,7 +2,8 @@
 Nearest Insertion è una euristica costruttiva per il problema del TSP
 */
 
-//#include "euristicTest.h"
+//#include "graphGenerator.c"
+
 
 void nearestInsertion() {
     cost = 0;

@@ -5,6 +5,8 @@ Complessità Spaziale: O(n) // contando solo l'array visited e tour
 La soluzione trovata può essere anche molto lontana dall'ottimo
 */
 
+//#include "graphGenerator.c"
+
 void nearestNeighbor() {
     // inizializzo tutti i vertici come non visitati
     for (int i = 0; i < numCities; i++) visited[i] == 0;

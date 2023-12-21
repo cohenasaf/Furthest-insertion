@@ -1,10 +1,11 @@
 #include "graphGenerator.c"
 #include "nearestInsertion.c"
 #include "nearestNeighbor.c"
+#include "exhaustiveSearch.c"
 
 int main() {
-    //generaNMatriciCasuali(5, 20);
-    readRandomGraphFileInt(1);
+    generaNMatriciCasuali(5, 5);
+    readRandomGraphFileInt(0);
     
     printf("\n");
     printMatrix();
@@ -15,5 +16,8 @@ int main() {
     printTour();
     testEuristicCost(numCities, nearestInsertion);
     printf("costo nearest %d\n", cost);
+    printTour();
+    testEuristicCost(numCities, exhaustiveSearch);
+    printf("costo exhaustive %d\n", cost);
     printTour();
 }
