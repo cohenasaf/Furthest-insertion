@@ -4,7 +4,7 @@
 #include "exhaustiveSearch.c"
 
 int main() {
-    generaNMatriciCasuali(5, 5);
+    generaNMatriciCasuali(5, 12);
     readRandomGraphFileInt(0);
     
     printf("\n");
