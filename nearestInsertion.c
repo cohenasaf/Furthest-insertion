@@ -9,33 +9,23 @@ void nearestInsertion() {
     cost = 0;
     // inizializzo tutti i vertici come non visitati
     for (int i = 0; i < numCities; i++) visited[i] == 0;
-    // scelgo il primo vertice casualmente
-    tour[0] = rand() % numCities;
-    // lo imposto come visitato
-    visited[tour[0]] = 1;
-    // imposto la lunghezza del sub-tour
-
-    int r = -1;
+    // inizializzo il subtour con la coppia di vertici con costo minore
     int minDistance = INT_MAX;
-
-    // cerco il nodo r più vicino a current 
-    for (int i = 0; i < numCities; i++) {
-        if (i != tour[0] && adjacencyMatrix[tour[0]][i] < minDistance) {
-            r = i;
-            minDistance = adjacencyMatrix[tour[0]][i];
+    for (int i = 0; i < lenTour; i++) {
+        for (int j = 0; j < lenTour; j++) {
+            if (adjacencyMatrix[i][j] < minDistance) {
+                tour[0] = i;
+                tour[1] = j;
+            }
         }
     }
-
-    // lo imposto come visitato
-    visited[r] = 1;
-    tour[1] = r;
+    visited[tour[0]] = 1;
+    visited[tour[1]] = 1;
     lenTour = 2;
 
 
+    int r;
     while(lenTour < numCities) {
-        //printf("tour fin'ora: ");
-        //printTour();
-        //printf("GIRO\n");
         // Passo di selezione: scelgo il nodo r NON ancora visitato
         // tale che abbia distanza minima con un qualunque nodo j
         minDistance = INT_MAX;

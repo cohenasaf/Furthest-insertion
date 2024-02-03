@@ -4,20 +4,15 @@
 #include "exhaustiveSearch.c"
 
 int main() {
-    generaNMatriciCasuali(5, 12);
+    generaNMatriciCasuali(5, 500);
     readRandomGraphFileInt(0);
     
-    printf("\n");
-    printMatrix();
-    printf("\n");
+    //printMatrix();
     
     testEuristicCost(numCities, nearestNeighbor);
     printf("costo neighbor %d\n", cost);
     printTour();
     testEuristicCost(numCities, nearestInsertion);
     printf("costo nearest %d\n", cost);
-    printTour();
-    testEuristicCost(numCities, exhaustiveSearch);
-    printf("costo exhaustive %d\n", cost);
     printTour();
 }
