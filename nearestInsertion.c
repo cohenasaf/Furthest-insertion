@@ -31,13 +31,8 @@ void nearestInsertion() {
         minDistance = INT_MAX;
         int j;
         for (int r2 = 0; r2 < numCities; r2++) {
-            if (visited[r2]) continue;
-            int j2;
-            for (j2 = 0; j2 < numCities; j2++) {
-                if (!visited[j2] || r2 == j2) {
-                    continue;
-                }
-                if (adjacencyMatrix[r2][j2] < minDistance) {
+            for (int j2 = 0; j2 < numCities; j2++) {
+                if (!visited[r2] && visited[j2]  && adjacencyMatrix[r2][j2] < minDistance) {
                     minDistance = adjacencyMatrix[r2][j2];
                     j = j2;
                     r = r2;
@@ -46,31 +41,15 @@ void nearestInsertion() {
         }
         //printf("j: %d, r: %d\n", j, r);
 
-        // scelgo l'arco (i, j) in modo da minimizzare c_ir + c_rj - c_ij 
-        int i;
-        for (int k = 0; k < lenTour; k++) {
-            if (tour[k] == j) {
-                if (k == 0) {
-                    if (tour[k + 1] == r) continue;
-                    i = tour[k + 1];
-                } else if (k == lenTour - 1) {
-                    if (tour[k - 1] == r) continue;
-                    i = tour[k - 1];
-                } else {
-                    int i1 = tour[k + 1];
-                    int i2 = tour[k - 1];
-                    int d1 = adjacencyMatrix[i1][r] + adjacencyMatrix[r][j] - adjacencyMatrix[i1][j];
-                    int d2 = adjacencyMatrix[i2][r] + adjacencyMatrix[r][j] - adjacencyMatrix[i2][j];
-                    if (i1 == r) i = i2;
-                    else if (i2 == r) i = i1;
-                    if (d1 < d2) {
-                        i = i1;
-                    } else {
-                        i = i2;
-                    }
-                }
-                break;
-            }
+        // scelgo l'arco (i, j) nel subtour in modo da minimizzare c_ir + c_rj - c_ij 
+        int i, minCost = INT_MAX;
+        for (int k = 0; k < lenTour - 1; k++) {
+            int cost = adjacencyMatrix[tour[k]][r] + adjacencyMatrix[r][tour[k + 1]] - adjacencyMatrix[tour[i]][tour[i + 1]];
+            if (cost < minCost) {
+                minCost = cost;
+                i = tour[k];
+                j = tour[k + 1];
+            } 
         }
         //printf("i: %d\n", i);
         // inserisco il nodo r nel ciclo e lo imposto come visitato
