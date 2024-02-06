@@ -12,4 +12,5 @@ int main() {
     printf("\n");
     permute(array, 1, 2);
     for (int i = 0; i < 5; i++) printf("%d ", array[i]);
+    printf("\n");
 }

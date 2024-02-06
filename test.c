@@ -1,6 +1,7 @@
 #include "graphGenerator.c"
 #include "nearestInsertion.c"
 #include "nearestNeighbor.c"
+#include "cheapestInsertion.c"
 #include "exhaustiveSearch.c"
 
 int main() {
@@ -14,5 +15,8 @@ int main() {
     printTour();
     testEuristicCost(numCities, nearestInsertion);
     printf("costo nearest %d\n", cost);
+    printTour();
+    testEuristicCost(numCities, cheapestInsertion);
+    printf("costo cheapest %d\n", cost);
     printTour();
 }
