@@ -8,7 +8,7 @@ int main() {
     generaNMatriciCasuali(5, 50);
     readRandomGraphFileInt(0);
     
-    //printMatrix();;
+    //printMatrix();
     
     testEuristicCost(numCities, nearestNeighbor);
     printf("costo neighbor %d\n", cost);
