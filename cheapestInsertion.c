@@ -12,8 +12,9 @@ void cheapestInsertion() {
     // inizializzo il subtour con la coppia di vertici con costo minore
     int minDistance = INT_MAX;
     for (int i = 0; i < numCities; i++) {
-        for (int j = 0; j < numCities; j++) {
+        for (int j = 0; j < i; j++) {
             if (adjacencyMatrix[i][j] < minDistance) {
+                minDistance = adjacencyMatrix[i][j];
                 tour[0] = i;
                 tour[1] = j;
             }
@@ -36,10 +37,12 @@ void cheapestInsertion() {
                 }
             }
         }
+        printTour();
+        printf("Inserisco %d tra %d e %d\n", r, i, j);
         insertNode(r, i, j);
+        printTour();
         visited[r] = 1;
         ("AAA %d\n", lenTour);
-        lenTour++;
     }
     // aggiungo l'ultima città non visitata
     for (int r = 0; r < numCities; r++) {

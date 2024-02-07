@@ -61,6 +61,7 @@ void insertNode(int r, int i, int j) {
             return;
         }
     }
+    lenTour++;
     return;
 }
 

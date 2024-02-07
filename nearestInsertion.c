@@ -55,7 +55,6 @@ void nearestInsertion() {
         // inserisco il nodo r nel ciclo e lo imposto come visitato
         insertNode(r, i, j);
         visited[r] = 1;
-        lenTour++;
     }
     // aggiungo l'ultima città non visitata
     for (int r = 0; r < numCities; r++) {
