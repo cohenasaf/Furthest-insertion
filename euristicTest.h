@@ -58,11 +58,10 @@ void insertNode(int r, int i, int j) {
                 tour[q + 1] = tour[q];
             }
             tour[k + 1] = r;
+            lenTour++;
             return;
         }
     }
-    lenTour++;
-    return;
 }
 
 void printMatrix() {

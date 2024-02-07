@@ -28,21 +28,18 @@ void cheapestInsertion() {
     while(lenTour < numCities) {
         int minCost = INT_MAX, r, i, j;
         for (int k = 0; k < lenTour - 1; k++) {
-            for (r = 0; r < numCities; r++) {
-                cost = adjacencyMatrix[tour[k]][r] + adjacencyMatrix[r][tour[k + 1]] - adjacencyMatrix[tour[k]][tour[k + 1]];
-                if (!visited[r] && cost < minCost) {
+            for (int r2 = 0; r2 < numCities; r2++) {
+                cost = adjacencyMatrix[tour[k]][r2] + adjacencyMatrix[r2][tour[k + 1]] - adjacencyMatrix[tour[k]][tour[k + 1]];
+                if (!visited[r2] && cost < minCost) {
                     minCost = cost;
                     i = tour[k];
                     j = tour[k + 1];
+                    r = r2;
                 }
             }
         }
-        printTour();
-        printf("Inserisco %d tra %d e %d\n", r, i, j);
         insertNode(r, i, j);
-        printTour();
         visited[r] = 1;
-        ("AAA %d\n", lenTour);
     }
     // aggiungo l'ultima città non visitata
     for (int r = 0; r < numCities; r++) {
