@@ -5,7 +5,7 @@ Nearest Insertion è una euristica costruttiva per il problema del TSP
 //#include "graphGenerator.c"
 
 
-void nearestInsertion() {
+void farthestInsertion() {
     cost = 0;
     // inizializzo tutti i vertici come non visitati
     for (int i = 0; i < numCities; i++) visited[i] == 0;
@@ -28,11 +28,11 @@ void nearestInsertion() {
     while(lenTour < numCities) {
         // Passo di selezione: scelgo il nodo r NON ancora visitato
         // tale che abbia distanza minima con un qualunque nodo j
-        minDistance = INT_MAX;
+        minDistance = 0;
         int j;
         for (int r2 = 0; r2 < numCities; r2++) {
             for (int j2 = 0; j2 < numCities; j2++) {
-                if (!visited[r2] && visited[j2]  && adjacencyMatrix[r2][j2] < minDistance) {
+                if (!visited[r2] && visited[j2]  && adjacencyMatrix[r2][j2] > minDistance) {
                     minDistance = adjacencyMatrix[r2][j2];
                     r = r2;
                 }
