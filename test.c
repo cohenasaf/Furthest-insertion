@@ -1,10 +1,10 @@
 #include "graphGenerator.c"
-#include "nearestInsertion.c"
-#include "nearestNeighbor.c"
-#include "cheapestInsertion.c"
-#include "exhaustiveSearch.c"
-#include "farthestInsertion.c"
-#include "furthestInsertion.c"
+#include "euristiche/nearestInsertion.c"
+#include "euristiche/nearestNeighbor.c"
+#include "euristiche/cheapestInsertion.c"
+#include "euristiche/exhaustiveSearch.c"
+#include "euristiche/farthestInsertion.c"
+#include "euristiche/furthestInsertion.c"
 
 int main() {
     generaNMatriciCasuali(5, 50);
