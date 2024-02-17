@@ -1,11 +1,20 @@
 /*
-Furthest Insertion è una euristica costruttiva per il problema del TSP
+Nearest Insertion è una euristica costruttiva per il problema del TSP
 */
 
 //#include "graphGenerator.c"
 
 
-void furthestInsertion() {
+void randomInsertion() {
+    // inizializzo seed per i numeri casuali
+    struct timespec ts;
+    if (clock_gettime(CLOCK_REALTIME, &ts) == -1) {
+        perror("clock_gettime");
+        return;
+    }
+    unsigned int seed = ts.tv_nsec;
+    srand(seed);
+
     cost = 0;
     // inizializzo tutti i vertici come non visitati
     for (int i = 0; i < numCities; i++) visited[i] == 0;
@@ -26,18 +35,14 @@ void furthestInsertion() {
 
     int r;
     while(lenTour < numCities) {
-        int maxCost = 0, r, i, j;
-        for (int k = 0; k < lenTour - 1; k++) {
-            for (int r2 = 0; r2 < numCities; r2++) {
-                cost = adjacencyMatrix[tour[k]][r2] + adjacencyMatrix[r2][tour[k + 1]] - adjacencyMatrix[tour[k]][tour[k + 1]];
-                if (!visited[r2] && cost > maxCost) {
-                    maxCost = cost;
-                    i = tour[k];
-                    j = tour[k + 1];
-                    r = r2;
-                }
-            }
+        // scelgo casualmente il nodo da inserire
+        int r = rand() % numCities;
+        while (visited[r]) {
+            r = rand() % numCities;
         }
+        // scelgo casualmente l'arco in cui inserire r
+        int i = tour[rand() % (lenTour - 1)];
+        int j = tour[i + 1];
         insertNode(r, i, j);
         visited[r] = 1;
     }

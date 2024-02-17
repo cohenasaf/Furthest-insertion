@@ -1,5 +1,5 @@
 /*
-Nearest Insertion è una euristica costruttiva per il problema del TSP
+Cheapest Insertion è una euristica costruttiva per il problema del TSP
 */
 
 //#include "graphGenerator.c"

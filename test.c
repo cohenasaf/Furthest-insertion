@@ -5,6 +5,7 @@
 #include "euristiche/exhaustiveSearch.c"
 #include "euristiche/farthestInsertion.c"
 #include "euristiche/furthestInsertion.c"
+#include "euristiche/randomInsertion.c"
 
 int main() {
     generaNMatriciCasuali(5, 50);
@@ -26,5 +27,8 @@ int main() {
     printTour();
     testEuristicCost(numCities, furthestInsertion);
     printf("costo furthest %d\n", cost);
+    printTour();
+    testEuristicCost(numCities, randomInsertion);
+    printf("costo random %d\n", cost);
     printTour();
 }
