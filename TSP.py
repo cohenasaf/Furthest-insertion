@@ -83,10 +83,12 @@ class TSP:
                 return False
         return True
 
+    @profile
     def randomInsertion(self):
         self.tour = [x for x in range(self.numCity)]
         random.shuffle(self.tour)
-
+        
+    @profile
     def nearestNeighbor(self):
         self.tour = [0]
         visited = set()
@@ -101,6 +103,7 @@ class TSP:
             self.tour.append(j)
         self.calculateCost()
     
+    @profile
     def nearestInsertion(self):
         self.tour = [-1, -1]
         self.tour[0] = 0
@@ -136,6 +139,7 @@ class TSP:
             
         self.calculateCost()
     
+    @profile
     def cheapestInsertion(self):
         self.tour = [-1, -1]
         self.tour[0] = 0
@@ -173,6 +177,7 @@ class TSP:
 
         self.calculateCost()
 
+    @profile
     def farthestInsertion(self):
         self.tour = [-1, -1]
         self.tour[0] = 0
@@ -208,6 +213,7 @@ class TSP:
             
         self.calculateCost()
 
+    @profile
     def furthestInsertion(self):
         self.tour = [-1, -1]
         self.tour[0] = 0
