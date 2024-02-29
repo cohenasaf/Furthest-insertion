@@ -8,7 +8,7 @@
 #include "euristiche/randomInsertion.c"
 
 int main() {
-    generaNMatriciCasuali(5, 50);
+    //generaNMatriciCasuali(5,10);
     readRandomGraphFileInt(0);
     
     //printMatrix();
@@ -31,4 +31,10 @@ int main() {
     testEuristicCost(numCities, randomInsertion);
     printf("costo random %d\n", cost);
     printTour();
+
+    readOptTour("0.opt");
+    printf("Optimal Tour is:\n");
+    printTour();
+    cost = tourCost();
+    printf("costo ottimale %d\n", cost);
 }

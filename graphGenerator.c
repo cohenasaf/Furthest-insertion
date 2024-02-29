@@ -56,6 +56,43 @@ void readRandomGraphFileStr(char *title) {
     fclose(file);
 }
 
+// legge il file e importa in adjacencyMatrix la matrice
+void readOptTour(char *title) {
+    char folder[20] = "grafi casuali/";
+
+    FILE *file = fopen(strcat(folder, title), "r");
+    size_t n = 0;
+    int c;
+
+    if (file == NULL) {
+        printf("Errore lettura file");
+        return;
+    }
+    
+    int first = 0, i = 0;
+    char *numero = malloc(3);
+    while ((c = fgetc(file)) != EOF) {
+        n = 0;
+        numero[n++] = (char) c;
+        while ((c = fgetc(file)) != ' ') {
+            numero[n++] = (char) c;
+        }
+        numero[n++] = '\0';
+        int num = atoi(numero);
+        if (num == -1) {
+            break;
+        }
+        if (first == 0) {
+            numCities = num;
+            first = 1;
+        } else {
+            tour[i] = num;
+            i++;
+        }
+    }
+    fclose(file);
+}
+
 void readRandomGraphFileInt(int title) {
     char name[10];
     sprintf(name, "%d", title);
