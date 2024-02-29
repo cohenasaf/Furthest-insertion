@@ -1,4 +1,5 @@
 import math
+import random
 
 class TSP:
     def __init__(self, name):
@@ -40,15 +41,32 @@ class TSP:
         # leggo il persorso ottimale
         f = open(f"ALL-TSP/{name}.opt.tour")
         self.optTour = [-1 for _ in range(self.numCity)]
-        self.Tour = [-1 for _ in range(self.numCity)]
+        self.tour = [-1 for _ in range(self.numCity)]
         data = False
         i = 0
         for line in f:
             if "-1" in line:
                 break
             if data:
-                self.optTour[i] = int(line)
+                # considero i nodi del grafo a partire da 0 e non da 1 come su TSP LIB
+                self.optTour[i] = int(line) - 1
                 i += 1
             if "TOUR_SECTION" in line:
                 data = True
         f.close()
+        
+    def calculateCost(self):
+        self.cost = 0
+        for i in range(self.numCity - 1):
+            self.cost += self.adj[self.tour[i]][self.tour[i + 1]]
+        self.cost += self.adj[self.tour[self.numCity - 1]][self.tour[0]]
+    
+    def calculateOptimalCost(self):
+        self.cost = 0
+        for i in range(self.numCity - 1):
+            self.cost += self.adj[self.optTour[i]][self.optTour[i + 1]]
+        self.cost += self.adj[self.optTour[self.numCity - 1]][self.optTour[0]]
+
+    def randomInsertion(self):
+        self.tour = [x for x in range(self.numCity)]
+        random.shuffle(self.tour)
