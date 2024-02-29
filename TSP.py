@@ -67,6 +67,16 @@ class TSP:
         for i in range(self.numCity - 1):
             self.cost += self.adj[self.optTour[i]][self.optTour[i + 1]]
         self.cost += self.adj[self.optTour[self.numCity - 1]][self.optTour[0]]
+    
+    def verifyTour(self):
+        for i in range(self.numCity):
+            if not i in self.tour:
+                print(f"ERRORE, manca {i}")
+                return False
+            if self.tour.count(i) != 1:
+                print(f"ERRORE, manca il numero {i} risulta esserci {self.tour.count(i)}")
+                return False
+        return True
 
     def randomInsertion(self):
         self.tour = [x for x in range(self.numCity)]
@@ -153,7 +163,7 @@ class TSP:
                     cost = self.adj[self.tour[p]][r2] + self.adj[r2][self.tour[0]] - self.adj[self.tour[p]][self.tour[0]]
                     r = r2
                     pos = p
-                visited.add(r)
+            visited.add(r)
             self.tour.insert(pos + 1, r)
 
         self.calculateCost()
@@ -225,7 +235,7 @@ class TSP:
                     cost = self.adj[self.tour[p]][r2] + self.adj[r2][self.tour[0]] - self.adj[self.tour[p]][self.tour[0]]
                     r = r2
                     pos = p
-                visited.add(r)
+            visited.add(r)
             self.tour.insert(pos + 1, r)
 
         self.calculateCost()
