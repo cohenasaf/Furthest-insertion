@@ -73,7 +73,39 @@ class TSP:
         random.shuffle(self.tour)
     
     def nearestInsertion(self):
-        pass
+        self.tour = [-1, -1]
+        self.tour[0] = 0
+        self.tour[1] = 1
+        cost = sys.maxsize
+        visited = set()
+        #cerco il più vicino a 0
+        for i in range(1, self.numCity):
+            if self.adj[0][i] < cost:
+                cost = self.adj[0][i]
+                self.tour[1] = i
+        visited.add(self.tour[0])
+        visited.add(self.tour[1])
+        self.tour = self.tour[:2]
+
+        while len(self.tour) < self.numCity:
+            cost = sys.maxsize
+            j = r = pos = -1
+            for r2 in set(range(self.numCity)).difference(visited):
+                for pos2, j2 in enumerate(self.tour):
+                    if self.adj[r2][j2] < cost:
+                        cost = self.adj[r2][j2]
+                        j = j2
+                        r = r2
+                        pos = pos2
+            # cerco di inserirlo nel modo migliore possibile
+            if self.adj[self.tour[(pos + 1) % len(self.tour)]][r] + self.adj[r][j] - self.adj[self.tour[(pos + 1) % len(self.tour)]][j] > \
+            self.adj[self.tour[(pos - 1) % len(self.tour)]][r] + self.adj[r][j] - self.adj[self.tour[(pos - 1) % len(self.tour)]][j]:
+                self.tour.insert(pos + 1, r)
+            else:
+                self.tour.insert(pos, r)
+            visited.add(r)
+            
+        self.calculateCost()
     
     def cheapestInsertion(self):
         self.tour = [-1, -1]

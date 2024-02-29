@@ -11,5 +11,9 @@ t.randomInsertion()
 t.calculateCost()
 print("random", t.cost)
 
+t.nearestInsertion()
+t.calculateCost()
+print("nearest", t.cost)
+
 t.calculateOptimalCost()
 print("opt", t.cost)
