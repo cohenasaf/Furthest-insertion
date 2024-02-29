@@ -82,13 +82,8 @@ void readOptTour(char *title) {
         if (num == -1) {
             break;
         }
-        if (first == 0) {
-            numCities = num;
-            first = 1;
-        } else {
-            tour[i] = num;
-            i++;
-        }
+        tour[i] = num;
+        i++;
     }
     fclose(file);
 }

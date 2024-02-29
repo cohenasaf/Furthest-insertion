@@ -11,17 +11,19 @@ int main() {
     //generaNMatriciCasuali(5,10);
     readRandomGraphFileInt(0);
     
-    //printMatrix();
-    
+    printMatrix();
+    /*
     testEuristicCost(numCities, nearestNeighbor);
     printf("costo neighbor %d\n", cost);
     printTour();
     testEuristicCost(numCities, nearestInsertion);
     printf("costo nearest %d\n", cost);
     printTour();
+    */
     testEuristicCost(numCities, cheapestInsertion);
     printf("costo cheapest %d\n", cost);
     printTour();
+    /*
     testEuristicCost(numCities, farthestInsertion);
     printf("costo farthest %d\n", cost);
     printTour();
@@ -31,6 +33,7 @@ int main() {
     testEuristicCost(numCities, randomInsertion);
     printf("costo random %d\n", cost);
     printTour();
+    */
 
     readOptTour("0.opt");
     printf("Optimal Tour is:\n");
