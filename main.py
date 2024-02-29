@@ -1,23 +1,27 @@
 from TSP import TSP
 
-t = TSP("a280")
-#t = TSP("berlin52")
+#t = TSP("a280")
+t = TSP("berlin52")
 
 t.cheapestInsertion()
 t.calculateCost()
-print("cheapest", t.cost)
+print("cheapestInsertion", t.cost)
 
 t.randomInsertion()
 t.calculateCost()
-print("random", t.cost)
+print("randomInsertion", t.cost)
 
 t.nearestInsertion()
 t.calculateCost()
-print("nearest", t.cost)
+print("nearestInsertion", t.cost)
 
 t.farthestInsertion()
 t.calculateCost()
-print("farthest", t.cost)
+print("farthestInsertion", t.cost)
+
+t.furthestInsertion()
+t.calculateCost()
+print("furthestInsertion", t.cost)
 
 t.calculateOptimalCost()
-print("opt", t.cost)
+print("Optimal", t.cost)

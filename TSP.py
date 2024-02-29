@@ -178,3 +178,40 @@ class TSP:
             visited.add(r)
             
         self.calculateCost()
+
+    def furthestInsertion(self):
+        self.tour = [-1, -1]
+        self.tour[0] = 0
+        self.tour[1] = 1
+        cost = sys.maxsize
+        visited = set()
+        #cerco il più vicino a 0
+        for i in range(1, self.numCity):
+            if self.adj[0][i] < cost:
+                cost = self.adj[0][i]
+                self.tour[1] = i
+        visited.add(self.tour[0])
+        visited.add(self.tour[1])
+        self.tour = self.tour[:2]
+
+        while len(self.tour) < self.numCity:
+            cost = -1
+            pos = r = -1
+            for p in range(len(self.tour) - 1):
+                for r2 in set(range(self.numCity)).difference(visited):
+                    if self.adj[self.tour[p]][r2] + self.adj[r2][self.tour[p + 1]] - self.adj[self.tour[p]][self.tour[p + 1]] > cost:
+                        cost = self.adj[self.tour[p]][r2] + self.adj[r2][self.tour[p + 1]] - self.adj[self.tour[p]][self.tour[p + 1]]
+                        r = r2
+                        pos = p
+            
+            # considero anche il caso di inserimento tra l'ultimo elemento e il primo (ciclo)
+            p = len(self.tour) - 1
+            for r2 in set(range(self.numCity)).difference(visited):
+                if self.adj[self.tour[p]][r2] + self.adj[r2][self.tour[0]] - self.adj[self.tour[p]][self.tour[0]] > cost:
+                    cost = self.adj[self.tour[p]][r2] + self.adj[r2][self.tour[0]] - self.adj[self.tour[p]][self.tour[0]]
+                    r = r2
+                    pos = p
+                visited.add(r)
+            self.tour.insert(pos + 1, r)
+
+        self.calculateCost()
