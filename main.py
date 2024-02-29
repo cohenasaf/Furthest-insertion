@@ -15,5 +15,9 @@ t.nearestInsertion()
 t.calculateCost()
 print("nearest", t.cost)
 
+t.farthestInsertion()
+t.calculateCost()
+print("farthest", t.cost)
+
 t.calculateOptimalCost()
 print("opt", t.cost)
