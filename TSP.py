@@ -13,13 +13,16 @@ class TSP:
         self.numCity = -1
         i = 0
         data = False
-        coord = []
+        self.coord = []
         for line in f:
             if "EOF" in line:
                 break
             if data:
                 line = line.replace("  ", " ").replace("  ", " ").replace("\n", "").strip()
-                coord.append([int(line.split(" ")[1]), int(line.split(" ")[2])])
+                if "." in line.split(" ")[1]:
+                    self.coord.append([int(float(line.split(" ")[1])), int(float(line.split(" ")[2]))])
+                else:
+                    self.coord.append([int(line.split(" ")[1]), int(line.split(" ")[2])])
             if "DIMENSION" in line:
                 self.numCity = int(line.split(": ")[1])
             if "NODE_COORD_SECTION" in line:
@@ -32,7 +35,7 @@ class TSP:
                 if i == j:
                     continue
                 else:
-                    self.adj[i][j] = self.adj[j][i] = self.distance(coord[i], coord[j])
+                    self.adj[i][j] = self.adj[j][i] = self.distance(self.coord[i], self.coord[j])
 
         # leggo il persorso ottimale
         f = open(f"ALL-TSP/{name}.opt.tour")
