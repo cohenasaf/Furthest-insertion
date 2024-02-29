@@ -91,7 +91,7 @@ class TSP:
         self.tour = [0]
         visited = set()
         visited.add(0)
-        for i in range(1, self.numCity):
+        while len(self.tour) < self.numCity:
             cost = sys.maxsize
             j = -1
             for j2 in set(range(self.numCity)).difference(visited):
