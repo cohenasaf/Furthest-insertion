@@ -72,6 +72,9 @@ class TSP:
         self.tour = [x for x in range(self.numCity)]
         random.shuffle(self.tour)
     
+    def nearestInsertion(self):
+        pass
+    
     def cheapestInsertion(self):
         self.tour = [-1, -1]
         self.tour[0] = 0
@@ -91,9 +94,7 @@ class TSP:
             cost = sys.maxsize
             pos = r = -1
             for p in range(len(self.tour) - 1):
-                for r2 in range(self.numCity):
-                    if r2 in visited:
-                        continue
+                for r2 in set(range(self.numCity)).difference(visited):
                     if self.adj[self.tour[p]][r2] + self.adj[r2][self.tour[p + 1]] - self.adj[self.tour[p]][self.tour[p + 1]] < cost:
                         cost = self.adj[self.tour[p]][r2] + self.adj[r2][self.tour[p + 1]] - self.adj[self.tour[p]][self.tour[p + 1]]
                         r = r2
@@ -101,9 +102,7 @@ class TSP:
             
             # considero anche il caso di inserimento tra l'ultimo elemento e il primo (ciclo)
             p = len(self.tour) - 1
-            for r2 in range(self.numCity):
-                if r2 in visited:
-                    continue
+            for r2 in set(range(self.numCity)).difference(visited):
                 if self.adj[self.tour[p]][r2] + self.adj[r2][self.tour[0]] - self.adj[self.tour[p]][self.tour[0]] < cost:
                     cost = self.adj[self.tour[p]][r2] + self.adj[r2][self.tour[0]] - self.adj[self.tour[p]][self.tour[0]]
                     r = r2
