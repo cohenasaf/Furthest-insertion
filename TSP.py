@@ -12,7 +12,7 @@ class TSP:
 
     def openTSP(self, name):
         # estraggo i dati delle coordinate euclidee
-        f = open(f"ALL-TSP/{name}.tsp")
+        f = open(f"ALL-TSP/{name}.tsp") 
         self.numCity = -1
         i = 0
         data = False
