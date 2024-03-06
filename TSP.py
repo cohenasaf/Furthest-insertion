@@ -83,12 +83,35 @@ class TSP:
                 return False
         return True
 
-    @profile
+    #@profile
     def randomInsertion(self):
-        self.tour = [x for x in range(self.numCity)]
-        random.shuffle(self.tour)
+        self.tour = [-1, -1]
+        self.tour[0] = 0
+        self.tour[1] = 1
+        cost = sys.maxsize
+        visited = set()
+        #cerco il più vicino a 0
+        for i in range(1, self.numCity):
+            if self.adj[0][i] < cost:
+                cost = self.adj[0][i]
+                self.tour[1] = i
+        visited.add(self.tour[0])
+        visited.add(self.tour[1])
+        self.tour = self.tour[:2]
+
+        while len(self.tour) < self.numCity:
+            r = random.sample(set(range(self.numCity)).difference(visited), 1)[0]
+            visited.add(r)
+            pos = -1
+            cost = sys.maxsize
+            for pos2 in range(len(self.tour) - 1):
+                if self.adj[self.tour[pos2]][r] + self.adj[self.tour[pos2 + 1]][r] - self.adj[self.tour[pos2]][self.tour[pos2 + 1]] < cost:
+                    cost = self.adj[self.tour[pos2]][r] + self.adj[self.tour[pos2 + 1]][r] - self.adj[self.tour[pos2]][self.tour[pos2 + 1]]
+                    pos = pos2
+            self.tour.insert(pos + 1, r)
+        self.calculateCost()
         
-    @profile
+    #@profile
     def nearestNeighbor(self):
         self.tour = [0]
         visited = set()
@@ -103,7 +126,7 @@ class TSP:
             self.tour.append(j)
         self.calculateCost()
     
-    @profile
+    #@profile
     def nearestInsertion(self):
         self.tour = [-1, -1]
         self.tour[0] = 0
@@ -139,7 +162,7 @@ class TSP:
             
         self.calculateCost()
     
-    @profile
+    #@profile
     def cheapestInsertion(self):
         self.tour = [-1, -1]
         self.tour[0] = 0
@@ -177,7 +200,7 @@ class TSP:
 
         self.calculateCost()
 
-    @profile
+    #@profile
     def farthestInsertion(self):
         self.tour = [-1, -1]
         self.tour[0] = 0
@@ -213,7 +236,7 @@ class TSP:
             
         self.calculateCost()
 
-    @profile
+    #@profile
     def furthestInsertion(self):
         self.tour = [-1, -1]
         self.tour[0] = 0
