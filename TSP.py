@@ -85,7 +85,7 @@ class TSP:
                 return False
         return True
 
-    #@profile
+    @profile
     def randomInsertion(self):
         self.tour = [-1, -1]
         self.tour[0] = 0
@@ -113,7 +113,7 @@ class TSP:
             self.tour.insert(pos + 1, r)
         self.calculateCost()
         
-    #@profile
+    @profile
     def nearestNeighbor(self):
         self.tour = [0]
         visited = set()
@@ -128,7 +128,7 @@ class TSP:
             self.tour.append(j)
         self.calculateCost()
     
-    #@profile
+    @profile
     def nearestInsertion(self):
         n = self.numCity
         distances = np.array(self.adj)
@@ -169,7 +169,7 @@ class TSP:
         self.tour = path
         self.calculateCost()
     
-    #@profile
+    @profile
     def cheapestInsertion(self):
         n = self.numCity
         distances = np.array(self.adj)
@@ -202,7 +202,7 @@ class TSP:
         self.tour = path
         self.calculateCost()
 
-    #@profile
+    @profile
     def farthestInsertion(self):
         n = self.numCity
         distances = np.array(self.adj)
@@ -244,22 +244,24 @@ class TSP:
         self.calculateCost()
 
     #Da implementare, così è copiato da cheapest
-    #@profile
+    @profile
     def furthestInsertion(self):
         n = self.numCity
         distances = np.array(self.adj)
         path = [0, 0]  # Percorso iniziale con la prima città
         to_insert = set(range(1, n))
 
-        # Coda di priorità per i costi di inserimento: (costo, città, posizione)
+        # Coda di priorità per i costi di inserimento: (costo negativo, città, posizione)
+        # Attenzione: Usiamo costo negativo per selezionare il massimo incremento anziché il minimo
         insertion_costs = []
         for city in to_insert:
             cost = distances[0, city] + distances[city, 0] - distances[0, 0]
-            heapq.heappush(insertion_costs, (cost, city, 1))  # Inserisce tra la città 0 e se stessa
+            heapq.heappush(insertion_costs, (-cost, city, 1))  # Inserisce tra la città 0 e se stessa
 
         while to_insert:
             # Seleziona la città con il costo di inserimento minimo
             cost, city, position = heapq.heappop(insertion_costs)
+            cost = -cost # Riconvertiamo il costo al suo valore positivo
             if city not in to_insert:
                 continue  # Questa città è già stata inserita, ignora e vai avanti
 
@@ -272,7 +274,8 @@ class TSP:
                 for i in range(1, len(path) - 1):
                     if path[i] == city:  # Calcola il costo solo se vicino alla città appena inserita
                         new_cost = distances[path[i-1], other_city] + distances[other_city, path[i]] - distances[path[i-1], path[i]]
-                        heapq.heappush(insertion_costs, (new_cost, other_city, i))
+                        # A differenza di cheapestInsertion, il nuovo costo va inserito con segno negativo
+                        heapq.heappush(insertion_costs, (-new_cost, other_city, i))
 
         self.tour = path
         self.calculateCost()
