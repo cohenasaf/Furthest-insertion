@@ -85,7 +85,7 @@ class TSP:
                 return False
         return True
 
-    @profile
+    #@profile
     def randomInsertion(self):
         self.tour = [-1, -1]
         self.tour[0] = 0
@@ -113,7 +113,7 @@ class TSP:
             self.tour.insert(pos + 1, r)
         self.calculateCost()
         
-    @profile
+    #@profile
     def nearestNeighbor(self):
         self.tour = [0]
         visited = set()
@@ -128,7 +128,7 @@ class TSP:
             self.tour.append(j)
         self.calculateCost()
     
-    @profile
+    #@profile
     def nearestInsertion(self):
         n = self.numCity
         distances = np.array(self.adj)
@@ -169,7 +169,7 @@ class TSP:
         self.tour = path
         self.calculateCost()
     
-    @profile
+    #@profile
     def cheapestInsertion(self):
         n = self.numCity
         distances = np.array(self.adj)
@@ -199,10 +199,10 @@ class TSP:
                         new_cost = distances[path[i-1], other_city] + distances[other_city, path[i]] - distances[path[i-1], path[i]]
                         heapq.heappush(insertion_costs, (new_cost, other_city, i))
 
-        self.tour = path
+        self.tour = path[:-1]
         self.calculateCost()
 
-    @profile
+    #@profile
     def farthestInsertion(self):
         n = self.numCity
         distances = np.array(self.adj)
@@ -244,7 +244,7 @@ class TSP:
         self.calculateCost()
 
     #Da implementare, così è copiato da cheapest
-    @profile
+    #@profile
     def furthestInsertion(self):
         n = self.numCity
         distances = np.array(self.adj)
@@ -277,5 +277,5 @@ class TSP:
                         # A differenza di cheapestInsertion, il nuovo costo va inserito con segno negativo
                         heapq.heappush(insertion_costs, (-new_cost, other_city, i))
 
-        self.tour = path
+        self.tour = path[:-1]
         self.calculateCost()
