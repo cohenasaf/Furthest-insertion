@@ -2,6 +2,7 @@ import math
 import random
 import sys
 import numpy as np
+import heapq
 
 class TSP:
     def __init__(self, name, ignoraOpt=False):
@@ -168,42 +169,37 @@ class TSP:
         self.tour = path
         self.calculateCost()
     
-    #@profile
+    @profile
     def cheapestInsertion(self):
-        self.tour = [-1, -1]
-        self.tour[0] = 0
-        self.tour[1] = 1
-        cost = sys.maxsize
-        visited = set()
-        #cerco il più vicino a 0
-        for i in range(1, self.numCity):
-            if self.adj[0][i] < cost:
-                cost = self.adj[0][i]
-                self.tour[1] = i
-        visited.add(self.tour[0])
-        visited.add(self.tour[1])
-        self.tour = self.tour[:2]
+        n = self.numCity
+        distances = np.array(self.adj)
+        path = [0, 0]  # Percorso iniziale con la prima città
+        to_insert = set(range(1, n))
 
-        while len(self.tour) < self.numCity:
-            cost = sys.maxsize
-            pos = r = -1
-            for p in range(len(self.tour) - 1):
-                for r2 in set(range(self.numCity)).difference(visited):
-                    if self.adj[self.tour[p]][r2] + self.adj[r2][self.tour[p + 1]] - self.adj[self.tour[p]][self.tour[p + 1]] < cost:
-                        cost = self.adj[self.tour[p]][r2] + self.adj[r2][self.tour[p + 1]] - self.adj[self.tour[p]][self.tour[p + 1]]
-                        r = r2
-                        pos = p
-            
-            # considero anche il caso di inserimento tra l'ultimo elemento e il primo (ciclo)
-            p = len(self.tour) - 1
-            for r2 in set(range(self.numCity)).difference(visited):
-                if self.adj[self.tour[p]][r2] + self.adj[r2][self.tour[0]] - self.adj[self.tour[p]][self.tour[0]] < cost:
-                    cost = self.adj[self.tour[p]][r2] + self.adj[r2][self.tour[0]] - self.adj[self.tour[p]][self.tour[0]]
-                    r = r2
-                    pos = p
-            visited.add(r)
-            self.tour.insert(pos + 1, r)
+        # Coda di priorità per i costi di inserimento: (costo, città, posizione)
+        insertion_costs = []
+        for city in to_insert:
+            cost = distances[0, city] + distances[city, 0] - distances[0, 0]
+            heapq.heappush(insertion_costs, (cost, city, 1))  # Inserisce tra la città 0 e se stessa
 
+        while to_insert:
+            # Seleziona la città con il costo di inserimento minimo
+            cost, city, position = heapq.heappop(insertion_costs)
+            if city not in to_insert:
+                continue  # Questa città è già stata inserita, ignora e vai avanti
+
+            # Inserisce la città nel percorso
+            path.insert(position, city)
+            to_insert.remove(city)
+
+            # Aggiorna i costi di inserimento per le città rimanenti
+            for other_city in to_insert:
+                for i in range(1, len(path) - 1):
+                    if path[i] == city:  # Calcola il costo solo se vicino alla città appena inserita
+                        new_cost = distances[path[i-1], other_city] + distances[other_city, path[i]] - distances[path[i-1], path[i]]
+                        heapq.heappush(insertion_costs, (new_cost, other_city, i))
+
+        self.tour = path
         self.calculateCost()
 
     #@profile

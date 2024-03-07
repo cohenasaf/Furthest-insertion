@@ -8,11 +8,6 @@ t.calculateCost()
 #assert t.verifyTour()
 print("randomInsertion", t.cost)
 
-t.nearestInsertionNEW()
-t.calculateCost()
-#assert t.verifyTour()
-print("nearestInsertionNEW", t.cost)
-
 t.nearestInsertion()
 t.calculateCost()
 #assert t.verifyTour()
