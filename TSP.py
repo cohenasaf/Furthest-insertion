@@ -128,7 +128,7 @@ class TSP:
             self.tour.append(j)
         self.calculateCost()
     
-    @profile
+    #@profile
     def nearestInsertion(self):
         n = self.numCity
         distances = np.array(self.adj)
@@ -169,7 +169,7 @@ class TSP:
         self.tour = path
         self.calculateCost()
     
-    @profile
+    #@profile
     def cheapestInsertion(self):
         n = self.numCity
         distances = np.array(self.adj)
@@ -204,38 +204,43 @@ class TSP:
 
     #@profile
     def farthestInsertion(self):
-        self.tour = [-1, -1]
-        self.tour[0] = 0
-        self.tour[1] = 1
-        cost = sys.maxsize
-        visited = set()
-        #cerco il più vicino a 0
-        for i in range(1, self.numCity):
-            if self.adj[0][i] < cost:
-                cost = self.adj[0][i]
-                self.tour[1] = i
-        visited.add(self.tour[0])
-        visited.add(self.tour[1])
-        self.tour = self.tour[:2]
+        n = self.numCity
+        distances = np.array(self.adj)
+        path = [0]  # Inizia da una città arbitraria, in questo caso la prima
+        in_path = {0}
+        max_distance_to_path = np.zeros(n, dtype=int)
+        farthest_city_to_path = np.zeros(n, dtype=int)
 
-        while len(self.tour) < self.numCity:
-            cost = -1
-            j = r = pos = -1
-            for r2 in set(range(self.numCity)).difference(visited):
-                for pos2, j2 in enumerate(self.tour):
-                    if self.adj[r2][j2] > cost:
-                        cost = self.adj[r2][j2]
-                        j = j2
-                        r = r2
-                        pos = pos2
-            # cerco di inserirlo nel modo migliore possibile
-            if self.adj[self.tour[(pos + 1) % len(self.tour)]][r] + self.adj[r][j] - self.adj[self.tour[(pos + 1) % len(self.tour)]][j] > \
-            self.adj[self.tour[(pos - 1) % len(self.tour)]][r] + self.adj[r][j] - self.adj[self.tour[(pos - 1) % len(self.tour)]][j]:
-                self.tour.insert(pos + 1, r)
-            else:
-                self.tour.insert(pos, r)
-            visited.add(r)
-            
+        # Inizializza le distanze minime e le città più vicine per ogni città non nel percorso
+        for i in range(1, n):
+            max_distance_to_path[i] = distances[0, i]
+            farthest_city_to_path[i] = 0
+
+        while len(path) < n:
+            # Trova la città non inserita più vicina a qualsiasi città nel percorso
+            to_insert = np.argmax(max_distance_to_path)
+            max_distance_to_path[to_insert] = 0
+
+            # Trova la posizione ottimale per inserire la città trovata
+            best_increase = np.inf
+            best_position = None
+            for i in range(len(path)):
+                next_i = (i + 1) % len(path)
+                increase = distances[path[i], to_insert] + distances[to_insert, path[next_i]] - distances[path[i], path[next_i]]
+                if increase < best_increase:
+                    best_increase = increase
+                    best_position = i + 1
+
+            path.insert(best_position, to_insert)
+            in_path.add(to_insert)
+
+            # Aggiorna le distanze minime e le città più vicine per ogni città non nel percorso
+            for i in range(n):
+                if i not in in_path and distances[to_insert, i] > max_distance_to_path[i]:
+                    max_distance_to_path[i] = distances[to_insert, i]
+                    farthest_city_to_path[i] = to_insert
+
+        self.tour = path
         self.calculateCost()
 
     #@profile
