@@ -87,31 +87,34 @@ class TSP:
 
     #@profile
     def randomInsertion(self):
-        self.tour = [-1, -1]
-        self.tour[0] = 0
-        self.tour[1] = 1
-        cost = sys.maxsize
-        visited = set()
-        #cerco il più vicino a 0
-        for i in range(1, self.numCity):
-            if self.adj[0][i] < cost:
-                cost = self.adj[0][i]
-                self.tour[1] = i
-        visited.add(self.tour[0])
-        visited.add(self.tour[1])
-        self.tour = self.tour[:2]
+        n = self.numCity
+        distances = np.array(self.adj)
+        path = [0]  # Inizia da una città arbitraria, in questo caso la prima
+        in_path = {0}
+        notInPath = [x for x in range(1, self.numCity)]
+        random.shuffle(notInPath)
 
-        while len(self.tour) < self.numCity:
-            r = random.sample(set(range(self.numCity)).difference(visited), 1)[0]
-            visited.add(r)
-            pos = -1
-            cost = sys.maxsize
-            for pos2 in range(len(self.tour) - 1):
-                if self.adj[self.tour[pos2]][r] + self.adj[self.tour[pos2 + 1]][r] - self.adj[self.tour[pos2]][self.tour[pos2 + 1]] < cost:
-                    cost = self.adj[self.tour[pos2]][r] + self.adj[self.tour[pos2 + 1]][r] - self.adj[self.tour[pos2]][self.tour[pos2 + 1]]
-                    pos = pos2
-            self.tour.insert(pos + 1, r)
+        while len(path) < n:
+            # Trova la città non inserita più vicina a qualsiasi città nel percorso
+            to_insert = notInPath[0]
+            notInPath = notInPath[1:]
+
+            # Trova la posizione ottimale per inserire la città trovata
+            best_increase = np.inf
+            best_position = None
+            for i in range(len(path)):
+                next_i = (i + 1) % len(path)
+                increase = distances[path[i], to_insert] + distances[to_insert, path[next_i]] - distances[path[i], path[next_i]]
+                if increase < best_increase:
+                    best_increase = increase
+                    best_position = i + 1
+
+            path.insert(best_position, to_insert)
+            in_path.add(to_insert)
+
+        self.tour = path
         self.calculateCost()
+
         
     #@profile
     def nearestNeighbor(self):
