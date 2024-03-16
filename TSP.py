@@ -91,13 +91,12 @@ class TSP:
         distances = np.array(self.adj)
         path = [0]  # Inizia da una città arbitraria, in questo caso la prima
         in_path = {0}
-        notInPath = [x for x in range(1, self.numCity)]
+        notInPath = [x for x in range(1, n)]
         random.shuffle(notInPath)
 
         while len(path) < n:
             # Trova la città non inserita più vicina a qualsiasi città nel percorso
-            to_insert = notInPath[0]
-            notInPath = notInPath[1:]
+            to_insert = notInPath.pop()
 
             # Trova la posizione ottimale per inserire la città trovata
             best_increase = np.inf
