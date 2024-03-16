@@ -196,10 +196,12 @@ class TSP:
 
             # Aggiorna i costi di inserimento per le città rimanenti
             for other_city in to_insert:
-                for i in range(1, len(path) - 1):
-                    if path[i] == city:  # Calcola il costo solo se vicino alla città appena inserita
-                        new_cost = distances[path[i-1], other_city] + distances[other_city, path[i]] - distances[path[i-1], path[i]]
-                        heapq.heappush(insertion_costs, (new_cost, other_city, i))
+                # Calcola il costo solo se vicino alla città appena inserita
+                i = position
+                new_cost1 = distances[path[i-1], other_city] + distances[other_city, path[i]] - distances[path[i-1], path[i]]
+                new_cost2 = distances[path[i+1], other_city] + distances[other_city, path[i]] - distances[path[i+1], path[i]]
+                heapq.heappush(insertion_costs, (max(new_cost1, new_cost2), other_city, i))
+                        
 
         self.tour = path[:-1]
         self.calculateCost()
@@ -245,7 +247,6 @@ class TSP:
         self.tour = path
         self.calculateCost()
 
-    #Da implementare, così è copiato da cheapest
     #@profile
     def furthestInsertion(self):
         n = self.numCity
