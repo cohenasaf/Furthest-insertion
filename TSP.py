@@ -200,8 +200,7 @@ class TSP:
                 i = position
                 new_cost1 = distances[path[i-1], other_city] + distances[other_city, path[i]] - distances[path[i-1], path[i]]
                 new_cost2 = distances[path[i+1], other_city] + distances[other_city, path[i]] - distances[path[i+1], path[i]]
-                heapq.heappush(insertion_costs, (max(new_cost1, new_cost2), other_city, i))
-                        
+                heapq.heappush(insertion_costs, (min(new_cost1, new_cost2), other_city, i))
 
         self.tour = path[:-1]
         self.calculateCost()
@@ -254,8 +253,7 @@ class TSP:
         path = [0, 0]  # Percorso iniziale con la prima città
         to_insert = set(range(1, n))
 
-        # Coda di priorità per i costi di inserimento: (costo negativo, città, posizione)
-        # Attenzione: Usiamo costo negativo per selezionare il massimo incremento anziché il minimo
+        # Coda di priorità per i costi di inserimento: (costo, città, posizione)
         insertion_costs = []
         for city in to_insert:
             cost = distances[0, city] + distances[city, 0] - distances[0, 0]
@@ -264,7 +262,7 @@ class TSP:
         while to_insert:
             # Seleziona la città con il costo di inserimento minimo
             cost, city, position = heapq.heappop(insertion_costs)
-            cost = -cost # Riconvertiamo il costo al suo valore positivo
+            cost = -cost
             if city not in to_insert:
                 continue  # Questa città è già stata inserita, ignora e vai avanti
 
@@ -274,11 +272,11 @@ class TSP:
 
             # Aggiorna i costi di inserimento per le città rimanenti
             for other_city in to_insert:
-                for i in range(1, len(path) - 1):
-                    if path[i] == city:  # Calcola il costo solo se vicino alla città appena inserita
-                        new_cost = distances[path[i-1], other_city] + distances[other_city, path[i]] - distances[path[i-1], path[i]]
-                        # A differenza di cheapestInsertion, il nuovo costo va inserito con segno negativo
-                        heapq.heappush(insertion_costs, (-new_cost, other_city, i))
+                # Calcola il costo solo se vicino alla città appena inserita
+                i = position
+                new_cost1 = distances[path[i-1], other_city] + distances[other_city, path[i]] - distances[path[i-1], path[i]]
+                new_cost2 = distances[path[i+1], other_city] + distances[other_city, path[i]] - distances[path[i+1], path[i]]
+                heapq.heappush(insertion_costs, (-1 * min(new_cost1, new_cost2), other_city, i))
 
         self.tour = path[:-1]
         self.calculateCost()
