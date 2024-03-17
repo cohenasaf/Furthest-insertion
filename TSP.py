@@ -245,8 +245,8 @@ class TSP:
             inTour.add(tour[pos])
             notInTour.remove(tour[pos]) 
             
-            # aggiorno i costi nello heap in base alla modifica del tour
-            for pos, (cost, i, l, r) in enumerate(h):
+            # aggiorno i costi nello heap in base alla modifica del tour: considero solo il punto del tour modificato (attorno a insert)
+            for pos, (cost, i, _, _) in enumerate(h):
                 if cost > dist[intoLeft][i] + dist[i][insert] - dist[intoLeft][insert]:
                     # intoLeft i insert
                     h[pos] = (dist[intoLeft][i] + dist[i][insert] - dist[intoLeft][insert], i, intoLeft, insert)
@@ -300,37 +300,53 @@ class TSP:
         self.tour = path
         self.calculateCost()
 
-    #@profile
+    @profile
     def furthestInsertion(self):
         n = self.numCity
-        distances = np.array(self.adj)
-        path = [0, 0]  # Percorso iniziale con la prima città
-        to_insert = set(range(1, n))
+        dist = self.adj
+        tour = [0, 0]
 
-        # Coda di priorità per i costi di inserimento: (costo, città, posizione)
-        insertion_costs = []
-        for city in to_insert:
-            cost = distances[0, city] + distances[city, 0] - distances[0, 0]
-            heapq.heappush(insertion_costs, (-cost, city, 1))  # Inserisce tra la città 0 e se stessa
+        minCost = np.inf
+        for i in range(1, n):
+            if dist[0][i] < minCost:
+                minCost = dist[0][i]
+                tour[1] = i
+        inTour = {tour[0], tour[1]}
+        notInTour = {x for x in range(n)} - {tour[0], tour[1]}
 
-        while to_insert:
-            # Seleziona la città con il costo di inserimento minimo
-            cost, city, position = heapq.heappop(insertion_costs)
-            cost = -cost
-            if city not in to_insert:
-                continue  # Questa città è già stata inserita, ignora e vai avanti
+        # h rappresenta la coda con priorità dove il costo è la priorità,
+        # mantiene informazioni come: il nodo da aggiungere i e
+        # i due nodi nei quali si inserisce i
+        h = []
+        for i in notInTour:
+            cost = dist[tour[0]][i] + dist[i][tour[1]] - dist[tour[0]][tour[1]]
+            h.append((-cost, i, tour[0], tour[1]))
+        heapq.heapify(h)
 
-            # Inserisce la città nel percorso
-            path.insert(position, city)
-            to_insert.remove(city)
+        while len(tour) < n:
+            (_, insert, intoLeft, intoRight) = heapq.heappop(h)
+            if insert in inTour:
+                # il nodo è già stato inserito
+                continue
+            for pos, _ in enumerate(tour):
+                if tour[pos] == intoRight:
+                    tour.insert(pos, insert)
+                    break
+            inTour.add(tour[pos])
+            notInTour.remove(tour[pos]) 
+            
+            # aggiorno i costi nello heap in base alla modifica del tour: considero solo il punto del tour modificato (attorno a insert)
+            for pos, (cost, i, _, _) in enumerate(h):
+                # riconverto il costo in un valore positivo
+                cost *= -1
+                if cost > dist[intoLeft][i] + dist[i][insert] - dist[intoLeft][insert]:
+                    # intoLeft i insert
+                    h[pos] = (-(dist[intoLeft][i] + dist[i][insert] - dist[intoLeft][insert]), i, intoLeft, insert)
+                if cost > dist[insert][i] + dist[i][intoRight] - dist[insert][intoRight]:
+                    # insert i intoRight
+                    h[pos] = (-(dist[insert][i] + dist[i][intoRight] - dist[insert][intoRight]), i, insert, intoRight)
+            # ricrea l'albero dopo le modifiche => O(log(n))
+            heapq.heapify(h)
 
-            # Aggiorna i costi di inserimento per le città rimanenti
-            for other_city in to_insert:
-                # Calcola il costo solo se vicino alla città appena inserita
-                i = position
-                new_cost1 = distances[path[i-1], other_city] + distances[other_city, path[i]] - distances[path[i-1], path[i]]
-                new_cost2 = distances[path[i+1], other_city] + distances[other_city, path[i]] - distances[path[i+1], path[i]]
-                heapq.heappush(insertion_costs, (-1 * min(new_cost1, new_cost2), other_city, i))
-
-        self.tour = path[:-1]
+        self.tour = tour
         self.calculateCost()
