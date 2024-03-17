@@ -1,9 +1,6 @@
 import heapq
 
-q = []
-heapq.heappush(q, (500, 1))
-heapq.heappush(q, (300, 1))
-heapq.heappush(q, (200, 2))
-
-print(heapq.heappop(q))
-print(q)
+l = [1, 34, 2, 54, 6,4, 5, 7, 8, 3]
+print(l)
+heapq.heapify(l)
+print(l)
