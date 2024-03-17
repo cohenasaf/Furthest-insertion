@@ -125,11 +125,12 @@ class TSP:
         while len(self.tour) < self.numCity:
             cost = sys.maxsize
             j = -1
-            for j2 in set(range(self.numCity)).difference(visited):
+            for j2 in set(x for x in range(self.numCity)) - visited:
                 if self.adj[self.tour[-1]][j2] < cost:
                     cost = self.adj[self.tour[-1]][j2]
                     j = j2
             self.tour.append(j)
+            visited.add(j)
         self.calculateCost()
     
     #@profile

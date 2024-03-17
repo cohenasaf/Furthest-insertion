@@ -34,10 +34,10 @@ for l in TSP_LIB:
     print("cheapestInsertion", t.cost)
     r.append(t.cost)
 
-    t.nearestInsertion()
+    t.nearestNeighbor()
     t.calculateCost()
     assert t.verifyTour()
-    print("nearestInsertion", t.cost)
+    print("nearestNeighbor", t.cost)
     r.append(t.cost)
 
     t.farthestInsertion()
