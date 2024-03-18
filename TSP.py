@@ -83,7 +83,7 @@ class TSP:
                 print(f"ERRORE, manca {i}")
                 return False
             if self.tour.count(i) != 1:
-                print(f"ERRORE, manca il numero {i} risulta esserci {self.tour.count(i)}")
+                print(f"ERRORE, il numero {i} risulta esserci {self.tour.count(i)} più di 1 volta")
                 return False
         return True
 
@@ -108,7 +108,7 @@ class TSP:
                 increase = distances[path[i], to_insert] + distances[to_insert, path[next_i]] - distances[path[i], path[next_i]]
                 if increase < best_increase:
                     best_increase = increase
-                    best_position = i + 1
+                    best_position = next_i
 
             path.insert(best_position, to_insert)
             in_path.add(to_insert)
@@ -120,17 +120,18 @@ class TSP:
     #@profile
     def nearestNeighbor(self):
         self.tour = [0]
-        visited = set()
-        visited.add(0)
+        visited = set([0])
+        notVisited = set(range(1, self.numCity))
         while len(self.tour) < self.numCity:
-            cost = sys.maxsize
+            cost = np.inf
             j = -1
-            for j2 in set(x for x in range(self.numCity)) - visited:
+            for j2 in notVisited:
                 if self.adj[self.tour[-1]][j2] < cost:
                     cost = self.adj[self.tour[-1]][j2]
                     j = j2
             self.tour.append(j)
             visited.add(j)
+            notVisited.remove(j)
         self.calculateCost()
     
     #@profile
@@ -139,18 +140,17 @@ class TSP:
         distances = np.array(self.adj)
         path = [0]  # Inizia da una città arbitraria, in questo caso la prima
         in_path = {0}
-        min_distance_to_path = np.inf * np.ones(n)
-        nearest_city_to_path = np.zeros(n, dtype=int)
+
 
         # Inizializza le distanze minime e le città più vicine per ogni città non nel percorso
+        h = []
         for i in range(1, n):
-            min_distance_to_path[i] = distances[0, i]
-            nearest_city_to_path[i] = 0
+            h.append((distances[0, i], i))
+        heapq.heapify(h)
 
         while len(path) < n:
             # Trova la città non inserita più vicina a qualsiasi città nel percorso
-            to_insert = np.argmin(min_distance_to_path)
-            min_distance_to_path[to_insert] = np.inf
+            _, to_insert = heapq.heappop(h)
 
             # Trova la posizione ottimale per inserire la città trovata
             best_increase = np.inf
@@ -166,10 +166,10 @@ class TSP:
             in_path.add(to_insert)
 
             # Aggiorna le distanze minime e le città più vicine per ogni città non nel percorso
-            for i in range(n):
-                if i not in in_path and distances[to_insert, i] < min_distance_to_path[i]:
-                    min_distance_to_path[i] = distances[to_insert, i]
-                    nearest_city_to_path[i] = to_insert
+            for i, (cost, node) in enumerate(h):
+                if node not in in_path and distances[to_insert, node] < cost:
+                    h[i] = (distances[to_insert, node], node)
+            heapq.heapify(h)
 
         self.tour = path
         self.calculateCost()
