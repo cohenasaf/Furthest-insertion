@@ -1,8 +1,6 @@
 from TSP import TSP
 import re
 
-print("ciao")
-
 def estraiNum(s):
     for i in range(len(s)):
         if s[i:].isdigit():

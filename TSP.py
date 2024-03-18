@@ -199,45 +199,6 @@ class TSP:
 
         while len(tour) < n:
             (_, insert, intoLeft, intoRight) = heapq.heappop(h)
-            for pos, _ in enumerate(tour):
-                if tour[pos] == intoRight:
-                    tour.insert(pos, insert)
-                    break
-            inTour.add(tour[pos])
-            notInTour.remove(tour[pos])
-            
-            # aggiorno i costi nello heap in base alla modifica del tour
-            for i, (cost, insert, intoLeft, intoRight) in enumerate(h):
-                pass
-
-        self.tour = tour
-        self.calculateCost()
-    
-    #@profile
-    def cheapestInsertion(self):
-        n = self.numCity
-        dist = self.adj
-        tour = [0, 0]
-
-        minCost = np.inf
-        for i in range(1, n):
-            if dist[0][i] < minCost:
-                minCost = dist[0][i]
-                tour[1] = i
-        inTour = {tour[0], tour[1]}
-        notInTour = {x for x in range(n)} - {tour[0], tour[1]}
-
-        # h rappresenta la coda con priorità dove il costo è la priorità,
-        # mantiene informazioni come: il nodo da aggiungere i e
-        # i due nodi nei quali si inserisce i
-        h = []
-        for i in notInTour:
-            cost = dist[tour[0]][i] + dist[i][tour[1]] - dist[tour[0]][tour[1]]
-            h.append((cost, i, tour[0], tour[1]))
-        heapq.heapify(h)
-
-        while len(tour) < n:
-            (_, insert, intoLeft, intoRight) = heapq.heappop(h)
             if insert in inTour:
                 # il nodo è già stato inserito
                 continue
