@@ -44,6 +44,11 @@ t.calculateCost()
 assert t.verifyTour()
 print("furthestInsertion", t.cost)
 
+t.random()
+t.calculateCost()
+assert t.verifyTour()
+print("random", t.cost)
+
 t.calculateOptimalCost()
 assert t.verifyTour()
 print("Optimal", t.optimalSolution)

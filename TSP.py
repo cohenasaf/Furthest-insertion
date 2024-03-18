@@ -87,6 +87,11 @@ class TSP:
                 return False
         return True
 
+    def random(self):
+        self.tour = [x for x in range(self.numCity)]
+        random.shuffle(self.tour)
+        self.calculateCost()
+
     #@profile
     def randomInsertion(self):
         n = self.numCity
@@ -115,6 +120,8 @@ class TSP:
 
         self.tour = path
         self.calculateCost()
+    
+
 
         
     #@profile
