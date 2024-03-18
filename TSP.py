@@ -231,8 +231,8 @@ class TSP:
                     h[i] = (distances[path[(best_position - 1) % len(path)]][node] + distances[node][to_insert] - distances[path[(best_position - 1) % len(path)]][to_insert], node, path[(best_position - 1) % len(path)], to_insert)
                 # se il nuovo arco a destra permette un inserimento migliore di cost
                     best_position = (best_position + 1) % (len(path))
-                if node not in in_path and distances[to_insert][node] + distances[node][path[best_position]] - distances[to_insert][path[best_position]] < cost:
-                    h[i] = (distances[to_insert][node] + distances[node][path[best_position]] - distances[to_insert][path[best_position]], node, to_insert, path[best_position])
+                if node not in in_path and distances[to_insert][node] + distances[node][path[(best_position + 1) % (len(path))]] - distances[to_insert][path[(best_position + 1) % (len(path))]] < cost:
+                    h[i] = (distances[to_insert][node] + distances[node][path[(best_position + 1) % (len(path))]] - distances[to_insert][path[(best_position + 1) % (len(path))]], node, to_insert, path[(best_position + 1) % (len(path))])
             heapq.heapify(h)
 
         self.tour = path
@@ -330,8 +330,8 @@ class TSP:
                     h[i] = (-(distances[path[(best_position - 1) % len(path)]][node] + distances[node][to_insert] - distances[path[(best_position - 1) % len(path)]][to_insert]), node, path[(best_position - 1) % len(path)], to_insert)
                 # se il nuovo arco a destra permette un inserimento migliore di cost
                     best_position = (best_position + 1) % (len(path))
-                if node not in in_path and distances[to_insert][node] + distances[node][path[best_position]] - distances[to_insert][path[best_position]] < cost:
-                    h[i] = (-(distances[to_insert][node] + distances[node][path[best_position]] - distances[to_insert][path[best_position]]), node, to_insert, path[best_position])
+                if node not in in_path and distances[to_insert][node] + distances[node][path[(best_position + 1) % (len(path))]] - distances[to_insert][path[(best_position + 1) % (len(path))]] < cost:
+                    h[i] = (-(distances[to_insert][node] + distances[node][path[(best_position + 1) % (len(path))]] - distances[to_insert][path[(best_position + 1) % (len(path))]]), node, to_insert, path[(best_position + 1) % (len(path))])
             heapq.heapify(h)
 
         self.tour = path
