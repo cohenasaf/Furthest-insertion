@@ -87,9 +87,14 @@ class TSP:
                 return False
         return True
 
-    def random(self):
-        self.tour = [x for x in range(self.numCity)]
-        random.shuffle(self.tour)
+    # sceglie casualmente il nodo da inserire e lo inserisce casualmente
+    def randomInsertion2(self):
+        tour = []
+        notInTour = [x for x in range(self.numCity)]
+        random.shuffle(notInTour)
+        for i in notInTour:
+            tour.insert(random.randint(0, len(tour)), i)
+        self.tour = tour
         self.calculateCost()
 
     #@profile
@@ -120,9 +125,6 @@ class TSP:
 
         self.tour = path
         self.calculateCost()
-    
-
-
         
     #@profile
     def nearestNeighbor(self):
