@@ -64,6 +64,17 @@ class TSP:
         else:
             self.optTour = [-1 for _ in range(self.numCity)]
             self.tour = [-1 for _ in range(self.numCity)]
+    
+    def openRandomTSP(self, n):
+        self.name = "random"
+        self.numCity = n
+        self.adj = [[0 for _ in range(self.numCity)] for _ in range(self.numCity)]
+        for i in range(self.numCity):
+            for j in range(i):
+                if i == j:
+                    continue
+                else:
+                    self.adj[i][j] = self.adj[j][i] = random.randint(0, 1000)
         
     def calculateCost(self):
         self.cost = 0
@@ -147,14 +158,21 @@ class TSP:
     def nearestInsertion(self):
         n = self.numCity
         distances = np.array(self.adj)
-        path = [0]  # Inizia da una città arbitraria, in questo caso la prima
-        in_path = {0}
+        path = [0, 0]
+
+        minDist = np.inf
+        for i in range(n):
+            for j in range(0, i):
+                if distances[i][j] < minDist:
+                    path[0], path[1] = i, j
+                    minDist = distances[i][j]
+        in_path = {path[0], path[1]}
 
 
         # Inizializza le distanze minime e le città più vicine per ogni città non nel percorso
         h = []
-        for i in range(1, n):
-            h.append((distances[0, i], i))
+        for i in set(range(n)) - in_path:
+            h.append((min(distances[path[0], i], distances[path[1], i]), i))
         heapq.heapify(h)
 
         while len(path) < n:
@@ -187,15 +205,21 @@ class TSP:
     def cheapestInsertion(self):
         n = self.numCity
         adj = np.array(self.adj)
-        path = [0]  # Inizia da una città arbitraria, in questo caso la prima
-        in_path = {0}
+        distances = np.array(self.adj)
+        path = [0, 0]
 
-        # Inizializza le distanze minime e le città più vicine per ogni città non nel percorso
+        minDist = np.inf
+        for i in range(n):
+            for j in range(0, i):
+                if distances[i][j] < minDist:
+                    path[0], path[1] = i, j
+                    minDist = distances[i][j]
+        in_path = {path[0], path[1]}
+
         h = []
-        for i in range(1, n):
-            #cost = adj[0][i] + adj[i][0] - adj[0][0]
-            cost = adj[0][i] + adj[i][0]
-            h.append((cost, i, 0, 0))
+        for i in set(range(n)) - in_path:
+            cost = adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]
+            h.append((cost, i, path[0], path[1]))
         heapq.heapify(h)
 
         while len(path) < n:
@@ -230,12 +254,12 @@ class TSP:
                             best_cost, posL, posR = insertion_cost, i2, next_i
                     h[i] = (best_cost, node, posL, posR)
                 # se il nuovo arco a sinistra permette un inserimento migliore di cost, quindi:
-                # (best_pos - 1) -- node -- to_ins
+                # path[best_pos - 1] -- node -- to_ins
                 if node not in in_path and adj[path[(best_pos - 1) % len(path)]][node] + adj[node][to_ins] - adj[path[(best_pos - 1) % len(path)]][to_ins] < cost:
                     new_cost = adj[path[(best_pos - 1) % len(path)]][node] + adj[node][to_ins] - adj[path[(best_pos - 1) % len(path)]][to_ins]
                     h[i] = (new_cost, node, path[(best_pos - 1) % len(path)], to_ins)
                 # se il nuovo arco a destra permette un inserimento migliore di cost, quindi:
-                # to_ins -- node -- (best_pos + 1) 
+                # to_ins -- node -- path[best_pos + 1] 
                     best_pos = (best_pos + 1) % (len(path))
                 if node not in in_path and adj[to_ins][node] + adj[node][path[(best_pos + 1) % (len(path))]] - adj[to_ins][path[(best_pos + 1) % (len(path))]] < cost:
                     new_cost = adj[to_ins][node] + adj[node][path[(best_pos + 1) % (len(path))]] - adj[to_ins][path[(best_pos + 1) % (len(path))]]
@@ -249,13 +273,21 @@ class TSP:
     def farthestInsertion(self):
         n = self.numCity
         distances = np.array(self.adj)
-        path = [0]  # Inizia da una città arbitraria, in questo caso la prima
-        in_path = {0}
+        path = [0, 0]
+
+        maxDist = 0
+        for i in range(n):
+            for j in range(0, i):
+                if distances[i][j] > maxDist:
+                    path[0], path[1] = i, j
+                    maxDist = distances[i][j]
+        in_path = {path[0], path[1]}
+
 
         # Inizializza le distanze minime e le città più vicine per ogni città non nel percorso
         h = []
-        for i in range(1, n):
-            h.append((-distances[0, i], i))
+        for i in set(range(n)) - in_path:
+            h.append((min(distances[path[0], i], distances[path[1], i]), i))
         heapq.heapify(h)
 
         while len(path) < n:
@@ -290,15 +322,21 @@ class TSP:
     def furthestInsertion(self):
         n = self.numCity
         adj = np.array(self.adj)
-        path = [0]  # Inizia da una città arbitraria, in questo caso la prima
-        in_path = {0}
+        distances = np.array(self.adj)
+        path = [0, 0]
 
-        # Inizializza le distanze minime e le città più vicine per ogni città non nel percorso
+        maxDist = 0
+        for i in range(n):
+            for j in range(0, i):
+                if distances[i][j] > maxDist:
+                    path[0], path[1] = i, j
+                    maxDist = distances[i][j]
+        in_path = {path[0], path[1]}
+
         h = []
-        for i in range(1, n):
-            #cost = adj[0][i] + adj[i][0] - adj[0][0]
-            cost = adj[0][i] + adj[i][0]
-            h.append((-cost, i, 0, 0))
+        for i in set(range(n)) - in_path:
+            cost = adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]
+            h.append((-cost, i, path[0], path[1]))
         heapq.heapify(h)
 
         while len(path) < n:
