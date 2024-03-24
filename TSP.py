@@ -108,8 +108,9 @@ class TSP:
         self.tour = tour
         self.calculateCost()
 
-    #@profile
+    @profile
     def randomInsertion(self):
+        # sceglie casualmente il nodo da inserisce MA lo inserisce nel modo migilore possibile (minimizzando l'inserimento)
         n = self.numCity
         distances = np.array(self.adj)
         path = [0]  # Inizia da una città arbitraria, in questo caso la prima
@@ -156,6 +157,7 @@ class TSP:
     
     #@profile
     def nearestInsertion(self):
+        # inizializzo il path con i due nodi più vicini
         n = self.numCity
         distances = np.array(self.adj)
         path = [0, 0]
