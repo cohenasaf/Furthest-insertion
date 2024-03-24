@@ -138,7 +138,7 @@ class TSP:
         self.tour = path
         self.calculateCost()
         
-    #@profile
+    @profile
     def nearestNeighbor(self):
         self.tour = [0]
         visited = set([0])
@@ -155,7 +155,7 @@ class TSP:
             notVisited.remove(j)
         self.calculateCost()
     
-    #@profile
+    @profile
     def nearestInsertion(self):
         # inizializzo il path con i due nodi più vicini
         n = self.numCity
@@ -203,7 +203,7 @@ class TSP:
         self.tour = path
         self.calculateCost()
     
-    #@profile
+    @profile
     def cheapestInsertion(self):
         n = self.numCity
         adj = np.array(self.adj)
@@ -271,7 +271,7 @@ class TSP:
         self.tour = path
         self.calculateCost()
 
-    #@profile
+    @profile
     def farthestInsertion(self):
         n = self.numCity
         distances = np.array(self.adj)
@@ -320,7 +320,7 @@ class TSP:
         self.tour = path
         self.calculateCost()
 
-    #@profile
+    @profile
     def furthestInsertion(self):
         n = self.numCity
         adj = np.array(self.adj)
