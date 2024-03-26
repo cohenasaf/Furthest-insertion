@@ -1,4 +1,0 @@
-Buongiorno, grazie mille. Venerdì mattina pensavo di aver risposto ma mi sono accorto durante il week end che la mail non era stata inviata per un errore interno di outlook... Mi scuso!
-Per quanto riguarda randomInsertion ho preso in considerazione le stesse istanze che utilizza Reinelt e per ognuna ho fatto 100 run (con seed diversi) e ho allegato sia i risultati (qualità delle soluzioni) e tempi. Per entrambi ho messo in forma di tabella il valore minimo (tra i 100), il massimo, la media e la varianza, in particolare la varianza a me sembra essere piuttosto bassa.
-Ho rivisto le euristiche modificando l'inizializzazione e ho allegato gli stessi risultati dell'altra volta ma con i dati aggiornati: in effetti ora furthest si comporta sempre meglio (nel caso delle istanze considerate) di farthest (sempre in allegato risultati e tempi).
-
