@@ -1,0 +1,50 @@
+
+_________________
+rl11849
+randomInsertion    costo: 1103848.40, qualità: 1.1956, tempo: 46.206030 secondi
+nearestNeighbor    costo: 1118751.54, qualità: 1.2117, tempo: 6.233513 secondi
+nearestInsertion   costo: 1151651.80, qualità: 1.2473, tempo: 76.859947 secondi
+cheapestInsertion  costo: 1136295.43, qualità: 1.2307, tempo: 210.342051 secondi
+farthestInsertion  costo: 1209961.59, qualità: 1.3105, tempo: 87.451144 secondi
+furthestInsertion  costo: 1136239.55, qualità: 1.2306, tempo: 206.418595 secondi
+Optimal 923288
+
+_________________
+usa13509
+randomInsertion    costo: 22870145.39, qualità: 1.1445, tempo: 59.584741 secondi
+nearestNeighbor    costo: 24876103.61, qualità: 1.2449, tempo: 8.077084 secondi
+nearestInsertion   costo: 25220161.82, qualità: 1.2621, tempo: 101.015925 secondi
+cheapestInsertion  costo: 24655592.65, qualità: 1.2338, tempo: 258.909116 secondi
+farthestInsertion  costo: 26067016.34, qualità: 1.3045, tempo: 106.110779 secondi
+furthestInsertion  costo: 23642577.00, qualità: 1.1831, tempo: 269.022341 secondi
+Optimal 19982859
+
+_________________
+brd14051
+randomInsertion    costo: 532121.39, qualità: 1.1337, tempo: 65.000081 secondi
+nearestNeighbor    costo: 577037.16, qualità: 1.2293, tempo: 9.474329 secondi
+nearestInsertion   costo: 575508.51, qualità: 1.2261, tempo: 116.925758 secondi
+cheapestInsertion  costo: 565102.07, qualità: 1.2039, tempo: 300.957179 secondi
+farthestInsertion  costo: 606547.51, qualità: 1.2922, tempo: 111.553505 secondi
+furthestInsertion  costo: 547802.94, qualità: 1.1671, tempo: 278.910403 secondi
+Optimal 469385
+
+_________________
+d15112
+randomInsertion    costo: 1777371.61, qualità: 1.1299, tempo: 75.822983 secondi
+nearestNeighbor    costo: 1948433.33, qualità: 1.2386, tempo: 10.623241 secondi
+nearestInsertion   costo: 1925464.95, qualità: 1.2240, tempo: 127.820042 secondi
+cheapestInsertion  costo: 1899991.74, qualità: 1.2078, tempo: 331.066617 secondi
+farthestInsertion  costo: 2027538.12, qualità: 1.2889, tempo: 130.490264 secondi
+furthestInsertion  costo: 1827487.03, qualità: 1.1617, tempo: 325.374455 secondi
+Optimal 1573084
+
+_________________
+d18512
+randomInsertion    costo: 731075.41, qualità: 1.1330, tempo: 114.665823 secondi
+nearestNeighbor    costo: 797562.32, qualità: 1.2361, tempo: 13.589533 secondi
+nearestInsertion   costo: 791176.65, qualità: 1.2262, tempo: 193.746517 secondi
+cheapestInsertion  costo: 778199.70, qualità: 1.2061, tempo: 502.121417 secondi
+farthestInsertion  costo: 833749.63, qualità: 1.2922, tempo: 195.954009 secondi
+furthestInsertion  costo: 746879.37, qualità: 1.1575, tempo: 492.728760 secondi
+Optimal 645238

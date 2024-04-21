@@ -110,7 +110,6 @@ class TSP:
         self.tour = tour
         self.calculateCost()
 
-    @profile
     def randomInsertion(self):
         # sceglie casualmente il nodo da inserisce MA lo inserisce nel modo migilore possibile (minimizzando l'inserimento)
         n = self.numCity
@@ -140,7 +139,6 @@ class TSP:
         self.tour = path
         self.calculateCost()
         
-    @profile
     def nearestNeighbor(self):
         self.tour = [0]
         visited = set([0])
@@ -157,7 +155,6 @@ class TSP:
             notVisited.remove(j)
         self.calculateCost()
     
-    @profile
     def nearestInsertion(self):
         # inizializzo il path con i due nodi più vicini
         n = self.numCity
@@ -205,7 +202,6 @@ class TSP:
         self.tour = path
         self.calculateCost()
     
-    @profile
     def cheapestInsertion(self):
         n = self.numCity
         adj = np.array(self.adj)
@@ -239,8 +235,7 @@ class TSP:
                 if increase < best_increase:
                     best_increase = increase
                     best_pos = next_i
-
-            path.insert(best_pos, to_ins)
+cheap
             in_path.add(to_ins)
 
             # A - B - C
@@ -273,7 +268,6 @@ class TSP:
         self.tour = path
         self.calculateCost()
 
-    @profile
     def farthestInsertion(self):
         n = self.numCity
         distances = np.array(self.adj)
@@ -322,7 +316,6 @@ class TSP:
         self.tour = path
         self.calculateCost()
 
-    @profile
     def furthestInsertion(self):
         n = self.numCity
         adj = np.array(self.adj)
@@ -435,7 +428,6 @@ class TSP:
         self.tour = path
         self.calculateCost()
     
-    @profile
     def cheapestInsertionRandomStart(self):
         n = self.numCity
         adj = np.array(self.adj)
@@ -498,7 +490,6 @@ class TSP:
         self.tour = path
         self.calculateCost()
 
-    @profile
     def farthestInsertionRandomStart(self):
         n = self.numCity
         distances = np.array(self.adj)
@@ -543,7 +534,6 @@ class TSP:
         self.tour = path
         self.calculateCost()
 
-    @profile
     def furthestInsertionRandomStart(self):
         n = self.numCity
         adj = np.array(self.adj)

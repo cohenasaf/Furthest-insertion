@@ -5,5 +5,5 @@ TSP=(rl11849 usa13509 brd14051 d15112 d18512)
 
 for element in "${TSP[@]}"
 do
-    python3 testEuristics.py $element
+    python3 testRandomNtimes.py $element 50
 done
