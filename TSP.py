@@ -122,7 +122,6 @@ class TSP:
         while len(path) < n:
             # Trova la città non inserita più vicina a qualsiasi città nel percorso
             to_insert = notInPath.pop()
-
             # Trova la posizione ottimale per inserire la città trovata
             best_increase = np.inf
             best_position = None
@@ -235,7 +234,6 @@ class TSP:
                 if increase < best_increase:
                     best_increase = increase
                     best_pos = next_i
-cheap
             in_path.add(to_ins)
 
             # A - B - C

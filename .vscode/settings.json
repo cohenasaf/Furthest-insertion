@@ -10,5 +10,6 @@
         "stdio.h": "c",
         "time.h": "c",
         "euristictest.h": "c"
-    }
+    },
+    "cSpell.language": "en,it"
 }

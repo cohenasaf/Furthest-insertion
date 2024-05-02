@@ -42,10 +42,10 @@
 %			TITOLO
 %
 \begin{document}
-\title{Furthest Insertion: AA}
+\title{Furthest Insertion Algorithm}
 \author{Asaf COHEN}
 \dept{Corso di Laurea in Informatica} 
-\anno{2024-2025}
+\anno{2023-2024}
 \matricola{975599}
 \relatore{Prof. Giovanni RIGHINI}
 %
@@ -64,28 +64,99 @@
 % 
 %			DEDICA
 %
+
 \beforepreface
-\prefacesection{}
-        {\hfill \Large {\sl dedicato a \dots}}
+
+\clearpage
+\null
+\thispagestyle{empty}
+\clearpage
+
+\prefacesection{Ringraziamenti}
+        {\hfill \Large {\sl dedicato a DA COMPLETARE\dots}}
 % 
 %			PREFAZIONE
 %
-\prefacesection{Prefazione}
-hkjafgyruet.
+
+\clearpage
+\null
+\thispagestyle{empty}
+\clearpage
+
+\prefacesection{Abstract}
+Il problema del commesso viaggiatore (Traveling Salesman Problem o TSP) è un noto problema matematico nel campo dell'ottimizzazione combinatoria.
+
+Un modo intuitivo per descrivere il problema può essere sintetizzato con la seguente domanda: "Date alcune città, qual è il percorso più breve che visita ogni città esattamente una volta e ritorna alla città di partenza?". \newline \newline
+Supponiamo di avere un insieme di città e le distanze tra ogni coppia di città, il problema consiste nel trovare il percorso che attraversa tutte le città una sola volta
+e ritorna alla città di partenza, minimizzando la lunghezza totale del percorso.
+Un primo approccio (algoritmo esatto) potrebbe consistere nell'enumerare tutti i possibili percorsi e poi procedere nel selezionare il migliore. In questo caso il numero totale di percorsi da analizzare aumenta notevolmente con l'aumentare del numero di città: come illustrato nella tabella della pagina successiva, il numero di percorsi da analizzare è pari a $n!$, quindi se sono presenti n città è necessario confrontare (nel caso peggiore) $n!$ percorsi alla ricerca del migliore, si dice quindi che l'algoritmo esatto (che procede per l'enumerazione totale dei possibili percorsi) ha complessità computazionale $O(n!)$. Questo è il motivo per cui trovare l'ottimo tramite l'enumerazione totale è di fatto impraticabile nei problemi reali dove ci sono migliaia (se non decine di migliaia) di nodi. \newline \newline
+Con il tempo sono state sviluppate euristiche, ovvero algoritmi alternativi alla risoluzione esatta (esaustiva), con l'obbiettivo di ottenere soluzioni comunque "buone" ma in tempi veloci, l'obbiettivo di questa tesi consiste nell'implementare una nuova euristica chiamata Furthest Insertion (appartenente alla categoria delle euristiche basate su inserzione) e confrontare i risultati ottenuti con questa nuova euristica con altre euristiche notevoli (come Nearest Neighbour).
+
+
+\begin{center}
+        \begin{tabular}{|c|c|}
+                \hline
+                \textbf{Numero città} & \textbf{Numero percorsi validi} \\ % Intestazione in grassetto
+                \hline % Linea orizzontale sopra della tabella
+                4 & 24 \\
+                \hline
+                5 & 120 \\
+                \hline
+                6 & 720 \\
+                \hline
+                7 & 5,040 \\
+                \hline
+                8 & 40,320 \\
+                \hline
+                9 & 362,880 \\
+                \hline
+                10 & 3,628,800 \\
+                \hline
+                11 & 39,916,800 \\
+                \hline
+                12 & 479,001,600 \\
+                \hline
+                13 & 6,227,020,800 \\
+                \hline
+                14 & 87,178,291,200 \\
+                \hline
+                15 & 1,307,674,368,000 \\
+                \hline
+                16 & 20,922,789,888,000 \\
+                \hline
+                17 & 355,687,428,096,000 \\
+                \hline
+                18 & 6,402,373,705,728,000 \\
+                \hline
+                19 & 121,645,100,408,832,000 \\
+                \hline
+                20 & 2,432,902,008,176,640,000 \\
+                \hline
+                21 & 51,090,942,171,709,440,000 \\
+                \hline
+                22 & 1,124,000,727,777,607,680,000 \\
+                \hline
+                23 & 25,852,016,738,884,976,640,000 \\
+                \hline
+                24 & 620,448,401,733,239,439,360,000 \\
+                \hline
+                25 & 15,511,210,043,330,985,984,000,000 \\
+                \hline
+        \end{tabular}
+        \newline
+        % Aggiungi una riga per la descrizione sotto alla tabella
+        Tabella 1: Numero percorsi validi in relazione al numero di città
+\end{center}
+
+
+
 %
 %
 %			ORGANIZZAZIONE
-\section*{Organizzazione della tesi}
-\label{organizzazione}
-La tesi \`e organizzata come segue:
-\begin{itemize}
-\item nel Capitolo 1 ....
-\end{itemize}
 %
 %			RINGRAZIAMENTI
 %
-\prefacesection{Ringraziamenti}
-Ringrazio tanto il mio cane.
+
 \afterpreface
 % 
 % 
