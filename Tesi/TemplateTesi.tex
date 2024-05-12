@@ -60,15 +60,46 @@
 \clearpage
 
 \prefacesection{Abstract}
-Il problema del commesso viaggiatore (Traveling Salesman Problem o TSP) è un noto problema matematico nel campo dell'ottimizzazione combinatoria, appartiene alla categoria dei problemi NP-difficili, per questo motivo il tempo necessario per trovare la soluzione ottima aumenta esponenzialmente rispetto al numero di città presenti nell'istanza considerata. Nella pratica quindi si possono trovare soluzioni esatte in tempi ragionevoli solo nel caso di istanze piccole (con poche città), nel caso di istanze grandi è possibile considerare algoritmi euristici che non garantiscono l'ottimo, ma producono di fatto soluzioni "accettabili" in poco tempo.
-\newline
-L'obbiettivo della tesi è progettare un nuovo algoritmo chiamato Furthest Insertion, implementare in un linguaggio di programmazione l'algoritmo, implementare altre importanti euristiche presenti in letteratura (Random Insertion, Nearest Insertion, ...) e analizzare i risultati ottenuti su alcune istanze da TSP-LIB (una nota libreria di istanze TSP).
+Il Problema del Commesso Viaggiatore (TSP) rappresenta una delle sfide più interessanti e rilevanti nell'ambito dell'ottimizzazione combinatoria. Originariamente formulato negli anni '30, il TSP richiede di determinare il percorso più breve per visitare un insieme di città esattamente una volta, ritornando infine alla città di partenza. Nonostante la sua apparente semplicità concettuale, il TSP è noto per la sua complessità computazionale e la sua rilevanza pratica in una vasta gamma di settori, inclusi trasporti,  logistica, e progettazione di circuiti.
+
+Il TSP è classificato come un problema NP-hard, il che significa che non esiste un algoritmo efficiente in grado di risolvere tutte le istanze del problema in tempo polinomiale. Di conseguenza, sono state sviluppate numerose euristiche e approcci approssimati per trovare soluzioni accettabili in un tempo ragionevole. Le euristiche sono strategie di ricerca che, pur non garantendo la soluzione ottima, sono in grado di produrre risultati soddisfacenti entro limiti temporali praticabili.
+
+In questa tesi, esploreremo una specifica euristica per il TSP (Furthest Insertion), l'obiettivo principale sarà quello di presentare, analizzare e valutare l'efficacia di questa euristica attraverso simulazioni e confronti con altre tecniche note.
+
+La scelta di concentrarsi su un'euristica per il TSP è motivata dalla necessità di affrontare problemi di dimensioni reali in contesti applicativi. Mentre le soluzioni esatte sono desiderabili per la loro precisione, spesso richiedono una potenza di calcolo eccessiva per problemi di grandi dimensioni. Le euristiche offrono un compromesso utile tra precisione e efficienza, consentendo di ottenere soluzioni praticabili che possono guidare decisioni reali.
+
+Questa tesi sarà strutturata nel seguente modo: innanzitutto, forniremo una panoramica del TSP e delle sue varie formulazioni. Successivamente, esamineremo le principali categorie di approcci risolutivi, concentrandoci in particolare sulle euristiche basate su inserzione. Presenteremo quindi la nuova euristica Furthest Insertion discutendo la sua implementazione e le scelte progettuali adottate. Seguirà una sezione dove testeremo e valuteremo le prestazioni dell'euristica su una serie di istanze del TSP. Infine, concluderemo con un'analisi dei risultati ottenuti, identificando i punti di forza e le limitazioni dell'approccio proposto.
 
 \afterpreface
 % 
 % 
 %			CAPITOLO 1: Introduzione
 \chapter{Introduzione}
+Il Problema del Commesso Viaggiatore (TSP) è una delle sfide più emblematiche e studiate nell'ambito della ricerca operativa e dell'ottimizzazione combinatoria. Originariamente formulato negli anni '30 da Karl Menger, il TSP richiede di determinare il percorso più breve per visitare un insieme di città esattamente una volta, tornando infine alla città di partenza. Nonostante la sua semplice descrizione concettuale, il TSP è noto per la sua complessità computazionale e la sua rilevanza pratica in una vasta gamma di settori.
+
+Le applicazioni del TSP sono diffuse e impattano direttamente su molte attività quotidiane. Ad esempio, nel settore della logistica e della gestione delle catene di distribuzione, il TSP è utilizzato per ottimizzare le rotte dei veicoli di consegna, minimizzando i costi di carburante e il tempo impiegato. In ambito produttivo, il TSP viene impiegato per pianificare i percorsi di ispezione delle fabbriche o per ottimizzare il flusso di lavoro all'interno di un'azienda. Anche nei sistemi di navigazione satellitare e nelle applicazioni GPS, il TSP è alla base dell'ottimizzazione dei percorsi per ridurre il tempo di viaggio.
+
+Storicamente, il TSP ha attratto l'attenzione di numerosi matematici e informatici in quanto è un problema semplice da formulare ma complesso da "risolvere". Il problema è stato formalizzato e reso noto grazie al lavoro di Hassler Whitney nel 1952 e successivamente nel 1954 da Merrill Flood. La dimostrazione della sua appartenenza alla classe di complessità NP-hard è stata fondamentale per stimolare lo sviluppo di tecniche approssimate e euristiche.
+
+Le sfide legate al TSP sono principalmente dovute alla sua natura combinatoria: per n città, il numero di possibili percorsi da valutare cresce in modo esponenziale con n, rendendo impraticabile un'analisi esaustiva per istanze di grandi dimensioni. Questa complessità ha spinto alla ricerca di approcci efficienti, come le euristiche, che non garantiscono la soluzione ottimale ma forniscono soluzioni accettabili in tempi ragionevoli.
+
+\chapter{Il Problema del commesso viaggiatore}
+Il problema del commesso viaggiatore (TSP) può essere sintetizzato molto semplicemente con la seguente domanda: "Date n città, qual è il percorso più breve che inizia e termina con la stessa città?". Il problema quindi presenta le caratteristiche tipiche di un problema su un grafo, dove il grafo è composto da $n$ vertici (le città) e dove gli archi indicano le distanze euclidee tra le città. La formulazione classica del TSP può essere descritta matematicamente attraverso la programmazione intera lineare come segue.
+\section{Formulazione del problema}
+\textbf{Dati}: Consideriamo un insieme di $n$ città, ogni città $i$ (per $i = 1, 2, ..., n$) rappresenta un punto nello spazio euclideo, ogni città quindi ha coordinate $(x_i, y_i)$. Definiamo la matrice $c$, dove $c_{ij}$ indica la distanza euclidea tra le due città $i$ e $j$.
+\\[1\baselineskip]
+\textbf{Variabili}: La variabile $x_{ij}$ è una variabile binaria, quindi: $$ x_{ij} \in \{0, 1\} \qquad \forall i, j = 1, 2, 3, ..., n $$ La variabile $x$ assume valore 0 se l'arco che collega la città $i$ e $j$ non fa parte del path, 1 se ne fa parte.
+\\[1\baselineskip] \textbf{Vincoli}: I vincoli sono i seguenti:
+\begin{enumerate}
+        \item Per ogni città $i$ deve essere presente un solo arco uscente corrispondente nel tour, quindi la somma delle variabili $x_{ij}$ deve essere uguale a 1. $$\sum_{j = 1, i \neq j}^{n} x_{ij} = 1 \qquad \forall i = 1, 2, 3, ..., n$$
+        \item Per ogni città $j$ deve essere presente un solo arco entrante corrispondente nel tour, quindi la somma delle variabili $x_{ij}$ deve essere uguale a 1. $$\sum_{i = 1, i \neq j}^{n} x_{ij} = 1 \qquad \forall j = 1, 2, 3, ..., n$$
+\end{enumerate}
+\textbf{Funzione Obiettivo}: Si vuole minimizzare il costo totale del tour, quindi:
+$$min \sum_{i = 1}^{n} \sum_{j = 1}^{n} c_{ij} x_{ij}$$
+La seguente formulazione permette quindi di identificare la soluzione ottima.
+
+\section{Analisi dell'algoritmo esatto per il TSP}
+La soluzione più intuitiva per il problema consiste nel enumerare tutti i possibili percorsi e successivamente selezionare il migliore, in questo caso è necessario analizzare $n!$ possibili percorsi (nel peggiore dei casi), per questo motivo tentare di risolvere il TSP con un approccio brute-force implica una complessità computazionale pari a $O(n!)$ e quindi un tempo che risulta rapidamente inaccettabile. Di seguito una tabella che illustra il numero di percorsi da valutare con un approccio basato su ricerca esaustiva al variare del numero n.
 
 
 \begin{center}
@@ -125,6 +156,7 @@ L'obbiettivo della tesi è progettare un nuovo algoritmo chiamato Furthest Inser
         % Aggiungi una riga per la descrizione sotto alla tabella
         Tabella 1: Numero percorsi validi in relazione al numero di città
 \end{center}
+Si può notare come il numero cresce molto rapidamente, anche con istanze relativamente piccole (ad esempio 20 città). Questo approccio risulta quindi impraticabile nei problemi reali dove può essere necessario analizzare istanze con migliaia di città.
 %
 %
 
