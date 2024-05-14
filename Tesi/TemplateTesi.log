@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.4.20)  12 MAY 2024 22:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.14)  14 MAY 2024 09:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/run/media/asaf/2TB/Triennale/Tesi/Furthest-insertion/Tesi/TemplateTesi.tex
-(/run/media/asaf/2TB/Triennale/Tesi/Furthest-insertion/Tesi/TemplateTesi.tex
+**/home/asaf/Desktop/Tesi/Furthest-insertion/Tesi/TemplateTesi.tex
+(/home/asaf/Desktop/Tesi/Furthest-insertion/Tesi/TemplateTesi.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
 (/usr/share/texmf-dist/tex/latex/base/report.cls
@@ -414,7 +414,7 @@ Capitolo 2.
 [2
 
 ] [3] [4]
-Underfull \hbox (badness 1270) in paragraph at lines 184--186
+Underfull \hbox (badness 1270) in paragraph at lines 182--184
 []\OT1/cmr/m/n/12 L. Bas-so, ``Ca-pi-ta-li-smo mo-no-po-li-sti-co e stra-te-gia ope-ra-ia'', Pro-ble-mi del
  []
 
@@ -430,14 +430,14 @@ Package rerunfilecheck Info: File `TemplateTesi.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  11499 strings out of 476065
- 176281 string characters out of 5793347
+ 176248 string characters out of 5793347
  1935187 words of memory out of 5000000
  33426 multiletter control sequences out of 15000+600000
  566052 words of font info for 65 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,7n,79p,741b,540s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,7n,79p,730b,540s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on TemplateTesi.pdf (11 pages, 158057 bytes).
+Output written on TemplateTesi.pdf (11 pages, 157975 bytes).
 PDF statistics:
  173 PDF objects out of 1000 (max. 8388607)
  132 compressed objects within 2 object streams
