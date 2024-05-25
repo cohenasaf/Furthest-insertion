@@ -12,6 +12,7 @@
 \usepackage{tesi}
 \usepackage[utf8]{inputenc}
 \usepackage{algorithmicx}
+\usepackage{pythonhighlight}
 
 \newenvironment{teor}{\begin{myteor}\sl}{\end{myteor}}
 %
@@ -94,7 +95,7 @@ Il problema del commesso viaggiatore (TSP) può essere sintetizzato molto sempli
 \begin{enumerate}
         \item Per ogni città $i$ deve essere presente un solo arco uscente corrispondente nel tour, quindi la somma delle variabili $x_{ij}$ deve essere uguale a 1. $$\sum_{j = 1}^{n} x_{ij} = 1 \qquad \forall i = 1, 2, 3, ..., n$$
         \item Per ogni città $j$ deve essere presente un solo arco entrante corrispondente nel tour, quindi la somma delle variabili $x_{ij}$ deve essere uguale a 1. $$\sum_{i = 1}^{n} x_{ij} = 1 \qquad \forall j = 1, 2, 3, ..., n$$
-        \item Non devono essere presenti cicli all'interno del tour, quindi deve valere: $$ \sum_{i \in Q}{\sum_{j \in Q}{x_{ij} \le |Q| - 1}} \qquad \forall Q \in \{2, 3, ..., n\} $$
+        \item Non devono essere presenti cicli all'interno del tour, quindi deve valere: $$ \sum_{i \in Q}{\sum_{j \in Q}{x_{ij} \le |Q| - 1}} \qquad \forall Q \subsetneq \{2, 3, ..., n\} $$
 \end{enumerate}
 \textbf{Funzione Obiettivo}: Si vuole minimizzare il costo totale del tour, quindi:
 $$min \sum_{i = 1}^{n} \sum_{j = 1}^{n} c_{ij} x_{ij}$$
@@ -109,7 +110,7 @@ Esistono vari approcci nella ricerca della soluzione ottima \cite{Analysis of Br
 \begin{center}
         \begin{tabular}{|c|c|}
                 \hline
-                \textbf{Numero città} & \textbf{Numero percorsi validi} \\ % Intestazione in grassetto
+                \textbf{Numero città} & \textbf{Numero percorsi possibili} \\ % Intestazione in grassetto
                 \hline % Linea orizzontale sopra della tabella
                 4 & 24 \\
                 \hline
@@ -162,8 +163,9 @@ Si può notare come il numero cresce molto rapidamente, anche con istanze relati
 \newline \null \newline Esistono altri algoritmi esatti i quali consentono di ridurre il numero di possibili soluzioni (percorsi) da analizzare, ad esempio approcci Branch and Bound \cite{Branch and Bound}. La complessità computazionale nel caso peggiore resta esponenziale in quanto può essere necessario analizzare un numero esponenziale di percorsi e quindi non applicabile su problemi reali.
 
 \chapter{Euristiche per il TSP}
-Nel seguente capitolo analizzeremo le principali euristiche per il problema del TSP. 
-\section{}
+Come discusso nel capitolo 2, i metodi esatti consentono di ottenere soluzioni ottime per il problema del TSP, ma il tempo per ottenere queste soluzioni aumenta esponenzialmente all'aumentare del numero di città presenti nell'istanza. Per affrontare il TSP, sono stati sviluppati numerosi approcci euristici, ovvero metodi che, pur non garantendo la soluzione ottimale, offrono soluzioni di buona qualità in tempi ragionevoli. Le euristiche sono fondamentali per applicazioni pratiche dove la rapidità di calcolo è essenziale. In questo capitolo esploreremo diverse tecniche euristiche, come le euristiche costruttive, che costruiscono una soluzione passo dopo passo e le euristiche basate su inserzione, che partono da un ciclo iniziale al quale vengono aggiunte via via le città fino ad ottenere un ciclo hamiltoniano. Per completezza discuteremo anche di algoritmi genetici, algoritmi di annealing simulato e metodi basati su intelligenza artificiale. Ogni approccio sarà analizzato nel dettaglio, considerando vantaggi, svantaggi e ambiti di applicazione. L'obiettivo è fornire una panoramica completa delle strategie più efficaci per affrontare il TSP, evidenziando come le diverse tecniche possano essere utilizzate in base alle specifiche esigenze del problema da risolvere.
+\section{Euristiche costruttive}
+
 %
 %
 
