@@ -7,4 +7,10 @@
 \contentsline {section}{\numberline {2.1}Formulazione del problema}{2}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Metodi esatti per il TSP}{3}{section.2.2}%
 \contentsline {chapter}{\numberline {3}Euristiche per il TSP}{5}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Euristiche costruttive}{5}{section.3.1}%
+\contentsline {section}{\numberline {3.1}Nearest Neighbor}{5}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Euristiche basate su Inserzione}{6}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Nearest Insertion}{6}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Cheapest Insertion}{7}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Farthest Insertion}{7}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Furthest Insertion}{8}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.5}Random Insertion}{8}{subsection.3.2.5}%

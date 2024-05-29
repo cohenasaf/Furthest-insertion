@@ -335,7 +335,7 @@ class TSP:
         heapq.heapify(h)
 
         while len(path) < n:
-            # Trova la città non inserita più vicina a qualsiasi città nel percorso
+            # Trova la città non inserita più lontana a qualsiasi città nel percorso
             (_, to_ins, _, _) = heapq.heappop(h)
 
             # Trova la posizione ottimale per inserire la città trovata
@@ -628,7 +628,7 @@ soluzioneOttima = {
     "fl417" : 11861,
     "fl1400" : 20127,
     "fl1577" : 22249,
-    "fl3795" : 28772,
+    "fl3795" : 28772,r$ da L, quindi $L = L \setminus \{r\}$.
     "fnl4461" : 182566,
     "fri26" : 937,
     "gil262" : 2378,

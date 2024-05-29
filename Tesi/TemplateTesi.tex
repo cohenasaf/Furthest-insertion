@@ -13,6 +13,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage{algorithmicx}
 \usepackage{pythonhighlight}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumitem}
 
 \newenvironment{teor}{\begin{myteor}\sl}{\end{myteor}}
 %
@@ -163,8 +166,113 @@ Si può notare come il numero cresce molto rapidamente, anche con istanze relati
 \newline \null \newline Esistono altri algoritmi esatti i quali consentono di ridurre il numero di possibili soluzioni (percorsi) da analizzare, ad esempio approcci Branch and Bound \cite{Branch and Bound}. La complessità computazionale nel caso peggiore resta esponenziale in quanto può essere necessario analizzare un numero esponenziale di percorsi e quindi non applicabile su problemi reali.
 
 \chapter{Euristiche per il TSP}
-Come discusso nel capitolo 2, i metodi esatti consentono di ottenere soluzioni ottime per il problema del TSP, ma il tempo per ottenere queste soluzioni aumenta esponenzialmente all'aumentare del numero di città presenti nell'istanza. Per affrontare il TSP, sono stati sviluppati numerosi approcci euristici, ovvero metodi che, pur non garantendo la soluzione ottimale, offrono soluzioni di buona qualità in tempi ragionevoli. Le euristiche sono fondamentali per applicazioni pratiche dove la rapidità di calcolo è essenziale. In questo capitolo esploreremo diverse tecniche euristiche, come le euristiche costruttive, che costruiscono una soluzione passo dopo passo e le euristiche basate su inserzione, che partono da un ciclo iniziale al quale vengono aggiunte via via le città fino ad ottenere un ciclo hamiltoniano. Per completezza discuteremo anche di algoritmi genetici, algoritmi di annealing simulato e metodi basati su intelligenza artificiale. Ogni approccio sarà analizzato nel dettaglio, considerando vantaggi, svantaggi e ambiti di applicazione. L'obiettivo è fornire una panoramica completa delle strategie più efficaci per affrontare il TSP, evidenziando come le diverse tecniche possano essere utilizzate in base alle specifiche esigenze del problema da risolvere.
-\section{Euristiche costruttive}
+Come discusso nel capitolo 2, i metodi esatti consentono di ottenere soluzioni ottime per il problema del TSP, ma il tempo per ottenere queste soluzioni aumenta esponenzialmente all'aumentare del numero di città presenti nell'istanza. Per affrontare il TSP, sono stati sviluppati numerosi approcci euristici, ovvero metodi che, pur non garantendo la soluzione ottimale, offrono soluzioni di buona qualità in tempi ragionevoli. Le euristiche sono fondamentali per applicazioni pratiche dove la rapidità di calcolo è essenziale. In questo capitolo esploreremo diverse tecniche euristiche, come le euristiche costruttive, che costruiscono una soluzione passo dopo passo e le euristiche basate su inserzione, che partono da un ciclo iniziale al quale vengono aggiunte via via le città fino ad ottenere un ciclo Hamiltoniano.
+\section{Nearest Neighbor}
+Nearest Neighbor è probabilmente l'euristica più semplice per il TSP: si costruisce il tour selezionando sempre la città più vicina all'ultima appena aggiunta al tour. Appartiene alla categoria delle euristiche costruttive in quanto aggiunge via via nuove città al tour (soluzione parziale) senza modificare il tour costruito fino a quel punto. L'algoritmo è il seguente:
+
+\newlist{legal}{enumerate}{10}
+\setlist[legal]{label*=\arabic*.}
+\begin{legal}
+  \item Seleziona un nodo arbitrario j, sia l = j e L = $\{1, 2, ..., n\} \setminus \{j\}$.
+  \item Finché $L \neq \emptyset$:
+  \begin{legal}
+    \item Sia $j \in L$ tale che $c_{lj} = min\{c_{li} \  | \  i \in L\}$.
+    \item Connetti l a j e rimuovi j da L, quindi $ L = L \setminus \{j\} $.
+  \end{legal}
+  \item Connetti l al primo nodo (era stato selezionato al punto 1) per formare un tour.
+\end{legal}
+\hfill \break
+Nearest Neighbor è una euristica con complessità temporale pari a $O(n^2)$.
+
+\section{Euristiche basate su Inserzione}
+Una soluzione per il problema del TSP può essere costruito in un modo differente: si può iniziare da un piccolo tour (che include 2 o 1 città) il quale viene via via esteso includendo i nodi (città) non ancora aggiunti al tour. In questo tipo di euristiche la differenza fondamentale che le distingue sarà il criterio con il quale si aggiungono nuove città al tour e dove queste città devono essere inserite nel tour. Una qualunque euristica basata su inserzione quindi presenta la seguente struttura:
+
+\setlist[legal]{label*=\arabic*.}
+\begin{legal}
+  \item Seleziona una città o due città arbitrarie come tour iniziale $T$. Sia $L$ l'insieme delle città che sono fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
+  \item Finché $L \neq \emptyset$:
+  \begin{legal}
+    \item Seleziona un nodo $j \in L$ secondo un certo criterio.
+    \item Inserisci $j$ nel tour in una determinata posizione.
+    \item Rimuovi $j$ da L, quindi $L = L \setminus \{j\}$.
+  \end{legal}
+\end{legal}
+\hfill \break
+Questo schema permette di ottenere un ciclo Hamiltoniano nel quale tutti i nodi (città) sono stati inseriti secondo un determinato criterio (scelta del nodo e punto di inserzione). Ora vediamo le varie euristiche basate su inserzione.
+\subsection{Nearest Insertion}
+Nearest Insertion seleziona come nodo da inserire nel tour il nodo più vicino ad un qualunque nodo già inserito nel tour e lo inserisce in modo da minimizzare il costo di inserimento. Di seguito l'algoritmo:
+
+\setlist[legal]{label*=\arabic*.}
+\begin{legal}
+  \item Sia $T$ il tour iniziale definito dalla coppia delle città più vicine. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
+  \item Finché $L \neq \emptyset$:
+  \begin{legal}
+    \item Seleziona un nodo $r \in L$ che risulti il più vicino ad un nodo qualunque $j \in T$.
+    \item Trova l'arco $(i, j)$ nel tour $T$ tale che $c_{ir} + c_{rj} - c_{ij}$ risulti minimo. Inserisci $r$ tra $i$ e $j$.  
+    \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
+  \end{legal}
+\end{legal}
+\hfill \break Nearest Insertion ha complessità computazionale pari a $O(n^2)$ in quanto ogni nodo (n iterazioni) deve essere inserito nel modo migliore possibile nel tour (fino a n iterazioni).
+
+\subsection{Cheapest Insertion}
+Cheapest Insertion opera in modo diverso da Nearest Insertion: il criterio di selezione non è più il nodo più vicino al tour, ma diventa il nodo che produce il minor aumento del costo del tour se inserito (quindi minimizza il costo di inserzione). Una volta selezionato, il nodo viene inserito nel modo migliore possibile, quindi minimizzando il costo di inserimento. Di seguito l'algoritmo:
+
+\setlist[legal]{label*=\arabic*.}
+\begin{legal}
+  \item Sia $T$ il tour iniziale definito dalla coppia delle città più vicine. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
+  \item Finché $L \neq \emptyset$:
+  \begin{legal}
+    \item Seleziona un nodo $r \in L$ e un arco $(i, j)$ in $T$ tali che $c_{ir} + c_{rj} - c_{ij}$ risulti minimo. Inserisci $r$ tra $i$ e $j$.  
+    \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
+  \end{legal}
+\end{legal}
+\hfill \break Cheapest Insertion ha complessità computazionale pari a $O(n^2 log_2(n))$ in quanto è possibile implementare uno heap che tiene traccia dei nodi non ancora inseriti nel tour (se inseriti nel modo migliore possibile).
+
+\subsection{Farthest Insertion}
+Farthest Insertion opera in analogo a Nearest Insertion in quanto il criterio di selezione del nodo da inserire è basato sulla distanza dal tour, ma differenza di Nearest Insertion però viene scelto il nodo più lontano dal tour al posto del più vicino. Il passo di inserzione avviene invece allo stesso modo rispetto a Nearest Insertion: viene quindi scelta la posizione che minimizza il costo di inserzione. Vediamo l'algoritmo:
+
+\setlist[legal]{label*=\arabic*.}
+\begin{legal}
+  \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
+  \item Finché $L \neq \emptyset$:
+  \begin{legal}
+    \item Seleziona un nodo $r \in L$ che risulti il più lontano rispetto ad un nodo qualunque $j \in T$.
+    \item Trova l'arco $(i, j)$ nel tour $T$ tale che $c_{ir} + c_{rj} - c_{ij}$ risulti minimo. Inserisci $r$ tra $i$ e $j$.  
+    \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
+  \end{legal}
+\end{legal}
+\hfill \break Farthest Insertion ha complessità computazionale pari a $O(n^2)$ in modo del tutto analogo a Nearest Insertion.
+
+\subsection{Furthest Insertion}
+L'obbiettivo della tesi consiste nel proporre un nuovo algoritmo chiamato Furthest Insertion: allo stesso modo in cui Farthest Insertion opera in modo analogo a Nearest Insertion, Furthest Insertion opera in modo analogo a Cheapest Insertion. Il passo di selezione consiste nel selezionare il nodo che massimizza il costo di inserzione, in fase di inserimento però il nodo viene inserito in modo da minimizzare il costo di inserimento. Di seguito l'algoritmo:
+
+\setlist[legal]{label*=\arabic*.}
+\begin{legal}
+  \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
+  \item Finché $L \neq \emptyset$:
+  \begin{legal}
+    \item Seleziona un nodo $r \in L$ e un arco $(i, j)$ in $T$ tali che $c_{ir} + c_{rj} - c_{ij}$ risulti massimo.
+    \item Seleziona l'arco $(i, j)$ in $T$ tale che $c_{ir} + c_{rj} - c_{ij}$ risulti minimo. Inserisci $r$ tra $i$ e $j$.  
+    \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
+  \end{legal}
+\end{legal}
+\hfill \break Furthest Insertion ha complessità computazionale pari a $O(n^2 log_2(n))$ in modo del tutto analogo a Cheapest Insertion.
+
+\subsection{Random Insertion}
+Random Insertion seleziona casualmente il nodo da inserire nel tour, successivamente sceglie il punto nel tour dove inserire il nodo in modo da minimizzare il costo di inserimento (esattamente come per Nearest Insertion). Di seguito l'algoritmo:
+
+\setlist[legal]{label*=\arabic*.}
+\begin{legal}
+  \item Sia $T$ il tour iniziale definito da una città casuale. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
+  \item Finché $L \neq \emptyset$:
+  \begin{legal}
+    \item Seleziona un nodo $r \in L$ casualmente.
+    \item Seleziona l'arco $(i, j)$ in $T$ tale che $c_{ir} + c_{rj} - c_{ij}$ risulti minimo.
+    \item Inserisci $r$ tra $i$ e $j$.  
+    \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
+  \end{legal}
+\end{legal}
+\hfill \break Random Insertion ha complessità computazionale pari a $O(n^2)$ in quanto n volte viene selezionato un nodo casuale, dopodiché n volte è necessario iterare alla ricerca della posizione migliore dove inserire il nodo.
 
 %
 %
