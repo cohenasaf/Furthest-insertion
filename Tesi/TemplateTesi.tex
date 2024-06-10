@@ -79,14 +79,14 @@ Questa tesi sarà strutturata nel seguente modo: innanzitutto, forniremo una pan
 % 
 % 
 %			CAPITOLO 1: Introduzione
-\chapter{Introduzione}
+\chapter{Il Problema del Commesso Viaggiatore}
 Il Problema del Commesso Viaggiatore (TSP) è una delle sfide più emblematiche e studiate nell'ambito della ricerca operativa e dell'ottimizzazione combinatoria. Originariamente formulato negli anni '30 da Karl Menger \cite{Menger}, il TSP richiede di determinare il percorso più breve per visitare un insieme di città esattamente una volta, tornando infine alla città di partenza. Nonostante la sua semplice descrizione concettuale, il TSP è noto per la sua complessità computazionale e la sua rilevanza pratica in una vasta gamma di settori.
 
 Le applicazioni del TSP sono diffuse e impattano direttamente su molte attività quotidiane. Ad esempio, nel settore della logistica e della gestione delle catene di distribuzione, il TSP è utilizzato per ottimizzare le rotte dei veicoli di consegna, minimizzando i costi di carburante e il tempo impiegato. In ambito produttivo, il TSP viene impiegato per pianificare i percorsi di ispezione delle fabbriche o per ottimizzare il flusso di lavoro all'interno di un'azienda. Anche nei sistemi di navigazione satellitare e nelle applicazioni GPS, il TSP è alla base dell'ottimizzazione dei percorsi per ridurre il tempo di viaggio.
 
 Storicamente, il TSP ha attratto l'attenzione di numerosi matematici e informatici in quanto è un problema semplice da formulare ma complesso da "risolvere". Il problema è stato formalizzato e reso noto grazie al lavoro di Hassler Whitney nel 1952\footnote[1]{https://www.math.uwaterloo.ca/tsp/uk/history.html} e successivamente nel 1954 da Merrill Flood. La dimostrazione della sua appartenenza alla classe di complessità NP-hard è stata fondamentale per stimolare lo sviluppo di tecniche approssimate e euristiche. Le sfide legate al TSP sono principalmente dovute alla sua natura combinatoria: per n città, il numero di possibili percorsi da valutare cresce in modo esponenziale con n, rendendo impraticabile un'analisi esaustiva per istanze di grandi dimensioni. Questa complessità ha spinto alla ricerca di approcci efficienti, come le euristiche, che non garantiscono la soluzione ottimale ma forniscono soluzioni accettabili in tempi ragionevoli.
 
-\chapter{Il Problema del commesso viaggiatore}
+\section{Il Problema del commesso viaggiatore}
 Il problema del commesso viaggiatore (TSP) può essere sintetizzato molto semplicemente con la seguente domanda: "Date n città, qual è il percorso più breve che inizia e termina con la stessa città?". Il problema quindi presenta le caratteristiche tipiche di un problema su un grafo, dove il grafo è composto da $n$ vertici (le città) e dove gli archi indicano le distanze euclidee tra le città. La formulazione classica del TSP può essere descritta matematicamente attraverso la programmazione intera lineare. La seguente formulazione fa riferimento alla formulazione MTZ (Miller-Tucker-Zemlin) e alla formulazione DFJ (Dantzig-Fulkerson-Johnson) \cite{TSP formulation}.
 \section{Formulazione del problema}
 \textbf{Dati}: Consideriamo un insieme di $n$ città, ogni città $i$ (per $i = 1, 2, ..., n$) rappresenta un punto nello spazio euclideo, ogni città quindi ha coordinate $(x_i, y_i)$. Definiamo la matrice $c$, dove $c_{ij}$ indica la distanza euclidea tra le due città $i$ e $j$.
@@ -221,9 +221,7 @@ Cheapest Insertion opera in modo diverso da Nearest Insertion: il criterio di se
   \item Sia $T$ il tour iniziale definito dalla coppia delle città più vicine. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
   \begin{legal}
-    \item Seleziona un nodo $r \in L$ e un arco $(i, j)$ in $T$ per cui $c_{ir} + c_{rj} - c_{ij}$ risulti \underline{minimo}.
-    \item Seleziona l'arco $(i, j)$ in $T$ tale che $c_{ir} + c_{rj} - c_{ij}$ risulti \underline{minimo}. Inserisci $r$ tra $i$ e $j$.
-    \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
+    \item Seleziona un nodo capitolo sugli esatti può essere fuso con quello precedente e andrebbequindi $L = L \setminus \{r\}$.
   \end{legal}
 \end{legal}
 \hfill \break Cheapest Insertion ha complessità computazionale pari a $O(n^2 log_2(n))$ in quanto è possibile implementare uno heap che tiene traccia dei nodi non ancora inseriti nel tour e dei relativi costi se inseriti nel modo migliore possibile.
@@ -273,7 +271,6 @@ Random Insertion seleziona casualmente il nodo da inserire nel tour, successivam
   \end{legal}
 \end{legal}
 \hfill \break Random Insertion ha complessità computazionale pari a $O(n^2)$ in quanto n volte viene selezionato un nodo casuale, dopodiché è necessario iterare n volte alla ricerca della posizione migliore dove inserire il nodo.
-
 %
 %
 

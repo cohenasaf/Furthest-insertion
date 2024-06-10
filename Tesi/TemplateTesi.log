@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.28)  6 JUN 2024 23:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.28)  10 JUN 2024 14:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -484,12 +484,8 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 Capitolo 1.
 [1
 
-]
+] [2] [3] [4]
 Capitolo 2.
-[2
-
-] [3] [4]
-Capitolo 3.
 \c@legali=\count322
 \c@legalii=\count323
 \c@legaliii=\count324
@@ -504,7 +500,7 @@ Capitolo 3.
 [5
 
 ] [6] [7] [8] [9]
-Underfull \hbox (badness 1975) in paragraph at lines 302--306
+Underfull \hbox (badness 1975) in paragraph at lines 299--303
 []\OT1/cmr/m/n/12 G. Rei-nelt, The Tra-ve-ling Sa-le-sman: Com-pu-ta-tio-nal So-lu-tion for TSP
  []
 
@@ -516,12 +512,12 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `TemplateTesi.out' has not changed.
-(rerunfilecheck)             Checksum: 18DBB614AA01DAF2A4C5B9CD1465E451;2179.
+(rerunfilecheck)             Checksum: 2C5A9EDE310E3844FCB048C86E0F776B;2322.
  ) 
 Here is how much of TeX's memory you used:
- 14446 strings out of 476065
- 219983 string characters out of 5793347
- 1938187 words of memory out of 5000000
+ 14444 strings out of 476065
+ 219973 string characters out of 5793347
+ 1936187 words of memory out of 5000000
  36281 multiletter control sequences out of 15000+600000
  567889 words of font info for 73 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -530,10 +526,10 @@ Here is how much of TeX's memory you used:
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on TemplateTesi.pdf (16 pages, 195502 bytes).
+Output written on TemplateTesi.pdf (16 pages, 195234 bytes).
 PDF statistics:
- 295 PDF objects out of 1000 (max. 8388607)
- 244 compressed objects within 3 object streams
- 79 named destinations out of 1000 (max. 500000)
+ 292 PDF objects out of 1000 (max. 8388607)
+ 241 compressed objects within 3 object streams
+ 77 named destinations out of 1000 (max. 500000)
  113 words of extra memory for PDF output out of 10000 (max. 10000000)
 

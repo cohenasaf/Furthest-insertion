@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1717707836.98427 "/run/media/asaf/2TB/Triennale/Tesi/Furthest-insertion/Tesi/TemplateTesi.tex" "TemplateTesi.pdf" "TemplateTesi" 1717707837.47914 0
-  "/run/media/asaf/2TB/Triennale/Tesi/Furthest-insertion/Tesi/TemplateTesi.tex" 1717707836.79447 22329 9a82f562a5e868a993345b08bf549ed4 ""
+["pdflatex"] 1718024158.22153 "/run/media/asaf/2TB/Triennale/Tesi/Furthest-insertion/Tesi/TemplateTesi.tex" "TemplateTesi.pdf" "TemplateTesi" 1718024158.694 0
+  "/run/media/asaf/2TB/Triennale/Tesi/Furthest-insertion/Tesi/TemplateTesi.tex" 1718024157.50891 22160 b9c00588ff8a74016f59380475a60042 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1716849630 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1716849630 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1716849630 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -116,10 +116,10 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1716849630 41588 b43d3e860a4f94167ee1e725ff526a72 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1716895134.18076 325518 3dff2bac5bde75cd7e600320ce8a00d6 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1716895133 7114513 ca9093e815e83f5f5284c2291c74e7a5 ""
-  "TemplateTesi.aux" 1717707837.42447 2492 75a3f434296044e2f12de53dc4cbefa2 "pdflatex"
-  "TemplateTesi.out" 1717707837.42447 2179 18dbb614aa01daf2a4c5b9cd1465e451 "pdflatex"
-  "TemplateTesi.tex" 1717707836.79447 22329 9a82f562a5e868a993345b08bf549ed4 ""
-  "TemplateTesi.toc" 1717707837.4278 1178 0e03fac5cf36bb451cc1340d49c97dab "pdflatex"
+  "TemplateTesi.aux" 1718024158.63889 2444 22660c7ee6bd0ac2b075617afd79c46d "pdflatex"
+  "TemplateTesi.out" 1718024158.63889 2322 2c5a9ede310e3844fcb048c86e0f776b "pdflatex"
+  "TemplateTesi.tex" 1718024157.50891 22160 b9c00588ff8a74016f59380475a60042 ""
+  "TemplateTesi.toc" 1718024158.63889 1206 71b0ef7aa769e8fe071187b7d4eea53b "pdflatex"
   "tesi.sty" 1713643475.64176 9454 93147b901c96e9f351ae0ede701cd0d2 ""
   (generated)
   "TemplateTesi.aux"
