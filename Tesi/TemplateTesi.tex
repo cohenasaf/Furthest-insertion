@@ -171,13 +171,18 @@ Lo stato dell'arte degli algoritmi esatti per il TSP non sono i generici branch-
 
 \begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
 \begin{legal}
-  \item Seleziona un nodo arbitrario j, sia l = j e L = $\{1, 2, ..., n\} \setminus \{j\}$.
-  \item Finché $L \neq \emptyset$:
+  \item \textit{Inizializzazione}: Il problema di programmazione lineare intera viene denominato $ILP^0$, sia $L = \{ILP^0\}$ la lista dei nodi attivi. Sia $\overline{z} = +\infty$ l'upperbound e $\underline{z}_l = -\infty$ il lower bound per l'unico problema $l \in L$.
+  \item \textit{Terminazione}: Se $L = \emptyset$, allora la soluzione $x^*$ che ha prodotto il valore obiettivo $\overline{z}$ è ottimale. Se non esiste nessuna $x^*$ allora $ILP$ è un problema inammissibile.
+  \item \textit{Selezione del problema}: Seleziona ed elimina $ILP^l$ da $L$.
+  \item \textit{Rilassamento del problema}: Risolvi il rilassamento continuo del problema $ILP^l$: se è inammissibile allora assegna $\underline{z}_l = +\infty$ e vai al punto 6. Sia $z_l$ il valore della funzione obiettivo del rilassamento se risulta finito e sia $x^{lR}$ una soluzione ottima; altrimenti poniamo $\underline{z}_l = -\infty$.
+  \item \textit{Aggiungi piani di taglio}: cerca i piani di taglio violati da $x^{lR}$; se sono presenti allora aggiungili al rilassamento e torna al passaggio 4.
+  \item \textit{Fathoming and Pruning}:
   \begin{legal}
-    \item Sia $j \in L$ tale che $c_{lj} = min\{c_{li} \  | \  i \in L\}$.
-    \item Connetti l a j e rimuovi j da L, quindi $ L = L \setminus \{j\} $.
+    \item (a): Se $z_l \geq \overline{z}$ allora vai al punto 2.
+    \item (b): Se $z_l < \overline{z}$ e $x^{lR}$ è intero allora aggiorna $\overline{z} = z_l$, cancella tutti i problemi $l$ dalla lista $L$ tali che $z_l \geq \overline{z}$ e torna al punto 2.
   \end{legal}
-  \item Connetti l al primo nodo (era stato selezionato al punto 1) per formare un tour.
+  \item \textit{Partizionamento}: Sia $\{S^{lj}\}^{j=k}_{j=1}$ una partizione dell'insieme dei vincoli $S^l$ del problema $ILP^l$. Aggiungi i problemi $\{ILP^{lj}\}^{j=k}_{j=1}$ a L dove $ILP^{lj}$ è $ILP^l$ con la regione ammissibile ridotta a $S^{lj}$ e ${\underline{z}}_{lj}$ per $j = 1, ..., k$ è l'insieme dei valori $z_l$ per il problema $l$. Torna al punto 2.
+
 \end{legal}
 \end{tcolorbox}
 \hfill \break
