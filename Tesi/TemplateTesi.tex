@@ -242,14 +242,16 @@ Cheapest Insertion opera in modo diverso da Nearest Insertion: il criterio di se
 
 \setlist[legal]{label*=\arabic*.}
 \begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
-\begin{legal}
-  \item Sia $T$ il tour iniziale definito dalla coppia delle città più vicine. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
-  \item Finché $L \neq \emptyset$:
   \begin{legal}
-    \item Seleziona un nodo capitolo sugli esatti può essere fuso con quello precedente e andrebbequindi $L = L \setminus \{r\}$.
+    \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
+    \item Finché $L \neq \emptyset$:
+    \begin{legal}
+      \item Seleziona un nodo $r \in L$ e un arco $(i, j)$ in $T$ per cui $c_{ir} + c_{rj} - c_{ij}$ risulti \underline{minimo}.
+      \item Seleziona l'arco $(i, j)$ in $T$ tale che $c_{ir} + c_{rj} - c_{ij}$ risulti \underline{minimo}. Inserisci $r$ tra $i$ e $j$.
+      \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
+    \end{legal}
   \end{legal}
-\end{legal}
-\end{tcolorbox}
+  \end{tcolorbox}
 \hfill \break Cheapest Insertion ha complessità computazionale pari a $O(n^2 log_2(n))$ in quanto è possibile implementare uno heap che tiene traccia dei nodi non ancora inseriti nel tour e dei relativi costi se inseriti nel modo migliore possibile.
 
 \subsection{Farthest Insertion}
