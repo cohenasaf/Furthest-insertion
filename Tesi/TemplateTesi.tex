@@ -16,6 +16,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{enumitem}
+\usepackage{tcolorbox}
 
 \newenvironment{teor}{\begin{myteor}\sl}{\end{myteor}}
 %
@@ -162,14 +163,13 @@ Esistono vari approcci nella ricerca della soluzione ottima \cite{Analysis of Br
 \end{center}
 Si può notare come il numero cresce molto rapidamente, anche con istanze relativamente piccole (ad esempio 20 città). Questo approccio risulta quindi inutilizzabile nei problemi reali dove può essere necessario analizzare istanze con migliaia di città.
 \newline \null \newline Esistono altri algoritmi esatti i quali consentono di ridurre il numero di possibili soluzioni (percorsi) da analizzare, ad esempio approcci Branch and Bound \cite{Branch and Bound}. La complessità computazionale nel caso peggiore resta esponenziale in quanto può essere necessario analizzare un numero esponenziale di percorsi e quindi non applicabile su problemi reali.
-
-\chapter{Euristiche per il TSP}
-Come discusso nel capitolo 2, i metodi esatti consentono di ottenere soluzioni ottime per il problema del TSP, ma il tempo per ottenere queste soluzioni aumenta esponenzialmente all'aumentare del numero di città presenti nell'istanza. Per affrontare il TSP, sono stati sviluppati numerosi approcci euristici, ovvero metodi che, pur non garantendo la soluzione ottimale, offrono soluzioni di buona qualità in tempi ragionevoli. Le euristiche sono fondamentali per applicazioni pratiche dove la rapidità di calcolo è essenziale. In questo capitolo esploreremo diverse tecniche euristiche, come le euristiche costruttive, che costruiscono una soluzione passo dopo passo e le euristiche basate su inserzione, che partono da un ciclo iniziale al quale vengono aggiunte via via le città fino ad ottenere un ciclo Hamiltoniano e poi le euristiche basate su inserzione.
-\section{Nearest Neighbor}
-Nearest Neighbor è probabilmente l'euristica più semplice per il TSP: si costruisce il tour selezionando sempre la città più vicina all'ultima appena aggiunta al tour. Appartiene alla categoria delle euristiche costruttive in quanto aggiunge via via nuove città al tour (soluzione parziale) senza modificare il tour costruito fino a quel punto. L'algoritmo è il seguente:
-
+\newline \null \newline 
+Oltre all'approccio brute force, esistono in letteratura diversi algoritmi \textbf{branch-and-bound}\footnote[1]{https://www.math.cmu.edu/~bkell/21257-2014f/tsp.pdf}\footnote[2]{https://apps.dtic.mil/sti/tr/pdf/ADA142318.pdf} che consentono di risolvere in problema in modo più efficiente. L'idea alla base consiste nel suddividere il problema originario in sottoproblemi (più semplici) i quali possono essere a loro volta scomposti in ulteriori sottoproblemi. Il termine "bound" indica il fatto che per ogni sottoproblema viene calcolato il limite inferiore $L_i$ (quindi la soluzione ottima non sarà mai migliore di questo limite inferiore) e si tiene conto della soluzione migliore trovata fino a quel punto $U$: quando $L_i$ è "peggiore" di $U$ allora è possibile scartare a priori l'intero sottoproblema in quanto è già stata trovata una soluzione migliore del limite inferiore del sottoproblema (questo processo prende il nome di "pruning"). Il termine "branch" invece fa riferimento al fatto che i sottoproblemi vengono a loro volta divisi in ulteriori sottoproblemi (come visto prima), l'algoritmo branch-and-bound procede esplorando l'albero dei sottoproblemi generati (detto anche albero branch-and-bound) e scartando i sottoproblemi (pruning) con il criterio visto prima. I vari algoritmi differiscono in base al criterio di branching e di esplorazione dell'albero branch-and-bound. \newline \null \newline
+Lo stato dell'arte degli algoritmi esatti per il TSP non sono i generici branch-and-bound ma sono algoritmi \textbf{branch-and-cut}\cite{Branch and Cut}: Branch and Cut è un metodo di ottimizzazione combinatoria simile al branch and bound, ma con alcune differenze fondamentali. Entrambi gli algoritmi mirano a trovare la soluzione ottimale per un problema complesso, dividendolo in sottoproblemi più piccoli e sfruttando delle informazioni per escludere a priori soluzioni non valide. Tuttavia, l'algoritmo Branch and Cut si distingue per l'utilizzo di vincoli di taglio (cutting planes) per restringere lo spazio di ricerca in modo più efficiente. Di seguito viene illustrato un generico algoritmo branch-and-cut:
 \newlist{legal}{enumerate}{10}
 \setlist[legal]{label*=\arabic*.}
+
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
 \begin{legal}
   \item Seleziona un nodo arbitrario j, sia l = j e L = $\{1, 2, ..., n\} \setminus \{j\}$.
   \item Finché $L \neq \emptyset$:
@@ -179,6 +179,26 @@ Nearest Neighbor è probabilmente l'euristica più semplice per il TSP: si costr
   \end{legal}
   \item Connetti l al primo nodo (era stato selezionato al punto 1) per formare un tour.
 \end{legal}
+\end{tcolorbox}
+\hfill \break
+
+\chapter{Euristiche per il TSP}
+Come discusso nel capitolo 2, i metodi esatti consentono di ottenere soluzioni ottime per il problema del TSP, ma il tempo per ottenere queste soluzioni aumenta esponenzialmente all'aumentare del numero di città presenti nell'istanza. Per affrontare il TSP, sono stati sviluppati numerosi approcci euristici, ovvero metodi che, pur non garantendo la soluzione ottimale, offrono soluzioni di buona qualità in tempi ragionevoli. Le euristiche sono fondamentali per applicazioni pratiche dove la rapidità di calcolo è essenziale. In questo capitolo esploreremo diverse tecniche euristiche, come le euristiche costruttive, che costruiscono una soluzione passo dopo passo e le euristiche basate su inserzione, che partono da un ciclo iniziale al quale vengono aggiunte via via le città fino ad ottenere un ciclo Hamiltoniano e poi le euristiche basate su inserzione.
+\section{Nearest Neighbor}
+Nearest Neighbor è probabilmente l'euristica più semplice per il TSP: si costruisce il tour selezionando sempre la città più vicina all'ultima appena aggiunta al tour. Appartiene alla categoria delle euristiche costruttive in quanto aggiunge via via nuove città al tour (soluzione parziale) senza modificare il tour costruito fino a quel punto. L'algoritmo è il seguente:
+
+\setlist[legal]{label*=\arabic*.}
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{legal}
+  \item Seleziona un nodo arbitrario j, sia l = j e L = $\{1, 2, ..., n\} \setminus \{j\}$.
+  \item Finché $L \neq \emptyset$:
+  \begin{legal}
+    \item Sia $j \in L$ tale che $c_{lj} = min\{c_{li} \  | \  i \in L\}$.
+    \item Connetti l a j e rimuovi j da L, quindi $ L = L \setminus \{j\} $.
+  \end{legal}
+  \item Connetti l al primo nodo (era stato selezionato al punto 1) per formare un tour.
+\end{legal}
+\end{tcolorbox}
 \hfill \break
 Nearest Neighbor è una euristica con complessità temporale pari a $O(n^2)$ in quanto per ogni nodo nel tour (quindi n volte) è necessario cercare tra i restanti nodi, qual è il più vicino (al massimo n volte).
 
@@ -186,6 +206,7 @@ Nearest Neighbor è una euristica con complessità temporale pari a $O(n^2)$ in 
 Una soluzione per il problema del TSP può essere costruito in un modo differente: si può iniziare da un piccolo tour (che include 2 o 1 città) il quale viene via via esteso includendo i nodi (città) non ancora aggiunti al tour. In questo tipo di euristiche la differenza fondamentale che le distingue sarà il criterio con il quale si aggiungono nuove città al tour e dove queste città devono essere inserite nel tour. Una qualunque euristica basata su inserzione quindi presenta la seguente struttura:
 
 \setlist[legal]{label*=\arabic*.}
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
 \begin{legal}
   \item Seleziona una città o due città arbitrarie come tour iniziale $T$. Sia $L$ l'insieme delle città che sono fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
@@ -195,6 +216,7 @@ Una soluzione per il problema del TSP può essere costruito in un modo different
     \item Rimuovi $j$ da L, quindi $L = L \setminus \{j\}$.
   \end{legal}
 \end{legal}
+\end{tcolorbox}
 \hfill \break
 Questo schema permette di ottenere un ciclo Hamiltoniano e quindi un percorso valido per il problema del TSP. Le varie euristiche andranno a definire un criterio di scelta del nodo j (punto 2.1) e un criterio di scelta della posizione di inserzione (punto 2.2).
 
@@ -202,6 +224,7 @@ Questo schema permette di ottenere un ciclo Hamiltoniano e quindi un percorso va
 Nearest Insertion seleziona come nodo da inserire nel tour il nodo più vicino ad un qualunque nodo già inserito nel tour e lo inserisce nella posizione che minimizza il costo di inserimento. Di seguito l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
 \begin{legal}
   \item Sia $T$ il tour iniziale definito dalla coppia delle città più vicine. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
@@ -211,12 +234,14 @@ Nearest Insertion seleziona come nodo da inserire nel tour il nodo più vicino a
     \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
   \end{legal}
 \end{legal}
+\end{tcolorbox}
 \hfill \break Nearest Insertion ha complessità computazionale pari a $O(n^2)$ in quanto ogni nodo (n iterazioni) deve essere inserito nel modo migliore possibile nel tour (fino a n iterazioni).
 
 \subsection{Cheapest Insertion}
 Cheapest Insertion opera in modo diverso da Nearest Insertion: il criterio di selezione non è più il nodo più vicino al tour, ma diventa il nodo che produce il minor aumento del costo del tour se inserito (quindi minimizza il costo di inserzione). Una volta selezionato, il nodo viene inserito nel modo migliore possibile, quindi minimizzando il costo di inserimento. Di seguito l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
 \begin{legal}
   \item Sia $T$ il tour iniziale definito dalla coppia delle città più vicine. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
@@ -224,12 +249,14 @@ Cheapest Insertion opera in modo diverso da Nearest Insertion: il criterio di se
     \item Seleziona un nodo capitolo sugli esatti può essere fuso con quello precedente e andrebbequindi $L = L \setminus \{r\}$.
   \end{legal}
 \end{legal}
+\end{tcolorbox}
 \hfill \break Cheapest Insertion ha complessità computazionale pari a $O(n^2 log_2(n))$ in quanto è possibile implementare uno heap che tiene traccia dei nodi non ancora inseriti nel tour e dei relativi costi se inseriti nel modo migliore possibile.
 
 \subsection{Farthest Insertion}
 Farthest Insertion opera in analogo a Nearest Insertion in quanto il criterio di selezione del nodo da inserire è basato sulla distanza dal tour, ma differenza di Nearest Insertion però viene scelto il nodo più lontano dal tour al posto del più vicino. Il passo di inserzione avviene invece allo stesso modo rispetto a Nearest Insertion: viene quindi scelta la posizione che minimizza il costo di inserzione. Vediamo l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
 \begin{legal}
   \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
@@ -239,12 +266,14 @@ Farthest Insertion opera in analogo a Nearest Insertion in quanto il criterio di
     \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
   \end{legal}
 \end{legal}
+\end{tcolorbox}
 \hfill \break Farthest Insertion ha complessità computazionale pari a $O(n^2)$ in modo del tutto analogo a Nearest Insertion.
 
 \subsection{Furthest Insertion}
 L'obbiettivo della tesi consiste nel proporre un nuovo algoritmo chiamato Furthest Insertion: allo stesso modo in cui Farthest Insertion opera in modo analogo a Nearest Insertion, Furthest Insertion opera in modo analogo a Cheapest Insertion. Il passo di selezione consiste nel selezionare il nodo che massimizza il costo di inserzione, in fase di inserimento però il nodo viene inserito in modo da minimizzare il costo di inserimento. Di seguito l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
 \begin{legal}
   \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
@@ -254,12 +283,14 @@ L'obbiettivo della tesi consiste nel proporre un nuovo algoritmo chiamato Furthe
     \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
   \end{legal}
 \end{legal}
+\end{tcolorbox}
 \hfill \break Furthest Insertion ha complessità computazionale pari a $O(n^2 log_2(n))$ in modo del tutto analogo a Cheapest Insertion.
 
 \subsection{Random Insertion}
 Random Insertion seleziona casualmente il nodo da inserire nel tour, successivamente però sceglie il punto di inserimento in modo da minimizzare il costo di inserimento (esattamente come per Nearest Insertion). Di seguito l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
 \begin{legal}
   \item Sia $T$ il tour iniziale definito da una città casuale. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
@@ -270,6 +301,7 @@ Random Insertion seleziona casualmente il nodo da inserire nel tour, successivam
     \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
   \end{legal}
 \end{legal}
+\end{tcolorbox}
 \hfill \break Random Insertion ha complessità computazionale pari a $O(n^2)$ in quanto n volte viene selezionato un nodo casuale, dopodiché è necessario iterare n volte alla ricerca della posizione migliore dove inserire il nodo.
 %
 %
@@ -297,6 +329,10 @@ R. Karp, Complexity of the Traveling Salesman Problem
 %
 \bibitem{Reinelt}
 G. Reinelt, The Traveling Salesman: Computational Solution for TSP Applications, Heidelberg, Springer-Verlag
+\bibitem{Branch and Cut}
+J.E. Mitchell, Branch-and-cut algorithms for combinatorial
+optimization problems, in Handbook of applied optimization, P.M.
+Pardalos and M.G.C. Resende eds., Oxford University Press, 2000
 %
 %\bibitem{gotti91}
 %M. Gotti, I linguaggi specialistici, Firenze, La Nuova Italia, 1991.
