@@ -14,3 +14,4 @@
 \contentsline {subsection}{\numberline {2.2.3}Farthest Insertion}{10}{subsection.2.2.3}%
 \contentsline {subsection}{\numberline {2.2.4}Furthest Insertion}{10}{subsection.2.2.4}%
 \contentsline {subsection}{\numberline {2.2.5}Random Insertion}{11}{subsection.2.2.5}%
+\contentsline {section}{\numberline {2.3}Improving Solution Euristics}{12}{section.2.3}%

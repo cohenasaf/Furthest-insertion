@@ -189,9 +189,9 @@ Lo stato dell'arte degli algoritmi esatti per il TSP non sono i generici branch-
 Come già detto in precedenza, questo approccio è attualmente lo stato dell'arte per risolvere il TSP all'ottimo, implementazioni di algoritmi branch-and-cut per il TSP possono essere trovati all'interno di risolutori MILP come ad esempio CPLEX. Questo approccio risulta migliore rispetto all'approccio brute-force, ma resta comunque non applicabile su istanze TSP con migliaia di città.
 
 \chapter{Euristiche per il TSP}
-Come discusso nel capitolo 2, i metodi esatti consentono di ottenere soluzioni ottime per il problema del TSP, ma il tempo per ottenere queste soluzioni aumenta esponenzialmente all'aumentare del numero di città presenti nell'istanza. Per affrontare il TSP, sono stati sviluppati numerosi approcci euristici, ovvero metodi che, pur non garantendo la soluzione ottimale, offrono soluzioni di buona qualità in tempi ragionevoli. Le euristiche sono fondamentali per applicazioni pratiche dove la rapidità di calcolo è essenziale. In questo capitolo esploreremo diverse tecniche euristiche, come le euristiche costruttive, che costruiscono una soluzione passo dopo passo e le euristiche basate su inserzione, che partono da un ciclo iniziale al quale vengono aggiunte via via le città fino ad ottenere un ciclo Hamiltoniano e poi le euristiche basate su inserzione.
+Come discusso nel capitolo 2, i metodi esatti consentono di ottenere soluzioni ottime per il problema del TSP, ma il tempo per ottenere queste soluzioni aumenta esponenzialmente all'aumentare del numero di città presenti nell'istanza. Per affrontare il TSP, sono stati sviluppati numerosi approcci euristici, ovvero metodi che, pur non garantendo la soluzione ottimale, offrono soluzioni di buona qualità in tempi ragionevoli. Le euristiche sono fondamentali per applicazioni pratiche dove la rapidità di calcolo è essenziale. In questo capitolo esploreremo diverse tecniche euristiche, come le euristiche costruttive, che costruiscono una soluzione passo dopo passo a partire da una soluzione parziale, vedremo in particolare sulle euristiche basate su inserzione (Furthest Insertion fa parte di questa categoria) e poi "improvement euristics" ovvero le euristiche basate su meccanismi che consentono di "migliorare" la soluzione parziale trovata modificando il tour.
 \section{Nearest Neighbor}
-Nearest Neighbor è probabilmente l'euristica più semplice per il TSP: si costruisce il tour selezionando sempre la città più vicina all'ultima appena aggiunta al tour. Appartiene alla categoria delle euristiche costruttive in quanto aggiunge via via nuove città al tour (soluzione parziale) senza modificare il tour costruito fino a quel punto. L'algoritmo è il seguente:
+Nearest Neighbor è probabilmente l'euristica costruttiva più semplice per il TSP: si costruisce il tour selezionando sempre la città più vicina all'ultima appena aggiunta al tour. Appartiene alla categoria delle euristiche costruttive in quanto aggiunge via via nuove città al tour (soluzione parziale) senza modificare il tour costruito fino a quel punto. L'algoritmo è il seguente:
 
 \setlist[legal]{label*=\arabic*.}
 \begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
@@ -209,7 +209,7 @@ Nearest Neighbor è probabilmente l'euristica più semplice per il TSP: si costr
 Nearest Neighbor è una euristica con complessità temporale pari a $O(n^2)$ in quanto per ogni nodo nel tour (quindi n volte) è necessario cercare tra i restanti nodi, qual è il più vicino (al massimo n volte).
 
 \section{Euristiche basate su Inserzione}
-Una soluzione per il problema del TSP può essere costruito in un modo differente: si può iniziare da un piccolo tour (che include 2 o 1 città) il quale viene via via esteso includendo i nodi (città) non ancora aggiunti al tour. In questo tipo di euristiche la differenza fondamentale che le distingue sarà il criterio con il quale si aggiungono nuove città al tour e dove queste città devono essere inserite nel tour. Una qualunque euristica basata su inserzione quindi presenta la seguente struttura:
+Le euristiche basate su inserzione appartengono alla categoria delle euristiche costruttive ma a differenza di Nearest Neighbor la soluzione viene costruita in un modo differente: si inizia da un piccolo tour (che include 2 o 1 città) il quale viene via via esteso includendo i nodi (città) non ancora aggiunti al tour. In questo tipo di euristiche la differenza fondamentale che le distingue sarà il criterio con il quale si aggiungono nuove città al tour e dove queste città devono essere inserite nel tour. Una qualunque euristica basata su inserzione quindi presenta la seguente struttura:
 
 \setlist[legal]{label*=\arabic*.}
 \begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
@@ -311,6 +311,9 @@ Random Insertion seleziona casualmente il nodo da inserire nel tour, successivam
 \end{legal}
 \end{tcolorbox}
 \hfill \break Random Insertion ha complessità computazionale pari a $O(n^2)$ in quanto n volte viene selezionato un nodo casuale, dopodiché è necessario iterare n volte alla ricerca della posizione migliore dove inserire il nodo.
+
+\section{Improving Solution Euristics}
+Le euristiche "Improving Solutions" sono euristiche che implementano un meccanismo che consente di migliorare una soluzione parziale trovata, il meccanismo può ad esempio scambiare due nodi nel tour (vedremo nel dettaglio una euristica in particolare) oppure implementare meccanismi più sofisticati che consentono di ottenere tour con un costo totale più basso.
 %
 %
 
