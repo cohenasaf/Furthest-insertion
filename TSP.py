@@ -99,44 +99,6 @@ class TSP:
                 print(f"ERRORE, il numero {i} risulta esserci {self.tour.count(i)} volte")
                 return False
         return True
-
-    # sceglie casualmente il nodo da inserire e lo inserisce casualmente
-    def randomInsertion2(self):
-        tour = []
-        notInTour = [x for x in range(self.numCity)]
-        random.shuffle(notInTour)
-        for i in notInTour:
-            tour.insert(random.randint(0, len(tour)), i)
-        self.tour = tour
-        self.calculateCost()
-
-    def randomInsertion(self):
-        # sceglie casualmente il nodo da inserisce MA lo inserisce nel modo migilore possibile (minimizzando l'inserimento)
-        n = self.numCity
-        distances = np.array(self.adj)
-        path = [0]  # Inizia da una città arbitraria, in questo caso la prima
-        in_path = {0}
-        notInPath = [x for x in range(1, n)]
-        random.shuffle(notInPath)
-
-        while len(path) < n:
-            # Trova la città non inserita più vicina a qualsiasi città nel percorso
-            to_insert = notInPath.pop()
-            # Trova la posizione ottimale per inserire la città trovata
-            best_increase = np.inf
-            best_position = None
-            for i in range(len(path)):
-                next_i = (i + 1) % len(path)
-                increase = distances[path[i], to_insert] + distances[to_insert, path[next_i]] - distances[path[i], path[next_i]]
-                if increase < best_increase:
-                    best_increase = increase
-                    best_position = next_i
-
-            path.insert(best_position, to_insert)
-            in_path.add(to_insert)
-
-        self.tour = path
-        self.calculateCost()
         
     def nearestNeighbor(self):
         self.tour = [0]
@@ -234,6 +196,7 @@ class TSP:
                 if increase < best_increase:
                     best_increase = increase
                     best_pos = next_i
+            path.insert(best_pos, to_ins)
             in_path.add(to_ins)
 
             # A - B - C
@@ -596,6 +559,44 @@ class TSP:
         self.tour = path
         self.calculateCost()
 
+    # sceglie casualmente il nodo da inserire e lo inserisce casualmente
+    def randomInsertion2(self):
+        tour = []
+        notInTour = [x for x in range(self.numCity)]
+        random.shuffle(notInTour)
+        for i in notInTour:
+            tour.insert(random.randint(0, len(tour)), i)
+        self.tour = tour
+        self.calculateCost()
+
+    def randomInsertion(self):
+        # sceglie casualmente il nodo da inserisce MA lo inserisce nel modo migliore possibile (minimizzando l'inserimento)
+        n = self.numCity
+        distances = np.array(self.adj)
+        path = [0]  # Inizia da una città arbitraria, in questo caso la prima
+        in_path = {0}
+        notInPath = [x for x in range(1, n)]
+        random.shuffle(notInPath)
+
+        while len(path) < n:
+            # Trova la città non inserita più vicina a qualsiasi città nel percorso
+            to_insert = notInPath.pop()
+            # Trova la posizione ottimale per inserire la città trovata
+            best_increase = np.inf
+            best_position = None
+            for i in range(len(path)):
+                next_i = (i + 1) % len(path)
+                increase = distances[path[i], to_insert] + distances[to_insert, path[next_i]] - distances[path[i], path[next_i]]
+                if increase < best_increase:
+                    best_increase = increase
+                    best_position = next_i
+
+            path.insert(best_position, to_insert)
+            in_path.add(to_insert)
+
+        self.tour = path
+        self.calculateCost()
+
 soluzioneOttima = {
     "a280" : 2579,
     "ali535" : 202339,
@@ -628,7 +629,7 @@ soluzioneOttima = {
     "fl417" : 11861,
     "fl1400" : 20127,
     "fl1577" : 22249,
-    "fl3795" : 28772,r$ da L, quindi $L = L \setminus \{r\}$.
+    "fl3795" : 28772,   
     "fnl4461" : 182566,
     "fri26" : 937,
     "gil262" : 2378,

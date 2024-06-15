@@ -17,6 +17,7 @@
 \usepackage{algpseudocode}
 \usepackage{enumitem}
 \usepackage{tcolorbox}
+\usepackage{listings}
 
 \newenvironment{teor}{\begin{myteor}\sl}{\end{myteor}}
 %
@@ -398,8 +399,174 @@ L'algoritmo LK è stato sviluppato da Serge Lin e Brian Kernighan nel 1971 ed è
 \end{tcolorbox}
 \hfill \break
 L'euristica Lin-Kernighan è considerata una delle migliori euristiche per generare soluzioni ottime o quasi-ottime per il problema del TSP\cite{Helsgaun}.
-%
 
+\lstset{
+  language=Python, 
+  basicstyle=\ttfamily, 
+  keywordstyle=\color{blue}, 
+  commentstyle=\color{gray}, 
+  stringstyle=\color{red}, 
+  showstringspaces=false,
+  numbers=left,                 % Aggiunge i numeri di riga a sinistra
+  numberstyle=\tiny\color{gray}, % Stile per i numeri di riga
+  stepnumber=1,                 % Numerare ogni riga
+  numbersep=10pt                % Distanza tra i numeri di riga e il codice
+}
+\chapter{Implementazione delle euristiche}
+Questo capitolo descrive l'implementazione di una classe Python chiamata "TSP" la quale deve:
+\begin{legal}
+  \item Poter consentire di importare istanze del TSP nelle strutture dati necessarie
+  \item Implementare le principali euristiche viste nel capitolo 2
+  \item Poter consentire di ottenere i dati relativi alla qualità delle soluzioni e tempi dell'euristica
+\end{legal}
+Per il progetto è stata scelta la libreria TSP-LIB\footnote{http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/} come fonte di istanze per il TSP in quanto in letteratura è ampiamente utilizzata per testare e confrontare algoritmi e euristiche progettate per risolvere il TSP. Nel progetto, le istanze sono state tutte collocate nella directory "ALL-TSP" dove sono presenti due tipi di file: "NOME.tsp" e "NOME.opt.tour" dove la prima contiene i dati relativi all'istanza chiamata "NOME", mentre la seconda contiene la soluzione ottima per quella istanza.
+
+\section{Implementazione del costruttore della classe}
+Il costruttore della classe deve consentire di importare i dati relativi ad una istanza specifica del TSP contenuta nella cartella "TSP-ALL", di seguito l'implementazione:
+\begin{python}
+def __init__(self, name, ignoraOpt=False):
+  self.ignoraOpt = ignoraOpt
+  self.openTSP(name)
+  self.name = name
+  self.optimalSolution = soluzioneOttima[name]
+\end{python}
+Dove: \lstinline!self.openTSP()! è il metodo che effettivamente importa i dati dal file relativo, inoltre sono presenti gli attributi \lstinline!self.name! il quale semplicemente memorizza il nome dell'istanza TSP e l'attributo \lstinline!self.optimalSolution! che memorizza il valore della soluzione ottima dal file "NOME.opt.tour". \hfill \break
+Di seguito l'analisi del metodo \lstinline!self.openTSP(name)!:
+\begin{python}
+def openTSP(self, name):
+  # estraggo i dati delle coordinate euclidee
+  f = open(f"ALL-TSP/{name}.tsp")
+  self.numCity = -1
+  i = 0
+  data = False
+  self.coord = []
+  for line in f:
+    if "EOF" in line:
+      break
+    if line == "":
+      continue
+    if data:
+      line = line.replace("  ", " ").replace("  ", " ").replace("\n", "").strip()
+      if "." in line.split(" ")[1]:
+          self.coord.append([int(float(line.split(" ")[1])), int(float(line.split(" ")[2]))])
+      else:
+          self.coord.append([int(line.split(" ")[1]), int(line.split(" ")[2])])
+    if "DIMENSION" in line:
+      self.numCity = int(line.split(": ")[1])
+    if "NODE_COORD_SECTION" in line:
+      data = True
+  f.close()
+\end{python}
+Questa prima parte del metodo permette di aprire il file relativo all'istanza TSP e importa nella lista \lstinline!self.coord! tutte le coppie $(x, y)$ che rappresentano le coordinate cartesiane dei punti.
+\begin{python}
+def openTSP(self, name):
+  ...
+  self.adj = [[0 for _ in range(self.numCity)] for _ in range(self.numCity)]
+  for i in range(self.numCity):
+    for j in range(i):
+      if i == j:
+        continue
+      else:
+        self.adj[i][j] = self.adj[j][i] = self.distance(self.coord[i], self.coord[j])
+\end{python}
+In questa seconda parte del metodo viene calcolata la matrice di adiacenza dell'istanza TSP e memorizzata nell'istanza \lstinline!self.adj! (il metodo \lstinline!self.distance! verrà descritto nella prossima sezione).
+\begin{python}
+def openTSP(self, name):
+  ...
+  if not self.ignoraOpt:
+      # leggo il persorso ottimale
+      f = open(f"ALL-TSP/{name}.opt.tour")
+      self.optTour = [-1 for _ in range(self.numCity)]
+      self.tour = [-1 for _ in range(self.numCity)]
+      data = False
+      i = 0
+      for line in f:
+        if "-1" in line:
+          break
+        if data:
+          # considero i nodi del grafo a partire da 0 e non da 1 come su TSP LIB
+          self.optTour[i] = int(line) - 1
+          i += 1
+        if "TOUR_SECTION" in line:
+          data = True
+      f.close()
+  else:
+    self.optTour = [-1 for _ in range(self.numCity)]
+    self.tour = [-1 for _ in range(self.numCity)]
+\end{python}
+L'ultima parte del metodo consente di inizializzare le liste  \lstinline!self.optTour! e \lstinline!self.tour! dove la prima contiene la soluzione ottima contenuta nel file "NOME.opt.tour" e la seconda sarà invece utilizzata dalle euristiche costruttive per "costruire" man mano la soluzione.
+
+\section{Implementazione di metodi ausiliari per le euristiche}
+In questa sezione analizzo l'implementazione di metodi ausiliari e di supporto. Questi metodi fattorizzano il codice utilizzato frequentemente da diverse euristiche, migliorando la modularità, la leggibilità e la manutenibilità del codice.
+\begin{python}
+  def distance(self, a, b):
+    return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
+\end{python}
+Questo metodo (come visto prima) semplicemente consente di calcolare la distanza euclidea tra due punti a e b.
+\begin{python}
+def openRandomTSP(self, n):
+  self.name = "random"
+  self.numCity = n
+  self.adj = [[0 for _ in range(self.numCity)] for _ in range(self.numCity)]
+  for i in range(self.numCity):
+    for j in range(i):
+      if i == j:
+        continue
+      else:
+        self.adj[i][j] = self.adj[j][i] = random.randint(0, 1000)
+\end{python}
+Questo metodo consente di generare una istanza casuale del TSP dato come parametro un numero intero n (il numero di città). Dato che il progetto si limita al TSP simmetrico, alla riga 10 si assegna lo stesso valore sia all'arco $(i, j)$ che all'arco $(j, i)$.
+\begin{python}
+def calculateCost(self):
+  self.cost = 0
+  for i in range(self.numCity - 1):
+    self.cost += self.adj[self.tour[i]][self.tour[i + 1]]
+  self.cost += self.adj[self.tour[self.numCity - 1]][self.tour[0]]
+\end{python}
+Il metodo \lstinline!calculateCost()! consente di assegnare all'attributo \lstinline!self.cost! il costo del tour, che si ottiene sommando i costi degli archi $(i, j)$ per ogni coppia di archi contenuti nel tour. Essendo un ciclo hamiltoniano, alla fine del ciclo for si aggiunge anche il costo per tornare al punto di partenza \lstinline!self.tour[0]!.
+\begin{python}
+def calculateOptimalCost(self):
+  self.cost = 0
+  for i in range(self.numCity - 1):
+    self.cost += self.adj[self.optTour[i]][self.optTour[i + 1]]
+  self.cost += self.adj[self.optTour[self.numCity - 1]][self.optTour[0]]
+\end{python}
+Il metodo \lstinline!calculateOptimalCost()! consente in modo del tutto analogo al metodo \lstinline!calculateCost()! di calcolare il costo del tour, con la differenza che si considera il tour ottimo (attributo \lstinline!self.optTour!) al posto del tour del metodo precedente.
+\begin{python}
+def verifyTour(self):
+  for i in range(self.numCity):
+    if not i in self.tour:
+      print(f"ERRORE, manca {i}")
+      return False
+    if self.tour.count(i) != 1:
+      print(f"ERRORE, il numero {i} risulta esserci {self.tour.count(i)} volte")
+      return False
+  return True
+\end{python}
+Il metodo \lstinline!verifyTour()! consente di testare la correttezza del tour trovato dall'euristica, è quindi pensato per essere verificato (tramite un \lstinline!assert!). Il metodo si limita a verificare che ogni nodo deve essere presente nel tour esattamente una volta sola, il metodo chiaramente non garantisce la presenza di altri errori nell'implementazione dell'euristica.
+
+\section{Implementazione delle euristiche}
+In questo capitolo, descriveremo l'implementazione delle euristiche per la risoluzione del TSP, in particolare verranno implementate le euristiche costruttive presentate nei capitoli 2.1 e 2.2.
+\subsection{Nearest Neighbor}
+L'euristica del Nearest Neighbor (NN) costruisce un tour partendo da una città e, iterativamente, aggiungendo la città non visitata più vicina fino a quando tutte le città non sono state visitate. Di seguito viene riportato il codice per questa euristica.
+\begin{python}
+def nearestNeighbor(self):
+  self.tour = [0]
+  visited = set([0])
+  notVisited = set(range(1, self.numCity))
+  while len(self.tour) < self.numCity:
+    cost = np.inf
+    j = -1
+    for j2 in notVisited:
+      if self.adj[self.tour[-1]][j2] < cost:
+        cost = self.adj[self.tour[-1]][j2]
+        j = j2
+    self.tour.append(j)
+    visited.add(j)
+    notVisited.remove(j)
+  self.calculateCost()
+\end{python}
+Per semplicità ho scelto la prima città (nodo 0) come città iniziale, dopodiché finché sono presenti nodi da aggiungere al tour, si cerca un nodo j non ancora visitato che sia il più vicino possibile all'ultimo nodo aggiunto al tour (\lstinline!self.tour[-1]!), inoltre sono presenti gli insiemi (set) visited e nonVisited che tengono traccia dei nodi presenti o non presenti nel tour. Alla fine viene calcolato il costo del tour trovato tramite il metodo \lstinline!self.calculateCost()!.
 %
 %			BIBLIOGRAFIA
 %

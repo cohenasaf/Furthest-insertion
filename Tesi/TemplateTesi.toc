@@ -20,3 +20,8 @@
 \contentsline {subsection}{\numberline {2.3.3}Euristica 2-Opt}{13}{subsection.2.3.3}%
 \contentsline {subsection}{\numberline {2.3.4}Euristica 3-Opt}{13}{subsection.2.3.4}%
 \contentsline {subsection}{\numberline {2.3.5}Euristica Lin-Kernighan}{14}{subsection.2.3.5}%
+\contentsline {chapter}{\numberline {3}Implementazione delle euristiche}{16}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Implementazione del costruttore della classe}{16}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Implementazione di metodi ausiliari per le euristiche}{18}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Implementazione delle euristiche}{20}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Nearest Neighbor}{20}{subsection.3.3.1}%
