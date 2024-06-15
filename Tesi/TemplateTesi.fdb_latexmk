@@ -1,6 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1718458359.27647 "/run/media/asaf/2TB/Triennale/Tesi/Furthest-insertion/Tesi/TemplateTesi.tex" "TemplateTesi.pdf" "TemplateTesi" 1718458359.9146 0
-  "/run/media/asaf/2TB/Triennale/Tesi/Furthest-insertion/Tesi/TemplateTesi.tex" 1718458358.00641 33114 ca1c67888360db172275fff1f4d3c663 ""
+["pdflatex"] 1718464958.35932 "/run/media/asaf/2TB/Triennale/Tesi/Furthest-insertion/Tesi/TemplateTesi.tex" "TemplateTesi.pdf" "TemplateTesi" 1718464959.00349 0
+  "/run/media/asaf/2TB/Triennale/Tesi/Furthest-insertion/Tesi/TemplateTesi.tex" 1718464958.16217 35248 d3324c2e469fe2eac6038f67312769b4 ""
+  "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1716849630 2900 1537cc8184ad1792082cd229ecc269f4 ""
+  "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1716849630 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1716849630 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1716849630 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1716849630 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -39,6 +41,7 @@
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1716849630 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb" 1716849630 36118 fad905eba93cff5bce1e185fe980a177 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1716849630 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
+  "/usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb" 1716849630 136101 f533469f523533d38317ab5729d00c8a ""
   "/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1716849630 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/share/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1716849630 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
   "/usr/share/texmf-dist/tex/generic/babel-italian/italian.ldf" 1716849630 11324 231db2406347b14c88e42443ebaa8d26 ""
@@ -173,10 +176,10 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1716849630 41588 b43d3e860a4f94167ee1e725ff526a72 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1716895134.18076 325518 3dff2bac5bde75cd7e600320ce8a00d6 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1716895133 7114513 ca9093e815e83f5f5284c2291c74e7a5 ""
-  "TemplateTesi.aux" 1718458359.84468 3207 6a61080b00731d440a8f8387c87d44fa "pdflatex"
-  "TemplateTesi.out" 1718458359.84468 3000 595163cc2fc44731074d31571da2b5ee "pdflatex"
-  "TemplateTesi.tex" 1718458358.00641 33114 ca1c67888360db172275fff1f4d3c663 ""
-  "TemplateTesi.toc" 1718458359.84802 1626 9fb083557d2adea68da163b9290d99c0 "pdflatex"
+  "TemplateTesi.aux" 1718464958.93216 3416 1b8c417d388b5e6102426aa9e994bab2 "pdflatex"
+  "TemplateTesi.out" 1718464958.9355 3180 f45a389abb5d1b61f7dc53b4936a0afc "pdflatex"
+  "TemplateTesi.tex" 1718464958.16217 35248 d3324c2e469fe2eac6038f67312769b4 ""
+  "TemplateTesi.toc" 1718464958.9355 1720 4b5e1085fcb7f3dfcbdc72824dc9c65f "pdflatex"
   "tesi.sty" 1718365339.15929 9454 93147b901c96e9f351ae0ede701cd0d2 ""
   (generated)
   "TemplateTesi.aux"

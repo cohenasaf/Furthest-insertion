@@ -179,7 +179,7 @@ Lo stato dell'arte degli algoritmi esatti per il TSP non sono i generici branch-
   \item \textit{Fathoming and Pruning}:
   \begin{legal}
     \item (a): Se $z_l \geq \overline{z}$ allora vai al punto 2.
-    \item (b): Se $z_l < \overline{z}$ e $x^{lR}$ è intero allora aggiorna $\overline{z} = z_l$, cancella tutti i problemi $l$ dalla lista $L$ tali che $z_l \geq \overline{z}$ e torna al punto 2.
+    \item (b): Se $z_l < \overline{z}$ e $x^{lR}$ è intero allora aggiorna $\overline{z} = z_l$, cancella tutti i problemi $l$ dalla lista $L$ tali che $z_l \geq \overline{z}$.
   \end{legal}
   \item \textit{Partizionamento}: Sia $\{S^{lj}\}^{j=k}_{j=1}$ una partizione dell'insieme dei vincoli $S^l$ del problema $ILP^l$. Aggiungi i problemi $\{ILP^{lj}\}^{j=k}_{j=1}$ nella lista L dove $ILP^{lj}$ è $ILP^l$ con la regione ammissibile ridotta a $S^{lj}$ e ${\underline{z}}_{lj}$ per $j = 1, ..., k$ è l'insieme dei valori $z_l$ per il problema $l$. Torna al punto 2.
 
@@ -367,18 +367,34 @@ L'euristica 3-Opt è un'estensione dell'euristica vista precedentemente: al post
 
 \setlist[legal]{label*=\arabic*.}
 \begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
-\begin{legal}
-  \item Sia $T$ il tour.
-  \item Per ogni nodo $i \in V$, sia $N(i)$ un insieme di nodi.
-  \item Ripeti finché il tour $T$ resta invariato:
   \begin{legal}
-    \item Per ogni nodo $i = 1, 2, ..., n$: considera tutti gli scambi 3-Opt possibili che includa $i$ e un nodo nell'insieme $N(i)$. Se è possibile ridurre la lunghezza del tour in questo modo, aggiorna T.
+    \item Sia $T$ il tour.
+    \item Per ogni nodo $i \in V$, sia $N(i)$ un insieme di nodi.
+    \item Ripeti finché il tour $T$ resta invariato:
+    \begin{legal}
+      \item Per ogni nodo $i = 1, 2, ..., n$: considera tutti gli scambi 3-Opt possibili che includa $i$ e un nodo nell'insieme $N(i)$. Se è possibile ridurre la lunghezza del tour in questo modo, aggiorna T.
+    \end{legal}
   \end{legal}
-\end{legal}
 \end{tcolorbox}
 \hfill \break
 La scelta di ridurre l'insieme dei nodi $V$ a $N(i)$ è necessario in quanto analizzare tutti i possibili scambi che includano 3 nodi implica un tempo $O(n^3)$. L'insieme $N(i)$ può essere generato a partire a partire dal nodo $i$ ad esempio selezionando i 10 nodi più vicini ad $i$.
-%
+      
+\subsection{Euristica Lin-Kernighan}
+L'algoritmo Lin-Kernighan (LK)\cite{LK} è una delle migliori euristiche per risolvere il TSP. Appartiene alla classe degli algoritmi di ricerca locale, che prendono come input un tour (ciclo hamiltoniano) e tentano di migliorarlo cercando nella sua vicinanza un tour più corto, e una volta trovato ripetono il processo da quel nuovo tour, fino a incontrare un minimo locale.
+L'algoritmo LK è stato sviluppato da Serge Lin e Brian Kernighan nel 1971 ed è stato dimostrato essere molto efficace per risolvere istanze di TSP di medie e grandi dimensioni. È spesso utilizzato come componente di algoritmi ibridi per il TSP, combinandolo con altre tecniche di ricerca per ottenere risultati ancora migliori. Di seguito una descrizione ad alto livello dell'algoritmo:
+\setlist[legal]{label*=\arabic*.}
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+  \begin{legal}
+    \item Sia $T$ il tour iniziale, può essere generato casualmente oppure tramite altre euristiche come Nearest Neighbor. Sia $S$ la soluzione migliore fino a questo momento.
+    \item Ripeti finché il tour $T$ resta invariato (e quindi è stato trovato un minimo locale):
+    \begin{legal}
+      \item Applica l'algoritmo k-Opt. Inizialmente $k$ deve essere un valore piccolo (2 o 3), aumenta man mano il valore $k$.
+    \end{legal}
+    \item Una volta trovato un minimo locale, se è migliore di $S$ allora aggiorna $S$. Torna al punto 1 generando un tour diverso da quello di partenza, oppure l'algoritmo termina e S è la soluzione trovata.
+  \end{legal}
+\end{tcolorbox}
+\hfill \break
+L'euristica Lin-Kernighan è considerata una delle migliori euristiche per generare soluzioni ottime o quasi-ottime per il problema del TSP\cite{Helsgaun}.
 %
 
 %
@@ -411,8 +427,15 @@ Pardalos and M.G.C. Resende eds., Oxford University Press, 2000
 \bibitem{Local Search}
 Olaf Mersmann, Bernd Bischl, Jakob Bossek, Heike Trautmann, Markus Wagner, Frank Neumann, Local Search and the Traveling Salesman Problem: A Feature-Based Characterization of Problem Hardness, Statistics Faculty, TU Dortmund University, Germany
 \bibitem{2OPT}
-Matthias Englert, Heiko Röglin, Berthold Vöcking, Worst Case and Probabilistic Analysis of the 2-Opt Algorithm for the TSP, Dept. of Computer Science, RWTH Aachen University
-%
+Matthias Englert, Heiko Röglin, Berthold Vöcking, Worst Case and Probabilistic Analysis 
+of the 2-Opt Algorithm for the TSP, Dept. of Computer Science, RWTH Aachen University
+\bibitem{LK}
+S. Lin, B. W. Kernighan, An Effective Heuristic Algorithm for the Traveling-
+Salesman Problem, Bell Telephone Laboratories, Incorporated, Murray Hill, N.J., 1971
+\bibitem{Helsgaun}
+K. Helsgaun, An effective implementation of the Lin±Kernighan traveling
+salesman heuristic, Department of Computer Science, Roskilde Universit, 13 April 1999
+
 %\bibitem{gotti91}
 %M. Gotti, I linguaggi specialistici, Firenze, La Nuova Italia, 1991.
 \end{thebibliography}
