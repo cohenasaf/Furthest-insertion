@@ -14,4 +14,8 @@
 \contentsline {subsection}{\numberline {2.2.3}Farthest Insertion}{10}{subsection.2.2.3}%
 \contentsline {subsection}{\numberline {2.2.4}Furthest Insertion}{10}{subsection.2.2.4}%
 \contentsline {subsection}{\numberline {2.2.5}Random Insertion}{11}{subsection.2.2.5}%
-\contentsline {section}{\numberline {2.3}Improving Solution Euristics}{12}{section.2.3}%
+\contentsline {section}{\numberline {2.3}Ricerca Locale}{12}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Node Insertion}{12}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Edge Insertion}{12}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Euristica 2-Opt}{13}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Euristica 3-Opt}{13}{subsection.2.3.4}%

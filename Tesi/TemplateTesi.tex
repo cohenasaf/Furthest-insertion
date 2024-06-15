@@ -312,8 +312,72 @@ Random Insertion seleziona casualmente il nodo da inserire nel tour, successivam
 \end{tcolorbox}
 \hfill \break Random Insertion ha complessità computazionale pari a $O(n^2)$ in quanto n volte viene selezionato un nodo casuale, dopodiché è necessario iterare n volte alla ricerca della posizione migliore dove inserire il nodo.
 
-\section{Improving Solution Euristics}
-Le euristiche "Improving Solutions" sono euristiche che implementano un meccanismo che consente di migliorare una soluzione parziale trovata, il meccanismo può ad esempio scambiare due nodi nel tour (vedremo nel dettaglio una euristica in particolare) oppure implementare meccanismi più sofisticati che consentono di ottenere tour con un costo totale più basso.
+\section{Ricerca Locale}
+Le euristiche basate su ricerca locale\cite{Local Search} sono euristiche che implementano un meccanismo che consente di migliorare un tour (anche parziale), il meccanismo può ad esempio scambiare due nodi nel tour (vedremo nel dettaglio una euristica in particolare), rimuovere un nodo e inserirlo in un punto del tour migliore oppure implementare meccanismi più sofisticati.
+
+\subsection{Node Insertion}
+Questa euristica permette di migliorare un tour rimuovendo un nodo e inserendolo nel tour nel modo migliore possibile. Di seguito la procedura:
+
+\setlist[legal]{label*=\arabic*.}
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{legal}
+  \item Sia $T$ il tour (anche parziale).
+  \item Ripeti finché il tour $T$ resta invariato:
+  \begin{legal}
+    \item Per ogni nodo $i = 1, 2, ..., n$: è possibile ridurre la lunghezza del tour rimuovendo il nodo i da una posizione $p_1$ e inserendo il nodo $i$ in un'altra posizione $p_2$? Se si, aggiorna $T$ spostando il nodo $i$ da $p_1$ a $p_2$.
+  \end{legal}
+\end{legal}
+\end{tcolorbox}
+\hfill \break
+La procedura richiede tempo $O(n^2)$ in quanto per ogni nodo (n volte) è necessario ispezionare il possibile scambio di posizione (n volte).
+
+\subsection{Edge Insertion}
+In modo analogo a Node Insertion, questa euristica permette di migliorare un tour rimuovendo un arco (a differenza del nodo di prima) e inserendolo nel tour nel modo migliore possibile. Di seguito la procedura:
+
+\setlist[legal]{label*=\arabic*.}
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{legal}
+  \item Sia $T$ il tour (anche parziale).
+  \item Ripeti finché il tour $T$ resta invariato:
+  \begin{legal}
+    \item Per ogni nodo $i = 1, 2, ..., n$, considera l'arco che collega $i$ con il nodo successivo nel tour, sia $(i, j)$ questo arco: è possibile ridurre la lunghezza del tour rimuovendo l'arco $(i, j)$ da una posizione $p_1$ e inserendo $(i, j)$ in un'altra posizione $p_2$? Se si, aggiorna $T$ spostando l'arco da $p_1$ a $p_2$.
+  \end{legal}
+\end{legal}
+\end{tcolorbox}
+\hfill \break
+La procedura richiede tempo $O(n^2)$ in modo del tutto analogo a Node Insertion.
+
+\subsection{Euristica 2-Opt}
+L'algoritmo 2-Opt\cite{2OPT} consente di eliminare due archi e di riconnetterli in un modo diverso, andando quindi a modificare il tour. Questa euristica deriva dall'osservazione empirica per cui due archi che si incrociano possono essere sempre riorganizzati in modo da non incrociarsi e questo produce sempre una riduzione della lunghezza totale del tour. La procedura consente di ridurre la lunghezza del tour riorganizzando una coppia di archi anche quando non si incrociano. Si nota che è sempre possibile ricombinarli in un unico modo diverso. Di seguito la procedura 2-Opt:
+
+\setlist[legal]{label*=\arabic*.}
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{legal}
+  \item Sia $T$ il tour (anche parziale).
+  \item Ripeti finché il tour $T$ resta invariato:
+  \begin{legal}
+    \item Per ogni nodo $i = 1, 2, ..., n$, considera tutti gli scambi 2-Opt possibili con l'arco $(i, j)$ dove $j$ è il nodo successivo ad $i$ nel tour. Se è possibile ridurre la lunghezza del tour applicando lo scambio 2-Opt, aggiorna T.
+  \end{legal}
+\end{legal}
+\end{tcolorbox}
+\hfill \break
+
+\subsection{Euristica 3-Opt}
+L'euristica 3-Opt è un'estensione dell'euristica vista precedentemente: al posto di eliminare due archi per ricombinarli in modo diverso, in questa euristica sono 3 gli archi che l'euristica rimuove e ricombina in modo diverso. A differenza di 2-Opt sono 8 i modi diversi in cui possono essere ricombinati questi archi\footnote{http://tsp-basics.blogspot.com/2017/03/3-opt-move.html} (includendo anche la configurazione in cui gli archi restano immutati). Vediamo l'algoritmo:
+
+\setlist[legal]{label*=\arabic*.}
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{legal}
+  \item Sia $T$ il tour.
+  \item Per ogni nodo $i \in V$, sia $N(i)$ un insieme di nodi.
+  \item Ripeti finché il tour $T$ resta invariato:
+  \begin{legal}
+    \item Per ogni nodo $i = 1, 2, ..., n$: considera tutti gli scambi 3-Opt possibili che includa $i$ e un nodo nell'insieme $N(i)$. Se è possibile ridurre la lunghezza del tour in questo modo, aggiorna T.
+  \end{legal}
+\end{legal}
+\end{tcolorbox}
+\hfill \break
+La scelta di ridurre l'insieme dei nodi $V$ a $N(i)$ è necessario in quanto analizzare tutti i possibili scambi che includano 3 nodi implica un tempo $O(n^3)$. L'insieme $N(i)$ può essere generato a partire a partire dal nodo $i$ ad esempio selezionando i 10 nodi più vicini ad $i$.
 %
 %
 
@@ -344,6 +408,10 @@ G. Reinelt, The Traveling Salesman: Computational Solution for TSP Applications,
 J.E. Mitchell, Branch-and-cut algorithms for combinatorial
 optimization problems, in Handbook of applied optimization, P.M.
 Pardalos and M.G.C. Resende eds., Oxford University Press, 2000
+\bibitem{Local Search}
+Olaf Mersmann, Bernd Bischl, Jakob Bossek, Heike Trautmann, Markus Wagner, Frank Neumann, Local Search and the Traveling Salesman Problem: A Feature-Based Characterization of Problem Hardness, Statistics Faculty, TU Dortmund University, Germany
+\bibitem{2OPT}
+Matthias Englert, Heiko Röglin, Berthold Vöcking, Worst Case and Probabilistic Analysis of the 2-Opt Algorithm for the TSP, Dept. of Computer Science, RWTH Aachen University
 %
 %\bibitem{gotti91}
 %M. Gotti, I linguaggi specialistici, Firenze, La Nuova Italia, 1991.
