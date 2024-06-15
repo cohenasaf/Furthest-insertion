@@ -171,17 +171,20 @@ Lo stato dell'arte degli algoritmi esatti per il TSP non sono i generici branch-
 
 \begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
 \begin{legal}
-  \item \textit{Inizializzazione}: Sia $ILP^0$ il problema di programmazione lineare intera iniziale, sia $L = \{ILP^0\}$ la lista dei nodi attivi. Sia $\overline{z} = +\infty$ l'upperbound e $\underline{z}_l = -\infty$ il lower bound per l'unico problema $l \in L$.
-  \item \textit{Terminazione}: Se $L = \emptyset$, allora la soluzione $x^*$ che ha prodotto il valore obiettivo $\overline{z}$ è ottimale. Se non esiste nessuna $x^*$ allora $ILP$ è un problema inammissibile.
-  \item \textit{Selezione del problema}: Seleziona ed elimina $ILP^l$ da $L$.
-  \item \textit{Rilassamento del problema}: Risolvi il rilassamento continuo del problema $ILP^l$: se è inammissibile allora assegna $\underline{z}_l = +\infty$ e vai al punto 6. Sia $z_l$ il valore della funzione obiettivo del rilassamento se risulta finito e sia $x^{lR}$ una soluzione ottima; altrimenti poniamo $\underline{z}_l = -\infty$.
-  \item \textit{Aggiungi piani di taglio}: cerca i piani di taglio violati da $x^{lR}$; se sono presenti allora aggiungili al rilassamento e torna al passaggio 4.
-  \item \textit{Fathoming and Pruning}:
+  \item Aggiungi il problema iniziale $ILP$ alla lista dei problemi attivi $L$.
+  \item Sia $x^* = null$ e $v^* = -\infty$
+  \item Finché $L$ non è vuota:
   \begin{legal}
-    \item (a): Se $z_l \geq \overline{z}$ allora vai al punto 2.
-    \item (b): Se $z_l < \overline{z}$ e $x^{lR}$ è intero allora aggiorna $\overline{z} = z_l$, cancella tutti i problemi $l$ dalla lista $L$ tali che $z_l \geq \overline{z}$.
+    \item Seleziona e rimuovi un problema da L
+    \item Risolvi il rilassamento continuo di L
+    \item Se il problema è inammissibile torna al punto 3 (ciclo while). Altrimenti sia $x$ la soluzione trovata e $v$ il valore della funzione obiettivo.
+    \item Se $v \leq v^*$ torna al punto 3
+    \item Se $x$ è intero, aggiorna $v^* \leftarrow v$, $x^* \leftarrow x$ e torna al punto 3.
+    \item Cerca dei piani di taglio che sono violati da $x$, se sono presenti aggiungili al rilassamento continuo di ILP e torna al punto 3.2
+    \item Dividi il problema in sottoproblemi, aggiungi i sottoproblemi alla lista dei problemi attivi $L$, torna al punto 3.
   \end{legal}
-  \item \textit{Partizionamento}: Sia $\{S^{lj}\}^{j=k}_{j=1}$ una partizione dell'insieme dei vincoli $S^l$ del problema $ILP^l$. Aggiungi i problemi $\{ILP^{lj}\}^{j=k}_{j=1}$ nella lista L dove $ILP^{lj}$ è $ILP^l$ con la regione ammissibile ridotta a $S^{lj}$ e ${\underline{z}}_{lj}$ per $j = 1, ..., k$ è l'insieme dei valori $z_l$ per il problema $l$. Torna al punto 2.
+  \item Restituisci $x^*$
+
 
 \end{legal}
 \end{tcolorbox}
@@ -433,7 +436,7 @@ of the 2-Opt Algorithm for the TSP, Dept. of Computer Science, RWTH Aachen Unive
 S. Lin, B. W. Kernighan, An Effective Heuristic Algorithm for the Traveling-
 Salesman Problem, Bell Telephone Laboratories, Incorporated, Murray Hill, N.J., 1971
 \bibitem{Helsgaun}
-K. Helsgaun, An effective implementation of the Lin±Kernighan traveling
+K. Helsgaun, An effective implementation of the Lin-Kernighan traveling
 salesman heuristic, Department of Computer Science, Roskilde Universit, 13 April 1999
 
 %\bibitem{gotti91}
