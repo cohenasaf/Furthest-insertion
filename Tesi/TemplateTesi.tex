@@ -189,7 +189,7 @@ Lo stato dell'arte degli algoritmi esatti per il TSP non sono i generici branch-
 \end{legal}
 \end{tcolorbox}
 \hfill \break
-Come già detto in precedenza, questo approccio è attualmente lo stato dell'arte per risolvere il TSP all'ottimo, implementazioni di algoritmi branch-and-cut per il TSP possono essere trovati all'interno di risolutori MILP come ad esempio CPLEX. Questo approccio risulta migliore rispetto all'approccio brute-force, ma resta comunque non applicabile su istanze TSP con migliaia di città.
+Come già detto in precedenza, questo approccio è attualmente lo stato dell'arte per risolvere il TSP all'ottimo. In letteratura esistono varie implementazioni di algoritmi branch-and-cut per il TSP\cite{Branch and Cut Algoritmhs}, sono presenti anche all'interno di risolutori MILP come ad esempio CPLEX. Questo approccio risulta migliore rispetto all'approccio brute-force, ma resta comunque non applicabile su istanze TSP con migliaia di città.
 
 \chapter{Euristiche per il TSP}
 Come discusso nel capitolo 2, i metodi esatti consentono di ottenere soluzioni ottime per il problema del TSP, ma il tempo per ottenere queste soluzioni aumenta esponenzialmente all'aumentare del numero di città presenti nell'istanza. Per affrontare il TSP, sono stati sviluppati numerosi approcci euristici, ovvero metodi che, pur non garantendo la soluzione ottimale, offrono soluzioni di buona qualità in tempi ragionevoli. Le euristiche sono fondamentali per applicazioni pratiche dove la rapidità di calcolo è essenziale. In questo capitolo esploreremo diverse tecniche euristiche, come le euristiche costruttive, che costruiscono una soluzione passo dopo passo a partire da una soluzione parziale, vedremo in particolare sulle euristiche basate su inserzione (Furthest Insertion fa parte di questa categoria) e poi "improvement euristics" ovvero le euristiche basate su meccanismi che consentono di "migliorare" la soluzione parziale trovata modificando il tour.
@@ -417,6 +417,8 @@ Salesperson Problem (TSP), Informatics Department, Engineering Faculty, Widyatam
 %
 \bibitem{Branch and Bound}
 T. G. Crainic, B. Le Cun, C. Roucairol, Parallel Branch-and-Bound Algorithms, Département de management et technologie École des Sciences de la Gestion Université du Québec à Montréal and CIRRELT, Canada
+\bibitem{Branch and Cut Algoritmhs}
+Yuan Yuan, Diego Cattaruzza, Maxime Ogier, Frederic Semet. A branch-and-cut algorithm for the generalized traveling salesman problem with time windows. European Journal of Operational Research, 2020, 286 (3)
 %
 \bibitem{TSP NP Completezza}
 R. Karp, Complexity of the Traveling Salesman Problem
