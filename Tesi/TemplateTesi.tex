@@ -19,6 +19,9 @@
 \usepackage{tcolorbox}
 \usepackage{listings}
 \usepackage{tikz}
+\usepackage{framed}
+\usepackage{fancyvrb}
+\usepackage{listings,lipsum}
 
 \newenvironment{teor}{\begin{myteor}\sl}{\end{myteor}}
 %
@@ -414,13 +417,86 @@ L'euristica Lin-Kernighan è considerata una delle migliori euristiche per gener
   numbersep=10pt                % Distanza tra i numeri di riga e il codice
 }
 \chapter{Implementazione delle euristiche}
-Questo capitolo descrive l'implementazione di una classe Python chiamata "TSP" la quale deve:
+Questo capitolo descrive l'implementazione di una classe Python chiamata "TSP" tramite la quale deve essere possibile:
 \begin{legal}
-  \item Poter consentire di importare istanze del TSP nelle strutture dati necessarie
-  \item Implementare le principali euristiche viste nel capitolo 2
+  \item Poter generare istanze della classe TSP che rappresenti una particolare istanza del TSP, con la matrice di adiacenza e le altre strutture dati necessarie per il problema
+  \item Poter ottenere una soluzione valida per il problema tramite l'invocazione di un metodo che implementa una euristica tra quelle descritte precedentemente
   \item Poter consentire di ottenere i dati relativi alla qualità delle soluzioni e tempi dell'euristica
 \end{legal}
-Per il progetto è stata scelta la libreria TSP-LIB\footnote{http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/} come fonte di istanze per il TSP in quanto in letteratura è ampiamente utilizzata per testare e confrontare algoritmi e euristiche progettate per risolvere il TSP. Nel progetto, le istanze sono state tutte collocate nella directory "ALL-TSP" dove sono presenti due tipi di file: "NOME.tsp" e "NOME.opt.tour" dove la prima contiene i dati relativi all'istanza chiamata "NOME", mentre la seconda contiene la soluzione ottima per quella istanza.
+Per il progetto è stata scelta la libreria TSP-LIB\footnote{http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/} come fonte di istanze per il TSP in quanto in letteratura è ampiamente utilizzata per testare e confrontare algoritmi e euristiche progettate per risolvere il TSP. Nel progetto, le istanze sono state tutte collocate nella directory "ALL-TSP" dove sono presenti due tipi di file: "NOME.tsp" e "NOME.opt.tour" dove la prima contiene i dati relativi all'istanza chiamata "NOME", mentre la seconda contiene la soluzione ottima per quella istanza. Di seguito la struttura dei file di input:
+
+\lstnewenvironment{myverbatim}[1][]{%
+  \lstset{
+    basicstyle=\ttfamily,
+    frame=tb,
+    #1
+  }%
+}{}
+
+\begin{myverbatim}[title={berlin52.tsp}]
+NAME: berlin52
+TYPE: TSP
+COMMENT: 52 locations in Berlin (Groetschel)
+DIMENSION: 52
+EDGE_WEIGHT_TYPE: EUC_2D
+NODE_COORD_SECTION
+1 565.0 575.0
+2 25.0 185.0
+3 345.0 750.0
+4 945.0 685.0
+5 845.0 655.0
+6 880.0 660.0
+7 25.0 230.0
+8 525.0 1000.0
+9 580.0 1175.0
+10 650.0 1130.0
+11 1605.0 620.0 
+12 1220.0 580.0
+13 1465.0 200.0
+...
+50 595.0 360.0
+51 1340.0 725.0
+52 1740.0 245.0
+EOF
+\end{myverbatim}
+Dove gli elementi importanti sono:
+\begin{legal}
+  \item "NAME": ovvero il nome dell'istanza TSP
+  \item "TYPE": ovvero il tipo di problema, nel nostro caso ci limitiamo alle istanze TSP simmetriche (in TSP LIB sono presenti anche istanze ATSP)
+  \item "EDGE\_WEIGHT\_TYPE": ovvero il tipo di distanze tra i punti, ai fini del progetto per semplicità mi limito al caso euclideo in due dimensioni
+  \item "NODE\_COORD\_SECTION": da questa sezione in poi sono presenti 3 numeri per ogni riga: numero del nodo (città), coordinata x e coordinata y: queste coordinate saranno utili per calcolare le distanze euclidee tra i nodi.
+\end{legal}
+Per ogni istanza TSP, non solo è presente il relativo file descritto sopra (quindi NOME.tsp), ma anche il file contenente la soluzione ottima "NOME.opt.tour". Di seguito un esempio sempre dall'istanza berlin52:
+\begin{myverbatim}[title={berlin52.opt.tsp}]
+NAME : berlin52.opt.tour
+TYPE : TOUR
+DIMENSION : 52
+TOUR_SECTION
+1
+49
+32
+45
+19
+41
+8
+9
+10
+43
+...
+30
+2
+7
+42
+21
+17
+3
+18
+31
+22
+-1
+EOF
+\end{myverbatim}
+In questa tipologia di file è presente la soluzione in forma di lista dei nodi che formano il tour migliore. È importante notare come i nodi sono numerati da 1 compreso fino a n compreso, nella implementazione della classe (e quindi nelle euristiche) ho deciso di trasporre gli indici nel range [0, n - 1] (compresi) in modo coerente con i la numerazione presente nei metodi standard delle liste presenti nel linguaggio Python (quindi ad esempio la città 3 in questo esempio corrisponderà in questa implementazione alla città 2).
 
 \section{Implementazione del costruttore della classe}
 Il costruttore della classe deve consentire di importare i dati relativi ad una istanza specifica del TSP contenuta nella cartella "TSP-ALL", di seguito l'implementazione:
@@ -447,11 +523,15 @@ def openTSP(self, name):
     if line == "":
       continue
     if data:
-      line = line.replace("  ", " ").replace("  ", " ").replace("\n", "").strip()
+      line = line.replace("  ", " ")\
+              .replace("  ", " ")\
+              .replace("\n", "").strip()
       if "." in line.split(" ")[1]:
-          self.coord.append([int(float(line.split(" ")[1])), int(float(line.split(" ")[2]))])
+          self.coord.append([int(float(line.split(" ")[1])), \
+                             int(float(line.split(" ")[2]))])
       else:
-          self.coord.append([int(line.split(" ")[1]), int(line.split(" ")[2])])
+          self.coord.append([int(line.split(" ")[1]), \
+                             int(line.split(" ")[2])])
     if "DIMENSION" in line:
       self.numCity = int(line.split(": ")[1])
     if "NODE_COORD_SECTION" in line:
@@ -691,7 +771,7 @@ def cheapestInsertion(self):
                            adj[path[i2]][path[next_i]]
           if best_cost > insertion_cost:
             best_cost, posL, posR = insertion_cost, i2, next_i
-        h[i] = (best_cost, node, posL, posR)
+        h[i] = (best_cost, node, path[posL], path[posR])
 
       if node not in in_path and \
         adj[path[(best_pos - 1) % len(path)]][node] + \
@@ -814,7 +894,7 @@ def furthestInsertion(self):
     h.append((-cost, i, path[0], path[1]))
   heapq.heapify(h)
 \end{python}
-In modo del tutto analogo a farthest insertion viene inizializzato lo heap con costi negativi in modo da poter successivamente selezionare le città con costo di inserimento più alto, per questo motivo il costo nella tupla aggiunta allo heap presenta un segno negativo.
+In modo del tutto analogo a farthest insertion viene inizializzato lo heap con costi negativi in modo da poter successivamente selezionare le città con costo di inserimento più alto, per questo motivo il costo nella tupla aggiunta allo heap presenta un segno negativo (riga 6).
 \begin{python}
 def furthestInsertion(self):
   ...
@@ -825,7 +905,9 @@ def furthestInsertion(self):
     best_pos = None
     for i in range(len(path)):
       next_i = (i + 1) % len(path)
-      increase = adj[path[i], to_ins] + adj[to_ins, path[next_i]] - adj[path[i], path[next_i]]
+      increase = adj[path[i], to_ins] + \
+                 adj[to_ins, path[next_i]] - \
+                 adj[path[i], path[next_i]]
       if increase < best_increase:
         best_increase = increase
         best_pos = next_i
@@ -854,12 +936,14 @@ def furthestInsertion(self):
                                adj[path[i2]][path[next_i]]
               if best_cost > insertion_cost:
                   best_cost, posL, posR = insertion_cost, i2, next_i
-          h[i] = (-best_cost, node, posL, posR)
+          h[i] = (-best_cost, node, path[posL], path[posR])
       if node not in in_path and \
             adj[path[(best_pos - 1) % len(path)]][node] + \
             adj[node][to_ins] - \
             adj[path[(best_pos - 1) % len(path)]][to_ins] < cost:
-          new_cost = -(adj[path[(best_pos - 1) % len(path)]][node] + adj[node][to_ins] - adj[path[(best_pos - 1) % len(path)]][to_ins])
+          new_cost = -(adj[path[(best_pos - 1) % len(path)]][node]+\
+                       adj[node][to_ins] - \
+                      adj[path[(best_pos - 1) % len(path)]][to_ins])
           h[i] = (new_cost, node, path[(best_pos - 1) % len(path)], to_ins)
           best_pos = (best_pos + 1) % (len(path))
       if node not in in_path and \
@@ -946,7 +1030,7 @@ def randomInsertion2(self):
 In questa versione dell'algoritmo, la prima parte è identica alla prima versione di random insertion (scelta casuale del nodo tramite una lista \lstinline!notInTour! mescolata casualmente), mentre la seconda (ciclo principale) effettua un inserimento nel tour tramite istruzione \lstinline|tour.insert(pos)| dove la posizione (pos) viene scelta casualmente tramite il metodo \lstinline|random.randint()|.
 
 \subsection{Euristiche con inizializzazione casuale}
-Tutte le euristiche viste nelle sezioni precedenti prevedono come inizializzazione del tour la coppia delle città più vicine per cheapest insertion e nearest insertion mentre prevedono la coppia delle città più lontane per farthest insertion e furthest insertion. Nel successivo capitolo verrà analizzata anche la robustezza delle euristiche implementate rispetto all'inizializzazione, per questo motivo nella classe TSP sono presenti 4 varianti delle euristiche descritte nelle sezioni precedenti dove le due città iniziali vengono scelte casualmente. Le 4 euristiche prendono il nome di NOMEInsertionRandomStart dove al posto di "NOME" è presente il nome dell'euristica (nearest, cheapest ...). Di seguito la descrizione della parte diversa:
+Le euristiche viste nelle sezioni precedenti prevedono come inizializzazione del tour la coppia delle città più vicine per cheapest insertion e nearest insertion mentre prevedono la coppia delle città più lontane per farthest insertion e furthest insertion. Nel successivo capitolo verrà analizzata anche la robustezza delle euristiche implementate rispetto all'inizializzazione, per questo motivo nella classe TSP sono presenti 4 varianti delle euristiche descritte nelle sezioni precedenti dove le due città iniziali vengono scelte casualmente. Le 4 euristiche prendono il nome di NOMEInsertionRandomStart dove al posto di "NOME" è presente il nome dell'euristica (nearest, cheapest ...). Di seguito la descrizione della parte diversa:
 \begin{python}
     def nearestInsertionRandomStart(self):
       n = self.numCity
@@ -957,7 +1041,7 @@ Tutte le euristiche viste nelle sezioni precedenti prevedono come inizializzazio
       in_path = {path[0], path[1]}
       ...
 \end{python}
-In questo caso è stato selezionato nearestInsertionRandomStart a titolo di esempio (nelle altre 4 implementazioni il codice è lo stesso): vengono scelte due città casuali come prime due città nel tour. Successivamente (righe 5-6) è necessario ripetere il processo nel caso in cui le due città scelte corrispondano alla stessa città.
+In questo caso è stato selezionato nearestInsertionRandomStart a titolo di esempio (nelle altre 4 implementazioni il codice è lo stesso): vengono scelte due città casuali come prime due città nel tour. Successivamente (righe 5-6) è necessario ripetere il processo nel caso in cui le due città scelte corrispondano alla stessa città. Una volta selezionati i primi due nodi casualmente, l'euristica può continuare normalmente come visto prima.
 
  
 %

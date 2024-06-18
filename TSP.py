@@ -212,7 +212,7 @@ class TSP:
                         insertion_cost = adj[path[i2]][node] + adj[node][path[next_i]] - adj[path[i2]][path[next_i]]
                         if best_cost > insertion_cost:
                             best_cost, posL, posR = insertion_cost, i2, next_i
-                    h[i] = (best_cost, node, posL, posR)
+                    h[i] = (best_cost, node, path[posL], path[posR])
                 # se il nuovo arco a sinistra permette un inserimento migliore di cost, quindi:
                 # path[best_pos - 1] -- node -- to_ins
                 if node not in in_path and adj[path[(best_pos - 1) % len(path)]][node] + adj[node][to_ins] - adj[path[(best_pos - 1) % len(path)]][to_ins] < cost:
@@ -326,7 +326,7 @@ class TSP:
                         insertion_cost = adj[path[i2]][node] + adj[node][path[next_i]] - adj[path[i2]][path[next_i]]
                         if best_cost > insertion_cost:
                             best_cost, posL, posR = insertion_cost, i2, next_i
-                    h[i] = (-best_cost, node, posL, posR)
+                    h[i] = (-best_cost, node, path[posL], path[posR])
                 # se il nuovo arco a sinistra permette un inserimento migliore di cost, quindi:
                 # (best_pos - 1) -- node -- to_ins
                 if node not in in_path and adj[path[(best_pos - 1) % len(path)]][node] + adj[node][to_ins] - adj[path[(best_pos - 1) % len(path)]][to_ins] < cost:
