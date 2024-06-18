@@ -18,6 +18,7 @@
 \usepackage{enumitem}
 \usepackage{tcolorbox}
 \usepackage{listings}
+\usepackage{tikz}
 
 \newenvironment{teor}{\begin{myteor}\sl}{\end{myteor}}
 %
@@ -649,7 +650,7 @@ def cheapestInsertion(self):
     h.append((cost, i, path[0], path[1]))
   heapq.heapify(h)
 \end{python}
-Successivamente viene inizializzato uno heap in modo analogo a Nearest Insertion con una differenza: la chiave associata ad ogni nodo non è più la distanza minima con il tour ma il costo di inserimento (se inserito nel modo migliore possibile). In questo caso il costo di inserimento è semplice da ottenere in quanto nel tour sono presenti solo 2 nodi.
+Successivamente viene inizializzato uno heap in modo analogo a Nearest Insertion con una differenza: la chiave associata ad ogni nodo non è più la distanza minima con il tour ma il costo di inserimento (se inserito nel modo migliore possibile). In questo caso il costo di inserimento è semplice da ottenere in quanto nel tour sono presenti solo 2 nodi: dati gli unici due nodi presenti nel tour $a$ e $b$, il costo di inserimento del nodo $i$ sarà $c_{ai} + c_{ib} - c_{ab}$. Lo heap userà come valore chiave il costo (prima variabile della tupla) permettendo quindi di estrarre il nodo \lstinline!i! con costo minore. Nello heap vengono memorizzate anche i due nodi tra i quali dovrebbe avvenire l'inserimento (\lstinline!path[0]! e \lstinline!path[1]!) in quanto sono informazioni che saranno utili nella seconda parte dell'impelmentazione dell'euristica.
 \begin{python}
 def cheapestInsertion(self):
   ...
@@ -668,7 +669,14 @@ def cheapestInsertion(self):
         best_pos = next_i
     path.insert(best_pos, to_ins)
     in_path.add(to_ins)
-
+    ...
+\end{python}
+Questo è il ciclo for principale dell'euristica: viene selezionato dallo heap il nodo \lstinline!to_ins! ovvero il nodo che minimizza il costo di inserimento se inserito nel modo migliore possibile; successivamente (dalla riga 6 alla 17) viene effettuata una ricerca del punto di inserimento nel path, in modo da minimizzare il costo di inserimento, ovvero $c_{ir} + c_{rj} - c_{ij}$, la posizione dove inserire il nuovo nodo sarà \lstinline!best_pos! ovvero la posizione \lstinline!next_i! dove si minimizza l'inserimento. Importante notare come la variabile \lstinline!next_i! (alla riga 9) rappresenta il nodo successivo ad \lstinline!i! nel tour, con l'accortezza che la posizione successiva a \lstinline!len(path)! è 0, in quanto la lista tour deve rappresentare una lista cicla (la posizione successiva all'ultima è la prima).
+\begin{python}
+def cheapestInsertion(self):
+  ...
+  while len(path) < n:
+    ...
     for i, (cost, node, nodeLeft, nodeRight) in enumerate(h):
       if node not in in_path and nodeLeft == \
          path[(best_pos - 1) % len(path)] and \
@@ -707,7 +715,69 @@ def cheapestInsertion(self):
   self.tour = path
   self.calculateCost()
 \end{python}
-...
+Dalla riga 19 in poi avviene l'aggiornamento dello heap (in modo analogo a quanto visto con \nameref{ssec:NI}): dato che l'inserimento del nuovo nodo nel tour ha generato una modifica del tour (e quindi la cancellazione di un arco e l'inserimento di nuovi due archi) è necessario verificare che i valori presenti nello heap siano ancora rappresentativi del nuovo tour e, in caso contrario, aggiornare lo heap. Per ogni elemento nello heap, dati i valori \lstinline!node! (nodo da inserire), \lstinline!nodeLeft! e \lstinline!nodeRight! (nodi tra i quali andava inserito \lstinline!node!), i casi da considerare sono:
+\begin{legal}
+  \item Nel caso in cui \lstinline!nodeLeft! e \lstinline!nodeRight! corrispondono esattamente ai due nodi tra i quali è stato inserito il nodo \lstinline!to_ins! (nella prima parte del ciclo principale dell'algoritmo), allora è necessario ricalcolare per il nodo \lstinline!node! il costo e il punto di inserimento migliore, in quanto il vecchio arco è stato cancellato. (Riga 6-18).
+  \item In ogni altro caso il vecchio arco (tra \lstinline!nodeLeft! e \lstinline!nodeRight!) è rimasto intatto, come gli altri archi. A questo punto è necessario semplicemente verificare che i due nuovi archi generati dopo l'inserimento (quindi gli archi \lstinline!path[best_pos - 1]! - \lstinline!node! e \lstinline!node! - \lstinline!path[best_pos + 1]!) possano essere un caso di inserimento con costo minore rispetto a quello presente nello heap (riga 20-37).
+\end{legal}
+Inoltre è importante notare come l'accesso agli elementi del tour avviene \lstinline!% len(tour)! in quanto il tour è un "ciclo".
+Successivamente (come per le altre euristiche), è necessario ripristinare la struttura dello heap con il metodo \lstinline!heapq.heapify(h)! e alla fine memorizzare il path finale nell'attributo \lstinline!self.tour! e calcolare il costo della soluzione trovata.
+
+\subsection{Farthest Insertion}
+In questa sezione discutiamo l'implementazione di \nameref{ssec:FaI}. L'implementazione di questa euristica condivide molto del codice già discusso nella implementazione di Nearest Insertion, sono però presenti delle piccole modifiche che consentono di selezionare il nodo più lontano al posto del nodo più vicino (al tour), di seguito l'implementazione:
+\begin{python}
+  def farthestInsertion(self):
+    n = self.numCity
+    distances = np.array(self.adj)
+    path = [0, 0]
+  
+    maxDist = 0
+      for i in range(n):
+        for j in range(0, i):
+          if distances[i][j] > maxDist:
+            path[0], path[1] = i, j
+            maxDist = distances[i][j]
+      in_path = {path[0], path[1]}
+  \end{python}
+  L'euristica inizializza il tour con la coppia di città più lontane (a differenza della coppia di città più vicine nel caso di Nearest Insertion) presenti nell'istanza TSP, viene quindi cercato l'arco $(i, j)$ con costo più alto e inizializzato il path (posizione 0 e 1) con questi due nodi.
+  \begin{python}
+  def farthestInsertion(self):
+    ...
+    h = []
+    for i in set(range(n)) - in_path:
+      h.append((min(distances[path[0], i], distances[path[1], i]), i))
+    heapq.heapify(h)
+  \end{python}
+In modo del tutto analogo a nearest insertion, viene inizializzato uno heap il quale conterrà 
+  \begin{python}
+  def nearestInsertion(self):
+    ...
+    while len(path) < n:
+      _, to_insert = heapq.heappop(h)
+  
+      best_increase = np.inf
+      best_position = None
+      for i in range(len(path)):
+        next_i = (i + 1) % len(path)
+        increase = distances[path[i], to_insert] +\
+                   distances[to_insert, path[next_i]] - \
+                   distances[path[i], path[next_i]]
+        if increase < best_increase:
+          best_increase = increase
+          best_position = i + 1
+  
+      path.insert(best_position, to_insert)
+      in_path.add(to_insert)
+  
+      for i, (cost, node) in enumerate(h):
+        if node not in in_path and distances[to_insert, node] < cost:
+          h[i] = (distances[to_insert, node], node)
+      heapq.heapify(h)
+  
+    self.tour = path
+    self.calculateCost()
+  \end{python}
+  Questo è il ciclo principale dell'euristica: prima di tutto tramite l'operazione \lstinline!heappop! viene estratto il nodo \lstinline!to_insert! come nodo candidato da inserire nel ciclo (in quanto ha distanza minima dal tour), successivamente viene effettuata una ricerca nel tour della posizione di inserimento migliore possibile. La posizione migliore deve minimizzare $c_{ir} + c_{rj} - c_{ij}$, quindi la variabile \lstinline!increase! definita alla riga 10. La scelta di memorizzare nella variabile \lstinline!best_position! il valore \lstinline!i + 1! e non \lstinline!i! è motivata dal fatto che il metodo \lstinline!insert(pos, n)! (con parametro pos e n) delle liste python sposta in avanti tutti gli elementi dalla posizione pos compresa per fare spazio alla variabile da inserire (n), di conseguenza una volta trovata la posizione migliore (tra le posizioni i e i+1), sarà necessario indicare la posizione i+1 per ottenere l'inserimento del nuovo arco tra la posizione i e la posizione i + 1. Successivamente (dalla riga 20) viene aggiornato lo heap in quanto alla riga 17 viene modificato il path mentre lo heap fa ancora riferimento al path prima dell'inserimento. L'aggiornamento procede come segue: si cerca un arco tra i nodi fuori dal tour (\lstinline!node!) e il nodo appena aggiunto al tour (\lstinline!to_insert!): nel caso in cui è presente un costo minore rispetto a quello presente nello heap (relativo al nodo chiamato \lstinline!node!) allora è necessario aggiornare lo heap con la nuova distanza. Successivamente è necessario effettuare l'operazione \lstinline!heapq.heapify(h)! in quanto l'aggiornamento dello heap potrebbe aver modificato la struttura dello heap. Alla fine dell'implementazione di Nearest Insertion è presente (come prima) l'aggiornamento della variabile self.tour (che memorizza il tour finale) e viene eseguito il metodo \lstinline!self.calculateCost()! come per le altre euristiche per ottenere il costo del percorso nella variabile  \lstinline!self.cost! come visto precedentemente nel capitolo dei metodi ausiliari. 
 %
 %			BIBLIOGRAFIA
 %

@@ -27,3 +27,4 @@
 \contentsline {subsection}{\numberline {3.3.1}Nearest Neighbor}{20}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Nearest Insertion}{21}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Cheapest Insertion}{22}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Farthest Insertion}{25}{subsection.3.3.4}%
