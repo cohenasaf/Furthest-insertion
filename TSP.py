@@ -396,7 +396,6 @@ class TSP:
         while path[0] == path[1]:
             path = [random.randint(0, n - 1), random.randint(0, n - 1)]
         in_path = {path[0], path[1]}
-        in_path = {path[0], path[1]}
 
         h = []
         for i in set(range(n)) - in_path:
@@ -502,7 +501,6 @@ class TSP:
         while path[0] == path[1]:
             path = [random.randint(0, n - 1), random.randint(0, n - 1)]
         in_path = {path[0], path[1]}
-        in_path = {path[0], path[1]}
 
         h = []
         for i in set(range(n)) - in_path:
@@ -565,7 +563,7 @@ class TSP:
         notInTour = [x for x in range(self.numCity)]
         random.shuffle(notInTour)
         for i in notInTour:
-            tour.insert(random.randint(0, len(tour)), i)
+            tour.insert(random.randint(0, len(tour) - 1), i)
         self.tour = tour
         self.calculateCost()
 

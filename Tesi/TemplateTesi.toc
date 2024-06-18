@@ -28,3 +28,7 @@
 \contentsline {subsection}{\numberline {3.3.2}Nearest Insertion}{21}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Cheapest Insertion}{22}{subsection.3.3.3}%
 \contentsline {subsection}{\numberline {3.3.4}Farthest Insertion}{25}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Furthest Insertion}{27}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}Random Insertion}{30}{subsection.3.3.6}%
+\contentsline {subsection}{\numberline {3.3.7}Random Insertion versione 2}{32}{subsection.3.3.7}%
+\contentsline {subsection}{\numberline {3.3.8}Euristiche con inizializzazione casuale}{32}{subsection.3.3.8}%
