@@ -31,4 +31,4 @@
 \contentsline {subsection}{\numberline {3.3.5}Furthest Insertion}{30}{subsection.3.3.5}%
 \contentsline {subsection}{\numberline {3.3.6}Random Insertion}{32}{subsection.3.3.6}%
 \contentsline {subsection}{\numberline {3.3.7}Random Insertion versione 2}{34}{subsection.3.3.7}%
-\contentsline {subsection}{\numberline {3.3.8}Euristiche con inizializzazione casuale}{34}{subsection.3.3.8}%
+\contentsline {subsection}{\numberline {3.3.8}Euristiche con inizializzazione casuale}{35}{subsection.3.3.8}%

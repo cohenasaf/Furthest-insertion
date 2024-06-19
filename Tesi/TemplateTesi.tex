@@ -419,11 +419,11 @@ L'euristica Lin-Kernighan è considerata una delle migliori euristiche per gener
 \chapter{Implementazione delle euristiche}
 Questo capitolo descrive l'implementazione di una classe Python chiamata "TSP" tramite la quale deve essere possibile:
 \begin{legal}
-  \item Poter generare istanze della classe TSP che rappresenti una particolare istanza del TSP, con la matrice di adiacenza e le altre strutture dati necessarie per il problema
+  \item Poter generare istanze della classe TSP che rappresenti una particolare istanza del TSP, con la matrice di adiacenza e le altre strutture dati necessarie per la risoluzione del problema
   \item Poter ottenere una soluzione valida per il problema tramite l'invocazione di un metodo che implementa una euristica tra quelle descritte precedentemente
-  \item Poter consentire di ottenere i dati relativi alla qualità delle soluzioni e tempi dell'euristica
+  \item Ottenere i dati relativi alla qualità delle soluzioni e tempi dell'euristica
 \end{legal}
-Per il progetto è stata scelta la libreria TSP-LIB\footnote{http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/} come fonte di istanze per il TSP in quanto in letteratura è ampiamente utilizzata per testare e confrontare algoritmi e euristiche progettate per risolvere il TSP. Nel progetto, le istanze sono state tutte collocate nella directory "ALL-TSP" dove sono presenti due tipi di file: "NOME.tsp" e "NOME.opt.tour" dove la prima contiene i dati relativi all'istanza chiamata "NOME", mentre la seconda contiene la soluzione ottima per quella istanza. Di seguito la struttura dei file di input:
+Per il progetto è stata scelta la libreria TSP-LIB\footnote{http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/} come fonte di istanze per il TSP in quanto in letteratura è ampiamente utilizzata per testare e confrontare algoritmi e euristiche progettate per risolvere il TSP. Nel progetto, le istanze sono state tutte collocate nella directory "ALL-TSP" dove sono presenti due tipi di file: "NOME.tsp" e "NOME.opt.tour" dove la prima contiene i dati relativi all'istanza chiamata "NOME", mentre la seconda contiene la soluzione ottima sempre per quella istanza. Di seguito la struttura dei file di input:
 
 \lstnewenvironment{myverbatim}[1][]{%
   \lstset{
@@ -496,10 +496,10 @@ TOUR_SECTION
 -1
 EOF
 \end{myverbatim}
-In questa tipologia di file è presente la soluzione in forma di lista dei nodi che formano il tour migliore. È importante notare come i nodi sono numerati da 1 compreso fino a n compreso, nella implementazione della classe (e quindi nelle euristiche) ho deciso di trasporre gli indici nel range [0, n - 1] (compresi) in modo coerente con i la numerazione presente nei metodi standard delle liste presenti nel linguaggio Python (quindi ad esempio la città 3 in questo esempio corrisponderà in questa implementazione alla città 2).
+In questa tipologia di file è presente la soluzione in forma di lista dei nodi che formano il tour migliore. È importante notare come i nodi sono numerati da 1 compreso fino a n compreso, nella implementazione della classe (e quindi nelle euristiche) ho deciso di trasporre gli indici nel range [0, n - 1] (compresi) in modo coerente con la numerazione presente nei metodi standard delle liste presenti nel linguaggio Python (quindi ad esempio la città 3 in questo esempio corrisponderà in questa implementazione alla città 2).
 
 \section{Implementazione del costruttore della classe}
-Il costruttore della classe deve consentire di importare i dati relativi ad una istanza specifica del TSP contenuta nella cartella "TSP-ALL", di seguito l'implementazione:
+Come descritto precedentemente, il costruttore della classe deve consentire di importare i dati relativi ad una istanza specifica del TSP contenuta nella cartella "TSP-ALL", di seguito l'implementazione:
 \begin{python}
 def __init__(self, name, ignoraOpt=False):
   self.ignoraOpt = ignoraOpt
@@ -511,7 +511,6 @@ Dove: \lstinline!self.openTSP()! è il metodo che effettivamente importa i dati 
 Di seguito l'analisi del metodo \lstinline!self.openTSP(name)!:
 \begin{python}
 def openTSP(self, name):
-  # estraggo i dati delle coordinate euclidee
   f = open(f"ALL-TSP/{name}.tsp")
   self.numCity = -1
   i = 0
@@ -548,7 +547,8 @@ def openTSP(self, name):
       if i == j:
         continue
       else:
-        self.adj[i][j] = self.adj[j][i] = self.distance(self.coord[i], self.coord[j])
+        self.adj[i][j] = self.adj[j][i] = \
+           self.distance(self.coord[i], self.coord[j])
 \end{python}
 In questa seconda parte del metodo viene calcolata la matrice di adiacenza dell'istanza TSP e memorizzata nell'istanza \lstinline!self.adj! (il metodo \lstinline!self.distance! verrà descritto nella prossima sezione).
 \begin{python}
@@ -565,7 +565,6 @@ def openTSP(self, name):
         if "-1" in line:
           break
         if data:
-          # considero i nodi del grafo a partire da 0 e non da 1 come su TSP LIB
           self.optTour[i] = int(line) - 1
           i += 1
         if "TOUR_SECTION" in line:
@@ -578,17 +577,18 @@ def openTSP(self, name):
 L'ultima parte del metodo consente di inizializzare le liste  \lstinline!self.optTour! e \lstinline!self.tour! dove la prima contiene la soluzione ottima contenuta nel file "NOME.opt.tour" e la seconda sarà invece utilizzata dalle euristiche costruttive per "costruire" man mano la soluzione.
 
 \section{Implementazione di metodi ausiliari per le euristiche}
-In questa sezione analizzo l'implementazione di metodi ausiliari e di supporto. Questi metodi fattorizzano il codice utilizzato frequentemente da diverse euristiche, migliorando la modularità, la leggibilità e la manutenibilità del codice.
+In questa sezione analizzo l'implementazione di metodi ausiliari e di supporto. Questi metodi fattorizzano il codice utilizzato frequentemente da diverse euristiche, migliorando la modularità, la leggibilità e la manutenibilità del codice e includono altri metodi utili per la manipolazione di istanze del TSP. \newline
 \begin{python}
   def distance(self, a, b):
     return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
 \end{python}
-Questo metodo (come visto prima) semplicemente consente di calcolare la distanza euclidea tra due punti a e b.
+Questo metodo (come visto prima) semplicemente consente di calcolare la distanza euclidea tra due punti a e b. Come descritto precedentemente, ci limitiamo alle istanze del TSP con coordinate in due dimensioni.
 \begin{python}
 def openRandomTSP(self, n):
   self.name = "random"
   self.numCity = n
-  self.adj = [[0 for _ in range(self.numCity)] for _ in range(self.numCity)]
+  self.adj = [[0 for _ in range(self.numCity)] \
+                 for _ in range(self.numCity)]
   for i in range(self.numCity):
     for j in range(i):
       if i == j:
@@ -604,7 +604,7 @@ def calculateCost(self):
     self.cost += self.adj[self.tour[i]][self.tour[i + 1]]
   self.cost += self.adj[self.tour[self.numCity - 1]][self.tour[0]]
 \end{python}
-Il metodo \lstinline!calculateCost()! consente di assegnare all'attributo \lstinline!self.cost! il costo del tour, che si ottiene sommando i costi degli archi $(i, j)$ per ogni coppia di archi contenuti nel tour. Essendo un ciclo hamiltoniano, alla fine del ciclo for si aggiunge anche il costo per tornare al punto di partenza \lstinline!self.tour[0]!.
+Il metodo \lstinline!calculateCost()! consente di assegnare all'attributo \lstinline!self.cost! il costo del tour, che si ottiene sommando i costi degli archi $(i, j)$ per ogni coppia di archi contenuti nel tour. Essendo un ciclo hamiltoniano, alla fine del ciclo for si aggiunge anche il costo per tornare al punto di partenza, quindi il peso dell'arco che collega l'ultima città presente nel tour con la prima.
 \begin{python}
 def calculateOptimalCost(self):
   self.cost = 0
@@ -612,7 +612,7 @@ def calculateOptimalCost(self):
     self.cost += self.adj[self.optTour[i]][self.optTour[i + 1]]
   self.cost += self.adj[self.optTour[self.numCity - 1]][self.optTour[0]]
 \end{python}
-Il metodo \lstinline!calculateOptimalCost()! consente in modo del tutto analogo al metodo \lstinline!calculateCost()! di calcolare il costo del tour, con la differenza che si considera il tour ottimo (attributo \lstinline!self.optTour!) al posto del tour del metodo precedente.
+Il metodo \lstinline!calculateOptimalCost()! consente, come nel caso di \lstinline!calculateCost()!, di calcolare il costo del tour, con la differenza che si considera il tour ottimo (attributo \lstinline!self.optTour!) al posto del tour del metodo precedente.
 \begin{python}
 def verifyTour(self):
   for i in range(self.numCity):
@@ -624,12 +624,12 @@ def verifyTour(self):
       return False
   return True
 \end{python}
-Il metodo \lstinline!verifyTour()! consente di testare la correttezza del tour trovato dall'euristica, è quindi pensato per essere verificato (tramite un \lstinline!assert!). Il metodo si limita a verificare che ogni nodo deve essere presente nel tour esattamente una volta sola, il metodo chiaramente non garantisce la presenza di altri errori nell'implementazione dell'euristica.
+Il metodo \lstinline!verifyTour()! consente di testare la correttezza del tour trovato dall'euristica, è quindi pensato per essere verificato (tramite un \lstinline!assert!). Il metodo si limita a verificare che ogni nodo deve essere presente nel tour esattamente una volta sola, il metodo chiaramente non garantisce la presenza di altri errori nell'implementazione dell'euristica. Questo metodo quindi consente di verificare se il tour trovato è almeno una soluzione valida per il problema.
 
 \section{Implementazione delle euristiche}
 In questo capitolo, descriveremo l'implementazione delle euristiche per la risoluzione del TSP, in particolare verranno implementate le euristiche costruttive presentate nei capitoli 2.1 e 2.2.
 \subsection{Nearest Neighbor}
-L'euristica \nameref{sec:NN} (NN) costruisce un tour partendo da una città e, iterativamente, aggiungendo la città non visitata più vicina fino a quando tutte le città non sono state visitate. Di seguito viene riportato il codice per questa euristica.
+L'euristica \nameref{sec:NN} (NN) costruisce un tour partendo da una città arbitraria, dopodiché sceglie di aggiungere al tour la città più vicina all'ultima città aggiunta al tour. Di seguito viene riportato il codice per questa euristica.
 \begin{python}
 def nearestNeighbor(self):
   self.tour = [0]
@@ -647,7 +647,7 @@ def nearestNeighbor(self):
     notVisited.remove(j)
   self.calculateCost()
 \end{python}
-Per semplicità ho scelto la prima città (nodo 0) come città iniziale, dopodiché finché sono presenti nodi da aggiungere al tour, si cerca un nodo j non ancora visitato che sia il più vicino possibile all'ultimo nodo aggiunto al tour (\lstinline!self.tour[-1]!), inoltre sono presenti gli insiemi (set) visited e nonVisited che tengono traccia dei nodi presenti o non presenti nel tour. Alla fine viene calcolato il costo del tour trovato tramite il metodo \lstinline!self.calculateCost()!.
+Per semplicità ho scelto la prima città (nodo 0) come città iniziale arbitraria, dopodiché finché sono presenti nodi da aggiungere al tour, si cerca un nodo j non ancora visitato che sia il più vicino possibile all'ultimo nodo aggiunto al tour (\lstinline!self.tour[-1]!), inoltre sono presenti gli insiemi (set) visited e nonVisited che tengono traccia dei nodi presenti o non presenti nel tour. Alla fine viene calcolato il costo del tour trovato tramite il metodo \lstinline!self.calculateCost()!.
 \subsection{Nearest Insertion}
 Nelle prossime sezioni verrà discussa l'implementazione delle euristiche costruttive basate su inserzione, a partire da \nameref{ssec:NI}.
 \begin{python}
@@ -702,7 +702,7 @@ def nearestInsertion(self):
   self.tour = path
   self.calculateCost()
 \end{python}
-Questo è il ciclo principale dell'euristica: prima di tutto tramite l'operazione \lstinline!heappop! viene estratto il nodo \lstinline!to_insert! come nodo candidato da inserire nel ciclo (in quanto ha distanza minima dal tour), successivamente viene effettuata una ricerca nel tour della posizione di inserimento migliore possibile. La posizione migliore deve minimizzare $c_{ir} + c_{rj} - c_{ij}$, quindi la variabile \lstinline!increase! definita alla riga 10. La scelta di memorizzare nella variabile \lstinline!best_position! il valore \lstinline!i + 1! e non \lstinline!i! è motivata dal fatto che il metodo \lstinline!insert(pos, n)! (con parametro pos e n) delle liste python sposta in avanti tutti gli elementi dalla posizione pos compresa per fare spazio alla variabile da inserire (n), di conseguenza una volta trovata la posizione migliore (tra le posizioni i e i+1), sarà necessario indicare la posizione i+1 per ottenere l'inserimento del nuovo arco tra la posizione i e la posizione i + 1. Successivamente (dalla riga 20) viene aggiornato lo heap in quanto alla riga 17 viene modificato il path mentre lo heap fa ancora riferimento al path prima dell'inserimento. L'aggiornamento procede come segue: si cerca un arco tra i nodi fuori dal tour (\lstinline!node!) e il nodo appena aggiunto al tour (\lstinline!to_insert!): nel caso in cui è presente un costo minore rispetto a quello presente nello heap (relativo al nodo chiamato \lstinline!node!) allora è necessario aggiornare lo heap con la nuova distanza. Successivamente è necessario effettuare l'operazione \lstinline!heapq.heapify(h)! in quanto l'aggiornamento dello heap potrebbe aver modificato la struttura dello heap. Alla fine dell'implementazione di Nearest Insertion è presente (come prima) l'aggiornamento della variabile self.tour (che memorizza il tour finale) e viene eseguito il metodo \lstinline!self.calculateCost()! come per le altre euristiche per ottenere il costo del percorso nella variabile  \lstinline!self.cost! come visto precedentemente nel capitolo dei metodi ausiliari.
+Questo è il ciclo principale dell'euristica: prima di tutto tramite l'operazione \lstinline!heappop! viene estratto il nodo \lstinline!to_insert! come nodo candidato da inserire nel ciclo (in quanto ha distanza minima dal tour), successivamente viene effettuata una ricerca nel tour della posizione di inserimento migliore possibile. La posizione migliore deve minimizzare $c_{ir} + c_{rj} - c_{ij}$, quindi la variabile \lstinline!increase! definita alla riga 10. La scelta di memorizzare nella variabile \lstinline!best_position! il valore \lstinline!i + 1! e non \lstinline!i! è motivata dal fatto che il metodo \lstinline!insert(pos, n)! (con parametro pos e n) delle liste python sposta in avanti tutti gli elementi dalla posizione pos compresa per fare spazio alla variabile da inserire (n), di conseguenza una volta trovata la posizione migliore (tra le posizioni i e i+1), sarà necessario indicare la posizione i+1 per ottenere l'inserimento del nuovo arco tra la posizione i e la posizione i + 1\footnote{https://docs.python.org/3/tutorial/datastructures.html}. \newline Successivamente (dalla riga 20) viene aggiornato lo heap in quanto alla riga 17 viene modificato il path mentre lo heap fa ancora riferimento al path prima dell'inserimento. L'aggiornamento procede come segue: dato che lo heap contiene, per ogni nodo fuori dal tour, la distanza con il nodo più vicino all'interno del tour (quindi per ogni nodo fuori dal tour, mantiene la distanza minima con il tour), dato che è stato aggiunto un nuovo nodo nel tour, è necessario verificare per ogni elemento nello heap se il nuovo nodo aggiunto rappresenta un caso migliore rispetto a quanto precedentemente memorizzato nello heap, per questo motivo alla riga 21, nel caso in cui la distanza tra il nodo appena aggiunto e il nodo fuori dal path \lstinline!node! è migliore di quanto precedentemente memorizzato nello heap (\lstinline!cost!) allora è necessario aggiornare quel valore nello heap. \newline Successivamente è necessario effettuare l'operazione \lstinline!heapq.heapify(h)! in quanto l'aggiornamento potrebbe aver modificato la struttura dello heap. Alla fine dell'implementazione di Nearest Insertion è presente (come prima) l'aggiornamento della variabile self.tour (che memorizza il tour finale) e viene eseguito il metodo \lstinline!self.calculateCost()! come per le altre euristiche per ottenere il costo del percorso nella variabile  \lstinline!self.cost! come visto precedentemente nel capitolo dei metodi ausiliari.
 
 \subsection{Cheapest Insertion}
 In questa sezione discutiamo l'impelementazione di \nameref{ssec:CI} che, come abbiamo visto nel secondo capitolo, seleziona i nodi in modo da minimizzare il costo di inserimento (al posto di selezionare i nodi più vicini al tour come visto con nearest insertion). Di seguito l'implementazione:
@@ -799,9 +799,9 @@ def cheapestInsertion(self):
 Dalla riga 19 in poi avviene l'aggiornamento dello heap (in modo analogo a quanto visto con \nameref{ssec:NI}): dato che l'inserimento del nuovo nodo nel tour ha generato una modifica del tour (e quindi la cancellazione di un arco e l'inserimento di nuovi due archi) è necessario verificare che i valori presenti nello heap siano ancora rappresentativi del nuovo tour e, in caso contrario, aggiornare lo heap. Per ogni elemento nello heap, dati i valori \lstinline!node! (nodo da inserire), \lstinline!nodeLeft! e \lstinline!nodeRight! (nodi tra i quali andava inserito \lstinline!node!), i casi da considerare sono:
 \begin{legal}
   \item Nel caso in cui \lstinline!nodeLeft! e \lstinline!nodeRight! corrispondono esattamente ai due nodi tra i quali è stato inserito il nodo \lstinline!to_ins! (nella prima parte del ciclo principale dell'algoritmo), allora è necessario ricalcolare per il nodo \lstinline!node! il costo e il punto di inserimento migliore, in quanto il vecchio arco è stato cancellato. (Riga 6-18).
-  \item In ogni altro caso il vecchio arco (tra \lstinline!nodeLeft! e \lstinline!nodeRight!) è rimasto intatto, come gli altri archi. A questo punto è necessario semplicemente verificare che i due nuovi archi generati dopo l'inserimento (quindi gli archi \lstinline!path[best_pos - 1]! - \lstinline!node! e \lstinline!node! - \lstinline!path[best_pos + 1]!) possano essere un caso di inserimento con costo minore rispetto a quello presente nello heap (riga 20-37).
+  \item In ogni altro caso il vecchio arco (tra \lstinline!nodeLeft! e \lstinline!nodeRight!) è rimasto intatto. A questo punto è necessario semplicemente verificare che i due nuovi archi generati dopo l'inserimento (quindi gli archi \lstinline!path[best_pos - 1]! - \lstinline!node! e \lstinline!node! - \lstinline!path[best_pos + 1]!) possano essere un caso di inserimento con costo minore rispetto a quello presente nello heap (riga 20-37).
 \end{legal}
-Inoltre è importante notare come l'accesso agli elementi del tour avviene \lstinline!% len(tour)! in quanto il tour è un "ciclo".
+Inoltre è importante notare come l'accesso agli elementi del tour avviene \lstinline!% len(tour)! in quanto il tour è una lista circolare.
 Successivamente (come per le altre euristiche), è necessario ripristinare la struttura dello heap con il metodo \lstinline!heapq.heapify(h)! e alla fine memorizzare il path finale nell'attributo \lstinline!self.tour! e calcolare il costo della soluzione trovata.
 
 \subsection{Farthest Insertion}
@@ -829,7 +829,7 @@ In questa sezione discutiamo l'implementazione di \nameref{ssec:FaI}. L'implemen
       h.append((-min(distances[path[0], i], distances[path[1], i]), i))
     heapq.heapify(h)
   \end{python}
-In modo del tutto analogo a nearest insertion, viene inizializzato uno heap il quale conterrà il costo di inserimento se il nodo viene inserito nel modo migliore possibile. Dato che il metodo heappop all'interno del modulo \lstinline!heapq! restituisce l'elemento più piccolo (quindi il nostro heap h opera come un min-heap) e dato che per l'euristica farthest insertion è necessario prelevare il nodo con il costo maggiore (e non minore), ogni distanza inserita nello heap (primo elemento di ogni tupla) verrà inserita con valore negativo: con questa semplice modifica il minHeap min-heap si comporterà come un max-heap e restituirà (tramite il metodo \lstinline!heapq.heappop(h)!) il nodo con distanza maggiore dal tour. Per questo motivo il codice è identico a nearest insertion, con la differenza che alla riga 5 è presente un segno meno all'interno della tupla $(distance, node)$.
+In modo del tutto analogo a nearest insertion, viene inizializzato uno heap il quale conterrà il costo di inserimento se il nodo viene inserito nel modo migliore possibile. Dato che il metodo heappop all'interno del modulo \lstinline!heapq! restituisce l'elemento più piccolo (quindi il nostro heap h opera come un min-heap) e dato che per l'euristica farthest insertion è necessario prelevare il nodo con il costo maggiore (e non minore), ogni distanza inserita nello heap (primo elemento di ogni tupla) verrà inserita con valore negativo: con questa semplice modifica il min-heap si comporterà come un max-heap e restituirà (tramite il metodo \lstinline!heapq.heappop(h)!) il nodo con distanza maggiore dal tour. Per questo motivo il codice è identico a nearest insertion, con la differenza che alla riga 5 è presente un segno meno all'interno della tupla $(distance, node)$.
   \begin{python}
   def farthestInsertion(self):
     ...
@@ -894,7 +894,7 @@ def furthestInsertion(self):
     h.append((-cost, i, path[0], path[1]))
   heapq.heapify(h)
 \end{python}
-In modo del tutto analogo a farthest insertion viene inizializzato lo heap con costi negativi in modo da poter successivamente selezionare le città con costo di inserimento più alto, per questo motivo il costo nella tupla aggiunta allo heap presenta un segno negativo (riga 6).
+Esattamente come nel caso di farthest insertion, viene inizializzato lo heap con costi negativi in modo da poter successivamente selezionare le città con costo di inserimento più alto, per questo motivo il costo nella tupla aggiunta allo heap presenta un segno negativo (riga 6). \newline
 \begin{python}
 def furthestInsertion(self):
   ...
@@ -1032,14 +1032,14 @@ In questa versione dell'algoritmo, la prima parte è identica alla prima version
 \subsection{Euristiche con inizializzazione casuale}
 Le euristiche viste nelle sezioni precedenti prevedono come inizializzazione del tour la coppia delle città più vicine per cheapest insertion e nearest insertion mentre prevedono la coppia delle città più lontane per farthest insertion e furthest insertion. Nel successivo capitolo verrà analizzata anche la robustezza delle euristiche implementate rispetto all'inizializzazione, per questo motivo nella classe TSP sono presenti 4 varianti delle euristiche descritte nelle sezioni precedenti dove le due città iniziali vengono scelte casualmente. Le 4 euristiche prendono il nome di NOMEInsertionRandomStart dove al posto di "NOME" è presente il nome dell'euristica (nearest, cheapest ...). Di seguito la descrizione della parte diversa:
 \begin{python}
-    def nearestInsertionRandomStart(self):
-      n = self.numCity
-      distances = np.array(self.adj)
-      path = [random.randint(0, n - 1), random.randint(0, n - 1)]
-      while path[0] == path[1]:
-        path = [random.randint(0, n - 1), random.randint(0, n - 1)]
-      in_path = {path[0], path[1]}
-      ...
+def nearestInsertionRandomStart(self):
+  n = self.numCity
+  distances = np.array(self.adj)
+  path = [random.randint(0, n - 1), random.randint(0, n - 1)]
+  while path[0] == path[1]:
+    path = [random.randint(0, n - 1), random.randint(0, n - 1)]
+  in_path = {path[0], path[1]}
+  ...
 \end{python}
 In questo caso è stato selezionato nearestInsertionRandomStart a titolo di esempio (nelle altre 4 implementazioni il codice è lo stesso): vengono scelte due città casuali come prime due città nel tour. Successivamente (righe 5-6) è necessario ripetere il processo nel caso in cui le due città scelte corrispondano alla stessa città. Una volta selezionati i primi due nodi casualmente, l'euristica può continuare normalmente come visto prima.
 
