@@ -29,6 +29,7 @@ t.calculateOptimalCost()
 testEuristic("cheapestInsertion", t.cheapestInsertion)
 #testEuristic("farthestInsertion", t.farthestInsertion)
 testEuristic("furthestInsertion", t.furthestInsertion)
+#testEuristic("nearestNeighbourRandom", t.nearestInsertionRandomStart)
 
 t.calculateOptimalCost()
 print("Optimal", t.optimalSolution)
