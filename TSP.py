@@ -339,7 +339,7 @@ class TSP:
 
 ### Versioni con inizializzazione casuale
     def nearestNeighborRandomStart(self):
-        self.tour = [random.randint(0, self.numCity)]
+        self.tour = [random.randint(0, self.numCity - 1)]
         visited = set([self.tour[0]])
         notVisited = set(range(1, self.numCity))
         while len(self.tour) < self.numCity:
