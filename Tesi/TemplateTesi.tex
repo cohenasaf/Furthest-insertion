@@ -1055,9 +1055,10 @@ Lo stesso criterio è stato applicato anche per nearestNeighbor, di seguito solo
 \begin{python}
 def nearestNeighborRandomStart(self):
   self.tour = [random.randint(0, self.numCity - 1)]
+  visited = set([self.tour[0]])
   ...
 \end{python}
-In questa variante (come per le euristiche basate su inserzione) il tour viene inizializzato con una città casuale (da 0 a $n - 1$), la restante parte dell'implementazione è identica all'implementazione di Nearest Neighbor.
+In questa variante (come per le euristiche basate su inserzione) il tour viene inizializzato con una città casuale (da 0 a $n - 1$), inoltre viene aggiunto nodo casuale scelto nella riga precedente al set \lstinline!visited! (mentre nell'implementazione di nearest nearestNeighbor viene aggiunto direttamente 0). La restante parte dell'implementazione è completamente uguale all'implementazione di nearestNeighbor.
  
 %
 %			BIBLIOGRAFIA
