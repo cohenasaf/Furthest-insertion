@@ -943,9 +943,9 @@ def furthestInsertion(self):
         h[i] = (-best_cost, node, path[posL], path[posR])
         (cost, node, nodeLeft, nodeRight) = h[i]
         cost *= -1
+      # path[best_pos - 1] -- node -- to_ins
       # se il nuovo arco a sinistra 
       # permette un inserimento migliore di cost, quindi:
-      # path[best_pos - 1] -- node -- to_ins
                   
       if node not in in_path and left_cost < cost:
         new_cost = left_cost
@@ -954,9 +954,9 @@ def furthestInsertion(self):
         (cost, node, nodeLeft, nodeRight) = h[i]
         cost *= -1
 
+      # to_ins -- node -- path[best_pos + 1] 
       # se il nuovo arco a destra
       # permette un inserimento migliore di cost, quindi:
-      # to_ins -- node -- path[best_pos + 1] 
       if node not in in_path and right_cost < cost:
         new_cost = right_cost
         h[i] = (-new_cost, node, to_ins, \
