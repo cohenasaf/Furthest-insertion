@@ -12,13 +12,13 @@
 \contentsline {subsection}{\numberline {2.2.1}Nearest Insertion}{9}{subsection.2.2.1}%
 \contentsline {subsection}{\numberline {2.2.2}Cheapest Insertion}{9}{subsection.2.2.2}%
 \contentsline {subsection}{\numberline {2.2.3}Farthest Insertion}{10}{subsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.2.4}Furthest Insertion}{10}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.4}Furthest Insertion}{11}{subsection.2.2.4}%
 \contentsline {subsection}{\numberline {2.2.5}Random Insertion}{11}{subsection.2.2.5}%
 \contentsline {section}{\numberline {2.3}Ricerca Locale}{12}{section.2.3}%
 \contentsline {subsection}{\numberline {2.3.1}Node Insertion}{12}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Edge Insertion}{12}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.2}Edge Insertion}{13}{subsection.2.3.2}%
 \contentsline {subsection}{\numberline {2.3.3}Euristica 2-Opt}{13}{subsection.2.3.3}%
-\contentsline {subsection}{\numberline {2.3.4}Euristica 3-Opt}{13}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.4}Euristica 3-Opt}{14}{subsection.2.3.4}%
 \contentsline {subsection}{\numberline {2.3.5}Euristica Lin-Kernighan}{14}{subsection.2.3.5}%
 \contentsline {chapter}{\numberline {3}Implementazione delle euristiche}{16}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Implementazione del costruttore della classe}{18}{section.3.1}%

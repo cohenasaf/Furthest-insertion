@@ -239,16 +239,16 @@ Nearest Insertion seleziona come nodo da inserire nel tour il nodo più vicino a
 
 \setlist[legal]{label*=\arabic*.}
 \begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
-\begin{legal}
-  \item Sia $T$ il tour iniziale definito dalla coppia delle città più vicine. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
-  \item Finché $L \neq \emptyset$:
   \begin{legal}
-    \item Seleziona un nodo $r \in L$ che risulti il più vicino ad un nodo qualunque $j \in T$.
-    \item Trova l'arco $(i, j)$ nel tour $T$ tale che $c_{ir} + c_{rj} - c_{ij}$ risulti \underline{minimo}. Inserisci $r$ tra $i$ e $j$.  
-    \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
+    \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
+    \item Finché $L \neq \emptyset$:
+    \begin{legal}
+      \item Sia $d_{min}(v)$ la distanza minima tra il nodo $v$ e il tour $T$, ovvero $d_{min}(v) = min\{c_{vt} | t \in T \}$. Seleziona il nodo $r \not \in T$ in modo da \underline{minimizzare} $d_{min}(r)$.
+      \item Determina la posizione ottima di inserzione $(a, b)$ in modo da \underline{minimizzare} il costo di inserimento $c_{ar} + c_{rb} - c_{ab}$, inserisci $r$ tra $(a, b)$
+      \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
+    \end{legal}
   \end{legal}
-\end{legal}
-\end{tcolorbox}
+  \end{tcolorbox}
 \hfill \break Nearest Insertion ha complessità computazionale pari a $O(n^2)$ in quanto ogni nodo (n iterazioni) deve essere inserito nel modo migliore possibile nel tour (fino a n iterazioni).
 
 \subsection{Cheapest Insertion} \label{ssec:CI}
@@ -260,8 +260,9 @@ Cheapest Insertion opera in modo diverso da Nearest Insertion: il criterio di se
     \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
     \item Finché $L \neq \emptyset$:
     \begin{legal}
-      \item Seleziona un nodo $r \in L$ e un arco $(i, j)$ in $T$ per cui $c_{ir} + c_{rj} - c_{ij}$ risulti \underline{minimo}.
-      \item Seleziona l'arco $(i, j)$ in $T$ tale che $c_{ir} + c_{rj} - c_{ij}$ risulti \underline{minimo}. Inserisci $r$ tra $i$ e $j$.
+      \item $\forall v \not \in T$, determina il punto di inserzione $P(v)$ (ovvero l'arco $(a, b) \in T$) in modo da \underline{minimizzare} $c_{av} + c_{vb} - c_{ab}$, sia $C(v)$ il costo di inserimento del nodo $v$ nel punto di inserzione trovato.
+      \item Tra tutti i nodi fuori dal tour, seleziona il nodo $r$ in modo da \underline{minimizzare} $C(r)$
+      \item Inserisci il nodo $r$ nel punto di inserzione $P(r)$ trovato prima
       \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
     \end{legal}
   \end{legal}
@@ -277,8 +278,8 @@ Farthest Insertion opera in analogo a Nearest Insertion in quanto il criterio di
   \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
   \begin{legal}
-    \item Seleziona un nodo $r \in L$ che risulti il più \underline{lontano} rispetto ad un nodo qualunque $j \in T$.
-    \item Trova l'arco $(i, j)$ nel tour $T$ tale che $c_{ir} + c_{rj} - c_{ij}$ risulti \underline{minimo}. Inserisci $r$ tra $i$ e $j$.  
+    \item Sia $d_{min}(v)$ la distanza minima tra il nodo $v$ e il tour $T$, ovvero $d_{min}(v) = min\{c_{vt} | t \in T \}$. Seleziona il nodo $r \not \in T$ in modo da \underline{massimizzare} $d_{min}(r)$.
+    \item Determina la posizione ottima di inserzione $(a, b)$ in modo da \underline{minimizzare} il costo di inserimento $c_{ar} + c_{rb} - c_{ab}$, inserisci $r$ tra $(a, b)$
     \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
   \end{legal}
 \end{legal}
@@ -294,8 +295,9 @@ L'obbiettivo della tesi consiste nel proporre un nuovo algoritmo chiamato Furthe
   \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
   \begin{legal}
-    \item Seleziona un nodo $r \in L$ e un arco $(i, j)$ in $T$ per cui $c_{ir} + c_{rj} - c_{ij}$ risulti \underline{massimo}.
-    \item Seleziona l'arco $(i, j)$ in $T$ tale che $c_{ir} + c_{rj} - c_{ij}$ risulti \underline{minimo}. Inserisci $r$ tra $i$ e $j$.
+    \item $\forall v \not \in T$, determina il punto di inserzione $P(v)$ (ovvero l'arco $(a, b) \in T$) in modo da \underline{minimizzare} $c_{av} + c_{vb} - c_{ab}$, sia $C(v)$ il costo di inserimento del nodo $v$ nel punto di inserzione trovato.
+    \item Tra tutti i nodi fuori dal tour, seleziona il nodo $r$ in modo da \underline{massimizzare} $C(r)$
+    \item Inserisci il nodo $r$ nel punto di inserzione $P(r)$ trovato prima
     \item Rimuovi $r$ da L, quindi $L = L \setminus \{r\}$.
   \end{legal}
 \end{legal}
