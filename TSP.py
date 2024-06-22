@@ -269,26 +269,7 @@ class TSP:
 
         while len(path) < n:
             h_i = heapq.heappop(h)
-            #if h_i[0][1] == 48:
-            #    print(h_i)
-            #    exit()
             (costo, to_ins, l, r) = heapq.heappop(h_i)
-
-            #for a in set(range(n)) - in_path:
-            #    best = np.inf
-            #    for i in range(len(path)):
-            #        l2 = path[i]
-            #        r2 = path[((i + 1) % len(path))]
-            #        c = adj[l2][a] + adj[a][r2] - adj[l2][r2]
-            #        if c < costo:
-            #            print(c, costo)
-            #            print(path)
-            #            print((costo, to_ins, l, r))
-            #            print("PUNTO DI INSERIMENTO SBAGLIATO", l, r)
-            #            print("PUNTO DI INSERIMENTO GIUSTO", l2, r2)
-            #            print(to_ins)
-            #            exit()
-
 
             best_pos = path.index(r)
             path.insert(best_pos, to_ins)
@@ -333,8 +314,6 @@ class TSP:
             heapq.heapify(h)
         self.tour = path
         self.calculateCost()
-
-        #print(f"Percentuale casi in cui l'ottimo ricalcolato è \"vicino\" al punto di inserzione del nodo precedente {conteggio / tot}")
 
     def farthestInsertion(self):
         n = self.numCity
