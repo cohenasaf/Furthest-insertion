@@ -23,12 +23,13 @@ print(t.name)
 
 t.calculateOptimalCost()
 
-testEuristic("randomInsertion", t.randomInsertion)
-testEuristic("nearestNeighbor", t.nearestNeighbor)
-testEuristic("nearestInsertion", t.nearestInsertion)
+#testEuristic("randomInsertion", t.randomInsertion)
+#testEuristic("nearestNeighbor", t.nearestNeighbor)
+#testEuristic("nearestInsertion", t.nearestInsertion)
+testEuristic("cheapestInsertionOttimizzato", t.cheapestInsertionOttimizzato)
+#testEuristic("farthestInsertion", t.farthestInsertion)
 testEuristic("cheapestInsertion", t.cheapestInsertion)
-testEuristic("farthestInsertion", t.farthestInsertion)
-testEuristic("furthestInsertion", t.furthestInsertion)
+
 #testEuristic("nearestNeighbourRandom", t.nearestInsertionRandomStart)
 
 t.calculateOptimalCost()

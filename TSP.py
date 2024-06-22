@@ -3,6 +3,8 @@ import random
 import sys
 import numpy as np
 import heapq
+import matplotlib.pyplot as plt
+import numpy as np
 
 class TSP:
     def __init__(self, name, ignoraOpt=False):
@@ -182,12 +184,16 @@ class TSP:
             h.append((cost, i, path[0], path[1]))
         heapq.heapify(h)
 
+        #conteggio = 0
+        #tot = 0
         while len(path) < n:
             # Ottieni dallo heap la città che minimizza il minor costo di inserimento
-            (_, to_ins, _, r) = heapq.heappop(h)
+            #for a in h:
+            (costo, to_ins, l, r) = heapq.heappop(h)
             best_pos = path.index(r)
             path.insert(best_pos, to_ins)
             in_path.add(to_ins)
+            #print(path)
 
             # Aggiorna le distanze minime e le città più vicine per ogni città non nel percorso
             for i, (cost, node, nodeLeft, nodeRight) in enumerate(h):
@@ -202,11 +208,18 @@ class TSP:
                     posL, posR = -1, -1
                     for i2 in range(len(path)):
                         next_i = (i2 + 1) % len(path)
+                    #for f in range(best_pos - 3, best_pos + 3):
+                    #    i2 = f % len(path)
+                        next_i = (i2 + 1) % len(path)
                         insertion_cost = adj[path[i2]][node] + adj[node][path[next_i]] - adj[path[i2]][path[next_i]]
                         if best_cost > insertion_cost:
                             best_cost, posL, posR = insertion_cost, i2, next_i
                     h[i] = (best_cost, node, path[posL], path[posR])
                     (cost, node, nodeLeft, nodeRight) = h[i]
+                    #if abs(posR - best_pos) <= 2:
+                        #conteggio += 1
+                    
+                    #tot += 1
                 # se il nuovo arco a sinistra permette un inserimento migliore di cost, quindi:
                 # path[best_pos - 1] -- node -- to_ins
                             
@@ -223,6 +236,105 @@ class TSP:
             heapq.heapify(h)
         self.tour = path
         self.calculateCost()
+
+        #print(f"Percentuale casi in cui l'ottimo ricalcolato è \"vicino\" al punto di inserzione del nodo precedente {conteggio / tot}")
+
+    def cheapestInsertionOttimizzato(self):
+        n = self.numCity
+        adj = np.array(self.adj)
+        path = [0, 0]
+
+        minDist = np.inf
+        for i in range(n):
+            for j in range(0, i):
+                if adj[i][j] < minDist:
+                    path[0], path[1] = i, j
+                    minDist = adj[i][j]
+        in_path = {path[0], path[1]}
+
+        h = []
+        d = dict()
+        d[(path[0], path[1])] = []
+        d[(path[1], path[0])] = []
+        for i in set(range(n)) - in_path:
+            cost = adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]
+            h_i = [cost, i, path[0], path[1]]
+            h_i2 = [cost, i, path[1], path[0]]
+            h.append([h_i, h_i2])
+            d[(path[0], path[1])].append(h_i)
+            d[(path[1], path[0])].append(h_i2)
+        heapq.heapify(h)
+
+
+
+        while len(path) < n:
+            h_i = heapq.heappop(h)
+            #if h_i[0][1] == 48:
+            #    print(h_i)
+            #    exit()
+            (costo, to_ins, l, r) = heapq.heappop(h_i)
+
+            #for a in set(range(n)) - in_path:
+            #    best = np.inf
+            #    for i in range(len(path)):
+            #        l2 = path[i]
+            #        r2 = path[((i + 1) % len(path))]
+            #        c = adj[l2][a] + adj[a][r2] - adj[l2][r2]
+            #        if c < costo:
+            #            print(c, costo)
+            #            print(path)
+            #            print((costo, to_ins, l, r))
+            #            print("PUNTO DI INSERIMENTO SBAGLIATO", l, r)
+            #            print("PUNTO DI INSERIMENTO GIUSTO", l2, r2)
+            #            print(to_ins)
+            #            exit()
+
+
+            best_pos = path.index(r)
+            path.insert(best_pos, to_ins)
+            in_path.add(to_ins)
+
+            for p in d[(l, r)]:
+                p[0] = np.inf
+            for hp in h:
+                node = hp[0][1]
+
+                # sx: path[(best_pos - 1) % len(path)]
+                # node
+                # dx: path[best_pos]
+                sx = path[(best_pos - 1) % len(path)]
+                dx = path[best_pos]
+                newCost = adj[sx][node] + \
+                          adj[node][dx] - \
+                          adj[sx][dx]
+                l = [newCost, node, sx, dx]
+                if (sx, dx) not in d:
+                    d[(sx, dx)] = [l]
+                else:
+                    d[(sx, dx)].append(l)
+                hp.append(l)
+
+                # sx: path[best_pos]
+                # node
+                # dx: path[(best_pos + 1) % len(path)]
+                sx = path[best_pos]
+                dx = path[(best_pos + 1) % len(path)]
+                newCost = adj[sx][node] + \
+                          adj[node][dx] - \
+                          adj[sx][dx]
+                l = [newCost, node, sx, dx]
+                if (sx, dx) not in d:
+                    d[(sx, dx)] = [l]
+                else:
+                    d[(sx, dx)].append(l)
+                hp.append(l)
+                
+                heapq.heapify(hp)
+            heapq.heapify(h)
+        self.tour = path
+        self.calculateCost()
+
+        #print(f"Percentuale casi in cui l'ottimo ricalcolato è \"vicino\" al punto di inserzione del nodo precedente {conteggio / tot}")
 
     def farthestInsertion(self):
         n = self.numCity
@@ -311,6 +423,9 @@ class TSP:
                     best_cost = np.inf
                     posL, posR = -1, -1
                     for i2 in range(len(path)):
+                        next_i = (i2 + 1) % len(path)
+                    #for f in range(best_pos - 3, best_pos + 3):
+                    #    i2 = f % len(path)
                         next_i = (i2 + 1) % len(path)
                         insertion_cost = adj[path[i2]][node] + adj[node][path[next_i]] - adj[path[i2]][path[next_i]]
                         if best_cost > insertion_cost:
@@ -592,6 +707,20 @@ class TSP:
 
         self.tour = path
         self.calculateCost()
+
+### Metodi per mostrare a schermo il tour
+    def showGraphWithTour(self, path):
+        # "chiudo" il ciclo aggiungendo il ritorno al primo nodo
+        tour = path + [path[0]]
+        xpoints = np.array([self.coord[x][0] for x in tour])
+        ypoints = np.array([self.coord[x][1] for x in tour])
+
+        xpoints = xpoints + [xpoints[0]]
+        ypoints = ypoints + [ypoints[0]]
+
+        plt.plot(xpoints, ypoints)
+        plt.scatter(xpoints, ypoints)
+        plt.show()
 
 soluzioneOttima = {
     "a280" : 2579,
