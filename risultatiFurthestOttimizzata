@@ -1,0 +1,615 @@
+
+_________________
+eil51
+furthestInsertionOttimizzato, m = 10, costo: 451.70, qualità: 1.0603, tempo: 0.006028 secondi
+furthestInsertionOttimizzato, m = 9, costo: 451.70, qualità: 1.0603, tempo: 0.005629 secondi
+furthestInsertionOttimizzato, m = 8, costo: 451.70, qualità: 1.0603, tempo: 0.005697 secondi
+furthestInsertionOttimizzato, m = 7, costo: 451.70, qualità: 1.0603, tempo: 0.005230 secondi
+furthestInsertionOttimizzato, m = 6, costo: 451.70, qualità: 1.0603, tempo: 0.005046 secondi
+furthestInsertionOttimizzato, m = 5, costo: 451.70, qualità: 1.0603, tempo: 0.004790 secondi
+furthestInsertionOttimizzato, m = 4, costo: 451.70, qualità: 1.0603, tempo: 0.004670 secondi
+furthestInsertionOttimizzato, m = 3, costo: 451.70, qualità: 1.0603, tempo: 0.004420 secondi
+furthestInsertionOttimizzato, m = 2, costo: 473.92, qualità: 1.1125, tempo: 0.004133 secondi
+m minima: 3
+furthestInsertion, costo: 451.70, qualità: 1.0603, tempo: 0.003862 secondi
+
+_________________
+berlin52
+furthestInsertionOttimizzato, m = 10, costo: 8330.64, qualità: 1.1046, tempo: 0.006165 secondi
+furthestInsertionOttimizzato, m = 9, costo: 8330.64, qualità: 1.1046, tempo: 0.005921 secondi
+furthestInsertionOttimizzato, m = 8, costo: 8330.64, qualità: 1.1046, tempo: 0.005838 secondi
+furthestInsertionOttimizzato, m = 7, costo: 8330.64, qualità: 1.1046, tempo: 0.005480 secondi
+furthestInsertionOttimizzato, m = 6, costo: 8330.64, qualità: 1.1046, tempo: 0.005242 secondi
+furthestInsertionOttimizzato, m = 5, costo: 8330.64, qualità: 1.1046, tempo: 0.005044 secondi
+furthestInsertionOttimizzato, m = 4, costo: 8330.64, qualità: 1.1046, tempo: 0.004807 secondi
+furthestInsertionOttimizzato, m = 3, costo: 8330.64, qualità: 1.1046, tempo: 0.004545 secondi
+furthestInsertionOttimizzato, m = 2, costo: 8250.31, qualità: 1.0939, tempo: 0.004356 secondi
+m minima: 3
+furthestInsertion, costo: 8330.64, qualità: 1.1046, tempo: 0.004211 secondi
+
+_________________
+st70
+furthestInsertionOttimizzato, m = 10, costo: 730.44, qualità: 1.0821, tempo: 0.011495 secondi
+furthestInsertionOttimizzato, m = 9, costo: 730.44, qualità: 1.0821, tempo: 0.011066 secondi
+furthestInsertionOttimizzato, m = 8, costo: 730.44, qualità: 1.0821, tempo: 0.010621 secondi
+furthestInsertionOttimizzato, m = 7, costo: 730.44, qualità: 1.0821, tempo: 0.010289 secondi
+furthestInsertionOttimizzato, m = 6, costo: 730.44, qualità: 1.0821, tempo: 0.009799 secondi
+furthestInsertionOttimizzato, m = 5, costo: 730.44, qualità: 1.0821, tempo: 0.009663 secondi
+furthestInsertionOttimizzato, m = 4, costo: 730.44, qualità: 1.0821, tempo: 0.008991 secondi
+furthestInsertionOttimizzato, m = 3, costo: 730.44, qualità: 1.0821, tempo: 0.008411 secondi
+furthestInsertionOttimizzato, m = 2, costo: 746.21, qualità: 1.1055, tempo: 0.007961 secondi
+m minima: 3
+furthestInsertion, costo: 730.44, qualità: 1.0821, tempo: 0.007339 secondi
+
+_________________
+pr76
+furthestInsertionOttimizzato, m = 10, costo: 123239.34, qualità: 1.1394, tempo: 0.013958 secondi
+furthestInsertionOttimizzato, m = 9, costo: 123239.34, qualità: 1.1394, tempo: 0.013199 secondi
+furthestInsertionOttimizzato, m = 8, costo: 123239.34, qualità: 1.1394, tempo: 0.021215 secondi
+furthestInsertionOttimizzato, m = 7, costo: 123239.34, qualità: 1.1394, tempo: 0.012281 secondi
+furthestInsertionOttimizzato, m = 6, costo: 123239.34, qualità: 1.1394, tempo: 0.011788 secondi
+furthestInsertionOttimizzato, m = 5, costo: 123239.34, qualità: 1.1394, tempo: 0.011275 secondi
+furthestInsertionOttimizzato, m = 4, costo: 123239.34, qualità: 1.1394, tempo: 0.010526 secondi
+furthestInsertionOttimizzato, m = 3, costo: 123239.34, qualità: 1.1394, tempo: 0.010113 secondi
+furthestInsertionOttimizzato, m = 2, costo: 127930.94, qualità: 1.1828, tempo: 0.009613 secondi
+m minima: 3
+furthestInsertion, costo: 123239.34, qualità: 1.1394, tempo: 0.008640 secondi
+
+_________________
+eil76
+furthestInsertionOttimizzato, m = 10, costo: 589.59, qualità: 1.0959, tempo: 0.013606 secondi
+furthestInsertionOttimizzato, m = 9, costo: 589.59, qualità: 1.0959, tempo: 0.013381 secondi
+furthestInsertionOttimizzato, m = 8, costo: 589.59, qualità: 1.0959, tempo: 0.013029 secondi
+furthestInsertionOttimizzato, m = 7, costo: 589.59, qualità: 1.0959, tempo: 0.012442 secondi
+furthestInsertionOttimizzato, m = 6, costo: 589.59, qualità: 1.0959, tempo: 0.011813 secondi
+furthestInsertionOttimizzato, m = 5, costo: 589.59, qualità: 1.0959, tempo: 0.011277 secondi
+furthestInsertionOttimizzato, m = 4, costo: 589.78, qualità: 1.0962, tempo: 0.010604 secondi
+m minima: 5
+furthestInsertion, costo: 589.59, qualità: 1.0959, tempo: 0.008598 secondi
+
+_________________
+rat99
+furthestInsertionOttimizzato, m = 10, costo: 1324.46, qualità: 1.0937, tempo: 0.024226 secondi
+furthestInsertionOttimizzato, m = 9, costo: 1324.46, qualità: 1.0937, tempo: 0.033505 secondi
+furthestInsertionOttimizzato, m = 8, costo: 1324.46, qualità: 1.0937, tempo: 0.022918 secondi
+furthestInsertionOttimizzato, m = 7, costo: 1324.46, qualità: 1.0937, tempo: 0.021875 secondi
+furthestInsertionOttimizzato, m = 6, costo: 1324.46, qualità: 1.0937, tempo: 0.020719 secondi
+furthestInsertionOttimizzato, m = 5, costo: 1324.46, qualità: 1.0937, tempo: 0.019970 secondi
+furthestInsertionOttimizzato, m = 4, costo: 1324.46, qualità: 1.0937, tempo: 0.019294 secondi
+furthestInsertionOttimizzato, m = 3, costo: 1324.46, qualità: 1.0937, tempo: 0.017623 secondi
+furthestInsertionOttimizzato, m = 2, costo: 1411.26, qualità: 1.1654, tempo: 0.016535 secondi
+m minima: 3
+furthestInsertion, costo: 1324.46, qualità: 1.0937, tempo: 0.015888 secondi
+
+_________________
+kroD100
+furthestInsertionOttimizzato, m = 10, costo: 22967.81, qualità: 1.0786, tempo: 0.024563 secondi
+furthestInsertionOttimizzato, m = 9, costo: 22967.81, qualità: 1.0786, tempo: 0.023978 secondi
+furthestInsertionOttimizzato, m = 8, costo: 22967.81, qualità: 1.0786, tempo: 0.031554 secondi
+furthestInsertionOttimizzato, m = 7, costo: 22967.81, qualità: 1.0786, tempo: 0.021912 secondi
+furthestInsertionOttimizzato, m = 6, costo: 22967.81, qualità: 1.0786, tempo: 0.021048 secondi
+furthestInsertionOttimizzato, m = 5, costo: 22967.81, qualità: 1.0786, tempo: 0.020306 secondi
+furthestInsertionOttimizzato, m = 4, costo: 22967.81, qualità: 1.0786, tempo: 0.018905 secondi
+furthestInsertionOttimizzato, m = 3, costo: 22967.81, qualità: 1.0786, tempo: 0.017720 secondi
+furthestInsertionOttimizzato, m = 2, costo: 24248.32, qualità: 1.1387, tempo: 0.016997 secondi
+m minima: 3
+furthestInsertion, costo: 22967.81, qualità: 1.0786, tempo: 0.014639 secondi
+
+_________________
+kroA100
+furthestInsertionOttimizzato, m = 10, costo: 23029.13, qualità: 1.0821, tempo: 0.024764 secondi
+furthestInsertionOttimizzato, m = 9, costo: 23029.13, qualità: 1.0821, tempo: 0.024283 secondi
+furthestInsertionOttimizzato, m = 8, costo: 23029.13, qualità: 1.0821, tempo: 0.022853 secondi
+furthestInsertionOttimizzato, m = 7, costo: 23029.13, qualità: 1.0821, tempo: 0.029879 secondi
+furthestInsertionOttimizzato, m = 6, costo: 23029.13, qualità: 1.0821, tempo: 0.020833 secondi
+furthestInsertionOttimizzato, m = 5, costo: 23029.13, qualità: 1.0821, tempo: 0.019602 secondi
+furthestInsertionOttimizzato, m = 4, costo: 23029.13, qualità: 1.0821, tempo: 0.018710 secondi
+furthestInsertionOttimizzato, m = 3, costo: 23029.13, qualità: 1.0821, tempo: 0.018089 secondi
+furthestInsertionOttimizzato, m = 2, costo: 22356.55, qualità: 1.0505, tempo: 0.017418 secondi
+m minima: 3
+furthestInsertion, costo: 23029.13, qualità: 1.0821, tempo: 0.015561 secondi
+
+_________________
+kroC100
+furthestInsertionOttimizzato, m = 10, costo: 21961.29, qualità: 1.0584, tempo: 0.024969 secondi
+furthestInsertionOttimizzato, m = 9, costo: 21961.29, qualità: 1.0584, tempo: 0.023694 secondi
+furthestInsertionOttimizzato, m = 8, costo: 21961.29, qualità: 1.0584, tempo: 0.022699 secondi
+furthestInsertionOttimizzato, m = 7, costo: 21961.29, qualità: 1.0584, tempo: 0.030686 secondi
+furthestInsertionOttimizzato, m = 6, costo: 21961.29, qualità: 1.0584, tempo: 0.021550 secondi
+furthestInsertionOttimizzato, m = 5, costo: 21961.29, qualità: 1.0584, tempo: 0.019910 secondi
+furthestInsertionOttimizzato, m = 4, costo: 21961.29, qualità: 1.0584, tempo: 0.018993 secondi
+furthestInsertionOttimizzato, m = 3, costo: 21961.29, qualità: 1.0584, tempo: 0.018000 secondi
+furthestInsertionOttimizzato, m = 2, costo: 23780.83, qualità: 1.1461, tempo: 0.016716 secondi
+m minima: 3
+furthestInsertion, costo: 21961.29, qualità: 1.0584, tempo: 0.014988 secondi
+
+_________________
+kroB100
+furthestInsertionOttimizzato, m = 10, costo: 23724.42, qualità: 1.0715, tempo: 0.025038 secondi
+furthestInsertionOttimizzato, m = 9, costo: 23724.42, qualità: 1.0715, tempo: 0.023890 secondi
+furthestInsertionOttimizzato, m = 8, costo: 23724.42, qualità: 1.0715, tempo: 0.022943 secondi
+furthestInsertionOttimizzato, m = 7, costo: 23724.42, qualità: 1.0715, tempo: 0.022161 secondi
+furthestInsertionOttimizzato, m = 6, costo: 23724.42, qualità: 1.0715, tempo: 0.029625 secondi
+furthestInsertionOttimizzato, m = 5, costo: 23724.42, qualità: 1.0715, tempo: 0.019738 secondi
+furthestInsertionOttimizzato, m = 4, costo: 23724.42, qualità: 1.0715, tempo: 0.018786 secondi
+furthestInsertionOttimizzato, m = 3, costo: 23724.42, qualità: 1.0715, tempo: 0.017898 secondi
+furthestInsertionOttimizzato, m = 2, costo: 23549.47, qualità: 1.0636, tempo: 0.017551 secondi
+m minima: 3
+furthestInsertion, costo: 23724.42, qualità: 1.0715, tempo: 0.016911 secondi
+
+_________________
+kroE100
+furthestInsertionOttimizzato, m = 10, costo: 24664.01, qualità: 1.1176, tempo: 0.025434 secondi
+furthestInsertionOttimizzato, m = 9, costo: 24664.01, qualità: 1.1176, tempo: 0.024528 secondi
+furthestInsertionOttimizzato, m = 8, costo: 24664.01, qualità: 1.1176, tempo: 0.023332 secondi
+furthestInsertionOttimizzato, m = 7, costo: 24664.01, qualità: 1.1176, tempo: 0.022581 secondi
+furthestInsertionOttimizzato, m = 6, costo: 24664.01, qualità: 1.1176, tempo: 0.031373 secondi
+furthestInsertionOttimizzato, m = 5, costo: 24664.01, qualità: 1.1176, tempo: 0.021423 secondi
+furthestInsertionOttimizzato, m = 4, costo: 24664.01, qualità: 1.1176, tempo: 0.020970 secondi
+furthestInsertionOttimizzato, m = 3, costo: 24664.01, qualità: 1.1176, tempo: 0.018314 secondi
+furthestInsertionOttimizzato, m = 2, costo: 23841.62, qualità: 1.0804, tempo: 0.017397 secondi
+m minima: 3
+furthestInsertion, costo: 24664.01, qualità: 1.1176, tempo: 0.016060 secondi
+
+_________________
+rd100
+furthestInsertionOttimizzato, m = 10, costo: 8792.51, qualità: 1.1116, tempo: 0.025474 secondi
+furthestInsertionOttimizzato, m = 9, costo: 8792.51, qualità: 1.1116, tempo: 0.025693 secondi
+furthestInsertionOttimizzato, m = 8, costo: 8792.51, qualità: 1.1116, tempo: 0.023920 secondi
+furthestInsertionOttimizzato, m = 7, costo: 8792.51, qualità: 1.1116, tempo: 0.022691 secondi
+furthestInsertionOttimizzato, m = 6, costo: 8792.51, qualità: 1.1116, tempo: 0.021301 secondi
+furthestInsertionOttimizzato, m = 5, costo: 8792.51, qualità: 1.1116, tempo: 0.030912 secondi
+furthestInsertionOttimizzato, m = 4, costo: 8792.51, qualità: 1.1116, tempo: 0.019437 secondi
+furthestInsertionOttimizzato, m = 3, costo: 8792.51, qualità: 1.1116, tempo: 0.018072 secondi
+furthestInsertionOttimizzato, m = 2, costo: 9325.82, qualità: 1.1790, tempo: 0.017456 secondi
+m minima: 3
+furthestInsertion, costo: 8792.51, qualità: 1.1116, tempo: 0.015572 secondi
+
+_________________
+eil101
+furthestInsertionOttimizzato, m = 10, costo: 681.84, qualità: 1.0840, tempo: 0.026000 secondi
+furthestInsertionOttimizzato, m = 9, costo: 681.84, qualità: 1.0840, tempo: 0.024162 secondi
+furthestInsertionOttimizzato, m = 8, costo: 681.84, qualità: 1.0840, tempo: 0.023834 secondi
+furthestInsertionOttimizzato, m = 7, costo: 681.84, qualità: 1.0840, tempo: 0.022588 secondi
+furthestInsertionOttimizzato, m = 6, costo: 681.84, qualità: 1.0840, tempo: 0.021386 secondi
+furthestInsertionOttimizzato, m = 5, costo: 681.84, qualità: 1.0840, tempo: 0.030090 secondi
+furthestInsertionOttimizzato, m = 4, costo: 687.83, qualità: 1.0935, tempo: 0.020068 secondi
+m minima: 5
+furthestInsertion, costo: 681.84, qualità: 1.0840, tempo: 0.016258 secondi
+
+_________________
+lin105
+furthestInsertionOttimizzato, m = 10, costo: 16261.62, qualità: 1.1309, tempo: 0.028372 secondi
+furthestInsertionOttimizzato, m = 9, costo: 16261.62, qualità: 1.1309, tempo: 0.027031 secondi
+furthestInsertionOttimizzato, m = 8, costo: 16261.62, qualità: 1.1309, tempo: 0.026208 secondi
+furthestInsertionOttimizzato, m = 7, costo: 16261.62, qualità: 1.1309, tempo: 0.025139 secondi
+furthestInsertionOttimizzato, m = 6, costo: 16261.62, qualità: 1.1309, tempo: 0.024077 secondi
+furthestInsertionOttimizzato, m = 5, costo: 16261.62, qualità: 1.1309, tempo: 0.025559 secondi
+furthestInsertionOttimizzato, m = 4, costo: 16261.62, qualità: 1.1309, tempo: 0.023615 secondi
+furthestInsertionOttimizzato, m = 3, costo: 16261.62, qualità: 1.1309, tempo: 0.037884 secondi
+furthestInsertionOttimizzato, m = 2, costo: 17652.59, qualità: 1.2277, tempo: 0.021230 secondi
+m minima: 3
+furthestInsertion, costo: 16261.62, qualità: 1.1309, tempo: 0.019766 secondi
+
+_________________
+pr107
+furthestInsertionOttimizzato, m = 10, costo: 46457.01, qualità: 1.0486, tempo: 0.031368 secondi
+furthestInsertionOttimizzato, m = 9, costo: 46457.01, qualità: 1.0486, tempo: 0.030262 secondi
+furthestInsertionOttimizzato, m = 8, costo: 46457.01, qualità: 1.0486, tempo: 0.028991 secondi
+furthestInsertionOttimizzato, m = 7, costo: 46457.01, qualità: 1.0486, tempo: 0.027483 secondi
+furthestInsertionOttimizzato, m = 6, costo: 46457.01, qualità: 1.0486, tempo: 0.026689 secondi
+furthestInsertionOttimizzato, m = 5, costo: 46457.01, qualità: 1.0486, tempo: 0.024974 secondi
+furthestInsertionOttimizzato, m = 4, costo: 46457.01, qualità: 1.0486, tempo: 0.023764 secondi
+furthestInsertionOttimizzato, m = 3, costo: 46457.01, qualità: 1.0486, tempo: 0.032703 secondi
+furthestInsertionOttimizzato, m = 2, costo: 46975.23, qualità: 1.0603, tempo: 0.020312 secondi
+m minima: 3
+furthestInsertion, costo: 46457.01, qualità: 1.0486, tempo: 0.022407 secondi
+
+_________________
+pr124
+furthestInsertionOttimizzato, m = 10, costo: 64272.72, qualità: 1.0888, tempo: 0.040652 secondi
+furthestInsertionOttimizzato, m = 9, costo: 64272.72, qualità: 1.0888, tempo: 0.038379 secondi
+furthestInsertionOttimizzato, m = 8, costo: 64272.72, qualità: 1.0888, tempo: 0.037004 secondi
+furthestInsertionOttimizzato, m = 7, costo: 64272.72, qualità: 1.0888, tempo: 0.035460 secondi
+furthestInsertionOttimizzato, m = 6, costo: 64272.72, qualità: 1.0888, tempo: 0.033735 secondi
+furthestInsertionOttimizzato, m = 5, costo: 64272.72, qualità: 1.0888, tempo: 0.041687 secondi
+furthestInsertionOttimizzato, m = 4, costo: 64272.72, qualità: 1.0888, tempo: 0.029896 secondi
+furthestInsertionOttimizzato, m = 3, costo: 64272.72, qualità: 1.0888, tempo: 0.028060 secondi
+furthestInsertionOttimizzato, m = 2, costo: 70771.90, qualità: 1.1989, tempo: 0.026554 secondi
+m minima: 3
+furthestInsertion, costo: 64272.72, qualità: 1.0888, tempo: 0.031944 secondi
+
+_________________
+bier127
+furthestInsertionOttimizzato, m = 10, costo: 130814.68, qualità: 1.1060, tempo: 0.040563 secondi
+furthestInsertionOttimizzato, m = 9, costo: 130814.68, qualità: 1.1060, tempo: 0.039106 secondi
+furthestInsertionOttimizzato, m = 8, costo: 130814.68, qualità: 1.1060, tempo: 0.046480 secondi
+furthestInsertionOttimizzato, m = 7, costo: 130814.68, qualità: 1.1060, tempo: 0.036002 secondi
+furthestInsertionOttimizzato, m = 6, costo: 131372.20, qualità: 1.1107, tempo: 0.034088 secondi
+m minima: 7
+furthestInsertion, costo: 130814.68, qualità: 1.1060, tempo: 0.026989 secondi
+
+_________________
+ch130
+furthestInsertionOttimizzato, m = 10, costo: 6503.89, qualità: 1.0645, tempo: 0.042960 secondi
+furthestInsertionOttimizzato, m = 9, costo: 6503.89, qualità: 1.0645, tempo: 0.041383 secondi
+furthestInsertionOttimizzato, m = 8, costo: 6503.89, qualità: 1.0645, tempo: 0.040408 secondi
+furthestInsertionOttimizzato, m = 7, costo: 6503.89, qualità: 1.0645, tempo: 0.047334 secondi
+furthestInsertionOttimizzato, m = 6, costo: 6643.27, qualità: 1.0873, tempo: 0.036438 secondi
+m minima: 7
+furthestInsertion, costo: 6503.89, qualità: 1.0645, tempo: 0.026432 secondi
+
+_________________
+pr136
+furthestInsertionOttimizzato, m = 10, costo: 109642.48, qualità: 1.1330, tempo: 0.047495 secondi
+furthestInsertionOttimizzato, m = 9, costo: 109642.48, qualità: 1.1330, tempo: 0.046103 secondi
+furthestInsertionOttimizzato, m = 8, costo: 109642.48, qualità: 1.1330, tempo: 0.043807 secondi
+furthestInsertionOttimizzato, m = 7, costo: 109642.48, qualità: 1.1330, tempo: 0.051367 secondi
+furthestInsertionOttimizzato, m = 6, costo: 109642.48, qualità: 1.1330, tempo: 0.038933 secondi
+furthestInsertionOttimizzato, m = 5, costo: 109642.48, qualità: 1.1330, tempo: 0.037342 secondi
+furthestInsertionOttimizzato, m = 4, costo: 109642.48, qualità: 1.1330, tempo: 0.035372 secondi
+furthestInsertionOttimizzato, m = 3, costo: 109642.48, qualità: 1.1330, tempo: 0.033566 secondi
+furthestInsertionOttimizzato, m = 2, costo: 113569.84, qualità: 1.1736, tempo: 0.040897 secondi
+m minima: 3
+furthestInsertion, costo: 109642.48, qualità: 1.1330, tempo: 0.028821 secondi
+
+_________________
+pr144
+furthestInsertionOttimizzato, m = 10, costo: 61464.93, qualità: 1.0500, tempo: 0.052773 secondi
+furthestInsertionOttimizzato, m = 9, costo: 61464.93, qualità: 1.0500, tempo: 0.050821 secondi
+furthestInsertionOttimizzato, m = 8, costo: 61464.93, qualità: 1.0500, tempo: 0.048918 secondi
+furthestInsertionOttimizzato, m = 7, costo: 61464.93, qualità: 1.0500, tempo: 0.046586 secondi
+furthestInsertionOttimizzato, m = 6, costo: 61464.93, qualità: 1.0500, tempo: 0.053194 secondi
+furthestInsertionOttimizzato, m = 5, costo: 61464.93, qualità: 1.0500, tempo: 0.041671 secondi
+furthestInsertionOttimizzato, m = 4, costo: 61464.93, qualità: 1.0500, tempo: 0.039717 secondi
+furthestInsertionOttimizzato, m = 3, costo: 61464.93, qualità: 1.0500, tempo: 0.037593 secondi
+furthestInsertionOttimizzato, m = 2, costo: 61690.11, qualità: 1.0539, tempo: 0.044442 secondi
+m minima: 3
+furthestInsertion, costo: 61464.93, qualità: 1.0500, tempo: 0.037969 secondi
+
+_________________
+kroA150
+furthestInsertionOttimizzato, m = 10, costo: 29568.76, qualità: 1.1148, tempo: 0.060130 secondi
+furthestInsertionOttimizzato, m = 9, costo: 29568.76, qualità: 1.1148, tempo: 0.057012 secondi
+furthestInsertionOttimizzato, m = 8, costo: 29568.76, qualità: 1.1148, tempo: 0.055196 secondi
+furthestInsertionOttimizzato, m = 7, costo: 29568.76, qualità: 1.1148, tempo: 0.073512 secondi
+furthestInsertionOttimizzato, m = 6, costo: 29568.76, qualità: 1.1148, tempo: 0.052870 secondi
+furthestInsertionOttimizzato, m = 5, costo: 29568.76, qualità: 1.1148, tempo: 0.050800 secondi
+furthestInsertionOttimizzato, m = 4, costo: 29494.40, qualità: 1.1120, tempo: 0.047163 secondi
+m minima: 5
+furthestInsertion, costo: 29568.76, qualità: 1.1148, tempo: 0.036789 secondi
+
+_________________
+ch150
+furthestInsertionOttimizzato, m = 10, costo: 7154.27, qualità: 1.0959, tempo: 0.059435 secondi
+furthestInsertionOttimizzato, m = 9, costo: 7154.27, qualità: 1.0959, tempo: 0.066276 secondi
+furthestInsertionOttimizzato, m = 8, costo: 7154.27, qualità: 1.0959, tempo: 0.053469 secondi
+furthestInsertionOttimizzato, m = 7, costo: 7154.27, qualità: 1.0959, tempo: 0.050966 secondi
+furthestInsertionOttimizzato, m = 6, costo: 7154.27, qualità: 1.0959, tempo: 0.048375 secondi
+furthestInsertionOttimizzato, m = 5, costo: 7154.27, qualità: 1.0959, tempo: 0.054808 secondi
+furthestInsertionOttimizzato, m = 4, costo: 7154.27, qualità: 1.0959, tempo: 0.043584 secondi
+furthestInsertionOttimizzato, m = 3, costo: 7188.29, qualità: 1.1011, tempo: 0.041130 secondi
+m minima: 4
+furthestInsertion, costo: 7154.27, qualità: 1.0959, tempo: 0.033942 secondi
+
+_________________
+kroB150
+furthestInsertionOttimizzato, m = 10, costo: 29102.32, qualità: 1.1138, tempo: 0.057318 secondi
+furthestInsertionOttimizzato, m = 9, costo: 29102.32, qualità: 1.1138, tempo: 0.064005 secondi
+furthestInsertionOttimizzato, m = 8, costo: 29102.32, qualità: 1.1138, tempo: 0.052911 secondi
+furthestInsertionOttimizzato, m = 7, costo: 29102.32, qualità: 1.1138, tempo: 0.051491 secondi
+furthestInsertionOttimizzato, m = 6, costo: 29102.32, qualità: 1.1138, tempo: 0.049348 secondi
+furthestInsertionOttimizzato, m = 5, costo: 29102.32, qualità: 1.1138, tempo: 0.059177 secondi
+furthestInsertionOttimizzato, m = 4, costo: 29102.32, qualità: 1.1138, tempo: 0.045238 secondi
+furthestInsertionOttimizzato, m = 3, costo: 29102.32, qualità: 1.1138, tempo: 0.043308 secondi
+furthestInsertionOttimizzato, m = 2, costo: 29315.61, qualità: 1.1219, tempo: 0.039885 secondi
+m minima: 3
+furthestInsertion, costo: 29102.32, qualità: 1.1138, tempo: 0.036129 secondi
+
+_________________
+pr152
+furthestInsertionOttimizzato, m = 10, costo: 77123.19, qualità: 1.0467, tempo: 0.059613 secondi
+furthestInsertionOttimizzato, m = 9, costo: 77123.19, qualità: 1.0467, tempo: 0.066171 secondi
+furthestInsertionOttimizzato, m = 8, costo: 77123.19, qualità: 1.0467, tempo: 0.054662 secondi
+furthestInsertionOttimizzato, m = 7, costo: 77123.19, qualità: 1.0467, tempo: 0.053008 secondi
+furthestInsertionOttimizzato, m = 6, costo: 77123.19, qualità: 1.0467, tempo: 0.051198 secondi
+furthestInsertionOttimizzato, m = 5, costo: 77123.19, qualità: 1.0467, tempo: 0.059026 secondi
+furthestInsertionOttimizzato, m = 4, costo: 77123.19, qualità: 1.0467, tempo: 0.049494 secondi
+furthestInsertionOttimizzato, m = 3, costo: 77123.19, qualità: 1.0467, tempo: 0.047421 secondi
+furthestInsertionOttimizzato, m = 2, costo: 77144.91, qualità: 1.0470, tempo: 0.043692 secondi
+m minima: 3
+furthestInsertion, costo: 77123.19, qualità: 1.0467, tempo: 0.045531 secondi
+
+_________________
+u159
+furthestInsertionOttimizzato, m = 10, costo: 43810.88, qualità: 1.0411, tempo: 0.079236 secondi
+furthestInsertionOttimizzato, m = 9, costo: 43810.88, qualità: 1.0411, tempo: 0.063833 secondi
+furthestInsertionOttimizzato, m = 8, costo: 43810.88, qualità: 1.0411, tempo: 0.061531 secondi
+furthestInsertionOttimizzato, m = 7, costo: 43810.88, qualità: 1.0411, tempo: 0.057390 secondi
+furthestInsertionOttimizzato, m = 6, costo: 43810.88, qualità: 1.0411, tempo: 0.064852 secondi
+furthestInsertionOttimizzato, m = 5, costo: 43810.88, qualità: 1.0411, tempo: 0.051102 secondi
+furthestInsertionOttimizzato, m = 4, costo: 43810.88, qualità: 1.0411, tempo: 0.048779 secondi
+furthestInsertionOttimizzato, m = 3, costo: 43810.88, qualità: 1.0411, tempo: 0.057027 secondi
+furthestInsertionOttimizzato, m = 2, costo: 47809.44, qualità: 1.1362, tempo: 0.043261 secondi
+m minima: 3
+furthestInsertion, costo: 43810.88, qualità: 1.0411, tempo: 0.042567 secondi
+
+_________________
+rat195
+furthestInsertionOttimizzato, m = 10, costo: 2748.86, qualità: 1.1833, tempo: 0.099274 secondi
+furthestInsertionOttimizzato, m = 9, costo: 2748.86, qualità: 1.1833, tempo: 0.106296 secondi
+furthestInsertionOttimizzato, m = 8, costo: 2748.86, qualità: 1.1833, tempo: 0.092520 secondi
+furthestInsertionOttimizzato, m = 7, costo: 2748.86, qualità: 1.1833, tempo: 0.086456 secondi
+furthestInsertionOttimizzato, m = 6, costo: 2748.86, qualità: 1.1833, tempo: 0.092027 secondi
+furthestInsertionOttimizzato, m = 5, costo: 2748.86, qualità: 1.1833, tempo: 0.077481 secondi
+furthestInsertionOttimizzato, m = 4, costo: 2738.64, qualità: 1.1789, tempo: 0.087983 secondi
+m minima: 5
+furthestInsertion, costo: 2748.86, qualità: 1.1833, tempo: 0.059771 secondi
+
+_________________
+d198
+furthestInsertionOttimizzato, m = 10, costo: 17190.68, qualità: 1.0894, tempo: 0.101508 secondi
+furthestInsertionOttimizzato, m = 9, costo: 17226.29, qualità: 1.0917, tempo: 0.097213 secondi
+m minima: 10
+furthestInsertion, costo: 17248.13, qualità: 1.0930, tempo: 0.061030 secondi
+
+_________________
+kroA200
+furthestInsertionOttimizzato, m = 10, costo: 32015.54, qualità: 1.0902, tempo: 0.114206 secondi
+furthestInsertionOttimizzato, m = 9, costo: 32015.54, qualità: 1.0902, tempo: 0.101861 secondi
+furthestInsertionOttimizzato, m = 8, costo: 32015.54, qualità: 1.0902, tempo: 0.107667 secondi
+furthestInsertionOttimizzato, m = 7, costo: 32015.54, qualità: 1.0902, tempo: 0.091106 secondi
+furthestInsertionOttimizzato, m = 6, costo: 32015.54, qualità: 1.0902, tempo: 0.098095 secondi
+furthestInsertionOttimizzato, m = 5, costo: 32015.54, qualità: 1.0902, tempo: 0.082111 secondi
+furthestInsertionOttimizzato, m = 4, costo: 32427.55, qualità: 1.1042, tempo: 0.081422 secondi
+m minima: 5
+furthestInsertion, costo: 32015.54, qualità: 1.0902, tempo: 0.062516 secondi
+
+_________________
+kroB200
+furthestInsertionOttimizzato, m = 10, costo: 32037.46, qualità: 1.0883, tempo: 0.114594 secondi
+furthestInsertionOttimizzato, m = 9, costo: 32037.46, qualità: 1.0883, tempo: 0.099854 secondi
+furthestInsertionOttimizzato, m = 8, costo: 32037.46, qualità: 1.0883, tempo: 0.110641 secondi
+furthestInsertionOttimizzato, m = 7, costo: 32037.46, qualità: 1.0883, tempo: 0.101348 secondi
+furthestInsertionOttimizzato, m = 6, costo: 32037.46, qualità: 1.0883, tempo: 0.107544 secondi
+furthestInsertionOttimizzato, m = 5, costo: 32037.46, qualità: 1.0883, tempo: 0.087266 secondi
+furthestInsertionOttimizzato, m = 4, costo: 32037.46, qualità: 1.0883, tempo: 0.083044 secondi
+furthestInsertionOttimizzato, m = 3, costo: 32037.46, qualità: 1.0883, tempo: 0.090245 secondi
+furthestInsertionOttimizzato, m = 2, costo: 33376.60, qualità: 1.1338, tempo: 0.074345 secondi
+m minima: 3
+furthestInsertion, costo: 32037.46, qualità: 1.0883, tempo: 0.066086 secondi
+
+_________________
+ts225
+furthestInsertionOttimizzato, m = 10, costo: 139295.49, qualità: 1.0999, tempo: 0.154034 secondi
+furthestInsertionOttimizzato, m = 9, costo: 139295.49, qualità: 1.0999, tempo: 0.133180 secondi
+furthestInsertionOttimizzato, m = 8, costo: 139295.49, qualità: 1.0999, tempo: 0.143878 secondi
+furthestInsertionOttimizzato, m = 7, costo: 139295.49, qualità: 1.0999, tempo: 0.122861 secondi
+furthestInsertionOttimizzato, m = 6, costo: 141375.39, qualità: 1.1163, tempo: 0.127816 secondi
+m minima: 7
+furthestInsertion, costo: 139295.49, qualità: 1.0999, tempo: 0.086377 secondi
+
+_________________
+tsp225
+furthestInsertionOttimizzato, m = 10, costo: 4353.24, qualità: 1.1117, tempo: 0.141563 secondi
+furthestInsertionOttimizzato, m = 9, costo: 4353.24, qualità: 1.1117, tempo: 0.147362 secondi
+furthestInsertionOttimizzato, m = 8, costo: 4353.24, qualità: 1.1117, tempo: 0.143734 secondi
+furthestInsertionOttimizzato, m = 7, costo: 4353.24, qualità: 1.1117, tempo: 0.121621 secondi
+furthestInsertionOttimizzato, m = 6, costo: 4353.24, qualità: 1.1117, tempo: 0.132270 secondi
+furthestInsertionOttimizzato, m = 5, costo: 4353.24, qualità: 1.1117, tempo: 0.112303 secondi
+furthestInsertionOttimizzato, m = 4, costo: 4353.24, qualità: 1.1117, tempo: 0.120916 secondi
+furthestInsertionOttimizzato, m = 3, costo: 4335.43, qualità: 1.1071, tempo: 0.099113 secondi
+m minima: 4
+furthestInsertion, costo: 4353.24, qualità: 1.1117, tempo: 0.083592 secondi
+
+_________________
+pr226
+furthestInsertionOttimizzato, m = 10, costo: 84697.55, qualità: 1.0539, tempo: 0.158804 secondi
+furthestInsertionOttimizzato, m = 9, costo: 84697.55, qualità: 1.0539, tempo: 0.133536 secondi
+furthestInsertionOttimizzato, m = 8, costo: 84697.55, qualità: 1.0539, tempo: 0.140387 secondi
+furthestInsertionOttimizzato, m = 7, costo: 84697.55, qualità: 1.0539, tempo: 0.122295 secondi
+furthestInsertionOttimizzato, m = 6, costo: 84697.55, qualità: 1.0539, tempo: 0.123860 secondi
+furthestInsertionOttimizzato, m = 5, costo: 84697.55, qualità: 1.0539, tempo: 0.111526 secondi
+furthestInsertionOttimizzato, m = 4, costo: 84697.55, qualità: 1.0539, tempo: 0.115115 secondi
+furthestInsertionOttimizzato, m = 3, costo: 84697.55, qualità: 1.0539, tempo: 0.113745 secondi
+furthestInsertionOttimizzato, m = 2, costo: 87056.76, qualità: 1.0832, tempo: 0.093373 secondi
+m minima: 3
+furthestInsertion, costo: 84697.55, qualità: 1.0539, tempo: 0.210338 secondi
+
+_________________
+gil262
+furthestInsertionOttimizzato, m = 10, costo: 2692.50, qualità: 1.1323, tempo: 0.219797 secondi
+furthestInsertionOttimizzato, m = 9, costo: 2692.50, qualità: 1.1323, tempo: 0.204226 secondi
+furthestInsertionOttimizzato, m = 8, costo: 2692.50, qualità: 1.1323, tempo: 0.175673 secondi
+furthestInsertionOttimizzato, m = 7, costo: 2692.50, qualità: 1.1323, tempo: 0.176887 secondi
+furthestInsertionOttimizzato, m = 6, costo: 2693.46, qualità: 1.1327, tempo: 0.170463 secondi
+m minima: 7
+furthestInsertion, costo: 2692.50, qualità: 1.1323, tempo: 0.107210 secondi
+
+_________________
+pr264
+furthestInsertionOttimizzato, m = 10, costo: 55780.57, qualità: 1.1353, tempo: 0.185526 secondi
+furthestInsertionOttimizzato, m = 9, costo: 55780.57, qualità: 1.1353, tempo: 0.188318 secondi
+furthestInsertionOttimizzato, m = 8, costo: 55780.57, qualità: 1.1353, tempo: 0.182796 secondi
+furthestInsertionOttimizzato, m = 7, costo: 55780.57, qualità: 1.1353, tempo: 0.182300 secondi
+furthestInsertionOttimizzato, m = 6, costo: 55787.95, qualità: 1.1354, tempo: 0.156188 secondi
+m minima: 7
+furthestInsertion, costo: 55780.57, qualità: 1.1353, tempo: 0.113178 secondi
+
+_________________
+a280
+furthestInsertionOttimizzato, m = 10, costo: 3051.83, qualità: 1.1833, tempo: 0.224944 secondi
+furthestInsertionOttimizzato, m = 9, costo: 3051.83, qualità: 1.1833, tempo: 0.209877 secondi
+furthestInsertionOttimizzato, m = 8, costo: 3051.83, qualità: 1.1833, tempo: 0.207079 secondi
+furthestInsertionOttimizzato, m = 7, costo: 3051.83, qualità: 1.1833, tempo: 0.198781 secondi
+furthestInsertionOttimizzato, m = 6, costo: 3053.95, qualità: 1.1842, tempo: 0.188005 secondi
+m minima: 7
+furthestInsertion, costo: 3045.24, qualità: 1.1808, tempo: 0.125568 secondi
+
+_________________
+pr299
+furthestInsertionOttimizzato, m = 10, costo: 53748.78, qualità: 1.1153, tempo: 0.257921 secondi
+furthestInsertionOttimizzato, m = 9, costo: 53748.78, qualità: 1.1153, tempo: 0.250336 secondi
+furthestInsertionOttimizzato, m = 8, costo: 53748.78, qualità: 1.1153, tempo: 0.254880 secondi
+furthestInsertionOttimizzato, m = 7, costo: 53748.78, qualità: 1.1153, tempo: 0.247100 secondi
+furthestInsertionOttimizzato, m = 6, costo: 53748.78, qualità: 1.1153, tempo: 0.210697 secondi
+furthestInsertionOttimizzato, m = 5, costo: 53748.78, qualità: 1.1153, tempo: 0.204766 secondi
+furthestInsertionOttimizzato, m = 4, costo: 53748.78, qualità: 1.1153, tempo: 0.198317 secondi
+furthestInsertionOttimizzato, m = 3, costo: 53748.78, qualità: 1.1153, tempo: 0.183088 secondi
+furthestInsertionOttimizzato, m = 2, costo: 56702.48, qualità: 1.1766, tempo: 0.173759 secondi
+m minima: 3
+furthestInsertion, costo: 53748.78, qualità: 1.1153, tempo: 0.151871 secondi
+
+_________________
+lin318
+furthestInsertionOttimizzato, m = 10, costo: 46037.40, qualità: 1.0954, tempo: 0.286395 secondi
+furthestInsertionOttimizzato, m = 9, costo: 46037.40, qualità: 1.0954, tempo: 0.309848 secondi
+furthestInsertionOttimizzato, m = 8, costo: 46037.40, qualità: 1.0954, tempo: 0.308733 secondi
+furthestInsertionOttimizzato, m = 7, costo: 46037.40, qualità: 1.0954, tempo: 0.277071 secondi
+furthestInsertionOttimizzato, m = 6, costo: 46037.40, qualità: 1.0954, tempo: 0.264540 secondi
+furthestInsertionOttimizzato, m = 5, costo: 46037.40, qualità: 1.0954, tempo: 0.240703 secondi
+furthestInsertionOttimizzato, m = 4, costo: 47934.75, qualità: 1.1405, tempo: 0.241394 secondi
+m minima: 5
+furthestInsertion, costo: 46037.40, qualità: 1.0954, tempo: 0.189060 secondi
+
+_________________
+linhp318
+furthestInsertionOttimizzato, m = 10, costo: 46037.40, qualità: 1.1135, tempo: 0.326641 secondi
+furthestInsertionOttimizzato, m = 9, costo: 46037.40, qualità: 1.1135, tempo: 0.288804 secondi
+furthestInsertionOttimizzato, m = 8, costo: 46037.40, qualità: 1.1135, tempo: 0.278207 secondi
+furthestInsertionOttimizzato, m = 7, costo: 46037.40, qualità: 1.1135, tempo: 0.266540 secondi
+furthestInsertionOttimizzato, m = 6, costo: 46037.40, qualità: 1.1135, tempo: 0.250591 secondi
+furthestInsertionOttimizzato, m = 5, costo: 46037.40, qualità: 1.1135, tempo: 0.237510 secondi
+furthestInsertionOttimizzato, m = 4, costo: 47934.75, qualità: 1.1594, tempo: 0.228100 secondi
+m minima: 5
+furthestInsertion, costo: 46037.40, qualità: 1.1135, tempo: 0.166607 secondi
+
+_________________
+rd400
+furthestInsertionOttimizzato, m = 10, costo: 17475.13, qualità: 1.1436, tempo: 0.481934 secondi
+furthestInsertionOttimizzato, m = 9, costo: 17475.13, qualità: 1.1436, tempo: 0.595251 secondi
+furthestInsertionOttimizzato, m = 8, costo: 17475.13, qualità: 1.1436, tempo: 0.486096 secondi
+furthestInsertionOttimizzato, m = 7, costo: 17475.13, qualità: 1.1436, tempo: 0.411172 secondi
+furthestInsertionOttimizzato, m = 6, costo: 17467.91, qualità: 1.1431, tempo: 0.429775 secondi
+m minima: 7
+furthestInsertion, costo: 17475.13, qualità: 1.1436, tempo: 0.270995 secondi
+
+_________________
+fl417
+furthestInsertionOttimizzato, m = 10, costo: 13263.51, qualità: 1.1182, tempo: 0.533379 secondi
+furthestInsertionOttimizzato, m = 9, costo: 13263.51, qualità: 1.1182, tempo: 0.517014 secondi
+furthestInsertionOttimizzato, m = 8, costo: 13263.51, qualità: 1.1182, tempo: 0.511032 secondi
+furthestInsertionOttimizzato, m = 7, costo: 13263.51, qualità: 1.1182, tempo: 0.464780 secondi
+furthestInsertionOttimizzato, m = 6, costo: 13263.51, qualità: 1.1182, tempo: 0.439804 secondi
+furthestInsertionOttimizzato, m = 5, costo: 13263.51, qualità: 1.1182, tempo: 0.417839 secondi
+furthestInsertionOttimizzato, m = 4, costo: 13263.51, qualità: 1.1182, tempo: 0.394668 secondi
+furthestInsertionOttimizzato, m = 3, costo: 13263.51, qualità: 1.1182, tempo: 0.397809 secondi
+furthestInsertionOttimizzato, m = 2, costo: 13479.61, qualità: 1.1365, tempo: 0.379746 secondi
+m minima: 3
+furthestInsertion, costo: 13264.53, qualità: 1.1183, tempo: 0.498355 secondi
+
+_________________
+pr439
+furthestInsertionOttimizzato, m = 10, costo: 120075.53, qualità: 1.1199, tempo: 0.613004 secondi
+furthestInsertionOttimizzato, m = 9, costo: 120075.53, qualità: 1.1199, tempo: 0.572020 secondi
+furthestInsertionOttimizzato, m = 8, costo: 120075.53, qualità: 1.1199, tempo: 0.550080 secondi
+furthestInsertionOttimizzato, m = 7, costo: 120075.53, qualità: 1.1199, tempo: 0.544942 secondi
+furthestInsertionOttimizzato, m = 6, costo: 120102.72, qualità: 1.1202, tempo: 0.539383 secondi
+m minima: 7
+furthestInsertion, costo: 120068.61, qualità: 1.1199, tempo: 0.349097 secondi
+
+_________________
+pcb442
+furthestInsertionOttimizzato, m = 10, costo: 58147.40, qualità: 1.1451, tempo: 0.626692 secondi
+furthestInsertionOttimizzato, m = 9, costo: 58147.40, qualità: 1.1451, tempo: 0.622166 secondi
+furthestInsertionOttimizzato, m = 8, costo: 58147.40, qualità: 1.1451, tempo: 0.594364 secondi
+furthestInsertionOttimizzato, m = 7, costo: 58147.40, qualità: 1.1451, tempo: 0.540517 secondi
+furthestInsertionOttimizzato, m = 6, costo: 58187.53, qualità: 1.1459, tempo: 0.492326 secondi
+m minima: 7
+furthestInsertion, costo: 58273.08, qualità: 1.1476, tempo: 0.336995 secondi
+
+_________________
+d493
+furthestInsertionOttimizzato, m = 10, costo: 38786.69, qualità: 1.1081, tempo: 0.717948 secondi
+furthestInsertionOttimizzato, m = 9, costo: 38786.69, qualità: 1.1081, tempo: 0.708843 secondi
+furthestInsertionOttimizzato, m = 8, costo: 38786.69, qualità: 1.1081, tempo: 0.667110 secondi
+furthestInsertionOttimizzato, m = 7, costo: 38786.69, qualità: 1.1081, tempo: 0.651928 secondi
+furthestInsertionOttimizzato, m = 6, costo: 38753.00, qualità: 1.1072, tempo: 0.661687 secondi
+m minima: 7
+furthestInsertion, costo: 38786.69, qualità: 1.1081, tempo: 0.467743 secondi
+
+_________________
+u574
+furthestInsertionOttimizzato, m = 10, costo: 40797.25, qualità: 1.1055, tempo: 1.116498 secondi
+furthestInsertionOttimizzato, m = 9, costo: 40797.25, qualità: 1.1055, tempo: 1.089594 secondi
+furthestInsertionOttimizzato, m = 8, costo: 40797.25, qualità: 1.1055, tempo: 0.988075 secondi
+furthestInsertionOttimizzato, m = 7, costo: 40797.25, qualità: 1.1055, tempo: 0.954824 secondi
+furthestInsertionOttimizzato, m = 6, costo: 40833.17, qualità: 1.1064, tempo: 0.911015 secondi
+m minima: 7
+furthestInsertion, costo: 40797.25, qualità: 1.1055, tempo: 0.588284 secondi
+
+_________________
+rat575
+furthestInsertionOttimizzato, m = 10, costo: 7828.82, qualità: 1.1559, tempo: 1.103455 secondi
+furthestInsertionOttimizzato, m = 9, costo: 7828.82, qualità: 1.1559, tempo: 1.049558 secondi
+furthestInsertionOttimizzato, m = 8, costo: 7828.82, qualità: 1.1559, tempo: 0.950877 secondi
+furthestInsertionOttimizzato, m = 7, costo: 7828.82, qualità: 1.1559, tempo: 0.971026 secondi
+furthestInsertionOttimizzato, m = 6, costo: 7828.82, qualità: 1.1559, tempo: 0.902958 secondi
+furthestInsertionOttimizzato, m = 5, costo: 7828.82, qualità: 1.1559, tempo: 0.881768 secondi
+furthestInsertionOttimizzato, m = 4, costo: 7781.18, qualità: 1.1489, tempo: 0.848564 secondi
+m minima: 5
+furthestInsertion, costo: 7828.82, qualità: 1.1559, tempo: 0.555406 secondi
+
+_________________
+p654
+furthestInsertionOttimizzato, m = 10, costo: 41224.77, qualità: 1.1900, tempo: 1.384048 secondi
+furthestInsertionOttimizzato, m = 9, costo: 41224.77, qualità: 1.1900, tempo: 1.299561 secondi
+furthestInsertionOttimizzato, m = 8, costo: 41224.77, qualità: 1.1900, tempo: 1.268473 secondi
+furthestInsertionOttimizzato, m = 7, costo: 41224.77, qualità: 1.1900, tempo: 1.199608 secondi
+furthestInsertionOttimizzato, m = 6, costo: 41224.77, qualità: 1.1900, tempo: 1.147304 secondi
+furthestInsertionOttimizzato, m = 5, costo: 41224.77, qualità: 1.1900, tempo: 1.083391 secondi
+furthestInsertionOttimizzato, m = 4, costo: 41224.77, qualità: 1.1900, tempo: 1.106257 secondi
+furthestInsertionOttimizzato, m = 3, costo: 41224.77, qualità: 1.1900, tempo: 1.030309 secondi
+furthestInsertionOttimizzato, m = 2, costo: 45740.10, qualità: 1.3203, tempo: 0.947242 secondi
+m minima: 3
+furthestInsertion, costo: 41194.43, qualità: 1.1891, tempo: 1.174956 secondi
+
+_________________
+d657
+furthestInsertionOttimizzato, m = 10, costo: 55277.75, qualità: 1.1301, tempo: 1.385900 secondi
+furthestInsertionOttimizzato, m = 9, costo: 55277.75, qualità: 1.1301, tempo: 1.326500 secondi
+furthestInsertionOttimizzato, m = 8, costo: 55277.75, qualità: 1.1301, tempo: 1.298600 secondi
+furthestInsertionOttimizzato, m = 7, costo: 55277.75, qualità: 1.1301, tempo: 1.240499 secondi
+furthestInsertionOttimizzato, m = 6, costo: 55352.82, qualità: 1.1317, tempo: 1.156113 secondi
+m minima: 7
+furthestInsertion, costo: 55277.75, qualità: 1.1301, tempo: 0.766502 secondi
+
+_________________
+u724
+furthestInsertionOttimizzato, m = 10, costo: 48160.51, qualità: 1.1491, tempo: 1.712705 secondi
+furthestInsertionOttimizzato, m = 9, costo: 48160.51, qualità: 1.1491, tempo: 1.567849 secondi
+furthestInsertionOttimizzato, m = 8, costo: 48160.51, qualità: 1.1491, tempo: 1.587435 secondi
+furthestInsertionOttimizzato, m = 7, costo: 48160.51, qualità: 1.1491, tempo: 1.472269 secondi
+furthestInsertionOttimizzato, m = 6, costo: 48207.63, qualità: 1.1503, tempo: 1.458916 secondi
+m minima: 7
+furthestInsertion, costo: 48160.51, qualità: 1.1491, tempo: 0.967111 secondi
+
+_________________
+rat783
+furthestInsertionOttimizzato, m = 10, costo: 9997.80, qualità: 1.1353, tempo: 2.002314 secondi
+furthestInsertionOttimizzato, m = 9, costo: 9997.80, qualità: 1.1353, tempo: 1.953936 secondi
+furthestInsertionOttimizzato, m = 8, costo: 9997.80, qualità: 1.1353, tempo: 1.885714 secondi
+furthestInsertionOttimizzato, m = 7, costo: 9997.80, qualità: 1.1353, tempo: 1.800443 secondi
+furthestInsertionOttimizzato, m = 6, costo: 10103.44, qualità: 1.1473, tempo: 1.715454 secondi
+m minima: 7
+furthestInsertion, costo: 9997.80, qualità: 1.1353, tempo: 1.029362 secondi
+
+_________________
+pr1002
+furthestInsertionOttimizzato, m = 10, costo: 290894.87, qualità: 1.1230, tempo: 3.372811 secondi
+furthestInsertionOttimizzato, m = 9, costo: 290894.87, qualità: 1.1230, tempo: 3.285059 secondi
+furthestInsertionOttimizzato, m = 8, costo: 290894.87, qualità: 1.1230, tempo: 3.063605 secondi
+furthestInsertionOttimizzato, m = 7, costo: 290894.87, qualità: 1.1230, tempo: 2.950580 secondi
+furthestInsertionOttimizzato, m = 6, costo: 290396.41, qualità: 1.1210, tempo: 2.801764 secondi
+m minima: 7
+furthestInsertion, costo: 290894.87, qualità: 1.1230, tempo: 1.747098 secondi

@@ -237,7 +237,7 @@ class TSP:
 
         #print(f"Percentuale casi in cui l'ottimo ricalcolato è \"vicino\" al punto di inserzione del nodo precedente {conteggio / tot}")
 
-    def cheapestInsertionOttimizzato(self):
+    def cheapestInsertionOttimizzato(self, m):
         n = self.numCity
         adj = np.array(self.adj)
         path = [0, 0]
@@ -313,7 +313,7 @@ class TSP:
                         i += 1           
                 heapq.heapify(hp)
             for i in range(len(h)):
-                h[i] = h[i][:]
+                h[i] = h[i][:m]
             heapq.heapify(h)
         self.tour = path
         self.calculateCost()
@@ -429,6 +429,92 @@ class TSP:
                 if node not in in_path and right_cost < cost:
                     new_cost = right_cost
                     h[i] = (-new_cost, node, to_ins, path[(best_pos + 1) % (len(path))])
+            heapq.heapify(h)
+        self.tour = path
+        self.calculateCost()
+
+    def furthestInsertionOttimizzato(self, m):
+        n = self.numCity
+        adj = np.array(self.adj)
+        path = [0, 0]
+
+        maxDist = -1
+        for i in range(n):
+            for j in range(0, i):
+                if adj[i][j] > maxDist:
+                    path[0], path[1] = i, j
+                    maxDist = adj[i][j]
+        in_path = {path[0], path[1]}
+
+        h = []
+        d = dict()
+        d[(path[0], path[1])] = []
+        d[(path[1], path[0])] = []
+        for i in set(range(n)) - in_path:
+            cost = adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]
+            h_i = [-cost, i, path[0], path[1]]
+            h_i2 = [-cost, i, path[1], path[0]]
+            h.append([h_i, h_i2])
+            d[(path[0], path[1])].append(h_i)
+            d[(path[1], path[0])].append(h_i2)
+        heapq.heapify(h)
+
+        while len(path) < n:
+            h_i = heapq.heappop(h)
+            (costo, to_ins, l, r) = heapq.heappop(h_i)
+
+            best_pos = path.index(r)
+            path.insert(best_pos, to_ins)
+            in_path.add(to_ins)
+
+            for p in d[(l, r)]:
+                p[0] = np.inf
+            for hp in h:
+                node = hp[0][1]
+
+                # sx: path[(best_pos - 1) % len(path)]
+                # node
+                # dx: path[best_pos]
+                sx = path[(best_pos - 1) % len(path)]
+                dx = path[best_pos]
+                newCost = adj[sx][node] + \
+                          adj[node][dx] - \
+                          adj[sx][dx]
+                l = [newCost, node, sx, dx]
+                if (sx, dx) not in d:
+                    d[(sx, dx)] = [l]
+                else:
+                    d[(sx, dx)].append(l)
+                hp.append(l)
+
+                # sx: path[best_pos]
+                # node
+                # dx: path[(best_pos + 1) % len(path)]
+                sx = path[best_pos]
+                dx = path[(best_pos + 1) % len(path)]
+                newCost = adj[sx][node] + \
+                          adj[node][dx] - \
+                          adj[sx][dx]
+                l = [newCost, node, sx, dx]
+                if (sx, dx) not in d:
+                    d[(sx, dx)] = [l]
+                else:
+                    d[(sx, dx)].append(l)
+                hp.append(l)
+
+                i = 0
+                for p in hp:
+                    if p[0] < 0:
+                        p[0] *= -1
+                while i < len(hp):
+                    if hp[i][0] == np.inf:
+                        del hp[i]
+                    else:
+                        i += 1           
+                heapq.heapify(hp)
+                hp[0][0] *= -1
+            for i in range(len(h)):
+                h[i] = h[i][:m]
             heapq.heapify(h)
         self.tour = path
         self.calculateCost()
