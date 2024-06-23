@@ -188,12 +188,10 @@ class TSP:
         #tot = 0
         while len(path) < n:
             # Ottieni dallo heap la città che minimizza il minor costo di inserimento
-            #for a in h:
             (costo, to_ins, l, r) = heapq.heappop(h)
             best_pos = path.index(r)
             path.insert(best_pos, to_ins)
             in_path.add(to_ins)
-            #print(path)
 
             # Aggiorna le distanze minime e le città più vicine per ogni città non nel percorso
             for i, (cost, node, nodeLeft, nodeRight) in enumerate(h):
@@ -265,12 +263,9 @@ class TSP:
             d[(path[1], path[0])].append(h_i2)
         heapq.heapify(h)
 
-
-
         while len(path) < n:
             h_i = heapq.heappop(h)
             (costo, to_ins, l, r) = heapq.heappop(h_i)
-
             best_pos = path.index(r)
             path.insert(best_pos, to_ins)
             in_path.add(to_ins)
@@ -309,8 +304,16 @@ class TSP:
                 else:
                     d[(sx, dx)].append(l)
                 hp.append(l)
-                
+
+                i = 0
+                while i < len(hp):
+                    if hp[i][0] == np.inf:
+                        del hp[i]
+                    else:
+                        i += 1           
                 heapq.heapify(hp)
+            for i in range(len(h)):
+                h[i] = h[i][:]
             heapq.heapify(h)
         self.tour = path
         self.calculateCost()

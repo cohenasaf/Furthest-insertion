@@ -33,4 +33,3 @@ testEuristic("cheapestInsertion", t.cheapestInsertion)
 #testEuristic("nearestNeighbourRandom", t.nearestInsertionRandomStart)
 
 t.calculateOptimalCost()
-print("Optimal", t.optimalSolution)
