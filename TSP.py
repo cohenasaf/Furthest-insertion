@@ -250,7 +250,10 @@ class TSP:
                     minDist = adj[i][j]
         in_path = {path[0], path[1]}
 
+        # heap principale
         h = []
+        # dizionario che associa ogni arco (i, j) nel tour
+        # alla lista dei record che puntano all'arco (i, j)
         d = dict()
         d[(path[0], path[1])] = []
         d[(path[1], path[0])] = []
@@ -264,13 +267,18 @@ class TSP:
         heapq.heapify(h)
 
         while len(path) < n:
+            # prelevo dallo heap principale lo heap con costo migliore
             h_i = heapq.heappop(h)
+            # prelevo dallo heap piccolo del nodo le informazioni utili
+            # per inserire to_ins tra (l, r)
             (costo, to_ins, l, r) = heapq.heappop(h_i)
             best_pos = path.index(r)
             path.insert(best_pos, to_ins)
             in_path.add(to_ins)
 
             for p in d[(l, r)]:
+                # cancello i nodi con il riferimento all'arco (l, r)
+                # in quanto non esiste più quell'arco
                 p[0] = np.inf
             for hp in h:
                 node = hp[0][1]
@@ -305,6 +313,8 @@ class TSP:
                     d[(sx, dx)].append(l)
                 hp.append(l)
 
+                # elimino dallo heap del nodo
+                # i riferimenti con costo infinito
                 i = 0
                 while i < len(hp):
                     if hp[i][0] == np.inf:
@@ -312,6 +322,8 @@ class TSP:
                     else:
                         i += 1           
                 heapq.heapify(hp)
+            # la dimensione massima dello heap del nodo è m
+            # quindi rimuovo tutti i nodi da (m+1) in poi
             for i in range(len(h)):
                 h[i] = h[i][:m]
             heapq.heapify(h)
@@ -503,6 +515,7 @@ class TSP:
                 hp.append(l)
 
                 i = 0
+                # riporto i costi negati a positivi
                 for p in hp:
                     if p[0] < 0:
                         p[0] *= -1
@@ -510,11 +523,17 @@ class TSP:
                     if hp[i][0] == np.inf:
                         del hp[i]
                     else:
-                        i += 1           
+                        i += 1
+                # ora lo heap mantiene i costi migliori (più bassi)    
                 heapq.heapify(hp)
+                # converto solo il costo migliore (più basso) ad
+                # un valore negativo: in questo modo lo heap principale
+                # opera come max-heap
                 hp[0][0] *= -1
             for i in range(len(h)):
                 h[i] = h[i][:m]
+            # ottengo la struttura max-heap
+            # solo il primo record ha costo negativo
             heapq.heapify(h)
         self.tour = path
         self.calculateCost()
