@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.28)  25 JUN 2024 15:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.28)  25 JUN 2024 17:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -750,24 +750,24 @@ Overfull \hbox (34.6737pt too wide) in paragraph at lines 709--710
 \OT1/cmr/m/n/12 bi-le self.tour (che me-mo-riz-za il tour fi-na-le) e vie-ne ese-gui-to il me-to-do [][][][][][]
  []
 
-[24] [25] [26] [27] [28] [29] [30]
-Underfull \hbox (badness 10000) in paragraph at lines 907--908
+[24] [25] [26] [27] [28] [29] [30] [31]
+Underfull \hbox (badness 10000) in paragraph at lines 943--944
 
  []
 
-[31]
-Overfull \hbox (13.62816pt too wide) in paragraph at lines 984--985
+[32] [33]
+Overfull \hbox (13.62816pt too wide) in paragraph at lines 1020--1021
 [][][] \OT1/cmr/m/n/12 ad un va-lo-re po-si-ti-vo in quan-to al-la ri-ga 48, la con-di-zio-ne [][][][][][][]
  []
 
-[32] [33] [34] [35] [36]
-Underfull \hbox (badness 1975) in paragraph at lines 1096--1097
+[34] [35] [36] [37]
+Underfull \hbox (badness 1975) in paragraph at lines 1132--1133
 []\OT1/cmr/m/n/12 G. Rei-nelt, The Tra-ve-ling Sa-le-sman: Com-pu-ta-tio-nal So-lu-tion for TSP
  []
 
-[37
+[38
 
-] [38] (./TemplateTesi.aux)
+] [39] (./TemplateTesi.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -776,10 +776,10 @@ Package rerunfilecheck Info: File `TemplateTesi.out' has not changed.
 (rerunfilecheck)             Checksum: 3419008F459AF2AF9FABF8E3324B2272;5613.
  ) 
 Here is how much of TeX's memory you used:
- 28850 strings out of 476065
- 526232 string characters out of 5793347
- 2279187 words of memory out of 5000000
- 49834 multiletter control sequences out of 15000+600000
+ 28891 strings out of 476065
+ 526825 string characters out of 5793347
+ 2439187 words of memory out of 5000000
+ 49842 multiletter control sequences out of 15000+600000
  568395 words of font info for 76 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  83i,8n,93p,2606b,2346s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -811,10 +811,10 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsltt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on TemplateTesi.pdf (45 pages, 374325 bytes).
+Output written on TemplateTesi.pdf (46 pages, 379578 bytes).
 PDF statistics:
- 1240 PDF objects out of 1440 (max. 8388607)
- 1143 compressed objects within 12 object streams
- 684 named destinations out of 1000 (max. 500000)
+ 1283 PDF objects out of 1440 (max. 8388607)
+ 1185 compressed objects within 12 object streams
+ 717 named destinations out of 1000 (max. 500000)
  269 words of extra memory for PDF output out of 10000 (max. 10000000)
 

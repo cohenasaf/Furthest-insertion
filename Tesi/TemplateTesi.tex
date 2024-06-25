@@ -711,12 +711,47 @@ Questo è il ciclo principale dell'euristica: prima di tutto tramite l'operazion
 \subsection{Cheapest Insertion}
 In questa sezione discutiamo l'implementazione di \nameref{ssec:CI} che, come abbiamo visto nel secondo capitolo, seleziona i nodi in modo da minimizzare il costo di inserimento (al posto di selezionare i nodi più vicini al tour come visto con nearest insertion). Sono state implementate 3 versioni di questa euristica, iniziamo dalla versione peggiore dal punto di vista della complessità computazionale.
 \subsubsection{Versione 1}
-In questa prima versione, 
 \begin{python}
+def cheapestInsertionOn3(self):
+  n = self.numCity
+  adj = np.array(self.adj)
+  path = [0, 0]
 
+  minDist = np.inf
+  for i in range(n):
+    for j in range(0, i):
+      if adj[i][j] < minDist:
+        path[0], path[1] = i, j
+        minDist = adj[i][j]
+  in_path = {path[0], path[1]}
 \end{python}
+Per prima cosa il path viene inizializzato con la coppia di città più vicine presenti nell'istanza TSP.
+\begin{python}
+def cheapestInsertionOn3(self):
+  ...
+  while len(path) < n:
+    ln = []
+    for v in set(range(n)) - in_path:
+      record = [np.inf]
+      for i in range(len(path)):
+        l = path[i]
+        r = path[(i + 1) % len(path)]
+        cost = adj[l][v] + adj[v][r] - adj[l][r]
+        if cost < record[0]:
+          record = [cost, v, l, r]
+      ln.append(record)
+    [_, to_ins, l, r] = min(ln)
+    path.insert(path.index(r), to_ins)
+    in_path.add(to_ins)                
+  self.tour = path
+  self.calculateCost()
+\end{python}
+Dopodiché inizia il ciclo principale dell'euristica: finché il path non include tutti i nodi, si determina per ogni nodo v fuori dal tour il punto di inserimento ottimo $(i, j)$ fuori dal tour in modo da minimizzare il costo di inserimento, quindi si crea per ogni nodo v un record \lstinline![cost, v, l, r]! che contiene le informazioni: costo di inserimento, nodo da inserire \lstinline!v! tra i due nodi \lstinline!l! ed \lstinline!r!. Successivamente dalla lista \lstinline!l! di record viene selezionato il record con costo minore e si procede all'inserimento. \newline
+Questa implementazione di Cheapest Insertion risulta essere molto semplice, ma risulta essere inefficiente dal punto di vista della complessità temporale. Infatti sono presenti 3 cicli for che iterano al massimo n volte (riga 3, 5 e 7), alla riga 13 il metodo append alla lista \lstinline!ln! (lista dei nodi) che ha complessità pari a $O(1)$ e le istruzioni \lstinline!path.index(r)! e \lstinline!path.insert()! che hanno complessità pari a $O(n)$. \newline
+In particolare l'inefficienza di questa implementazione, consiste nel fatto che ad ogni iterazione vengono ricalcolati i costi di inserimento ottimi per gli stessi nodi, infatti ad ogni iterazione solo un nodo viene inserito nel path, per tutti gli altri nodi fuori dal tour (che sono rimasti fuori dal tour) si ricalcolano esattamente gli stessi costi, con la differenza che un arco è stato rimosso (il punto di inserzione) e sono comparsi due nuovi archi. Per questo motivo nella prossima versione vedremo come memorizzare (e aggiornare) tutte queste informazioni al posto di ricalcolarle ogni volta.
 
-
+\subsubsection{Versione 2}
+In questa versione di Cheapest Insertion (a differenza della versione precedente) si vuole utilizzare una struttura dati che possa mantenere, per ogni nodo fuori dal tour, il costo e il punto di inserzione ottimi. Per fare questo si può operare in modo analogo a Nearest Insertion, ovvero con uno heap: lo heap andrà a conservare le informazioni dette prima e ci consentirà di ottenere il record con costo minore in modo efficiente. Vediamo l'implementazione:
 \begin{python}
 def cheapestInsertion(self):
   n = self.numCity
@@ -741,7 +776,7 @@ def cheapestInsertion(self):
     h.append((cost, i, path[0], path[1]))
   heapq.heapify(h)
 \end{python}
-Successivamente viene inizializzato uno heap in modo analogo a Nearest Insertion con una differenza: la chiave associata ad ogni nodo non è più la distanza minima con il tour ma il costo di inserimento (se inserito nel modo migliore possibile). In questo caso il costo di inserimento è semplice da ottenere in quanto nel tour sono presenti solo 2 nodi: dati gli unici due nodi presenti nel tour $a$ e $b$, il costo di inserimento del nodo $i$ sarà $c_{ai} + c_{ib} - c_{ab}$. Lo heap userà come valore chiave il costo (prima variabile della tupla) permettendo quindi di estrarre il nodo \lstinline!i! con costo minore. Nello heap vengono memorizzate anche i due nodi tra i quali dovrebbe avvenire l'inserimento (\lstinline!path[0]! e \lstinline!path[1]!) in quanto sono informazioni che saranno utili nella seconda parte dell'impelmentazione dell'euristica.
+Come descritto prima, in questa versione viene inizializzato uno heap in modo analogo a Nearest Insertion, ma con una differenza: la chiave associata ad ogni nodo non è più la distanza minima con il tour ma il costo di inserimento (se inserito nel modo migliore possibile). In questo caso il costo di inserimento è semplice da ottenere in quanto nel tour sono presenti solo 2 nodi: dati gli unici due nodi presenti nel tour $a$ e $b$, il costo di inserimento del nodo $i$ sarà $c_{ai} + c_{ib} - c_{ab}$. Lo heap userà come valore chiave il costo (prima variabile della tupla) permettendo quindi di estrarre il nodo \lstinline!i! con costo minore. Nello heap vengono memorizzate anche i due nodi tra i quali dovrebbe avvenire l'inserimento (\lstinline!path[0]! e \lstinline!path[1]!) in quanto sono informazioni che saranno utili nella seconda parte dell'implementazione dell'euristica.
 \begin{python}
 def cheapestInsertion(self):
   ...
@@ -812,6 +847,7 @@ Dalla riga 19 in poi avviene l'aggiornamento dello heap (in modo analogo a quant
 \end{legal}
 Inoltre è importante notare come l'accesso agli elementi del tour avviene \lstinline!% len(tour)! in quanto il tour è una lista circolare.
 Successivamente (come per le altre euristiche), è necessario ripristinare la struttura dello heap con il metodo \lstinline!heapq.heapify(h)! e alla fine memorizzare il path finale nell'attributo \lstinline!self.tour! e calcolare il costo della soluzione trovata.
+
 
 \subsection{Farthest Insertion}
 In questa sezione discutiamo l'implementazione di \nameref{ssec:FaI}. L'implementazione di questa euristica condivide molto del codice già discusso nella implementazione di Nearest Insertion, sono però presenti delle piccole modifiche che consentono di selezionare il nodo più lontano al posto del nodo più vicino (al tour), di seguito l'implementazione:
