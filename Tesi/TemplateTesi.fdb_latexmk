@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1719332412.33646 "/home/asaf/Desktop/Furthest-insertion/Tesi/TemplateTesi.tex" "TemplateTesi.pdf" "TemplateTesi" 1719332413.76224 0
-  "/home/asaf/Desktop/Furthest-insertion/Tesi/TemplateTesi.tex" 1719332410.58895 84421 8d408f60c69e481104d44a2fe11e6e28 ""
+["pdflatex"] 1719348810.27593 "/home/asaf/Desktop/Furthest-insertion/Tesi/TemplateTesi.tex" "TemplateTesi.pdf" "TemplateTesi" 1719348811.92005 0
+  "/home/asaf/Desktop/Furthest-insertion/Tesi/TemplateTesi.tex" 1719348810.03983 95315 54924a6a1dbd6254dc6709c848ea9733 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1716849630 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1716849630 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1716849630 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -197,10 +197,10 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1716849630 41588 b43d3e860a4f94167ee1e725ff526a72 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1716895134.18076 325518 3dff2bac5bde75cd7e600320ce8a00d6 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1716895133 7114513 ca9093e815e83f5f5284c2291c74e7a5 ""
-  "TemplateTesi.aux" 1719332413.68222 5960 3a65945368d171baad102a4d3d1be254 "pdflatex"
-  "TemplateTesi.out" 1719332413.68222 5613 3419008f459af2af9fabf8e3324b2272 "pdflatex"
-  "TemplateTesi.tex" 1719332410.58895 84421 8d408f60c69e481104d44a2fe11e6e28 ""
-  "TemplateTesi.toc" 1719332413.68222 3035 26bc9faedd6c27658392fb33986f18b1 "pdflatex"
+  "TemplateTesi.aux" 1719348811.83649 6160 e9628fc113fe81bf54ba628712791f69 "pdflatex"
+  "TemplateTesi.out" 1719348811.83649 5613 3419008f459af2af9fabf8e3324b2272 "pdflatex"
+  "TemplateTesi.tex" 1719348810.03983 95315 54924a6a1dbd6254dc6709c848ea9733 ""
+  "TemplateTesi.toc" 1719348811.83982 3153 7db11d1ba3187aaa609881e79c7872cf "pdflatex"
   "tesi.sty" 1719322217.5492 9454 93147b901c96e9f351ae0ede701cd0d2 ""
   (generated)
   "TemplateTesi.aux"
