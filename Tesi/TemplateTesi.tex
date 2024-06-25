@@ -708,9 +708,8 @@ def nearestInsertion(self):
 \end{python}
 Questo è il ciclo principale dell'euristica: prima di tutto tramite l'operazione \lstinline!heappop! viene estratto il nodo \lstinline!to_insert! come nodo candidato da inserire nel ciclo (in quanto ha distanza minima dal tour), successivamente viene effettuata una ricerca nel tour della posizione di inserimento migliore possibile. La posizione migliore deve minimizzare $c_{ir} + c_{rj} - c_{ij}$, quindi la variabile \lstinline!increase! definita alla riga 10. La scelta di memorizzare nella variabile \lstinline!best_position! il valore \lstinline!i + 1! e non \lstinline!i! è motivata dal fatto che il metodo \lstinline!insert(pos, n)! (con parametro pos e n) delle liste python sposta in avanti tutti gli elementi dalla posizione pos compresa per fare spazio alla variabile da inserire (n), di conseguenza una volta trovata la posizione migliore (tra le posizioni i e i+1), sarà necessario indicare la posizione i+1 per ottenere l'inserimento del nuovo arco tra la posizione i e la posizione i + 1\footnote{https://docs.python.org/3/tutorial/datastructures.html}. \newline Successivamente (dalla riga 20) viene aggiornato lo heap in quanto alla riga 17 viene modificato il path mentre lo heap fa ancora riferimento al path prima dell'inserimento. L'aggiornamento procede come segue: dato che lo heap contiene, per ogni nodo fuori dal tour, la distanza con il nodo più vicino all'interno del tour (quindi per ogni nodo fuori dal tour, mantiene la distanza minima con il tour), dato che è stato aggiunto un nuovo nodo nel tour, è necessario verificare per ogni elemento nello heap se il nuovo nodo aggiunto rappresenta un caso migliore rispetto a quanto precedentemente memorizzato nello heap, per questo motivo alla riga 21, nel caso in cui la distanza tra il nodo appena aggiunto e il nodo fuori dal path \lstinline!node! è migliore di quanto precedentemente memorizzato nello heap (\lstinline!cost!) allora è necessario aggiornare quel valore nello heap. \newline Successivamente è necessario effettuare l'operazione \lstinline!heapq.heapify(h)! in quanto l'aggiornamento potrebbe aver modificato la struttura dello heap. Alla fine dell'implementazione di Nearest Insertion è presente (come prima) l'aggiornamento della variabile self.tour (che memorizza il tour finale) e viene eseguito il metodo \lstinline!self.calculateCost()! come per le altre euristiche per ottenere il costo del percorso nella variabile  \lstinline!self.cost! come visto precedentemente nel capitolo dei metodi ausiliari.
 
-\subsection{Cheapest Insertion}
-In questa sezione discutiamo l'implementazione di \nameref{ssec:CI} che, come abbiamo visto nel secondo capitolo, seleziona i nodi in modo da minimizzare il costo di inserimento (al posto di selezionare i nodi più vicini al tour come visto con nearest insertion). Sono state implementate 3 versioni di questa euristica, iniziamo dalla versione peggiore dal punto di vista della complessità computazionale.
-\subsubsection{Versione 1}
+\subsection{Cheapest Insertion: Versione 1}
+Nelle prossime sezioni discutiamo l'implementazione di \nameref{ssec:CI} che, come abbiamo visto nel secondo capitolo, seleziona i nodi in modo da minimizzare il costo di inserimento (al posto di selezionare i nodi più vicini al tour come visto con nearest insertion). Sono state implementate 3 versioni di questa euristica, iniziamo dalla versione peggiore dal punto di vista della complessità computazionale.
 \begin{python}
 def cheapestInsertionOn3(self):
   n = self.numCity
@@ -750,7 +749,7 @@ Dopodiché inizia il ciclo principale dell'euristica: finché il path non includ
 Questa implementazione di Cheapest Insertion risulta essere molto semplice, ma risulta essere inefficiente dal punto di vista della complessità temporale. Infatti sono presenti 3 cicli for che iterano al massimo n volte (riga 3, 5 e 7), alla riga 13 il metodo append alla lista \lstinline!ln! (lista dei nodi) che ha complessità pari a $O(1)$ e le istruzioni \lstinline!path.index(r)! e \lstinline!path.insert()! che hanno complessità pari a $O(n)$. \newline
 In particolare l'inefficienza di questa implementazione, consiste nel fatto che ad ogni iterazione vengono ricalcolati i costi di inserimento ottimi per gli stessi nodi, infatti ad ogni iterazione solo un nodo viene inserito nel path, per tutti gli altri nodi fuori dal tour (che sono rimasti fuori dal tour) si ricalcolano esattamente gli stessi costi, con la differenza che un arco è stato rimosso (il punto di inserzione) e sono comparsi due nuovi archi. Per questo motivo nella prossima versione vedremo come memorizzare (e aggiornare) tutte queste informazioni al posto di ricalcolarle ogni volta.
 
-\subsubsection{Versione 2}
+\subsection{Cheapest Insertion: Versione 2}
 In questa versione di Cheapest Insertion (a differenza della versione precedente) si vuole utilizzare una struttura dati che possa mantenere, per ogni nodo fuori dal tour, il costo e il punto di inserzione ottimi. Per fare questo si può operare in modo analogo a Nearest Insertion, ovvero con uno heap: lo heap andrà a conservare le informazioni dette prima e ci consentirà di ottenere il record con costo minore in modo efficiente. Vediamo l'implementazione:
 \begin{python}
 def cheapestInsertion(self):
@@ -898,7 +897,7 @@ rat575 -> 0.9990732159406858
 vm1084 -> 0.999213293590091
 u1817 -> 0.9980191593934437
 \end{myverbatim}
-Quindi è possibile affermare che con probabilità \textgreater 99\% l'arco con costo di inserzione minimo si trova nelle vicinanze del precedente arco con costo di inserzione minimo. Dopo questa osservazione è possibile applicare questa semplice modifica all'implementazione:
+Quindi è possibile affermare con probabilità \textgreater 99\% che l'arco con costo di inserzione minimo si trova nelle vicinanze del precedente arco con costo di inserzione minimo. Dopo questa osservazione è possibile applicare questa semplice modifica all'implementazione:
 \begin{python}
 def cheapestInsertion(self, k):
   ...
@@ -925,9 +924,9 @@ def cheapestInsertion(self, k):
         (cost, node, nodeLeft, nodeRight) = h[i]
         ...
 \end{python}
-La modifica (riga 14, alla riga 12 è presente la versione precedente) consiste nel ridurre lo spazio di ricerca da tutto il path al solo intorno (di raggio k) attorno al punto \lstinline!best_pos!, k è un parametro (riga 1) che può assumere valore 2, 3 o anche 4 ad esempio. Questa modifica rappresenta una ottimizzazione rilevante soprattutto nel caso di istanze molto grandi (con migliaia o decine di migliaia di città): in quel caso al posto di iterare su tutto il path, si itera solo per le 3-4 città attorno al punto di inserzione ottimo precedente, tuttavia è importante sottolineare che la complessità di questa implementazione è $O(n^2)$ ma non garantisce la scelta del punto ottimo di inserzione: infatti è sempre presente una probabilità $\geq 1$ nella quale il punto di inserzione ottimo per un determinato nodo sia fuori dallo spazio di ricerca. Per questo motivo questa versione "approssimata" di Cheapest Insertion opera in modo molto simile alla versione 2 (in termini di qualità delle soluzioni) ma non uguale.
+La modifica (riga 14, alla riga 12 è presente la versione precedente) consiste nel ridurre lo spazio di ricerca da tutto il path al solo intorno (di raggio k) attorno al punto \lstinline!best_pos!, k è un parametro (riga 1) che può assumere valore 2, 3 o anche 4 ad esempio. Questa modifica rappresenta una ottimizzazione rilevante soprattutto nel caso di istanze molto grandi (con migliaia o decine di migliaia di città): in quel caso al posto di iterare su tutto il path, si itera solo per le 3-4 città attorno al punto di inserzione ottimo precedente, tuttavia è importante sottolineare che la complessità di questa implementazione è $O(n^2)$ ma non garantisce la scelta del punto ottimo di inserzione: infatti è sempre presente una probabilità $\leq 1$ nella quale il punto di inserzione ottimo per un determinato nodo sia fuori dallo spazio di ricerca. Per questo motivo questa versione "approssimata" di Cheapest Insertion opera in modo molto simile alla versione 2 (in termini di qualità delle soluzioni) ma non allo stesso modo.
 
-\subsubsection{Versione 3}
+\subsection{Cheapest Insertion: Versione 3}
 In questa ultima versione di Cheapest Insertion si riesce (finalmente) a ridurre la complessità computazionale rispetto alle due versioni precedenti. Nella versione 2 abbiamo visto una implementazione con un heap che tiene traccia per ogni nodo del punto di inserzione ottimo, inoltre abbiamo visto come questa informazione non sia sufficiente nel caso in cui il punto di inserzione ottimo si perda dopo l'inserimento di un altro nodo. L'idea per questa ultima implementazione quindi sarebbe quella di tenere traccia per ogni nodo anche di altre posizioni di inserzione sub-ottime che possono subentrare nel caso appunto la posizione ottima si perda. Per implementare questa idea quindi è necessario avere più heap (uno associato ad ogni nodo fuori dallo heap) ed è necessario avere una struttura dati che consenta di associare, ad ogni arco presente nel tour, tutti i record che fanno riferimento a quell'arco in modo da poterli eliminare nel caso in cui, appunto, l'arco scompare dal path. Per fare questo ho deciso di utilizzare un dizionario che associa coppie di interi (archi) a liste di record. Vediamo l'implementazione:
 \begin{python}
 def cheapestInsertionOttimizzato(self, m):
@@ -1104,9 +1103,8 @@ Questo è il ciclo principale dell'euristica: il codice è totalmente identico a
 \end{legal}
 In conclusione è presente l'istruzione \lstinline!heapq.heapify(h)! che consente di ripristinare la struttura dello heap e le ultime istruzioni come per le altre euristiche (memorizzazione del tour trovato e calcolo del costo).
 
-\subsection{Furthest Insertion}
-In questa sezione discutiamo l'implementazione di \nameref{ssec:FuI} ovvero la nuova euristica proposta in questa tesi. Nella precedente sezione abbiamo visto come farthest insertion condivide molto del codice di nearest insertion con delle piccole modifiche che consentono di selezionare il nodo più lontano al posto del nodo più vicino. Allo stesso modo furthest insertion condivide molto del codice di cheapest insertion, verranno di seguito presentate le piccole (ma importanti) modifiche rispetto alle tre versioni di Cheapest Insertion che consentono di selezionare il nodo che, se inserito in modo da minimizzare il costo di inserzione, ha costo di inserimento massimo. Come nel caso di Cheapest Insertion, vediamo le tre versioni in ordine dalla peggiore alla migliore dal punto di vista della complessità computazionale:
-\subsubsection{Versione 1}
+\subsection{Furthest Insertion: Versione 1}
+Nelle seguenti sezioni discutiamo l'implementazione di \nameref{ssec:FuI} ovvero la nuova euristica proposta in questa tesi. Nella precedente sezione abbiamo visto come farthest insertion condivide molto del codice di nearest insertion con delle piccole modifiche che consentono di selezionare il nodo più lontano al posto del nodo più vicino. Allo stesso modo furthest insertion condivide molto del codice di cheapest insertion, verranno di seguito presentate le piccole (ma importanti) modifiche rispetto alle tre versioni di Cheapest Insertion che consentono di selezionare il nodo che, se inserito in modo da minimizzare il costo di inserzione, ha costo di inserimento massimo. Come nel caso di Cheapest Insertion, vediamo le tre versioni in ordine dalla peggiore alla migliore dal punto di vista della complessità computazionale:
 \begin{python}
 def furthestInsertionOn3(self):
   n = self.numCity
@@ -1145,7 +1143,7 @@ def furthestInsertionOn3(self):
 Successivamente (ciclo principale del'euristica) in modo analogo alla versione di Cheapest Insertion versione 1, si genera una lista di record che contiene, per ogni nodo \lstinline|v| fuori dal tour, il punto di inserzione ottimo \lstinline!(l, r)! in modo da minimizzare l'inserimento, però è presente una differenza importante: alla riga 14 si procede selezionando il massimo (\lstinline!max(path.index(r), to_ins)!) ovvero la tupla che massimizza il miglior costo di inserimento. Successivamente si procede all'inserimento come per Cheapest Insertion. \newline
 Come descritto nei capitoli precedenti, la complessità temporale di questo algoritmo è $O(n^3)$ e non è presente nessun tipo di ottimizzazione: ad ogni iterazione è necessario ricalcolare completamente il punto di inserzione ottimo.
 
-\subsubsection{Versione 2}
+\subsection{Furthest Insertion: Versione 2}
 Come nel caso della versione 2 di Cheapest Insertion, si può evitare di ricalcolare totalmente il punto di inserzione ottimo con uno heap, con una differenza importante: lo heap deve operare come un max-heap e non come un min-heap, ovvero deve selezionare ad ogni iterazione il nodo con costo di inserzione massimo (se inserito nel modo migliore possibile). Vediamo l'implementazione:
 \begin{python}
 def furthestInsertion(self):
@@ -1205,7 +1203,8 @@ def furthestInsertion(self):
                    adj[node][path[(best_pos + 1) % (len(path))]] - \
                    adj[to_ins][path[(best_pos + 1) % (len(path))]]
 
-      # se ho inserito to_ins proprio tra nodeLeft e nodeRight: ricalcolo completamente il costo migliore
+      # se ho inserito to_ins proprio tra nodeLeft e nodeRight:
+      # ricalcolo completamente il costo migliore
       if node not in in_path and \
          nodeLeft == path[(best_pos - 1) % len(path)] and \
          nodeRight == path[(best_pos + 1) % len(path)]:
@@ -1255,6 +1254,112 @@ Dalla riga 5 in poi avviene l'aggiornamento dello heap in modo del tutto analogo
 La restante parte dell'implementazione è del tutto identica a cheapest insertion. \newline
 Le considerazioni riguardo la complessità temporale di questa implementazioni sono le stesse della versione 2 di Cheapest Insertion, ovvero mantiene un tempo pari a $O(n^3)$ nel peggiore dei casi, ma nella pratica ha delle prestazioni (tempi) sempre migliori rispetto alla prima versione in quanto il terzo ciclo interno viene eseguito solo in certi casi e quindi non sempre.
 
+\subsection{Furthest Insertion: Versione 3}
+Esattamente come nel caso della versione 3 di Cheapest Insertion, è possibile implementare una versione di Furthest Insertion con complessità minore di $O(n^3)$. Questa implementazione quindi condivide molto del codice visto nella versione 3 di Cheapest Insertion, con la differenza che lo heap principale deve operare come un max-heap (in modo da selezionare il nodo con costo maggiore) mentre gli heap interni devono continuare ad operare come dei min-heap in modo da selezionare, per un determinato nodo fuori dal tour, il punto di inserimento che minimizza il costo di inserzione. Vediamo l'implementazione:
+\begin{python}
+def furthestInsertionOttimizzato(self, m):
+  n = self.numCity
+  adj = np.array(self.adj)
+  path = [0, 0]
+
+  maxDist = -1
+  for i in range(n):
+    for j in range(0, i):
+      if adj[i][j] > maxDist:
+        path[0], path[1] = i, j
+        maxDist = adj[i][j]
+  in_path = {path[0], path[1]}
+\end{python}
+Si inizializza il path con la coppia di città più lontane.
+\begin{python}
+def furthestInsertionOttimizzato(self, m):
+  ...
+  h = []
+  d = dict()
+  d[(path[0], path[1])] = []
+  d[(path[1], path[0])] = []
+  for i in set(range(n)) - in_path:
+    cost = adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]
+    h_i = [-cost, i, path[0], path[1]]
+    h_i2 = [-cost, i, path[1], path[0]]
+    h.append([h_i, h_i2])
+    d[(path[0], path[1])].append(h_i)
+    d[(path[1], path[0])].append(h_i2)
+  heapq.heapify(h)
+\end{python}
+Successivamente si inizializzano le due strutture dati fondamentali dell'implementazione, ovvero lo heap principale e il dizionario (come per la versione 3 di Cheapest Insertion) con la differenza che i costi vengono inizializzati come negativi in modo da consentire allo heap principale \lstinline!h! di selezionare il record con costo di inserimento maggiore.
+\begin{python}
+def furthestInsertionOttimizzato(self, m):
+  ...
+  while len(path) < n:
+    h_i = heapq.heappop(h)
+    (costo, to_ins, l, r) = heapq.heappop(h_i)
+
+    best_pos = path.index(r)
+    path.insert(best_pos, to_ins)
+    in_path.add(to_ins)
+\end{python}
+Dalla terza riga inizia il ciclo principale dell'euristica: dallo heap \lstinline!h! si preleva il record con costo di inserimento massimo, dopodiché si procede con l'inserimento del nodo nel path.
+\begin{python}
+def furthestInsertionOttimizzato(self, m):
+  ...
+  while len(path) < n:
+    ...
+    for p in d[(l, r)]:
+      p[0] = np.inf
+    for hp in h:
+      node = hp[0][1]
+
+      # sx: path[(best_pos - 1) % len(path)]
+      # node
+      # dx: path[best_pos]
+      sx = path[(best_pos - 1) % len(path)]
+      dx = path[best_pos]
+      newCost = adj[sx][node] + \
+                adj[node][dx] - \
+                adj[sx][dx]
+      l = [newCost, node, sx, dx]
+      if (sx, dx) not in d:
+        d[(sx, dx)] = [l]
+      else:
+        d[(sx, dx)].append(l)
+      hp.append(l)
+
+      # sx: path[best_pos]
+      # node
+      # dx: path[(best_pos + 1) % len(path)]
+      sx = path[best_pos]
+      dx = path[(best_pos + 1) % len(path)]
+      newCost = adj[sx][node] + \
+                adj[node][dx] - \
+                adj[sx][dx]
+      l = [newCost, node, sx, dx]
+      if (sx, dx) not in d:
+        d[(sx, dx)] = [l]
+      else:
+        d[(sx, dx)].append(l)
+      hp.append(l)
+
+      i = 0
+      for p in hp:
+        if p[0] < 0:
+          p[0] *= -1
+      while i < len(hp):
+        if hp[i][0] == np.inf:
+          del hp[i]
+        else:
+          i += 1
+      heapq.heapify(hp)
+      hp[0][0] *= -1
+    for i in range(len(h)):
+      h[i] = h[i][:m]
+    heapq.heapify(h)
+  self.tour = path
+  self.calculateCost()
+\end{python}
+La restante parte dell'implementazione è analoga alla versione 3 di Cheapest Insertion, con la differenza che è necessario mantenere il max-heap in modo che selezioni il record con costo di inserimento massimo (e non minimo) e gli heap interni come min-heap. Per ottenere questa proprietà, alla riga 41-43 si procede riportando i valori negativi ad un valore positivo: in questo modo l'istruzione \lstinline!heapq.heapify(hp)! procederà a porre in prima posizione il nodo con costo minimo (e non massimo). Successivamente per fare in modo che lo heap principale \lstinline!h! operi come max-heap, è necessario che tutti i costi nel primo record di ogni heap interno abbiano valore negativo, per questo motivo alla riga 50 il costo positivo viene convertito in un costo negativo. In questo modo, alla riga 53, l'istruzione \lstinline!heapq.heapify(h)! potrà operare correttamente generando un max-heap. \newline
+Da un punto di vista della complessità temporale, l'algoritmo ha un tempo (nel caso peggiore) pari a $O(n^2 * m)$ come già visto per la descrizione di Cheapest Insertion versione 3.
+
 \subsection{Random Insertion}
 In questo capitolo verrà discussa l'implementazione di \nameref{ssec:RI}. Vedremo come di fatto è molto più semplice rispetto alle implementazioni viste prima in quanto bisogna:
 \begin{legal}
@@ -1303,7 +1408,7 @@ def randomInsertion(self):
 Come discusso precedentemente, il ciclo principale dell'algoritmo procede estraendo il nodo casuale (riga 4), successivamente viene effettuata una ricerca della posizione migliore dove inserire il nodo casuale. Voglio sottolineare come questo metodo non sia "completamente casuale", ma solo la parte della selezione del nodo fuori dal tuor è casuale, mentre la parte relativa all'inserimento all'interno del tour opera scegliendo il punto di inserzione che minimizzi il costo di inserimento. \newline
 In conclusione sono presenti le stesse istruzioni viste nelle altre euristiche (calcolo del costo).
 
-\subsection{Random Insertion versione 2}
+\subsection{Random Insertion: versione 2}
 Per completezza, ho implementato anche una versione di random insertion dove non solo la scelta del nodo da inserire nel tour avviene casualmente, ma anche il punto di inserzione viene scelto casualmente, di seguito l'implementazione:
 \begin{python}
 def randomInsertion2(self):

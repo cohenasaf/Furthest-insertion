@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.28)  25 JUN 2024 22:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.28)  26 JUN 2024 00:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -751,37 +751,37 @@ Overfull \hbox (34.6737pt too wide) in paragraph at lines 709--710
  []
 
 [24] [25] [26] [27] [28] [29] [30]
-LaTeX Font Info:    Trying to load font information for OML+cmr on input line 901.
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 900.
  (/usr/share/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 901.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 900.
  [31] [32] [33] [34] [35] [36] [37] [38] [39] [40]
-Overfull \hbox (13.62816pt too wide) in paragraph at lines 1253--1254
+Overfull \hbox (13.62816pt too wide) in paragraph at lines 1252--1253
 [][][] \OT1/cmr/m/n/12 ad un va-lo-re po-si-ti-vo in quan-to al-la ri-ga 48, la con-di-zio-ne [][][][][][][]
  []
 
-[41] [42] [43] [44]
-Underfull \hbox (badness 1975) in paragraph at lines 1366--1367
+[41] [42] [43] [44] [45] [46] [47]
+Underfull \hbox (badness 1975) in paragraph at lines 1471--1472
 []\OT1/cmr/m/n/12 G. Rei-nelt, The Tra-ve-ling Sa-le-sman: Com-pu-ta-tio-nal So-lu-tion for TSP
  []
 
-[45
+[48
 
-] [46] (./TemplateTesi.aux)
+] [49] (./TemplateTesi.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `TemplateTesi.out' has not changed.
-(rerunfilecheck)             Checksum: 3419008F459AF2AF9FABF8E3324B2272;5613.
+(rerunfilecheck)             Checksum: 2412D50995C3125CF793FDA95329FA32;6637.
  ) 
 Here is how much of TeX's memory you used:
- 29153 strings out of 476065
- 530652 string characters out of 5793347
- 2439187 words of memory out of 5000000
- 49895 multiletter control sequences out of 15000+600000
+ 29256 strings out of 476065
+ 532315 string characters out of 5793347
+ 2438187 words of memory out of 5000000
+ 49901 multiletter control sequences out of 15000+600000
  568395 words of font info for 76 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  83i,8n,93p,2606b,2346s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -813,10 +813,10 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsltt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on TemplateTesi.pdf (53 pages, 416027 bytes).
+Output written on TemplateTesi.pdf (56 pages, 429283 bytes).
 PDF statistics:
- 1555 PDF objects out of 1728 (max. 8388607)
- 1447 compressed objects within 15 object streams
- 923 named destinations out of 1000 (max. 500000)
- 269 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1698 PDF objects out of 1728 (max. 8388607)
+ 1586 compressed objects within 16 object streams
+ 1020 named destinations out of 1200 (max. 500000)
+ 301 words of extra memory for PDF output out of 10000 (max. 10000000)
 
