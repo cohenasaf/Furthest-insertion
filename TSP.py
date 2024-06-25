@@ -165,6 +165,37 @@ class TSP:
         self.tour = path
         self.calculateCost()
     
+    def cheapestInsertionOn3(self):
+        n = self.numCity
+        adj = np.array(self.adj)
+        path = [0, 0]
+
+        minDist = np.inf
+        for i in range(n):
+            for j in range(0, i):
+                if adj[i][j] < minDist:
+                    path[0], path[1] = i, j
+                    minDist = adj[i][j]
+        in_path = {path[0], path[1]}
+
+        while len(path) < n:
+            ln = []
+            for v in set(range(n)) - in_path:
+                record = [np.inf]
+                for i in range(len(path)):
+                    l = path[i]
+                    r = path[(i + 1) % len(path)]
+                    cost = adj[l][v] + adj[v][r] - adj[l][r]
+                    if cost < record[0]:
+                        record = [cost, v, l, r]
+                ln.append(record)
+            [_, to_ins, l, r] = min(ln)
+            path.insert(path.index(r), to_ins)
+            in_path.add(to_ins)                
+        self.tour = path
+        self.calculateCost()
+
+    
     def cheapestInsertion(self):
         n = self.numCity
         adj = np.array(self.adj)
@@ -375,6 +406,36 @@ class TSP:
                     h[i] = (-distances[to_insert, node], node)
             heapq.heapify(h)
 
+        self.tour = path
+        self.calculateCost()
+
+    def furthestInsertionOn3(self):
+        n = self.numCity
+        adj = np.array(self.adj)
+        path = [0, 0]
+
+        maxDist = 0
+        for i in range(n):
+            for j in range(0, i):
+                if adj[i][j] > maxDist:
+                    path[0], path[1] = i, j
+                    maxDist = adj[i][j]
+        in_path = {path[0], path[1]}
+
+        while len(path) < n:
+            ln = []
+            for v in set(range(n)) - in_path:
+                record = [np.inf]
+                for i in range(len(path)):
+                    l = path[i]
+                    r = path[(i + 1) % len(path)]
+                    cost = adj[l][v] + adj[v][r] - adj[l][r]
+                    if cost < record[0]:
+                        record = [cost, v, l, r]
+                ln.append(record)
+            [_, to_ins, l, r] = max(ln)
+            path.insert(path.index(r), to_ins)
+            in_path.add(to_ins)                
         self.tour = path
         self.calculateCost()
 

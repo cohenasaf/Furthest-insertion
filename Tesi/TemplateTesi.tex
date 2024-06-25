@@ -30,13 +30,13 @@
 %			TITOLO: Furthest Insertion Algorithm 
 %
 \begin{document}
+%\includegraphics{tesiSCIENZE_TECNOLOGIE.jpg}
 \title{Furthest Insertion: una nuova euristica per il TSP}
 \author{Asaf COHEN}
 \dept{Corso di Laurea in Informatica} 
 \anno{2023-2024}
 \matricola{975599}
 \relatore{Prof. Giovanni RIGHINI}
-%\includegraphics{tesiSCIENZE_TECNOLOGIE.jpg}
 %
 %        \submitdate{month year in which submitted to GPO}
 %		- date LaTeX'd if omitted
@@ -109,7 +109,7 @@ Il problema del commesso viaggiatore (TSP) può essere sintetizzato molto sempli
 \textbf{Funzione Obiettivo}: Si vuole minimizzare il costo totale del tour, quindi:
 $$min \sum_{i = 1}^{n} \sum_{j = 1}^{n} c_{ij} x_{ij}$$
 La seguente formulazione permette quindi di identificare la soluzione ottima.
-\newline \null \newline È stato dimostrato che TSP è un problema NP-difficile \cite{TSP NP Completezza}, questo implica che attualmente non sono noti algoritmi con complessità polinomiale che risolvono il problema. Se esistesse un algoritmo con complessità polinomiale che risolve il TSP allora si potrebbe dimostrare che vale P = NP e quindi si risolverebbe uno dei più grandi problemi aperti nella teoria della complessità computazionale. 
+\newline \null \newline È stato dimostrato che TSP è un problema NP-hard \cite{TSP NP Completezza}, questo implica che attualmente non sono noti algoritmi con complessità polinomiale che risolvono il problema. Se esistesse un algoritmo con complessità polinomiale che risolve il TSP allora si potrebbe dimostrare che vale P = NP e quindi si risolverebbe uno dei più grandi problemi aperti nella teoria della complessità computazionale. 
 
 \section{Metodi esatti per il TSP}
 Esistono vari approcci nella ricerca della soluzione ottima \cite{Analysis of Brute Force}. Un primo approccio "naive" per il problema può essere l'approccio brute-force: consiste nell'enumerare tutti i possibili percorsi e successivamente selezionare il migliore. In questo caso è necessario analizzare $n!$ possibili percorsi (nel peggiore dei casi), per questo motivo tentare di risolvere una istanza TSP con un approccio brute-force implica una complessità computazionale pari a $O(n!)$ e quindi un tempo che risulta rapidamente inaccettabile. Di seguito una tabella che illustra il numero di percorsi da valutare con un approccio basato su ricerca esaustiva al variare del numero n.
@@ -269,7 +269,7 @@ Cheapest Insertion opera in modo diverso da Nearest Insertion: il criterio di se
     \end{legal}
   \end{legal}
   \end{tcolorbox}
-\hfill \break Cheapest Insertion ha complessità computazionale pari a $O(n^2 log_2(n))$ in quanto è possibile implementare uno heap che tiene traccia dei nodi non ancora inseriti nel tour e dei relativi costi se inseriti nel modo migliore possibile.
+\hfill \break La complessità computazionale di questa euristica verrà discussa nella sezione nel capitolo delle implementazioni in quanto verranno presentate più versioni (con complessità differenti).
 
 \subsection{Farthest Insertion} \label{ssec:FaI}
 Farthest Insertion opera in analogo a Nearest Insertion in quanto il criterio di selezione del nodo da inserire è basato sulla distanza dal tour, ma differenza di Nearest Insertion però viene scelto il nodo più lontano dal tour al posto del più vicino. Il passo di inserzione avviene invece allo stesso modo rispetto a Nearest Insertion: viene quindi scelta la posizione che minimizza il costo di inserzione. Vediamo l'algoritmo:
@@ -304,7 +304,7 @@ L'obbiettivo della tesi consiste nel proporre un nuovo algoritmo chiamato Furthe
   \end{legal}
 \end{legal}
 \end{tcolorbox}
-\hfill \break Furthest Insertion ha complessità computazionale pari a $O(n^2 log_2(n))$ in modo del tutto analogo a Cheapest Insertion.
+\hfill \break La complessità computazionale di questa euristica verrà discussa nella sezione nel capitolo delle implementazioni (come per Cheapest Insertion) in quanto verranno presentate più versioni (con complessità differenti).
 
 \subsection{Random Insertion} \label{ssec:RI}
 Random Insertion seleziona casualmente il nodo da inserire nel tour, successivamente però sceglie il punto di inserimento in modo da minimizzare il costo di inserimento (esattamente come per Nearest Insertion). Di seguito l'algoritmo:
@@ -709,7 +709,14 @@ def nearestInsertion(self):
 Questo è il ciclo principale dell'euristica: prima di tutto tramite l'operazione \lstinline!heappop! viene estratto il nodo \lstinline!to_insert! come nodo candidato da inserire nel ciclo (in quanto ha distanza minima dal tour), successivamente viene effettuata una ricerca nel tour della posizione di inserimento migliore possibile. La posizione migliore deve minimizzare $c_{ir} + c_{rj} - c_{ij}$, quindi la variabile \lstinline!increase! definita alla riga 10. La scelta di memorizzare nella variabile \lstinline!best_position! il valore \lstinline!i + 1! e non \lstinline!i! è motivata dal fatto che il metodo \lstinline!insert(pos, n)! (con parametro pos e n) delle liste python sposta in avanti tutti gli elementi dalla posizione pos compresa per fare spazio alla variabile da inserire (n), di conseguenza una volta trovata la posizione migliore (tra le posizioni i e i+1), sarà necessario indicare la posizione i+1 per ottenere l'inserimento del nuovo arco tra la posizione i e la posizione i + 1\footnote{https://docs.python.org/3/tutorial/datastructures.html}. \newline Successivamente (dalla riga 20) viene aggiornato lo heap in quanto alla riga 17 viene modificato il path mentre lo heap fa ancora riferimento al path prima dell'inserimento. L'aggiornamento procede come segue: dato che lo heap contiene, per ogni nodo fuori dal tour, la distanza con il nodo più vicino all'interno del tour (quindi per ogni nodo fuori dal tour, mantiene la distanza minima con il tour), dato che è stato aggiunto un nuovo nodo nel tour, è necessario verificare per ogni elemento nello heap se il nuovo nodo aggiunto rappresenta un caso migliore rispetto a quanto precedentemente memorizzato nello heap, per questo motivo alla riga 21, nel caso in cui la distanza tra il nodo appena aggiunto e il nodo fuori dal path \lstinline!node! è migliore di quanto precedentemente memorizzato nello heap (\lstinline!cost!) allora è necessario aggiornare quel valore nello heap. \newline Successivamente è necessario effettuare l'operazione \lstinline!heapq.heapify(h)! in quanto l'aggiornamento potrebbe aver modificato la struttura dello heap. Alla fine dell'implementazione di Nearest Insertion è presente (come prima) l'aggiornamento della variabile self.tour (che memorizza il tour finale) e viene eseguito il metodo \lstinline!self.calculateCost()! come per le altre euristiche per ottenere il costo del percorso nella variabile  \lstinline!self.cost! come visto precedentemente nel capitolo dei metodi ausiliari.
 
 \subsection{Cheapest Insertion}
-In questa sezione discutiamo l'impelementazione di \nameref{ssec:CI} che, come abbiamo visto nel secondo capitolo, seleziona i nodi in modo da minimizzare il costo di inserimento (al posto di selezionare i nodi più vicini al tour come visto con nearest insertion). Di seguito l'implementazione:
+In questa sezione discutiamo l'implementazione di \nameref{ssec:CI} che, come abbiamo visto nel secondo capitolo, seleziona i nodi in modo da minimizzare il costo di inserimento (al posto di selezionare i nodi più vicini al tour come visto con nearest insertion). Sono state implementate 3 versioni di questa euristica, iniziamo dalla versione peggiore dal punto di vista della complessità computazionale.
+\subsubsection{Versione 1}
+In questa prima versione, 
+\begin{python}
+
+\end{python}
+
+
 \begin{python}
 def cheapestInsertion(self):
   n = self.numCity

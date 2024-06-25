@@ -10,8 +10,8 @@ def testEuristicO(name, euristic, m):
     t.calculateCost()
     assert t.verifyTour()
     #print(f"{name}, costo: {t.cost}, qualità: {t.cost / t.optimalSolution}, tempo: {et - st} secondi.")
-    print("{:18s}, m = {}, costo: {:.2f}, qualità: {:.4f}, tempo: {:.6f} secondi".format(name, m, t.cost, t.cost / t.optimalSolution, et - st))
-    r.append(t.cost)
+    print("{:18s} costo: {:.2f}, qualità: {:.4f}, tempo: {:.6f} secondi".format(name, t.cost, t.cost / t.optimalSolution, et - st))
+    #r.append(t.cost)
 
 def testEuristic(name, euristic):
     st = time.time()
@@ -36,10 +36,12 @@ for l in TSP_LIB[:1]:
     #testEuristic("randomInsertion", t.randomInsertion)
     #testEuristic("nearestNeighbor", t.nearestNeighbor)
     #testEuristic("nearestInsertion", t.nearestInsertion)
-    testEuristic("cheapestInsertion           ", t.cheapestInsertion)
+    testEuristic("cheapestInsertionOn3           ", t.cheapestInsertionOn3)
+    testEuristicO("cheapestInsertionOttimizzato   ", t.cheapestInsertionOttimizzato, 3)
+    testEuristic("cheapestInsertion              ", t.cheapestInsertion)
     #testEuristic("cheapestInsertionOttimizzato", t.cheapestInsertionOttimizzato, 4)
     #testEuristic("farthestInsertion", t.farthestInsertion)
-    testEuristic("furthestInsertion           ", t.furthestInsertion)
+    #testEuristic("furthestInsertion           ", t.furthestInsertion)
     #testEuristic("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato)
 
     #testEuristic("nearestNeighbourRandom", t.nearestInsertionRandomStart)
