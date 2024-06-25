@@ -847,6 +847,87 @@ Dalla riga 19 in poi avviene l'aggiornamento dello heap (in modo analogo a quant
 \end{legal}
 Inoltre è importante notare come l'accesso agli elementi del tour avviene \lstinline!% len(tour)! in quanto il tour è una lista circolare.
 Successivamente (come per le altre euristiche), è necessario ripristinare la struttura dello heap con il metodo \lstinline!heapq.heapify(h)! e alla fine memorizzare il path finale nell'attributo \lstinline!self.tour! e calcolare il costo della soluzione trovata.
+Questa seconda versione di cheapestInsertion ha complessità temporale $O(n^3)$ come per la prima versione, però con una differenza importante: il terzo ciclo interno (riga 23) viene eseguito solo se è vera la condizione precedente (riga 19), quindi il ricalcolo del punto di inserzione ottimo per il nodo avviene solo se necessario (quando si perde il punto di inserzione ottimo precedente) mentre nella prima versione di questa euristica si ricalcola il punto di inserzione ottimo per ogni nodo ad ogni iterazione. Vedremo nel prossimo capitolo come le prestazioni (tempi) di questa seconda implementazione è sempre migliore della prima. \newline
+Una successiva possibile ottimizzazione può derivare dalla seguente osservazione: una volta che il punto di inserzione ottimo si perde perché è stato già inserito un nodo proprio in quel punto, può essere ragionevole pensare che il nuovo punto di inserimento ottimo sia vicino a quello appena perso. Per verificare (o smentire) questa ipotesi si può molto semplicemente contare il numero di volte che il nuovo punto di inserzione ottimo è "vicino" al precedente punto di inserzione e con "vicino" si può intendere ad esempio che sia uno dei due nuovi archi creati dall'inserzione precedente. Quindi dal punto di vista dell'implementazione:
+\begin{python}
+def cheapestInsertion(self):
+  ...
+  conteggio = 0
+  tot = 0
+  while len(path) < n:
+    ...
+\end{python}
+È possibile inizializzare due variabili conteggio e tot prima del ciclo principale dell'euristica.
+
+\begin{python}
+def cheapestInsertion(self):
+  ...
+  while len(path) < n:
+    ...
+    for i, (cost, node, nodeLeft, nodeRight) in enumerate(h):
+      ...
+      if node not in in_path and \
+         nodeLeft == path[(best_pos - 1) % len(path)] and \
+         nodeRight == path[(best_pos + 1) % len(path)]:
+        ...
+        for i2 in range(len(path)):
+          next_i = (i2 + 1) % len(path)
+          insertion_cost = adj[path[i2]][node] + \
+                           adj[node][path[next_i]] - \
+                           adj[path[i2]][path[next_i]]
+          if best_cost > insertion_cost:
+            best_cost, posL, posR = insertion_cost, i2, next_i
+        h[i] = (best_cost, node, path[posL], path[posR])
+        (cost, node, nodeLeft, nodeRight) = h[i]
+        if abs(posR - best_pos) <= 2:
+          conteggio += 1
+        tot += 1
+  ...
+  print(f"{self.name} -> {conteggio / tot}")
+\end{python}
+Le aggiunte sono:
+\begin{legal}
+  \item Riga 20: si verifica che la nuova posizione \lstinline!posR! sia "vicina" alla posizione di inserzione precedente, ovvero riga \lstinline!best_pos!, nel nostro caso che sia nell'intorno del punto \lstinline!best_pos! con raggio 2.
+  \item Riga 24: si stampa a schermo la percentuale trovata.
+\end{legal}
+I risultati trovati sono (scegliendo alcune istanze dalla libreria TSP-LIB):
+\begin{myverbatim}
+berlin52 -> 0.9963898916967509
+kroB200 -> 0.9996959562176954
+rat575 -> 0.9990732159406858
+vm1084 -> 0.999213293590091
+u1817 -> 0.9980191593934437
+\end{myverbatim}
+Ovvero percentuali \textgreater 99\%. Dopo questa osservazione è possibile applicare questa semplice modifica all'implementazione:
+\begin{python}
+def cheapestInsertion(self, k):
+  ...
+  while len(path) < n:
+    ...
+    for i, (cost, node, nodeLeft, nodeRight) in enumerate(h):
+      ...
+      if node not in in_path and \
+         nodeLeft == path[(best_pos - 1) % len(path)] and \
+         nodeRight == path[(best_pos + 1) % len(path)]:
+        best_cost = np.inf
+        posL, posR = -1, -1
+        #for i2 in range(len(path)):
+        #  next_i = (i2 + 1) % len(path)
+        for f in range(best_pos - k, best_pos + k):
+          i2 = f % len(path)
+          next_i = (i2 + 1) % len(path)
+          insertion_cost = adj[path[i2]][node] + \
+                           adj[node][path[next_i]] - \
+                           adj[path[i2]][path[next_i]]
+          if best_cost > insertion_cost:
+            best_cost, posL, posR = insertion_cost, i2, next_i
+        h[i] = (best_cost, node, path[posL], path[posR])
+        (cost, node, nodeLeft, nodeRight) = h[i]
+        ...
+\end{python}
+La modifica (riga 14, alla riga 12 è presente la versione precedente) consiste nel ridurre lo spazio di ricerca da tutto il path al solo intorno (di raggio k) attorno al punto \lstinline!best_pos!. Questa modifica rappresenta una ottimizzazione rilevante soprattutto nel caso di istanze molto grandi (con migliaia o decine di migliaia di città): in quel caso al posto di iterare su tutto il path, si itera solo per le 3-4 città attorno al punto di inserzione ottimo precedente, tuttavia è importante sottolineare che la complessità di questa implementazione è $O(n^2)$ ma non garantisce la scelta del punto ottimo di inserzione: infatti è sempre presente una probabilità $>=1$ nella quale il punto di inserzione ottimo per un determinato nodo sia fuori dallo spazio di ricerca. Per questo motivo questa versione "approssimata" di Cheapest Insertion opera in modo molto simile alla versione 2 (in termini di qualità delle soluzioni) ma non uguale.
+
+\subsubsection{Versione 3}
 
 
 \subsection{Farthest Insertion}

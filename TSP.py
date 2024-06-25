@@ -215,8 +215,8 @@ class TSP:
             h.append((cost, i, path[0], path[1]))
         heapq.heapify(h)
 
-        #conteggio = 0
-        #tot = 0
+        conteggio = 0
+        tot = 0
         while len(path) < n:
             # Ottieni dallo heap la città che minimizza il minor costo di inserimento
             (costo, to_ins, l, r) = heapq.heappop(h)
@@ -245,10 +245,10 @@ class TSP:
                             best_cost, posL, posR = insertion_cost, i2, next_i
                     h[i] = (best_cost, node, path[posL], path[posR])
                     (cost, node, nodeLeft, nodeRight) = h[i]
-                    #if abs(posR - best_pos) <= 2:
-                        #conteggio += 1
+                    if abs(posR - best_pos) <= 2:
+                        conteggio += 1
                     
-                    #tot += 1
+                    tot += 1
                 # se il nuovo arco a sinistra permette un inserimento migliore di cost, quindi:
                 # path[best_pos - 1] -- node -- to_ins
                             
@@ -266,7 +266,7 @@ class TSP:
         self.tour = path
         self.calculateCost()
 
-        #print(f"Percentuale casi in cui l'ottimo ricalcolato è \"vicino\" al punto di inserzione del nodo precedente {conteggio / tot}")
+        print(f"{self.name} -> {conteggio / tot}")
 
     def cheapestInsertionOttimizzato(self, m):
         n = self.numCity
