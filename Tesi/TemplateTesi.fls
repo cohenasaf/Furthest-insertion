@@ -1,7 +1,7 @@
-PWD /run/media/asaf/2TB/Triennale/Tesi/Furthest-insertion/Tesi
+PWD /home/asaf/Desktop/Furthest-insertion/Tesi
 INPUT /usr/share/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /run/media/asaf/2TB/Triennale/Tesi/Furthest-insertion/Tesi/TemplateTesi.tex
+INPUT /home/asaf/Desktop/Furthest-insertion/Tesi/TemplateTesi.tex
 OUTPUT TemplateTesi.log
 INPUT /usr/share/texmf-dist/tex/latex/base/report.cls
 INPUT /usr/share/texmf-dist/tex/latex/base/report.cls
