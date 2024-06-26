@@ -1047,9 +1047,9 @@ class TSP:
 
     # sceglie casualmente il nodo da inserire e lo inserisce casualmente
     def randomInsertion2(self):
-        tour = []
         notInTour = [x for x in range(self.numCity)]
         random.shuffle(notInTour)
+        tour = [notInTour.pop()]
         for i in notInTour:
             tour.insert(random.randint(0, len(tour) - 1), i)
         self.tour = tour
