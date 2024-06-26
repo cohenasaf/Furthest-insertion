@@ -1565,6 +1565,13 @@ Possiamo allo stesso modo analizzare i tempi delle euristiche analizzate nella s
 \includegraphics[width=1\textwidth]{../Grafici/8.png} \
 I tempi sono coerenti con le considerazioni sulle complessità temporale fatte in precedenza: Nearest Neighbor risulta essere l'algoritmo più veloce con complessità $O(n^2)$ ma come visto in precedenza in media trova soluzioni di qualità bassa, Nearest Insertion e Farthest Insertion hanno un tempo molto simile in quanto entrambi sono algoritmi $O(n^2)$ e condividono molto del codice, mentre Cheapest Insertion e Furthest Insertion anche in questo caso ottengono tempi molto simili e coerenti con la loro complessità temporale (analizzata nelle sezioni precedenti). \newline Complessivamente (in sintesi) possiamo affermare che Furthest Insertion trova in media le soluzioni migliori ma richiede più tempo rispetto alle altre euristiche (tranne nel caso di Cheapest Insertion dove i tempi sono molto simili).
 
+\section{Confronto tempi e qualità delle euristiche con istanze enormi}
+In questa sezione analizziamo il comportamento delle euristiche nel caso di istanze molto grandi (con un numero di città maggiore uguale a 10000), per motivi di tempo saranno analizzate un numero limitato di queste istanze enormi ovvero le istanze: rl11849, usa13509, brd14051, d15112, d18512. Per prima cosa è necessario ottenere il parametro m minimo per queste istanze per Cheapest Insertion versione 3, le dimensioni minime trovate sono:
+\begin{myverbatim}
+CIAONE
+\end{myverbatim}
+
+
  
 %
 %			BIBLIOGRAFIA
