@@ -1451,7 +1451,76 @@ def nearestNeighborRandomStart(self):
 In questa variante (come per le euristiche basate su inserzione) il tour viene inizializzato con una città casuale (da 0 a $n - 1$), inoltre viene aggiunto nodo casuale scelto nella riga precedente al set \lstinline!visited! (mentre nell'implementazione di nearest nearestNeighbor viene aggiunto direttamente 0). La restante parte dell'implementazione è completamente uguale all'implementazione di nearestNeighbor.
 
 \chapter{Analisi dei risultati}
-In questo capitolo si analizzano i risultati trovati dalle euristiche precedentemente implementate.
+In questo capitolo si analizzano i risultati trovati dalle euristiche precedentemente implementate, in particolare si analizzano:
+\begin{legal}
+  \item {\bf Qualità delle soluzioni}: ovvero il costo totale del tour trovato in rapporto con la soluzione ottima, dove le soluzioni ottime sono state ottenute sempre da TSP-LIB\footnote{http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/STSP.html}. Quindi ad esempio una qualità trovata pari a "1.2" indica che si discosta del 20\% rispetto all'ottimo.
+  \item {\bf Tempi}: ovvero quanti secondi sono stati necessari per trovare la soluzione.
+\end{legal}
+Per completezza, di seguito sono indicate le caratteristiche tecniche dell'elaboratore con il quale sono stati ottenuti i risultati (solo i dettagli tecnici rilevanti):
+\begin{myverbatim}
+CPU: Intel(R) Core(TM) i5-10400F CPU @ 2.90GHz
+GPU: NVIDIA GeForce GTX 1650
+RAM: 32 GB DDR4
+\end{myverbatim}
+Tutti i tempi trovati in questo capitolo fanno riferimento esclusivamente al tempo relativo all'euristica analizzata, tutti i tempi precedenti (importazione dell'istanza TSP, calcolo della matrice di adiacenza...) sono esclusi dal tempo finale.
+
+\section{Confronto versioni Cheapest Insertion}
+Prima di confrontare le varie euristiche tra di loro, ho deciso di confrontare le varie versioni di Cheapest Insertion in modo da ottenere la versione che complessivamente (in media) ottiene i tempi migliori, la stessa varrà per Furthest Insertion (la prossima sezione). \newline
+\subsection{Dimensione ottimale degli heap per la versione 3}
+Per prima cosa è necessario determinare la dimensione minima del parametro m (ovvero la dimensione oltre la quale si perdono punti di inserimento sub-ottimi che ad un certo punto dell'esecuzione dell'euristica diventavano il punto di inserimento ottimo) in modo da ottenere la stessa soluzione rispetto a dimensioni maggiori ma migliorando i tempi in quanto si riduce il parametro m della complessità $O(n^2 * m)$. Per determinare la dimensione minima, si può scrivere un semplice script che itera l'esecuzione dell'euristica fino a quando la qualità della soluzione inizia a cambiare, ad esempio:
+\begin{myverbatim}
+eil51
+m = 10, cost: 474.00, quality: 1.1127, time: 0.005203s
+m = 9, cost: 474.00, quality: 1.1127, time: 0.004842s
+m = 8, cost: 474.00, quality: 1.1127, time: 0.005032s
+m = 7, cost: 474.00, quality: 1.1127, time: 0.004893s
+m = 6, cost: 474.00, quality: 1.1127, time: 0.004403s
+m = 5, cost: 474.00, quality: 1.1127, time: 0.004187s
+m = 4, cost: 474.00, quality: 1.1127, time: 0.004054s
+m = 3, cost: 474.00, quality: 1.1127, time: 0.003813s
+m = 2, cost: 474.00, quality: 1.1127, time: 0.003639s
+m = 1, cost: 474.00, quality: 1.1127, time: 0.003410s
+m minima: 1
+\end{myverbatim}
+In questo esempio possiamo notare come al variare della dimensione degli heap \lstinline!m!, la qualità trovata resta la stessa, addirittura fino a dimensione 1. Questo indica che non è realmente necessario uno heap ma (per questa specifica istanza) basta un solo record che indica la posizione ottima. Si può notare come il tempo si riduce al ridursi di \lstinline!m! in modo coerente con la complessità temporale. \newline
+Andando a considerare altre istanze possiamo trovare che la dimensione minima di \lstinline!m! resta bassa (attorno ad 1 o 3), ad esempio:
+\begin{myverbatim}
+pr144
+m = 10, cost: 73220.17, quality: 1.2508, time: 0.046640s
+m = 9, cost: 73220.17, quality: 1.2508, time: 0.043555s
+m = 8, cost: 73220.17, quality: 1.2508, time: 0.042367s
+m = 7, cost: 73220.17, quality: 1.2508, time: 0.050120s
+m = 6, cost: 73220.17, quality: 1.2508, time: 0.037900s
+m = 5, cost: 73220.17, quality: 1.2508, time: 0.035765s
+m = 4, cost: 73220.17, quality: 1.2508, time: 0.034044s
+m = 3, cost: 73220.17, quality: 1.2508, time: 0.031981s
+m = 2, cost: 70289.97, quality: 1.2008, time: 0.041121s
+m minima: 3
+\end{myverbatim}
+In questo secondo esempio invece possiamo notare come la soluzione trovata con parametro \lstinline!m = 2! cambia rispetto ai casi $m > 2$, per questo motivo la dimensione minima del parametro è 3. È possibile determinare il parametro m minimo per ogni istanza in modo semplice con uno script, di seguito la rappresentazione tramite grafico:\newline
+\includegraphics[width=1\textwidth]{../Grafici/1.png} \
+In questo grafico a barre possiamo notare per ogni istanza (asse x, ordinati in base alla dimensione n) il parametro minimo m. Possiamo notare come tende a 1 per le istanze piccole (con alcune eccezioni) e tende a 3 per le istanze grandi (con migliaia di città).
+\subsection{Analisi dei tempi delle versioni di Cheapest Insertion}
+Una volta determinato il parametro minimo (e quindi il tempo minimo per quella versione), possiamo confrontare i tempi delle varie versioni per ogni istanza: \newline
+\includegraphics[width=1\textwidth]{../Grafici/2.png} \
+In questo grafico possiamo notare come indubbiamente i tempi della prima versione $O(n^3)$ sono sempre peggiori delle altre versioni (compresa la seconda versione $O(n^3)$ anche se hanno stessa complessità temporale), allo stesso modo i tempi della seconda versione $O(n^3)$ è peggiore della terza versione $O(n^2 * m)$ (dove la m utilizzata per ottenere questi risultati è la m minima trovata precedentemente). Da un punto di vista dei tempi la l'implementazione migliore risulta essere la versione 2 approssimata, ovvero con complessità pari a $O(n^2)$, ma questa versione, come descritto nella sezione dedicata, non garantisce ad ogni iterazione di selezionare il nodo e il punto di inserzione ottimi, per questo motivo, dal punto di vista dei tempi, consideriamo la terza versione la migliore. Inoltre, aggiungo il fatto che il grafico mostra i tempi in scala logaritmica per una migliore leggibilità (i tempi variano da millesimi di secondo a centinaia di secondi).
+\subsection{Analisi delle qualità delle versioni di Cheapest Insertion}
+Dal punto di vista delle qualità trovate, le 3 versioni trovano in quasi tutti i casi lo stesso path e di conseguenza la stessa soluzione. Esistono però dei casi molto particolari nei quali, anche se l'algoritmo implementato è lo stesso, i path finali trovati sono diversi. Questo avviene perché ad ogni iterazione, l'implementazione deve determinare il nodo che, se inserito nel modo migliore possibile, ha costo di inserzione minimo, dopodiché procede ad inserire il nodo nel punto di inserimento ottimo. Il problema sorge nella misura in cui ad un determinato punto dell'esecuzione dell'euristica, sono presenti 2 punti di inserimento ottimi $(a_1, b_1)$ e $(a_2, b_2)$ per il nodo da inserire $v$ tali che $c_{a1v} + c_{vb1} - c_{a1b1} = c_{a2v} + c_{vb2} - c_{a2b2}$. Pertanto in presenza di un caso del genere, la scelta del punto di inserzione tra $(a_1, b_1)$ e $(a_2, b_2)$ è arbitrario, ma alla fine producono due path completamente diversi (con costi diversi). Per questo motivo il grafico sulle qualità delle soluzioni trovate dalle versioni è il seguente: \newline
+\includegraphics[width=1\textwidth]{../Grafici/3.png} \
+In questo grafico possiamo notare come in quasi tutti i casi, le quattro varianti trovano gli stessi risultati, con alcune eccezioni: la versione approssimata non garantisce di selezionare il punto di inserzione ottimo (in quanto cerca solo "localmente" come visto in precedenza) e le versioni 2 e 3 a volte possono portare a soluzioni completamente diverse, anche se implementano correttamente l'euristica. Dati i risultati (sostanzialmente equivalenti) e date le grandi differenze di tempo viste nella sezione precedente, possiamo affermare che la terza versione sia complessivamente la migliore e sarà scelta come confronto con le altre euristiche.
+
+\section{Confronto versioni Furthest Insertion}
+In modo analogo alla sezione precedente, analizziamo prima di tutto la dimensione minima degli heap dei nodi fuori dal tour (versione 3) e procediamo poi a confrontare tempi e qualità.
+\subsection{Analisi dei tempi delle versioni di Furthest Insertion}
+\includegraphics[width=1\textwidth]{../Grafici/4.png} \
+Da questo grafico possiamo notare una importante differenza: la dimensione minima del parametro m è maggiore nel caso di Furthest Insertion rispetto a Cheapest Insertion: necessita sempre di un parametro m almeno pari a 3 fino alla dimensione massima pari a 6 (ci siamo limitati per questioni di tempo alle prime 50 istanze presenti su TSP-LIB). Per ogni istanza, l'implementazione ottimizzata userà la dimensione m minima trovata nelle successive analisi (come visto prima per Cheapest Insertion).
+\subsection{Analisi dei tempi delle versioni di Furthest Insertion}
+Di seguito il grafico dei tempi delle versioni di Furthest Insertion: \newline
+\includegraphics[width=1\textwidth]{../Grafici/5.png} \
+Anche in questo caso è stato deciso di mostrare i dati con una scala logaritmica. Possiamo notare come la prima versione ($O(n^3)$ senza ottimizzazioni) risulta essere molto peggiore (in termini di tempo) rispetto alle altre versioni, inoltre questa differenza risulta essere più marcata rispetto a Cheapest Insertion versione 1. Gli altri risultati sono in linea con la complessità temporale, ovvero l'implementazione con tempo $O(n^3)$ (versione 2) è peggiore dell'implementazione con tempo $O(n^2 * m)$ (versione 3) che è peggiore dell'implementazione con tempo $O(n^2)$ (versione 2 approssimata). Anche in questo caso la versione approssimata non garantisce la scelta del nodo con costo di inserimento peggiore (se comunque inserito nel modo migliore possibile), per questo motivo l'implementazione con tempi migliori risulta essere la terza versione.
+
+
+
  
 %
 %			BIBLIOGRAFIA
