@@ -51,3 +51,4 @@
 \contentsline {section}{\numberline {4.4}Confronto tempi e qualità delle euristiche con istanze enormi}{59}{section.4.4}%
 \contentsline {section}{\numberline {4.5}Analisi robustezza delle implementazioni rispetto alla scelta delle città iniziali}{59}{section.4.5}%
 \contentsline {subsection}{\numberline {4.5.1}Robustezza della qualità della soluzione delle implementazioni}{59}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Robustezza dei tempi delle implementazioni}{61}{subsection.4.5.2}%

@@ -1588,6 +1588,13 @@ Farthest Insertion ->            0.001547882691714873
 Furthest Insertion versione 2 -> 0.0005832323004466427
 \end{myverbatim}
 Da questi risultati possiamo notare come Furthest Insertion abbia la varianza più bassa tra le euristiche analizzate: questo è un altro risultato interessante, ovvero non solo trova (in media) le soluzioni più vicine all'ottimo (con inizializzazione casuale e non) ma anche con una varianza bassa.
+\subsection{Robustezza dei tempi delle implementazioni}
+In questa sezione vogliamo invece vedere come variano i tempi delle implementazioni sempre con una inizializzazione casuale del tour. Come prima, innanzitutto analizziamo la media dei tempi e poi la varianza. \newline
+\includegraphics[width=1\textwidth]{../Grafici/11.png} \
+Anche in questo caso, i risultati non si allontano molto dai risultati ottenuti con l'inizializzazione delle città più vicine/lontane: Nearest Neighbor si conferma come euristica più veloce, dopodiché Nearest Insertion e Farthest Insertion ottengono tempi medi molto simili e infine Cheapest Insertion e Furthest Insertion ottengono tempi medi molto simili (i peggiori in modo coerente con la complessità temporale).  \newline
+\includegraphics[width=1\textwidth]{../Grafici/12.png} \
+Dal punto di vista invece della varianza dei tempi, possiamo notare una varianza molto bassa per i tempi per Nearest Neighbor, dopo (in ordine) una varianza bassa per Nearest Insertion e Farthest Insertion, poi Furthest Insertion con una varianza relativamente alta e infine Cheapest Insertion versione 3 con la varianza più alta per quanto riguarda i tempi.
+
 
  
 %
