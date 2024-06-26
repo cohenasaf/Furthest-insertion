@@ -1541,8 +1541,29 @@ In questo capitolo andremo a confrontare i risultati delle euristiche implementa
 \end{legal}
 A differenza della sezione precedente, oltre ai tempi in questo caso le qualità trovate sono fondamentali nella valutazione delle euristiche. Ci limitiamo alla versione 3 di Cheapest Insertion versione 3 e Furthest Insertion versione 2 come visto nella sezione precedente. In questo caso analizzeremo qualità e tempi, ma sopratutto valuteremo anche le prestazioni su istanze enormi ($> 10000$ città). L'analisi delle versioni di randomInsertion e la robustezza delle euristiche riguardo l'inizializzazione sarà analizzata nei prossimi capitoli. Analizzeremo anche Nearest Neighbour anche se non è una euristica basata su inserzione per completezza.
 \subsection{Analisi delle qualità delle euristiche}
-
-
+Di seguito il grafico che mostra le qualità trovate dalle euristiche (asse y) per le prime 50 istanze presenti in TSP-LIB ordinate per numero di città (asse x): \newline
+\includegraphics[width=1\textwidth]{../Grafici/7.png} \
+Premettendo che si vuole una qualità più vicina possibile a 1 (quindi un costo totale più vicino possibile a quello ottimo), da questo grafico possiamo notare più cose: innanzitutto Nearest Neighbor risulta essere in molti contesti l'euristica peggiore, ad esempio per quanto riguarda le prime 10 città (a sinistra) risulta essere molto in alto rispetto alle altre soluzioni trovate (quindi ha trovato soluzioni peggiori), inoltre vale lo stesso discorso per molte istanze grandi verso le migliaia di città (a destra nel grafico). Il discorso analogo ma invertito vale per Furthest Insertion (ovvero l'euristica nuova proposta in questa tesi): possiamo notare come le qualità trovate sia per istanze piccole che grandi sia molte volte la migliore, con soluzioni trovate nella fascia tra il 10\% e il 20\% peggiori rispetto all'ottimo. Questo risultato è molto interessante confrontato con le altre euristiche che sembrano restare nella fascia 15\%-25\%. Possiamo effettuare una media delle soluzioni trovate, ottenendo:
+\begin{myverbatim}
+Nearest Neighbor ->              1.2470046772916366
+Nearest Insertion ->             1.2156950870353294
+Cheapest Insertion versione 3 -> 1.1782082768488287
+Farthest Insertion ->            1.1910399037033677
+Furthest Insertion versione 2 -> 1.1066458949521236
+\end{myverbatim}
+Ovvero in media (per le prime 50 città più piccole presenti su TSP-LIB) Furthest Insertion ottiene soluzioni di qualità significativamente superiore rispetto alle altre euristiche basate su inserzione (e anche rispetto a Nearest Neighbor). Questo risultato è particolarmente rilevante in quanto Furthest Insertion è proprio l'euristica mancante in letteratura. Per completezza possiamo anche valutare la varianza delle soluzioni trovate:
+\begin{myverbatim}
+Nearest Neighbor ->              0.0049800335629691375
+Nearest Insertion ->             0.0014584496204975638
+Cheapest Insertion versione 3 -> 0.0008967612647899936
+Farthest Insertion ->            0.0023611070924068247
+Furthest Insertion versione 2 -> 0.0012113120333807825
+\end{myverbatim}
+Da questi risultati possiamo concludere che Furthest Insertion trova soluzioni con una varianza tra le più basse (Cheapest Insertion ha una varianza più bassa). L'elevata varianza di Nearest Neighbor può essere spiegata anche graficamente: si possono notare qualità molto elevate (attorno al 40\%) e anche molto basse (attorno al 5\%).
+\subsection{Analisi dei tempi delle euristiche}
+Possiamo allo stesso modo analizzare i tempi delle euristiche analizzate nella sezione precedente: \newline
+\includegraphics[width=1\textwidth]{../Grafici/8.png} \
+I tempi sono coerenti con le considerazioni sulle complessità temporale fatte in precedenza: Nearest Neighbor risulta essere l'algoritmo più veloce con complessità $O(n^2)$ ma come visto in precedenza in media trova soluzioni di qualità bassa, Nearest Insertion e Farthest Insertion hanno un tempo molto simile in quanto entrambi sono algoritmi $O(n^2)$ e condividono molto del codice, mentre Cheapest Insertion e Furthest Insertion anche in questo caso ottengono tempi molto simili e coerenti con la loro complessità temporale (analizzata nelle sezioni precedenti). \newline Complessivamente (in sintesi) possiamo affermare che Furthest Insertion trova in media le soluzioni migliori ma richiede più tempo rispetto alle altre euristiche (tranne nel caso di Cheapest Insertion dove i tempi sono molto simili).
 
  
 %

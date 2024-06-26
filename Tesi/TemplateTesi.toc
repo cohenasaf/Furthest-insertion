@@ -47,3 +47,4 @@
 \contentsline {subsection}{\numberline {4.2.3}Analisi delle qualità delle versioni di Furthest Insertion}{55}{subsection.4.2.3}%
 \contentsline {section}{\numberline {4.3}Confronto tempi e qualità delle euristiche}{56}{section.4.3}%
 \contentsline {subsection}{\numberline {4.3.1}Analisi delle qualità delle euristiche}{57}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Analisi dei tempi delle euristiche}{58}{subsection.4.3.2}%
