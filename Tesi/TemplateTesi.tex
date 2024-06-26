@@ -1568,9 +1568,26 @@ I tempi sono coerenti con le considerazioni sulle complessità temporale fatte i
 \section{Confronto tempi e qualità delle euristiche con istanze enormi}
 In questa sezione analizziamo il comportamento delle euristiche nel caso di istanze molto grandi (con un numero di città maggiore uguale a 10000), per motivi di tempo saranno analizzate un numero limitato di queste istanze enormi ovvero le istanze: rl11849, usa13509, brd14051, d15112, d18512. Per prima cosa è necessario ottenere il parametro m minimo per queste istanze per Cheapest Insertion versione 3, le dimensioni minime trovate sono:
 \begin{myverbatim}
-CIAONE
+DA COMPLETARE
 \end{myverbatim}
 
+\section{Analisi robustezza delle implementazioni rispetto alla scelta delle città iniziali}
+Abbiamo visto che l'inizializzazione del tour consiste nel determinare la coppia di città più vicine per gli algoritmi Nearest Neighbor, Nearest Insertion e Cheapest Insertion e consiste nel determinare la coppia di città più lontane per Farthest e Furthest Insertion. Questa sezione analizza il variare dei tempi e delle qualità delle soluzioni trovate al variare delle città iniziali. Per fare questo (come visto nella sezione delle implementazioni) l'implementazione resta la stessa tranne per il fatto che le due città iniziali sono scelte casualmente. Chiaramente si deve garantire che siano due città diverse. Vediamo i risultati prima dal punto di vista delle qualità, poi dei tempi.
+\subsection{Robustezza della qualità della soluzione delle implementazioni}
+Per prima cosa valutiamo la robustezza della qualità della soluzione, quindi iteriamo 100 volte (con un seed diverso per i numeri casuali) sulle prime 30 istanze da TSP-LIB in ordine di dimensione, ho deciso di limitarmi alle sole prime 30 città in quanto iterare 100 volte sull'esecuzione di tutte e 5 le euristiche richiede molto tempo. Per prima cosa considero la media delle soluzioni trovate per ogni istanza e per ogni algoritmo: \newline
+\includegraphics[width=1\textwidth]{../Grafici/9.png} \
+I risultati medi sono coerenti con i risultati ottenuti inizializzando il tour con la coppia di città più vicine/lontane: Furthest Insertion (nelle 30 città analizzate) trova sempre un percorso migliore rispetto alle altre euristiche analizzate, trovando soluzioni tra 5\% e il 15\%, mentre le altre euristiche si collocano nel range 10\%-25\% (o 30\% nel caso di Nearest Neighbour). Inoltre in particolare Nearest Neighbor trova soluzioni (in media) peggiori rispetto alle altre euristiche. \newline 
+Ora possiamo analizzare invece la varianza delle soluzioni trovate: vogliamo quindi sapere quanto le soluzioni sia llontanano dal valore medio trovato prima al variare dell'inizializzazione. Di seguito il grafico: \newline
+\includegraphics[width=1\textwidth]{../Grafici/10.png} \
+Possiamo notare come Nearest Neighbor ha una varianza elevata, quindi le soluzioni trovate distano molto dalla media (avvicinandosi o allontanandosi dall'ottimo). Dopodiché possiamo notare come Furthest Insertion abbia una varianza tra le più basse (possiamo forse affermare che abbia la varianza più bassa), andando a considerare la media delle varianze otteniamo:
+\begin{myverbatim}
+Nearest Neighbor ->              0.002681760251702191
+Nearest Insertion ->             0.0009059930614140123
+Cheapest Insertion versione 3 -> 0.00125661452221978
+Farthest Insertion ->            0.001547882691714873
+Furthest Insertion versione 2 -> 0.0005832323004466427
+\end{myverbatim}
+Da questi risultati possiamo notare come Furthest Insertion abbia la varianza più bassa tra le euristiche analizzate: questo è un altro risultato interessante, ovvero non solo trova (in media) le soluzioni più vicine all'ottimo (con inizializzazione casuale e non) ma anche con una varianza bassa.
 
  
 %

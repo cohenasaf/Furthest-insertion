@@ -743,7 +743,7 @@ class TSP:
     def nearestNeighborRandomStart(self):
         self.tour = [random.randint(0, self.numCity - 1)]
         visited = set([self.tour[0]])
-        notVisited = set(range(1, self.numCity))
+        notVisited = set(range(0, self.numCity)) - set([self.tour[0]])
         while len(self.tour) < self.numCity:
             cost = np.inf
             j = -1
@@ -850,6 +850,94 @@ class TSP:
                 if node not in in_path and right_cost < cost:
                     new_cost = right_cost
                     h[i] = (new_cost, node, to_ins, path[(best_pos + 1) % (len(path))])
+            heapq.heapify(h)
+        self.tour = path
+        self.calculateCost()
+
+    def cheapestInsertionOttimizzatoRandomStart(self, m):
+        n = self.numCity
+        adj = np.array(self.adj)
+        path = [random.randint(0, n - 1), random.randint(0, n - 1)]
+        while path[0] == path[1]:
+            path = [random.randint(0, n - 1), random.randint(0, n - 1)]
+        in_path = {path[0], path[1]}
+
+        # heap principale
+        h = []
+        # dizionario che associa ogni arco (i, j) nel tour
+        # alla lista dei record che puntano all'arco (i, j)
+        d = dict()
+        d[(path[0], path[1])] = []
+        d[(path[1], path[0])] = []
+        for i in set(range(n)) - in_path:
+            cost = adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]
+            h_i = [cost, i, path[0], path[1]]
+            h_i2 = [cost, i, path[1], path[0]]
+            h.append([h_i, h_i2])
+            d[(path[0], path[1])].append(h_i)
+            d[(path[1], path[0])].append(h_i2)
+        heapq.heapify(h)
+
+        while len(path) < n:
+            # prelevo dallo heap principale lo heap con costo migliore
+            h_i = heapq.heappop(h)
+            # prelevo dallo heap piccolo del nodo le informazioni utili
+            # per inserire to_ins tra (l, r)
+            (costo, to_ins, l, r) = heapq.heappop(h_i)
+            best_pos = path.index(r)
+            path.insert(best_pos, to_ins)
+            in_path.add(to_ins)
+
+            for p in d[(l, r)]:
+                # cancello i nodi con il riferimento all'arco (l, r)
+                # in quanto non esiste più quell'arco
+                p[0] = np.inf
+            for hp in h:
+                node = hp[0][1]
+
+                # sx: path[(best_pos - 1) % len(path)]
+                # node
+                # dx: path[best_pos]
+                sx = path[(best_pos - 1) % len(path)]
+                dx = path[best_pos]
+                newCost = adj[sx][node] + \
+                          adj[node][dx] - \
+                          adj[sx][dx]
+                l = [newCost, node, sx, dx]
+                if (sx, dx) not in d:
+                    d[(sx, dx)] = [l]
+                else:
+                    d[(sx, dx)].append(l)
+                hp.append(l)
+
+                # sx: path[best_pos]
+                # node
+                # dx: path[(best_pos + 1) % len(path)]
+                sx = path[best_pos]
+                dx = path[(best_pos + 1) % len(path)]
+                newCost = adj[sx][node] + \
+                          adj[node][dx] - \
+                          adj[sx][dx]
+                l = [newCost, node, sx, dx]
+                if (sx, dx) not in d:
+                    d[(sx, dx)] = [l]
+                else:
+                    d[(sx, dx)].append(l)
+                hp.append(l)
+
+                # elimino dallo heap del nodo
+                # i riferimenti con costo infinito
+                i = 0
+                while i < len(hp):
+                    if hp[i][0] == np.inf:
+                        del hp[i]
+                    else:
+                        i += 1           
+                heapq.heapify(hp)
+            # la dimensione massima dello heap del nodo è m
+            # quindi rimuovo tutti i nodi da (m+1) in poi
+            for i in range(len(h)):
+                h[i] = h[i][:m]
             heapq.heapify(h)
         self.tour = path
         self.calculateCost()

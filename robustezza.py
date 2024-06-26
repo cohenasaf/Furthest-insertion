@@ -1,6 +1,7 @@
 from TSP import TSP
 import sys
 import time
+import numpy as np
 
 def testEuristicO(name, euristic, m):
     st = time.time()
@@ -8,7 +9,7 @@ def testEuristicO(name, euristic, m):
     et = time.time()
     t.calculateCost()
     assert t.verifyTour()
-    print("{:18s} costo: {:.2f}, qualità: {:.4f}, tempo: {:.6f} secondi".format(name, t.cost, t.cost / t.optimalSolution, et - st))
+    #print("{:18s} costo: {:.2f}, qualità: {:.4f}, tempo: {:.6f} secondi".format(name, t.cost, t.cost / t.optimalSolution, et - st))
     #return (t.cost / t.optimalSolution, et - st)
     return t.cost / t.optimalSolution
 
@@ -18,7 +19,7 @@ def testEuristic(name, euristic):
     et = time.time()
     t.calculateCost()
     assert t.verifyTour()
-    print("{:18s} costo: {:.2f}, qualità: {:.4f}, tempo: {:.6f} secondi".format(name, t.cost, t.cost / t.optimalSolution, et - st))
+    #print("{:18s} costo: {:.2f}, qualità: {:.4f}, tempo: {:.6f} secondi".format(name, t.cost, t.cost / t.optimalSolution, et - st))
     #return (t.cost / t.optimalSolution, et - st)
     return t.cost / t.optimalSolution
 
@@ -34,55 +35,31 @@ NI = []
 CI = []
 FaI = []
 FuI = []
-for l in TSP_LIB[-5:]:
+for l in TSP_LIB[:30]:
     t = TSP(l, ignoraOpt=True)
     print()
     print("_________________")
     print(t.name)
 
-    t.calculateOptimalCost()
+    a = []
+    b = []
+    c = []
+    d = []
+    e = []
 
-    #testEuristic("randomInsertion", t.randomInsertion)
-    #testEuristic("nearestNeighbor", t.nearestNeighbor)
-    #testEuristic("nearestInsertion", t.nearestInsertion)
-    #testEuristic("cheapestInsertionOn3           ", t.cheapestInsertionOn3)
-    #testEuristicO("cheapestInsertionOttimizzato   ", t.cheapestInsertionOttimizzato, 3)
-    #testEuristic("cheapestInsertionOn3              ", t.cheapestInsertionOn3)
-    #testEuristic("cheapestInsertion              ", t.cheapestInsertion)
-    #testEuristic("cheapestInsertionApprossimato              ", t.cheapestInsertionApprossimato)
-    #testEuristicO("cheapestInsertionOttimizzato              ", t.cheapestInsertionOttimizzato, 2)
-    #testEuristic("cheapestInsertionOttimizzato", t.cheapestInsertionOttimizzato, 4)
-    #testEuristic("farthestInsertion", t.farthestInsertion)
-    #testEuristic("furthestInsertion           ", t.furthestInsertion)
-    #testEuristic("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato)
 
-    #testEuristic("nearestNeighbourRandom", t.nearestInsertionRandomStart)
+    for i in range(100):
+        a.append(testEuristic("", t.nearestNeighborRandomStart))
+        b.append(testEuristic("", t.nearestInsertionRandomStart))
+        c.append(testEuristicO("", t.cheapestInsertionOttimizzatoRandomStart, dC[t.name]))
+        d.append(testEuristic("", t.farthestInsertionRandomStart))
+        e.append(testEuristic("", t.furthestInsertionRandomStart))
 
-    #t.calculateOptimalCost()
-
-    #NN.append(testEuristic("nearestNeighbor", t.nearestNeighbor))
-    #NI.append(testEuristic("nearestInsertion", t.nearestInsertion))
-    #CI.append(testEuristicO("cheapestInsertion", t.cheapestInsertionOttimizzato, dC[t.name]))
-    #FaI.append(testEuristic("farthestInsertion", t.farthestInsertion))
-    #FuI.append(testEuristic("furthestInsertion", t.xfurthestInsertion))
-
-    #cOn3.append(testEuristic("furthestInsertionOn3", t.furthestInsertionOn3))
-    #c.append(testEuristic("furthestInsertion", t.furthestInsertion))
-    #cO.append(testEuristicO("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato, dF[l]))
-    #cA.append(testEuristic("furthestInsertionApprossimato", t.furthestInsertionApprossimato))
-
-    r = []
-    last_m = 1
-    for m in range(10, 0, -1):
-        r.append(testEuristicO("cheapestInsertionOttimizzato", t.cheapestInsertionOttimizzato, m))
-        if len(r) >= 2 and r[-1] != r[-2]:
-            last_m = m + 1
-            break
-    print(t.name, "->", last_m)
-    dF[t.name] = last_m
-    #ztestEuristic("cheapestInsertion", t.cheapestInsertion)
-    name_m.append((l, last_m))
-#print(name_m)
+    NN.append(np.var(a))
+    NI.append(np.var(b))
+    CI.append(np.var(c))
+    FaI.append(np.var(d))
+    FuI.append(np.var(e))
 
 print(NN)
 print(NI)
