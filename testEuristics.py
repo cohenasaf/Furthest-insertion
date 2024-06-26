@@ -31,7 +31,7 @@ cOn3 = []
 c = []
 cO = []
 cA = []
-for l in TSP_LIB[:50]:
+for l in TSP_LIB[:10]:
     t = TSP(l, ignoraOpt=True)
     print()
     print("_________________")
@@ -78,5 +78,5 @@ print(dF)
 
 print(cOn3)
 print(c)
+#print(cA)
 print(cO)
-print(cA)

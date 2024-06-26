@@ -1511,13 +1511,36 @@ In questo grafico possiamo notare come in quasi tutti i casi, le quattro variant
 
 \section{Confronto versioni Furthest Insertion}
 In modo analogo alla sezione precedente, analizziamo prima di tutto la dimensione minima degli heap dei nodi fuori dal tour (versione 3) e procediamo poi a confrontare tempi e qualità.
-\subsection{Analisi dei tempi delle versioni di Furthest Insertion}
+\subsection{Dimensione ottimale degli heap per la versione 3 }
 \includegraphics[width=1\textwidth]{../Grafici/4.png} \
 Da questo grafico possiamo notare una importante differenza: la dimensione minima del parametro m è maggiore nel caso di Furthest Insertion rispetto a Cheapest Insertion: necessita sempre di un parametro m almeno pari a 3 fino alla dimensione massima pari a 6 (ci siamo limitati per questioni di tempo alle prime 50 istanze presenti su TSP-LIB). Per ogni istanza, l'implementazione ottimizzata userà la dimensione m minima trovata nelle successive analisi (come visto prima per Cheapest Insertion).
 \subsection{Analisi dei tempi delle versioni di Furthest Insertion}
 Di seguito il grafico dei tempi delle versioni di Furthest Insertion: \newline
 \includegraphics[width=1\textwidth]{../Grafici/5.png} \
-Anche in questo caso è stato deciso di mostrare i dati con una scala logaritmica. Possiamo notare come la prima versione ($O(n^3)$ senza ottimizzazioni) risulta essere molto peggiore (in termini di tempo) rispetto alle altre versioni, inoltre questa differenza risulta essere più marcata rispetto a Cheapest Insertion versione 1. Gli altri risultati sono in linea con la complessità temporale, ovvero l'implementazione con tempo $O(n^3)$ (versione 2) è peggiore dell'implementazione con tempo $O(n^2 * m)$ (versione 3) che è peggiore dell'implementazione con tempo $O(n^2)$ (versione 2 approssimata). Anche in questo caso la versione approssimata non garantisce la scelta del nodo con costo di inserimento peggiore (se comunque inserito nel modo migliore possibile), per questo motivo l'implementazione con tempi migliori risulta essere la terza versione.
+Anche in questo caso è stato deciso di mostrare i dati con una scala logaritmica. Possiamo notare come la prima versione ($O(n^3)$ senza ottimizzazioni) risulta essere molto peggiore (in termini di tempo) rispetto alle altre versioni, inoltre questa differenza risulta essere più marcata rispetto a Cheapest Insertion versione 1. La versione 2 approssimata risulta essere la migliore in quanto ha complessità pari a $O(n^2)$ ma non la consideriamo in quanto non garantisce la scelta del nodo con costo di inserimento massimo (se inserito nel modo migliore possibile). Invece per quanto riguarda il confronto tra la versione 2 $O(n^3)$ e la versione ottimizzata $O(n^2 * m)$ risulta essere migliore la prima. Questo risultato può essere spiegabile con la seguente osservazione: effettuando un conteggio delle volte in cui la condizione if risulta vera (la condizione if che porta al terzo ciclo interno che rende la seconda versione $O(n^3)$) ci si rende conto che è vera in poche circostanze in contrasto con Cheapest Insertion versione 2 dove risultava vera molte volte, ad esempio:
+\begin{myverbatim}
+u1817: Cheapest -> 147917; Furthest -> 18993
+u2319: Cheapest -> 112479; Furthest -> 25774
+\end{myverbatim}
+Questi sono i conteggi relativi al numero di volte che la condizione if (prima del terzo ciclo interno) risulti vera con la stessa istanza. Possiamo notare che nel caso di Furthest risulta essere un numero molto minore rispetto a Cheapest, per questo possiamo notare un miglioramento notevole dei tempi con l'ottimizzazione (dalla versione 2 alla 3 di Cheapest Insertion) mentre non notiamo questo miglioramento nel caso di Furthest Insertion.
+\subsection{Analisi delle qualità delle versioni di Furthest Insertion}
+Di seguito il grafico relativo alle qualità trovate dalle versioni di Furthest Insertion: \newline
+\includegraphics[width=1\textwidth]{../Grafici/6.png} \
+In questo caso possiamo notare che la versione approssimata trova soluzioni molto diverse rispetto alle altre 3 euristiche in quanto non garantisce la scelta del punto di inserzione con costo di inserimento minimo. Inoltre notiamo la stessa differenza nelle altre euristiche discussa nella sezione precedente: la versione 1, 2 e 3 implementano correttamente l'euristica ma presentano risultati diversi in quanto sono presenti più punti di inserzione ottimo per lo stesso nodo. Di seguito lo stesso grafico senza la versione approssimata: \newline
+\includegraphics[width=1\textwidth]{../Grafici/6_2.png} \
+In questo grafico possiamo notare come sono limitati i casi in cui le soluzioni trovate dalle 3 versioni sono diverse. \newline
+Possiamo quindi concludere che la versione migliore (soprattutto dal punto di vista dei tempi in quanto le qualità delle soluzioni sostanzialmente si equivalgono) è la versione 2 e non la versione 3, ovvero la versione con un solo heap e non la versione con più heap per ogni nodo fuori dal tour.
+\section{Confronto tempi e qualità delle euristiche}
+In questo capitolo andremo a confrontare i risultati delle euristiche implementate nel capitolo precedente. Le euristiche che considereremo sono quindi:
+\begin{legal}
+  \item Nearest Neighbor
+  \item Nearest Insertion
+  \item Cheapest Insertion versione 3
+  \item Farthest Insertion
+  \item Furthest Insertion versione 2
+\end{legal}
+A differenza della sezione precedente, oltre ai tempi in questo caso le qualità trovate sono fondamentali nella valutazione delle euristiche. Ci limitiamo alla versione 3 di Cheapest Insertion versione 3 e Furthest Insertion versione 2 come visto nella sezione precedente. In questo caso analizzeremo qualità e tempi, ma sopratutto valuteremo anche le prestazioni su istanze enormi ($> 10000$ città). L'analisi delle versioni di randomInsertion e la robustezza delle euristiche riguardo l'inizializzazione sarà analizzata nei prossimi capitoli. Analizzeremo anche Nearest Neighbour anche se non è una euristica basata su inserzione per completezza.
+\subsection{Analisi delle qualità delle euristiche}
 
 
 
