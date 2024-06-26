@@ -1543,7 +1543,7 @@ A differenza della sezione precedente, oltre ai tempi in questo caso le qualità
 \subsection{Analisi delle qualità delle euristiche}
 Di seguito il grafico che mostra le qualità trovate dalle euristiche (asse y) per le prime 50 istanze presenti in TSP-LIB ordinate per numero di città (asse x): \newline
 \includegraphics[width=1\textwidth]{../Grafici/7.png} \
-Premettendo che si vuole una qualità più vicina possibile a 1 (quindi un costo totale più vicino possibile a quello ottimo), da questo grafico possiamo notare più cose: innanzitutto Nearest Neighbor risulta essere in molti contesti l'euristica peggiore, ad esempio per quanto riguarda le prime 10 città (a sinistra) risulta essere molto in alto rispetto alle altre soluzioni trovate (quindi ha trovato soluzioni peggiori), inoltre vale lo stesso discorso per molte istanze grandi verso le migliaia di città (a destra nel grafico). Il discorso analogo ma invertito vale per Furthest Insertion (ovvero l'euristica nuova proposta in questa tesi): possiamo notare come le qualità trovate sia per istanze piccole che grandi sia molte volte la migliore, con soluzioni trovate nella fascia tra il 10\% e il 20\% peggiori rispetto all'ottimo. Questo risultato è molto interessante confrontato con le altre euristiche che sembrano restare nella fascia 15\%-25\%. Possiamo effettuare una media delle soluzioni trovate, ottenendo:
+Premettendo che si vuole una qualità più vicina possibile a 1 (quindi un costo totale più vicino possibile a quello ottimo), da questo grafico possiamo notare più cose: innanzitutto Nearest Neighbor risulta essere in molti contesti l'euristica peggiore, ad esempio per quanto riguarda le prime 10 città (a sinistra) risulta essere molto in alto rispetto alle altre soluzioni trovate (quindi ha trovato soluzioni peggiori), inoltre vale lo stesso discorso per molte istanze grandi verso le migliaia di città (a destra nel grafico). Il discorso analogo ma invertito vale per Furthest Insertion (ovvero l'euristica nuova proposta in questa tesi): possiamo notare come le qualità trovate sia per istanze piccole che grandi sia molte volte la migliore, con soluzioni trovate nella fascia tra il 5\% e il 15\% peggiori rispetto all'ottimo. Questo risultato è molto interessante confrontato con le altre euristiche che sembrano restare nella fascia 15\%-25\%. Possiamo effettuare una media delle soluzioni trovate, ottenendo:
 \begin{myverbatim}
 Nearest Neighbor ->              1.2470046772916366
 Nearest Insertion ->             1.2156950870353294
@@ -1571,7 +1571,7 @@ In questa sezione analizziamo il comportamento delle euristiche nel caso di ista
 DA COMPLETARE
 \end{myverbatim}
 
-\section{Analisi robustezza delle implementazioni rispetto alla scelta delle città iniziali}
+\section{Analisi robustezza rispetto alla scelta delle città iniziali}
 Abbiamo visto che l'inizializzazione del tour consiste nel determinare la coppia di città più vicine per gli algoritmi Nearest Neighbor, Nearest Insertion e Cheapest Insertion e consiste nel determinare la coppia di città più lontane per Farthest e Furthest Insertion. Questa sezione analizza il variare dei tempi e delle qualità delle soluzioni trovate al variare delle città iniziali. Per fare questo (come visto nella sezione delle implementazioni) l'implementazione resta la stessa tranne per il fatto che le due città iniziali sono scelte casualmente. Chiaramente si deve garantire che siano due città diverse. Vediamo i risultati prima dal punto di vista delle qualità, poi dei tempi.
 \subsection{Robustezza della qualità della soluzione delle implementazioni}
 Per prima cosa valutiamo la robustezza della qualità della soluzione, quindi iteriamo 100 volte (con un seed diverso per i numeri casuali) sulle prime 30 istanze da TSP-LIB in ordine di dimensione, ho deciso di limitarmi alle sole prime 30 città in quanto iterare 100 volte sull'esecuzione di tutte e 5 le euristiche richiede molto tempo. Per prima cosa considero la media delle soluzioni trovate per ogni istanza e per ogni algoritmo: \newline
@@ -1607,6 +1607,24 @@ Per quanto riguarda invece la media dei tempi, possiamo notare che la prima vers
 \includegraphics[width=1\textwidth]{../Grafici/17.png} \
 Invece per la varianza dei tempi, notiamo anche qui che la seconda versione ha una varianza bassissima per i tempi in quanto le istruzioni necessarie dipendono poco dalla dimensione dell'input (\lstinline!random.randint(0, n)! ha complessità $O(1)$ indipendentemente dalla dimensione di n). \newline
 
+\chapter{Conclusioni}
+Si può concludere la tesi riassumendo i risultati trovati:
+\begin{legal}
+  \item Furthest Insertion (ovvero la nuova euristica proposta in questa tesi) in trova soluzioni di qualità migliore delle altre euristiche basate su inserzione presenti in letteratura (quindi meglio di Cheapest Insertion, Farthest Insertion e Nearest Insertion).
+  \item Furthest Insertion trova soluzioni di qualità migliore anche con l'inizializzazione del tour casuale in confronto alle altre euristiche basate su inserzione (sempre con inizializzazione casuale).
+  \item Furthest Insertion ha una varianza più bassa per quanto riguarda la qualità delle soluzioni.
+  \item Furthest Insertion (lato negativo) non ha mostrato un miglioramento significativo nell'ottimizzazione da heap singolo a più heap associati ai nodi fuori dal tour (cosa che invece è avvenuta per Cheapest Insertion).
+  \item Furthest Insertion ha dei tempi accettabili (come nel caso di Cheapest Insertion) anche se altre euristiche sono risultate più veloci in modo coerente con la complessità computazionale analizzata.
+  \item Furthest Insertion trova soluzioni di qualità molto alta in modo simile a Random Insertion, in modo del tutto inatteso in quanto Random Insertion (appunto) sceglie i nodi da inserire in modo casuale.
+\end{legal}
+Questi risultati sono molto interessanti in quanto Furthest Insertion è proprio l'euristica mancante in letteratura, ad esempio nel "The Traveling Salesman" di G. Reinelt\cite{Reinelt}, possiamo trovare Nearest Insertion (6.2.1.1), varie versioni di Farthest Insertion (6.2.1.2), varie versioni di Cheapest Insertion (6.2.1.5) ma non Furthest Insertion.
+\subsection{Possibili sviluppi e estensioni}
+Sicuramente sarebbe interessante estendere il progetto nei seguenti campi:
+\begin{legal}
+  \item Implementare altre euristiche (ad esempio non basate su inserzione) e confrontarle con la nuova euristica proposta in questa tesi
+  \item Come visto nel capitolo delle implementazioni, il progetto si limita a istanze con coordinate euclidee in due dimensioni. Può essere interessante estendere il progetto ad istanze a 3 dimensioni o istanze con distanze diverse dalla distanza euclidea in due dimensioni, ad esempio con la distanza di Čebyšëv e confrontare le prestazioni dell'euristica al variare del parametro $k$\footnote{https://www.researchgate.net/publication/311633774\_Chebyshev\_Distance}.
+  \item Implementare gli stessi algoritmi in altri linguaggi di programmazione (come C, C++ o Java), confrontare eventuali lati negativi, positivi e le prestazioni
+\end{legal}
  
 %
 %			BIBLIOGRAFIA

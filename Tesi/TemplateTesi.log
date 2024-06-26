@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.28)  26 JUN 2024 22:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.28)  26 JUN 2024 23:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -765,106 +765,106 @@ Underfull \hbox (badness 10000) in paragraph at lines 1468--1469
 [49
 
 ]
-<../Grafici/1.png, id=1504, 867.24pt x 433.62pt>
+<../Grafici/1.png, id=1513, 867.24pt x 433.62pt>
 File: ../Grafici/1.png Graphic file (type png)
 <use ../Grafici/1.png>
 Package pdftex.def Info: ../Grafici/1.png  used on input line 1501.
 (pdftex.def)             Requested size: 433.62pt x 216.80946pt.
  [50]
-<../Grafici/2.png, id=1535, 939.51pt x 433.62pt>
+<../Grafici/2.png, id=1544, 939.51pt x 433.62pt>
 File: ../Grafici/2.png Graphic file (type png)
 <use ../Grafici/2.png>
 Package pdftex.def Info: ../Grafici/2.png  used on input line 1505.
 (pdftex.def)             Requested size: 433.62pt x 200.12927pt.
  [51 <../Grafici/1.png>]
-<../Grafici/3.png, id=1541, 939.51pt x 433.62pt>
+<../Grafici/3.png, id=1550, 939.51pt x 433.62pt>
 File: ../Grafici/3.png Graphic file (type png)
 <use ../Grafici/3.png>
 Package pdftex.def Info: ../Grafici/3.png  used on input line 1509.
 (pdftex.def)             Requested size: 433.62pt x 200.12927pt.
  [52 <../Grafici/2.png>]
-<../Grafici/4.png, id=1547, 1156.32pt x 433.62pt>
+<../Grafici/4.png, id=1556, 1156.32pt x 433.62pt>
 File: ../Grafici/4.png Graphic file (type png)
 <use ../Grafici/4.png>
 Package pdftex.def Info: ../Grafici/4.png  used on input line 1515.
 (pdftex.def)             Requested size: 433.62pt x 162.6071pt.
  [53 <../Grafici/3.png>]
-<../Grafici/5.png, id=1553, 939.51pt x 433.62pt>
+<../Grafici/5.png, id=1562, 939.51pt x 433.62pt>
 File: ../Grafici/5.png Graphic file (type png)
 <use ../Grafici/5.png>
 Package pdftex.def Info: ../Grafici/5.png  used on input line 1519.
 (pdftex.def)             Requested size: 433.62pt x 200.12927pt.
  [54 <../Grafici/4.png> <../Grafici/5.png>]
-<../Grafici/6.png, id=1561, 939.51pt x 433.62pt>
+<../Grafici/6.png, id=1570, 939.51pt x 433.62pt>
 File: ../Grafici/6.png Graphic file (type png)
 <use ../Grafici/6.png>
 Package pdftex.def Info: ../Grafici/6.png  used on input line 1528.
 (pdftex.def)             Requested size: 433.62pt x 200.12927pt.
-<../Grafici/6_2.png, id=1562, 939.51pt x 433.62pt>
+<../Grafici/6_2.png, id=1571, 939.51pt x 433.62pt>
 File: ../Grafici/6_2.png Graphic file (type png)
 <use ../Grafici/6_2.png>
 Package pdftex.def Info: ../Grafici/6_2.png  used on input line 1530.
 (pdftex.def)             Requested size: 433.62pt x 200.12927pt.
  [55 <../Grafici/6.png>] [56 <../Grafici/6_2.png>]
-<../Grafici/7.png, id=1581, 1011.78pt x 433.62pt>
+<../Grafici/7.png, id=1590, 1011.78pt x 433.62pt>
 File: ../Grafici/7.png Graphic file (type png)
 <use ../Grafici/7.png>
 Package pdftex.def Info: ../Grafici/7.png  used on input line 1545.
 (pdftex.def)             Requested size: 433.62pt x 185.83763pt.
  [57 <../Grafici/7.png>]
-<../Grafici/8.png, id=1590, 1011.78pt x 433.62pt>
+<../Grafici/8.png, id=1599, 1011.78pt x 433.62pt>
 File: ../Grafici/8.png Graphic file (type png)
 <use ../Grafici/8.png>
 Package pdftex.def Info: ../Grafici/8.png  used on input line 1565.
 (pdftex.def)             Requested size: 433.62pt x 185.83763pt.
  [58 <../Grafici/8.png>]
-Overfull \hbox (10.39378pt too wide) in paragraph at lines 1574--1574
-[]\OT1/cmr/bx/n/17.28 Analisi ro-bu-stez-za del-le im-ple-men-ta-zio-ni ri-spet-
+Overfull \hbox (6.76186pt too wide) in paragraph at lines 1574--1574
+[]\OT1/cmr/bx/n/17.28 Analisi ro-bu-stez-za ri-spet-to al-la scel-ta del-le citt^^Ra
  []
 
-<../Grafici/9.png, id=1605, 1011.78pt x 433.62pt>
+<../Grafici/9.png, id=1614, 1011.78pt x 433.62pt>
 File: ../Grafici/9.png Graphic file (type png)
 <use ../Grafici/9.png>
 Package pdftex.def Info: ../Grafici/9.png  used on input line 1578.
 (pdftex.def)             Requested size: 433.62pt x 185.83763pt.
-<../Grafici/10.png, id=1606, 1011.78pt x 433.62pt>
+<../Grafici/10.png, id=1615, 1011.78pt x 433.62pt>
 File: ../Grafici/10.png Graphic file (type png)
 <use ../Grafici/10.png>
 Package pdftex.def Info: ../Grafici/10.png  used on input line 1581.
 (pdftex.def)             Requested size: 433.62pt x 185.83763pt.
 [59] [60 <../Grafici/9.png> <../Grafici/10.png>]
-<../Grafici/11.png, id=1621, 1011.78pt x 433.62pt>
+<../Grafici/11.png, id=1630, 1011.78pt x 433.62pt>
 File: ../Grafici/11.png Graphic file (type png)
 <use ../Grafici/11.png>
 Package pdftex.def Info: ../Grafici/11.png  used on input line 1593.
 (pdftex.def)             Requested size: 433.62pt x 185.83763pt.
-<../Grafici/12.png, id=1622, 1011.78pt x 433.62pt>
+<../Grafici/12.png, id=1631, 1011.78pt x 433.62pt>
 File: ../Grafici/12.png Graphic file (type png)
 <use ../Grafici/12.png>
 Package pdftex.def Info: ../Grafici/12.png  used on input line 1595.
 (pdftex.def)             Requested size: 433.62pt x 185.83763pt.
  [61 <../Grafici/11.png>]
-<../Grafici/13.png, id=1634, 1011.78pt x 433.62pt>
+<../Grafici/13.png, id=1643, 1011.78pt x 433.62pt>
 File: ../Grafici/13.png Graphic file (type png)
 <use ../Grafici/13.png>
 Package pdftex.def Info: ../Grafici/13.png  used on input line 1599.
 (pdftex.def)             Requested size: 433.62pt x 185.83763pt.
-<../Grafici/14.png, id=1635, 1011.78pt x 433.62pt>
+<../Grafici/14.png, id=1644, 1011.78pt x 433.62pt>
 File: ../Grafici/14.png Graphic file (type png)
 <use ../Grafici/14.png>
 Package pdftex.def Info: ../Grafici/14.png  used on input line 1601.
 (pdftex.def)             Requested size: 433.62pt x 185.83763pt.
-<../Grafici/15.png, id=1636, 1011.78pt x 433.62pt>
+<../Grafici/15.png, id=1645, 1011.78pt x 433.62pt>
 File: ../Grafici/15.png Graphic file (type png)
 <use ../Grafici/15.png>
 Package pdftex.def Info: ../Grafici/15.png  used on input line 1603.
 (pdftex.def)             Requested size: 433.62pt x 185.83763pt.
-<../Grafici/16.png, id=1637, 1011.78pt x 433.62pt>
+<../Grafici/16.png, id=1646, 1011.78pt x 433.62pt>
 File: ../Grafici/16.png Graphic file (type png)
 <use ../Grafici/16.png>
 Package pdftex.def Info: ../Grafici/16.png  used on input line 1605.
 (pdftex.def)             Requested size: 433.62pt x 185.83763pt.
-<../Grafici/17.png, id=1639, 1011.78pt x 433.62pt>
+<../Grafici/17.png, id=1648, 1011.78pt x 433.62pt>
 File: ../Grafici/17.png Graphic file (type png)
 <use ../Grafici/17.png>
 Package pdftex.def Info: ../Grafici/17.png  used on input line 1607.
@@ -875,28 +875,39 @@ Underfull \hbox (badness 10000) in paragraph at lines 1598--1609
  []
 
 [62 <../Grafici/12.png>] [63 <../Grafici/13.png> <../Grafici/14.png>] [64 <../Grafici/15.png> <../Grafici/16.png>] [65 <../Grafici/17.png>]
-Underfull \hbox (badness 1975) in paragraph at lines 1635--1636
-[]\OT1/cmr/m/n/12 G. Rei-nelt, The Tra-ve-ling Sa-le-sman: Com-pu-ta-tio-nal So-lu-tion for TSP
- []
+Capitolo 5.
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 1621.
 
 [66
 
-] [67] (./TemplateTesi.aux)
+] [67]
+Underfull \hbox (badness 1975) in paragraph at lines 1653--1654
+[]\OT1/cmr/m/n/12 G. Rei-nelt, The Tra-ve-ling Sa-le-sman: Com-pu-ta-tio-nal So-lu-tion for TSP
+ []
+
+[68
+
+] [69] (./TemplateTesi.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `TemplateTesi.out' has not changed.
-(rerunfilecheck)             Checksum: B882E4C19211582124A42AB39F3CEBF1;12096.
+(rerunfilecheck)             Checksum: 263EEAC806ADBC00B796B67643FBE5C5;12303.
  ) 
 Here is how much of TeX's memory you used:
- 29543 strings out of 476065
- 537105 string characters out of 5793347
+ 29559 strings out of 476065
+ 537255 string characters out of 5793347
  2361187 words of memory out of 5000000
- 50092 multiletter control sequences out of 15000+600000
+ 50094 multiletter control sequences out of 15000+600000
  568395 words of font info for 76 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  83i,8n,93p,2616b,2174s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{Hfootnote.13} has been referenced but does not exist, replaced by a fixed one
+
 
 pdfTeX warning (dest): name{Hfootnote.12} has been referenced but does not exist, replaced by a fixed one
 
@@ -934,10 +945,10 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsltt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on TemplateTesi.pdf (74 pages, 2413153 bytes).
+Output written on TemplateTesi.pdf (76 pages, 2416667 bytes).
 PDF statistics:
- 1988 PDF objects out of 2073 (max. 8388607)
- 1819 compressed objects within 19 object streams
- 1119 named destinations out of 1200 (max. 500000)
- 527 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2019 PDF objects out of 2073 (max. 8388607)
+ 1848 compressed objects within 19 object streams
+ 1133 named destinations out of 1200 (max. 500000)
+ 543 words of extra memory for PDF output out of 10000 (max. 10000000)
 
