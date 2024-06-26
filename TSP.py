@@ -215,8 +215,8 @@ class TSP:
             h.append((cost, i, path[0], path[1]))
         heapq.heapify(h)
 
-        conteggio = 0
-        tot = 0
+        #conteggio = 0
+        #tot = 0
         while len(path) < n:
             # Ottieni dallo heap la città che minimizza il minor costo di inserimento
             (costo, to_ins, l, r) = heapq.heappop(h)
@@ -245,10 +245,10 @@ class TSP:
                             best_cost, posL, posR = insertion_cost, i2, next_i
                     h[i] = (best_cost, node, path[posL], path[posR])
                     (cost, node, nodeLeft, nodeRight) = h[i]
-                    if abs(posR - best_pos) <= 2:
-                        conteggio += 1
+                    #if abs(posR - best_pos) <= 2:
+                    #    conteggio += 1
                     
-                    tot += 1
+                    #tot += 1
                 # se il nuovo arco a sinistra permette un inserimento migliore di cost, quindi:
                 # path[best_pos - 1] -- node -- to_ins
                             
@@ -266,7 +266,79 @@ class TSP:
         self.tour = path
         self.calculateCost()
 
-        print(f"{self.name} -> {conteggio / tot}")
+        #print(f"{self.name} -> {conteggio / tot}")
+
+    def cheapestInsertionApprossimato(self):
+        n = self.numCity
+        adj = np.array(self.adj)
+        path = [0, 0]
+
+        minDist = np.inf
+        for i in range(n):
+            for j in range(0, i):
+                if adj[i][j] < minDist:
+                    path[0], path[1] = i, j
+                    minDist = adj[i][j]
+        in_path = {path[0], path[1]}
+
+        h = []
+        for i in set(range(n)) - in_path:
+            cost = adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]
+            h.append((cost, i, path[0], path[1]))
+        heapq.heapify(h)
+
+        #conteggio = 0
+        #tot = 0
+        while len(path) < n:
+            # Ottieni dallo heap la città che minimizza il minor costo di inserimento
+            (costo, to_ins, l, r) = heapq.heappop(h)
+            best_pos = path.index(r)
+            path.insert(best_pos, to_ins)
+            in_path.add(to_ins)
+
+            # Aggiorna le distanze minime e le città più vicine per ogni città non nel percorso
+            for i, (cost, node, nodeLeft, nodeRight) in enumerate(h):
+                # costo di inserimento di node tra (path[(best_pos - 1) % len(path)], to_ins)
+                left_cost = adj[path[(best_pos - 1) % len(path)]][node] + adj[node][to_ins] - adj[path[(best_pos - 1) % len(path)]][to_ins]
+                # costo di inserimento di node tra (to_ins, path[(best_pos + 1) % len(path)])
+                right_cost = adj[to_ins][node] + adj[node][path[(best_pos + 1) % (len(path))]] - adj[to_ins][path[(best_pos + 1) % (len(path))]]
+
+                # se ho inserito to_ins proprio tra nodeLeft e nodeRight: ricalcolo completamente il costo migliore
+                if node not in in_path and nodeLeft == path[(best_pos - 1) % len(path)] and nodeRight == path[(best_pos + 1) % len(path)]:
+                    best_cost = np.inf
+                    posL, posR = -1, -1
+                    #for i2 in range(len(path)):
+                    #    next_i = (i2 + 1) % len(path)
+                    for f in range(best_pos - 3, best_pos + 3):
+                        i2 = f % len(path)
+                        next_i = (i2 + 1) % len(path)
+                        insertion_cost = adj[path[i2]][node] + adj[node][path[next_i]] - adj[path[i2]][path[next_i]]
+                        if best_cost > insertion_cost:
+                            best_cost, posL, posR = insertion_cost, i2, next_i
+                    h[i] = (best_cost, node, path[posL], path[posR])
+                    (cost, node, nodeLeft, nodeRight) = h[i]
+                    #if abs(posR - best_pos) <= 2:
+                    #    conteggio += 1
+                    
+                    #tot += 1
+                # se il nuovo arco a sinistra permette un inserimento migliore di cost, quindi:
+                # path[best_pos - 1] -- node -- to_ins
+                            
+                if node not in in_path and left_cost < cost:
+                    new_cost = left_cost
+                    h[i] = (new_cost, node, path[(best_pos - 1) % len(path)], to_ins)
+                    (cost, node, nodeLeft, nodeRight) = h[i]
+
+                # se il nuovo arco a destra permette un inserimento migliore di cost, quindi:
+                # to_ins -- node -- path[best_pos + 1] 
+                if node not in in_path and right_cost < cost:
+                    new_cost = right_cost
+                    h[i] = (new_cost, node, to_ins, path[(best_pos + 1) % (len(path))])
+            heapq.heapify(h)
+        self.tour = path
+        self.calculateCost()
+
+        #print(f"{self.name} -> {conteggio / tot}")
 
     def cheapestInsertionOttimizzato(self, m):
         n = self.numCity
@@ -481,6 +553,73 @@ class TSP:
                         next_i = (i2 + 1) % len(path)
                     #for f in range(best_pos - 3, best_pos + 3):
                     #    i2 = f % len(path)
+                        next_i = (i2 + 1) % len(path)
+                        insertion_cost = adj[path[i2]][node] + adj[node][path[next_i]] - adj[path[i2]][path[next_i]]
+                        if best_cost > insertion_cost:
+                            best_cost, posL, posR = insertion_cost, i2, next_i
+                    h[i] = (-best_cost, node, path[posL], path[posR])
+                    (cost, node, nodeLeft, nodeRight) = h[i]
+                    cost *= -1
+                # se il nuovo arco a sinistra permette un inserimento migliore di cost, quindi:
+                # path[best_pos - 1] -- node -- to_ins
+                            
+                if node not in in_path and left_cost < cost:
+                    new_cost = left_cost
+                    h[i] = (-new_cost, node, path[(best_pos - 1) % len(path)], to_ins)
+                    (cost, node, nodeLeft, nodeRight) = h[i]
+                    cost *= -1
+
+                # se il nuovo arco a destra permette un inserimento migliore di cost, quindi:
+                # to_ins -- node -- path[best_pos + 1] 
+                if node not in in_path and right_cost < cost:
+                    new_cost = right_cost
+                    h[i] = (-new_cost, node, to_ins, path[(best_pos + 1) % (len(path))])
+            heapq.heapify(h)
+        self.tour = path
+        self.calculateCost()
+
+    def furthestInsertionApprossimato(self):
+        n = self.numCity
+        adj = np.array(self.adj)
+        path = [0, 0]
+
+        maxDist = 0
+        for i in range(n):
+            for j in range(0, i):
+                if adj[i][j] > maxDist:
+                    path[0], path[1] = i, j
+                    maxDist = adj[i][j]
+        in_path = {path[0], path[1]}
+
+        h = []
+        for i in set(range(n)) - in_path:
+            cost = adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]
+            h.append((-cost, i, path[0], path[1]))
+        heapq.heapify(h)
+
+        while len(path) < n:
+            # Ottieni dallo heap la città che minimizza il minor costo di inserimento
+            (_, to_ins, _, r) = heapq.heappop(h)
+            best_pos = path.index(r)
+            path.insert(best_pos, to_ins)
+            in_path.add(to_ins)
+
+            # Aggiorna le distanze minime e le città più vicine per ogni città non nel percorso
+            for i, (cost, node, nodeLeft, nodeRight) in enumerate(h):
+                cost *= -1
+                # costo di inserimento di node tra (path[(best_pos - 1) % len(path)], to_ins)
+                left_cost = adj[path[(best_pos - 1) % len(path)]][node] + adj[node][to_ins] - adj[path[(best_pos - 1) % len(path)]][to_ins]
+                # costo di inserimento di node tra (to_ins, path[(best_pos + 1) % len(path)])
+                right_cost = adj[to_ins][node] + adj[node][path[(best_pos + 1) % (len(path))]] - adj[to_ins][path[(best_pos + 1) % (len(path))]]
+
+                # se ho inserito to_ins proprio tra nodeLeft e nodeRight: ricalcolo completamente il costo migliore
+                if node not in in_path and nodeLeft == path[(best_pos - 1) % len(path)] and nodeRight == path[(best_pos + 1) % len(path)]:
+                    best_cost = np.inf
+                    posL, posR = -1, -1
+                    #for i2 in range(len(path)):
+                    #    next_i = (i2 + 1) % len(path)
+                    for f in range(best_pos - 3, best_pos + 3):
+                        i2 = f % len(path)
                         next_i = (i2 + 1) % len(path)
                         insertion_cost = adj[path[i2]][node] + adj[node][path[next_i]] - adj[path[i2]][path[next_i]]
                         if best_cost > insertion_cost:

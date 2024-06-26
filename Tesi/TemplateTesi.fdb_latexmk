@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1719355998.31604 "/home/asaf/Desktop/Furthest-insertion/Tesi/TemplateTesi.tex" "TemplateTesi.pdf" "TemplateTesi" 1719356000.00351 0
-  "/home/asaf/Desktop/Furthest-insertion/Tesi/TemplateTesi.tex" 1719355998.08287 100121 1348fa86d8e6914312c7dcb038d16c24 ""
+["pdflatex"] 1719392786.84389 "/home/asaf/Desktop/Furthest-insertion/Tesi/TemplateTesi.tex" "TemplateTesi.pdf" "TemplateTesi" 1719392788.54755 0
+  "/home/asaf/Desktop/Furthest-insertion/Tesi/TemplateTesi.tex" 1719392784.75076 102002 cb0eb45faa9b63eaaa54be5089737bac ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1716849630 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1716849630 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1716849630 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -136,7 +136,6 @@
   "/usr/share/texmf-dist/tex/latex/base/atveryend-ltx.sty" 1716849630 2462 6bc53756156dbd71c1ad550d30a3b93f ""
   "/usr/share/texmf-dist/tex/latex/base/ifthen.sty" 1716849630 5319 2b738d02ce36ada6dcdd9534940db0ee ""
   "/usr/share/texmf-dist/tex/latex/base/inputenc.sty" 1716849630 5048 425739d70251273bf93e3d51f3c40048 ""
-  "/usr/share/texmf-dist/tex/latex/base/omlcmr.fd" 1716849630 2470 ec0f30a4dee212b06d8724b94d7d4f9a ""
   "/usr/share/texmf-dist/tex/latex/base/report.cls" 1716849630 23203 f5d913095ece2233436f0e628619cd37 ""
   "/usr/share/texmf-dist/tex/latex/base/size12.clo" 1716849630 8449 f07039d8e4e89f21078d9b5137579bfc ""
   "/usr/share/texmf-dist/tex/latex/enumitem/enumitem.sty" 1716849630 51697 f8f08183cd2080d9d18a41432d651dfb ""
@@ -197,10 +196,10 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1716849630 41588 b43d3e860a4f94167ee1e725ff526a72 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1716895134.18076 325518 3dff2bac5bde75cd7e600320ce8a00d6 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1716895133 7114513 ca9093e815e83f5f5284c2291c74e7a5 ""
-  "TemplateTesi.aux" 1719355999.91952 6259 031dbdcca0b83e6104a4e6232962fa21 "pdflatex"
-  "TemplateTesi.out" 1719355999.92286 6637 2412d50995c3125cf793fda95329fa32 "pdflatex"
-  "TemplateTesi.tex" 1719355998.08287 100121 1348fa86d8e6914312c7dcb038d16c24 ""
-  "TemplateTesi.toc" 1719355999.92286 3293 494dca6a5a4bef33e79d7ad621240f2c "pdflatex"
+  "TemplateTesi.aux" 1719392788.45408 6454 1043ef8e3c0af1d217eaaa7c3a454aaa "pdflatex"
+  "TemplateTesi.out" 1719392788.45741 6792 fc6f0d47656e6176c3a9c73d790079da "pdflatex"
+  "TemplateTesi.tex" 1719392784.75076 102002 cb0eb45faa9b63eaaa54be5089737bac ""
+  "TemplateTesi.toc" 1719392788.45741 3371 fac266a02d2193bbbf587fde60ca035f "pdflatex"
   "tesi.sty" 1719322217.5492 9454 93147b901c96e9f351ae0ede701cd0d2 ""
   (generated)
   "TemplateTesi.aux"
