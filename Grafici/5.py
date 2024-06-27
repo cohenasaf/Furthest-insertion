@@ -31,7 +31,7 @@ plt.xticks(rotation=45)
 plt.xlabel('Prime 50 istanze TSP da TSP-LIB')
 plt.ylabel('Tempi in secondi')
 plt.yscale('log')
-plt.title('Qualità delle versioni di Furthest Insertion all\'aumentare del numero di città')
+plt.title('Tempi delle versioni di Furthest Insertion all\'aumentare del numero di città')
 plt.legend()  # Show legend based on labels
 
 plt.grid(True)

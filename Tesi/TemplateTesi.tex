@@ -1419,8 +1419,8 @@ Per completezza, ho implementato anche una versione di random insertion dove non
 \begin{python}
 def randomInsertion2(self):
     notInTour = [x for x in range(self.numCity)]
-    tour = [notInTour.pop()]
     random.shuffle(notInTour)
+    tour = [notInTour.pop()]
     for i in notInTour:
       tour.insert(random.randint(0, len(tour) - 1), i)
     self.tour = tour
@@ -1453,16 +1453,28 @@ In questa variante (come per le euristiche basate su inserzione) il tour viene i
 \chapter{Analisi dei risultati}
 In questo capitolo si analizzano i risultati trovati dalle euristiche precedentemente implementate, in particolare si analizzano:
 \begin{legal}
-  \item {\bf Qualità delle soluzioni}: ovvero il costo totale del tour trovato in rapporto con la soluzione ottima, dove le soluzioni ottime sono state ottenute sempre da TSP-LIB\footnote{http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/STSP.html}. Quindi ad esempio una qualità trovata pari a "1.2" indica che si discosta del 20\% rispetto all'ottimo.
+  \item {\bf Qualità delle soluzioni}: ovvero il costo totale del tour trovato in rapporto con la soluzione ottima, dove le soluzioni ottime sono state ottenute sempre da TSP-LIB\footnote{http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/STSP.html}. Quindi ad esempio una qualità trovata pari a "1.2" indica che si discosta del 20\% rispetto all'ottimo. Una euristica viene valutata di qualità migliore rispetto ad un'altra se si ottiene un valore più vicino a 1 (e quindi all'ottimo).
   \item {\bf Tempi}: ovvero quanti secondi sono stati necessari per trovare la soluzione.
 \end{legal}
 Per completezza, di seguito sono indicate le caratteristiche tecniche dell'elaboratore con il quale sono stati ottenuti i risultati (solo i dettagli tecnici rilevanti):
 \begin{myverbatim}
-CPU: Intel(R) Core(TM) i5-10400F CPU @ 2.90GHz
+CPU: Intel(R) Core(TM) i5-10400F CPU (12) @ 2.90GHz
 GPU: NVIDIA GeForce GTX 1650
 RAM: 32 GB DDR4
+SO: Arch Linux x86_64
+Kernel: Linux 6.9.6-arch1-1
 \end{myverbatim}
-Tutti i tempi trovati in questo capitolo fanno riferimento esclusivamente al tempo relativo all'euristica analizzata, tutti i tempi precedenti (importazione dell'istanza TSP, calcolo della matrice di adiacenza...) sono esclusi dal tempo finale.
+Tutti i tempi trovati in questo capitolo fanno riferimento esclusivamente al tempo relativo all'euristica analizzata, tutti i tempi precedenti (importazione dell'istanza TSP, calcolo della matrice di adiacenza...) sono esclusi dal tempo finale. Per ottenere solo i tempi relativi all'euristica, tutti i test seguono questa struttura:
+\begin{python}
+def testEuristic(name, euristic):
+  st = time.time()
+  euristic()
+  et = time.time()
+  t.calculateCost()
+  assert t.verifyTour()
+  return (t.cost / t.optimalSolution, et - st)
+\end{python}
+Dove l'euristica passata come parametro è l'euristica da analizzare (qualità e tempi), viene considerato il solo il tempo d'inizio dell'euristica e di fine per calcolare il tempo finale. I risultati sono ottenuti come coppie $(quality, time)$ dalle quali si ottengono i dati per i successivi grafici. Inoltre si verifica per ogni istanza e per ogni euristica che la soluzione trovata sia almeno valida (assert).
 
 \section{Confronto versioni Cheapest Insertion}
 Prima di confrontare le varie euristiche tra di loro, ho deciso di confrontare le varie versioni di Cheapest Insertion in modo da ottenere la versione che complessivamente (in media) ottiene i tempi migliori, la stessa varrà per Furthest Insertion (la prossima sezione). \newline
@@ -1482,7 +1494,7 @@ m = 2, cost: 474.00, quality: 1.1127, time: 0.003639s
 m = 1, cost: 474.00, quality: 1.1127, time: 0.003410s
 m minima: 1
 \end{myverbatim}
-In questo esempio possiamo notare come al variare della dimensione degli heap \lstinline!m!, la qualità trovata resta la stessa, addirittura fino a dimensione 1. Questo indica che non è realmente necessario uno heap ma (per questa specifica istanza) basta un solo record che indica la posizione ottima. Si può notare come il tempo si riduce al ridursi di \lstinline!m! in modo coerente con la complessità temporale. \newline
+In questo esempio possiamo notare come al variare della dimensione degli heap \lstinline!m!, la qualità trovata resta la stessa, addirittura fino a dimensione 1. Questo indica che non è realmente necessario, per ogni nodo fuori dal tour, uno heap ma (per questa specifica istanza) basta un solo record che indica la posizione ottima. Si può notare come il tempo si riduce al ridursi di \lstinline!m! in modo coerente con la complessità temporale. \newline
 Andando a considerare altre istanze possiamo trovare che la dimensione minima di \lstinline!m! resta bassa (attorno ad 1 o 3), ad esempio:
 \begin{myverbatim}
 pr144
@@ -1499,15 +1511,15 @@ m minima: 3
 \end{myverbatim}
 In questo secondo esempio invece possiamo notare come la soluzione trovata con parametro \lstinline!m = 2! cambia rispetto ai casi $m > 2$, per questo motivo la dimensione minima del parametro è 3. È possibile determinare il parametro m minimo per ogni istanza in modo semplice con uno script, di seguito la rappresentazione tramite grafico:\newline
 \includegraphics[width=1\textwidth]{../Grafici/1.png} \
-In questo grafico a barre possiamo notare per ogni istanza (asse x, ordinati in base alla dimensione n) il parametro minimo m. Possiamo notare come tende a 1 per le istanze piccole (con alcune eccezioni) e tende a 3 per le istanze grandi (con migliaia di città).
+In questo grafico a barre possiamo notare per ogni istanza (asse x, ordinati in base alla dimensione n) il parametro minimo m. Possiamo notare come tendenzialmente assume valore 1 per le istanze piccole (con alcune eccezioni) e invece ad un valore pari a 3 per le istanze grandi (con migliaia di città).
 \subsection{Analisi dei tempi delle versioni di Cheapest Insertion}
 Una volta determinato il parametro minimo (e quindi il tempo minimo per quella versione), possiamo confrontare i tempi delle varie versioni per ogni istanza: \newline
 \includegraphics[width=1\textwidth]{../Grafici/2.png} \
-In questo grafico possiamo notare come indubbiamente i tempi della prima versione $O(n^3)$ sono sempre peggiori delle altre versioni (compresa la seconda versione $O(n^3)$ anche se hanno stessa complessità temporale), allo stesso modo i tempi della seconda versione $O(n^3)$ è peggiore della terza versione $O(n^2 * m)$ (dove la m utilizzata per ottenere questi risultati è la m minima trovata precedentemente). Da un punto di vista dei tempi la l'implementazione migliore risulta essere la versione 2 approssimata, ovvero con complessità pari a $O(n^2)$, ma questa versione, come descritto nella sezione dedicata, non garantisce ad ogni iterazione di selezionare il nodo e il punto di inserzione ottimi, per questo motivo, dal punto di vista dei tempi, consideriamo la terza versione la migliore. Inoltre, aggiungo il fatto che il grafico mostra i tempi in scala logaritmica per una migliore leggibilità (i tempi variano da millesimi di secondo a centinaia di secondi).
+In questo grafico possiamo notare come indubbiamente i tempi della prima versione $O(n^3)$ sono sempre peggiori delle altre versioni (compresa la seconda versione $O(n^3)$ anche se hanno stessa complessità temporale), allo stesso modo i tempi della seconda versione $O(n^3)$ è peggiore della terza versione $O(n^2 * m)$ (dove la m utilizzata per ottenere questi risultati è la m minima trovata precedentemente). Da un punto di vista dei tempi la l'implementazione migliore risulta essere la versione 2 approssimata, ovvero con complessità pari a $O(n^2)$, ma questa versione, come descritto nella sezione dedicata, non garantisce ad ogni iterazione di selezionare il nodo e il punto di inserzione ottimi, per questo motivo, dal punto di vista dei tempi, consideriamo la terza versione la migliore (ovvero la versione con più heap per ogni nodo fuori tour). Inoltre, aggiungo il fatto che il grafico mostra i tempi in scala logaritmica per una migliore leggibilità (i tempi variano da millesimi di secondo a centinaia di secondi).
 \subsection{Analisi delle qualità delle versioni di Cheapest Insertion}
-Dal punto di vista delle qualità trovate, le 3 versioni trovano in quasi tutti i casi lo stesso path e di conseguenza la stessa soluzione. Esistono però dei casi molto particolari nei quali, anche se l'algoritmo implementato è lo stesso, i path finali trovati sono diversi. Questo avviene perché ad ogni iterazione, l'implementazione deve determinare il nodo che, se inserito nel modo migliore possibile, ha costo di inserzione minimo, dopodiché procede ad inserire il nodo nel punto di inserimento ottimo. Il problema sorge nella misura in cui ad un determinato punto dell'esecuzione dell'euristica, sono presenti 2 punti di inserimento ottimi $(a_1, b_1)$ e $(a_2, b_2)$ per il nodo da inserire $v$ tali che $c_{a1v} + c_{vb1} - c_{a1b1} = c_{a2v} + c_{vb2} - c_{a2b2}$. Pertanto in presenza di un caso del genere, la scelta del punto di inserzione tra $(a_1, b_1)$ e $(a_2, b_2)$ è arbitrario, ma alla fine producono due path completamente diversi (con costi diversi). Per questo motivo il grafico sulle qualità delle soluzioni trovate dalle versioni è il seguente: \newline
+Dal punto di vista delle qualità trovate, le 3 versioni trovano in quasi tutti i casi lo stesso path e di conseguenza la stessa soluzione. Esistono però dei casi molto particolari nei quali, anche se l'algoritmo implementato è lo stesso, i path finali trovati sono diversi. Questo avviene perché ad ogni iterazione, l'implementazione deve determinare il nodo che, se inserito nel modo migliore possibile, ha costo di inserzione minimo, dopodiché procede ad inserire il nodo nel punto di inserimento ottimo. Il problema sorge nella misura in cui ad un determinato punto dell'esecuzione dell'euristica, sono presenti 2 punti di inserimento ottimi $(a_1, b_1)$ e $(a_2, b_2)$ per il nodo da inserire $v$ tali che $c_{a1v} + c_{vb1} - c_{a1b1} = c_{a2v} + c_{vb2} - c_{a2b2}$. Pertanto, in presenza di un caso del genere, la scelta del punto di inserzione tra $(a_1, b_1)$ e $(a_2, b_2)$ è arbitrario, ma alla fine producono due path completamente diversi (con costi diversi). Per questo motivo il grafico sulle qualità delle soluzioni trovate dalle versioni è il seguente: \newline
 \includegraphics[width=1\textwidth]{../Grafici/3.png} \
-In questo grafico possiamo notare come in quasi tutti i casi, le quattro varianti trovano gli stessi risultati, con alcune eccezioni: la versione approssimata non garantisce di selezionare il punto di inserzione ottimo (in quanto cerca solo "localmente" come visto in precedenza) e le versioni 2 e 3 a volte possono portare a soluzioni completamente diverse, anche se implementano correttamente l'euristica. Dati i risultati (sostanzialmente equivalenti) e date le grandi differenze di tempo viste nella sezione precedente, possiamo affermare che la terza versione sia complessivamente la migliore e sarà scelta come confronto con le altre euristiche.
+In questo grafico possiamo notare come in quasi tutti i casi, le quattro varianti trovano gli stessi risultati, con alcune eccezioni: la versione approssimata non garantisce di selezionare il punto di inserzione ottimo (in quanto cerca solo "localmente" come visto in precedenza) e quindi è logico che trovi in vari contesti path molto diversi, invece le versioni 2 e 3 a volte possono portare a soluzioni completamente diverse, anche se implementano correttamente l'euristica. Dati i risultati (sostanzialmente equivalenti) e date le grandi differenze di tempo viste nella sezione precedente, possiamo affermare che la terza versione sia complessivamente la migliore e sarà scelta come confronto con le altre euristiche. Citiamo solo un caso come esempio: eseguendo la versione 2 e la versione 3 sull'istanza pr124 si ottengono costi diversi (pari a 66232.56 per la versione ottimizzata e 66466.35 per la versione non ottimizzata), dopo una attenta analisi si scopre che ad un certo punto, la versione ottimizzata decide di inserire il nodo 23 nell'arco (22, 21), mentre la versione non ottimizzata decide di inserire lo stesso nodo (23) tra l'arco (38, 22) e, in entrambi i casi, il costo di inserimento è 1000 ed è il costo di inserimento minimo. Con questi dati possiamo affermare che entrambi gli algoritmi operano correttamente e che la scelta di quale punti di inserzione scegliere (se entrambi ottimi) è arbitraria ed in entrambi i casi l'euristica è stata implementata correttamente (anche se si ottengono alla fine path diversi).
 
 \section{Confronto versioni Furthest Insertion}
 In modo analogo alla sezione precedente, analizziamo prima di tutto la dimensione minima degli heap dei nodi fuori dal tour (versione 3) e procediamo poi a confrontare tempi e qualità.
@@ -1539,7 +1551,7 @@ In questo capitolo andremo a confrontare i risultati delle euristiche implementa
   \item Farthest Insertion
   \item Furthest Insertion versione 2
 \end{legal}
-A differenza della sezione precedente, oltre ai tempi in questo caso le qualità trovate sono fondamentali nella valutazione delle euristiche. Ci limitiamo alla versione 3 di Cheapest Insertion versione 3 e Furthest Insertion versione 2 come visto nella sezione precedente. In questo caso analizzeremo qualità e tempi, ma sopratutto valuteremo anche le prestazioni su istanze enormi ($> 10000$ città). L'analisi delle versioni di randomInsertion e la robustezza delle euristiche riguardo l'inizializzazione sarà analizzata nei prossimi capitoli. Analizzeremo anche Nearest Neighbour anche se non è una euristica basata su inserzione per completezza.
+A differenza della sezione precedente, oltre ai tempi in questo caso le qualità trovate sono fondamentali nella valutazione delle euristiche. Ci limitiamo alla versione 3 di Cheapest Insertion versione 3 e Furthest Insertion versione 2 come visto nella sezione precedente. In questo caso analizzeremo qualità e tempi, ma sopratutto valuteremo anche le prestazioni su istanze enormi ($> 10000$ città). L'analisi delle versioni di randomInsertion e la robustezza delle euristiche riguardo l'inizializzazione sarà analizzata nei prossimi capitoli. Analizzeremo anche Nearest Neighbor anche se non è una euristica basata su inserzione per completezza.
 \subsection{Analisi delle qualità delle euristiche}
 Di seguito il grafico che mostra le qualità trovate dalle euristiche (asse y) per le prime 50 istanze presenti in TSP-LIB ordinate per numero di città (asse x): \newline
 \includegraphics[width=1\textwidth]{../Grafici/7.png} \
@@ -1559,11 +1571,11 @@ Cheapest Insertion versione 3 -> 0.0008967612647899936
 Farthest Insertion ->            0.0023611070924068247
 Furthest Insertion versione 2 -> 0.0012113120333807825
 \end{myverbatim}
-Da questi risultati possiamo concludere che Furthest Insertion trova soluzioni con una varianza tra le più basse (Cheapest Insertion ha una varianza più bassa). L'elevata varianza di Nearest Neighbor può essere spiegata anche graficamente: si possono notare qualità molto elevate (attorno al 40\%) e anche molto basse (attorno al 5\%).
+Da questi risultati possiamo concludere che Furthest Insertion trova soluzioni con una varianza tra le più basse (Cheapest Insertion ha una varianza più bassa). L'elevata varianza di Nearest Neighbor può essere spiegata anche graficamente: si possono notare qualità molto lontane dall'ottimo (attorno al 40\%) e anche molto vicine (attorno al 5\%).
 \subsection{Analisi dei tempi delle euristiche}
 Possiamo allo stesso modo analizzare i tempi delle euristiche analizzate nella sezione precedente: \newline
 \includegraphics[width=1\textwidth]{../Grafici/8.png} \
-I tempi sono coerenti con le considerazioni sulle complessità temporale fatte in precedenza: Nearest Neighbor risulta essere l'algoritmo più veloce con complessità $O(n^2)$ ma come visto in precedenza in media trova soluzioni di qualità bassa, Nearest Insertion e Farthest Insertion hanno un tempo molto simile in quanto entrambi sono algoritmi $O(n^2)$ e condividono molto del codice, mentre Cheapest Insertion e Furthest Insertion anche in questo caso ottengono tempi molto simili e coerenti con la loro complessità temporale (analizzata nelle sezioni precedenti). \newline Complessivamente (in sintesi) possiamo affermare che Furthest Insertion trova in media le soluzioni migliori ma richiede più tempo rispetto alle altre euristiche (tranne nel caso di Cheapest Insertion dove i tempi sono molto simili).
+I tempi sono coerenti con le considerazioni sulle complessità temporale fatte in precedenza: Nearest Neighbor risulta essere l'algoritmo più veloce con complessità $O(n^2)$ ma come visto in precedenza in media trova soluzioni di qualità bassa, Nearest Insertion e Farthest Insertion hanno un tempo molto simile in quanto entrambi sono algoritmi $O(n^2)$ e condividono molto del codice, mentre Cheapest Insertion e Furthest Insertion anche in questo caso ottengono tempi molto simili e coerenti con la loro complessità temporale (analizzata nelle sezioni precedenti). \newline Complessivamente (in sintesi) possiamo affermare che Furthest Insertion trova in media le soluzioni migliori ma richiede più tempo rispetto alle altre euristiche (escluso Cheapest Insertion dove i tempi sono molto simili).
 
 \section{Confronto tempi e qualità delle euristiche con istanze enormi}
 In questa sezione analizziamo il comportamento delle euristiche nel caso di istanze molto grandi (con un numero di città maggiore uguale a 10000), per motivi di tempo saranno analizzate un numero limitato di queste istanze enormi ovvero le istanze: rl11849, usa13509, brd14051, d15112, d18512. Per prima cosa è necessario ottenere il parametro m minimo per queste istanze per Cheapest Insertion versione 3, le dimensioni minime trovate sono:
@@ -1574,10 +1586,10 @@ DA COMPLETARE
 \section{Analisi robustezza rispetto alla scelta delle città iniziali}
 Abbiamo visto che l'inizializzazione del tour consiste nel determinare la coppia di città più vicine per gli algoritmi Nearest Neighbor, Nearest Insertion e Cheapest Insertion e consiste nel determinare la coppia di città più lontane per Farthest e Furthest Insertion. Questa sezione analizza il variare dei tempi e delle qualità delle soluzioni trovate al variare delle città iniziali. Per fare questo (come visto nella sezione delle implementazioni) l'implementazione resta la stessa tranne per il fatto che le due città iniziali sono scelte casualmente. Chiaramente si deve garantire che siano due città diverse. Vediamo i risultati prima dal punto di vista delle qualità, poi dei tempi.
 \subsection{Robustezza della qualità della soluzione delle implementazioni}
-Per prima cosa valutiamo la robustezza della qualità della soluzione, quindi iteriamo 100 volte (con un seed diverso per i numeri casuali) sulle prime 30 istanze da TSP-LIB in ordine di dimensione, ho deciso di limitarmi alle sole prime 30 città in quanto iterare 100 volte sull'esecuzione di tutte e 5 le euristiche richiede molto tempo. Per prima cosa considero la media delle soluzioni trovate per ogni istanza e per ogni algoritmo: \newline
+Per prima cosa valutiamo la robustezza della qualità della soluzione, quindi iteriamo 100 volte (con un seed diverso per i numeri casuali) su ognuna delle prime 30 istanze da TSP-LIB in ordine di dimensione, ho deciso di limitarmi alle sole prime 30 città in quanto iterare 100 volte sull'esecuzione di tutte e 5 le euristiche richiede molto tempo. Per prima cosa considero la media delle soluzioni trovate per ogni istanza e per ogni algoritmo: \newline
 \includegraphics[width=1\textwidth]{../Grafici/9.png} \
-I risultati medi sono coerenti con i risultati ottenuti inizializzando il tour con la coppia di città più vicine/lontane: Furthest Insertion (nelle 30 città analizzate) trova sempre un percorso migliore rispetto alle altre euristiche analizzate, trovando soluzioni tra 5\% e il 15\%, mentre le altre euristiche si collocano nel range 10\%-25\% (o 30\% nel caso di Nearest Neighbour). Inoltre in particolare Nearest Neighbor trova soluzioni (in media) peggiori rispetto alle altre euristiche. \newline 
-Ora possiamo analizzare invece la varianza delle soluzioni trovate: vogliamo quindi sapere quanto le soluzioni sia llontanano dal valore medio trovato prima al variare dell'inizializzazione. Di seguito il grafico: \newline
+I risultati medi sono coerenti con i risultati ottenuti inizializzando il tour con la coppia di città più vicine/lontane: Furthest Insertion (nelle 30 città analizzate) trova sempre un percorso migliore rispetto alle altre euristiche analizzate (esclusa l'istanza pr136), trovando soluzioni tra 5\% e il 15\%, mentre le altre euristiche si collocano nel range 10\%-25\% (o 30\% nel caso di Nearest Neighbor). Inoltre in particolare Nearest Neighbor trova soluzioni (in media) peggiori rispetto alle altre euristiche. \newline 
+Ora possiamo analizzare invece la varianza delle soluzioni trovate: vogliamo quindi sapere quanto le soluzioni sia allontanano dal valore medio trovato prima al variare dell'inizializzazione. Di seguito il grafico: \newline
 \includegraphics[width=1\textwidth]{../Grafici/10.png} \
 Possiamo notare come Nearest Neighbor ha una varianza elevata, quindi le soluzioni trovate distano molto dalla media (avvicinandosi o allontanandosi dall'ottimo). Dopodiché possiamo notare come Furthest Insertion abbia una varianza tra le più basse (possiamo forse affermare che abbia la varianza più bassa), andando a considerare la media delle varianze otteniamo:
 \begin{myverbatim}
@@ -1587,7 +1599,7 @@ Cheapest Insertion versione 3 -> 0.00125661452221978
 Farthest Insertion ->            0.001547882691714873
 Furthest Insertion versione 2 -> 0.0005832323004466427
 \end{myverbatim}
-Da questi risultati possiamo notare come Furthest Insertion abbia la varianza più bassa tra le euristiche analizzate: questo è un altro risultato interessante, ovvero non solo trova (in media) le soluzioni più vicine all'ottimo (con inizializzazione casuale e non) ma anche con una varianza bassa.
+Da questi risultati possiamo notare come Furthest Insertion abbia la varianza più bassa (in media) tra le euristiche analizzate: questo è un altro risultato interessante, ovvero non solo trova (in media) le soluzioni più vicine all'ottimo (con inizializzazione casuale e non) ma anche con una varianza bassa.
 \subsection{Robustezza dei tempi delle implementazioni}
 In questa sezione vogliamo invece vedere come variano i tempi delle implementazioni sempre con una inizializzazione casuale del tour. Come prima, innanzitutto analizziamo la media dei tempi e poi la varianza. \newline
 \includegraphics[width=1\textwidth]{../Grafici/11.png} \
@@ -1599,7 +1611,7 @@ In questa sezione analizziamo le due versioni implementate di Random Insertion: 
 \includegraphics[width=1\textwidth]{../Grafici/13.png} \
 Da questo grafico possiamo notare come le qualità trovate da Random Insertion 2 si allontanano troppo dall'ottimo (decine o centinaia di volte peggio dell'ottimo), mentre Random Insertion versione 1 presenta delle soluzioni accettabili. Possiamo confrontare i risultati medi di Random Insertion versione 1 con le altre euristiche, e otteniamo il seguente grafico: \newline
 \includegraphics[width=1\textwidth]{../Grafici/14.png} \
-Possiamo notare come Random Insertion ottiene, sorprendentemente, dei risultati ottimi, simili a Furthest Insertion. \newline
+Possiamo notare come Random Insertion ottiene, sorprendentemente, dei risultati ottimi, simili a Furthest Insertion. Importante specificare che stiamo confrontando le euristiche basate su inserzione e Nearest Neighbor con la media delle 100 iterazioni di Random Insertion versione 1. \newline
 \includegraphics[width=1\textwidth]{../Grafici/15.png} \
 In questo grafico andiamo a considerare la varianza delle qualità delle soluzioni. Anche in questo caso, la varianza della versione 2 risulta maggiore della versione 1. Una possibile spiegazione può derivare dal fatto che la versione 2 implementa due aspetti totalmente in modo casuale (scelta del nodo e inserimento casuale) mentre la versione 1 fa una sola scelta casuale (scelta del nodo), per questo motivo è ragionevole il fatto che, complessivamente, la versione 2 ottenga costi totali più elevati. \newline
 \includegraphics[width=1\textwidth]{../Grafici/16.png} \
@@ -1610,11 +1622,11 @@ Invece per la varianza dei tempi, notiamo anche qui che la seconda versione ha u
 \chapter{Conclusioni}
 Si può concludere la tesi riassumendo i risultati trovati:
 \begin{legal}
-  \item Furthest Insertion (ovvero la nuova euristica proposta in questa tesi) in trova soluzioni di qualità migliore delle altre euristiche basate su inserzione presenti in letteratura (quindi meglio di Cheapest Insertion, Farthest Insertion e Nearest Insertion).
+  \item Furthest Insertion (ovvero la nuova euristica proposta in questa tesi) trova soluzioni di qualità migliore rispetto altre euristiche basate su inserzione presenti in letteratura (quindi meglio di Cheapest Insertion, Farthest Insertion e Nearest Insertion).
   \item Furthest Insertion trova soluzioni di qualità migliore anche con l'inizializzazione del tour casuale in confronto alle altre euristiche basate su inserzione (sempre con inizializzazione casuale).
-  \item Furthest Insertion ha una varianza più bassa per quanto riguarda la qualità delle soluzioni.
+  \item Furthest Insertion ha una varianza più bassa per quanto riguarda la qualità delle soluzioni, sia nel caso con inizializzazione con la coppia di città più lontane, sia nel caso con inizializzazione casuale.
   \item Furthest Insertion (lato negativo) non ha mostrato un miglioramento significativo nell'ottimizzazione da heap singolo a più heap associati ai nodi fuori dal tour (cosa che invece è avvenuta per Cheapest Insertion).
-  \item Furthest Insertion ha dei tempi accettabili (come nel caso di Cheapest Insertion) anche se altre euristiche sono risultate più veloci in modo coerente con la complessità computazionale analizzata.
+  \item Furthest Insertion ha dei tempi accettabili (come nel caso di Cheapest Insertion) anche se altre euristiche sono risultate più veloci in modo coerente con la complessità computazionale analizzata (ma con qualità ottenute peggiori).
   \item Furthest Insertion trova soluzioni di qualità molto alta in modo simile a Random Insertion, in modo del tutto inatteso in quanto Random Insertion (appunto) sceglie i nodi da inserire in modo casuale.
 \end{legal}
 Questi risultati sono molto interessanti in quanto Furthest Insertion è proprio l'euristica mancante in letteratura, ad esempio nel "The Traveling Salesman" di G. Reinelt\cite{Reinelt}, possiamo trovare Nearest Insertion (6.2.1.1), varie versioni di Farthest Insertion (6.2.1.2), varie versioni di Cheapest Insertion (6.2.1.5) ma non Furthest Insertion.
@@ -1622,7 +1634,7 @@ Questi risultati sono molto interessanti in quanto Furthest Insertion è proprio
 Sicuramente sarebbe interessante estendere il progetto nei seguenti campi:
 \begin{legal}
   \item Implementare altre euristiche (ad esempio non basate su inserzione) e confrontarle con la nuova euristica proposta in questa tesi
-  \item Come visto nel capitolo delle implementazioni, il progetto si limita a istanze con coordinate euclidee in due dimensioni. Può essere interessante estendere il progetto ad istanze a 3 dimensioni o istanze con distanze diverse dalla distanza euclidea in due dimensioni, ad esempio con la distanza di Čebyšëv e confrontare le prestazioni dell'euristica al variare del parametro $k$\footnote{https://www.researchgate.net/publication/311633774\_Chebyshev\_Distance}.
+  \item Come visto nel capitolo delle implementazioni, il progetto si limita a istanze con coordinate euclidee in due dimensioni. Può essere interessante estendere il progetto ad istanze a 3 dimensioni o istanze con distanze diverse dalla distanza euclidea in due dimensioni, ad esempio con la distanza di Čebyšëv e confrontare le prestazioni dell'euristica al variare del parametro $k$\footnote{https://www.researchgate.net/publication/311633774\_Chebyshev\_Distance}, oppure ad esempio la distanza di Manhattan\footnote{https://xlinux.nist.gov/dads/HTML/manhattanDistance.html}.
   \item Implementare gli stessi algoritmi in altri linguaggi di programmazione (come C, C++ o Java), confrontare eventuali lati negativi, positivi e le prestazioni
 \end{legal}
  
@@ -1667,7 +1679,7 @@ Salesman Problem, Bell Telephone Laboratories, Incorporated, Murray Hill, N.J., 
 K. Helsgaun, An effective implementation of the Lin-Kernighan traveling
 salesman heuristic, Department of Computer Science, Roskilde Universit, 13 April 1999
 \bibitem{knuthart}
-Donald E. Knuth, The Art of Computer Programming: Volume 2 (Seminumerical Algorithms),Addison-Wesley Professional, 1997, Capitolo 3
+Donald E. Knuth, The Art of Computer Programming: Volume 2 (Seminumerical Algorithms), Addison-Wesley Professional, 1997, Capitolo 3
 
 
 %\bibitem{gotti91}

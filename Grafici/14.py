@@ -30,7 +30,7 @@ plt.plot(x, y6, marker='.', color='grey', label='Random Insertion')
 plt.xticks(rotation=45)
 plt.xlabel('Prime 30 istanze TSP da TSP-LIB')
 plt.ylabel('Qualità medie trovate')
-plt.yscale('log')
+#plt.yscale('log')
 plt.title('Qualità delle soluzioni trovate')
 plt.legend()  # Show legend based on labels
 

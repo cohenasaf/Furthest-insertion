@@ -28,7 +28,7 @@ plt.plot(x, y4, marker='^', color='green', label='Furthest Insertion versione 3'
 
 plt.xticks(rotation=45)
 plt.xlabel('Prime 50 istanze TSP da TSP-LIB')
-plt.ylabel('Tempi in secondi')
+plt.ylabel('Qualità trovate')
 plt.yscale('log')
 plt.title('Qualità delle versioni di Furthest Insertion all\'aumentare del numero di città')
 plt.legend()  # Show legend based on labels

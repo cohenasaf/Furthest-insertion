@@ -68,3 +68,13 @@ print(NI)
 print(CI)
 print(FaI)
 print(FuI)
+
+
+
+def testEuristic(name, euristic):
+    st = time.time()
+    euristic()
+    et = time.time()
+    t.calculateCost()
+    assert t.verifyTour()
+    return (t.cost / t.optimalSolution, et - st)
