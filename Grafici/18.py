@@ -35,12 +35,11 @@ y4.append(1.2922)
 y5.append(1.1458) 
 
 
-
-print(np.mean(y1))
-print(np.mean(y2))
-print(np.mean(y3))
-print(np.mean(y4))
-print(np.mean(y5))
+print(np.median(y1))
+print(np.median(y2))
+print(np.median(y3))
+print(np.median(y4))
+print(np.median(y5))
 exit()
 
 # qualità Furthest

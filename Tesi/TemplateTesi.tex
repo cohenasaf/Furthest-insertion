@@ -1634,12 +1634,13 @@ Invece per la varianza dei tempi, notiamo anche qui che la seconda versione ha u
 \chapter{Conclusioni}
 Si può concludere la tesi riassumendo i risultati trovati:
 \begin{legal}
-  \item Furthest Insertion (ovvero la nuova euristica proposta in questa tesi) trova soluzioni di qualità migliore rispetto altre euristiche basate su inserzione presenti in letteratura (quindi meglio di Cheapest Insertion, Farthest Insertion e Nearest Insertion).
+  \item Furthest Insertion (ovvero la nuova euristica proposta in questa tesi) trova soluzioni di qualità migliore rispetto altre euristiche basate su inserzione presenti in letteratura (quindi meglio di Cheapest Insertion, Farthest Insertion e Nearest Insertion) per le istanze piccole e medie.
   \item Furthest Insertion trova soluzioni di qualità migliore anche con l'inizializzazione del tour casuale in confronto alle altre euristiche basate su inserzione (sempre con inizializzazione casuale).
   \item Furthest Insertion ha una varianza più bassa per quanto riguarda la qualità delle soluzioni, sia nel caso con inizializzazione con la coppia di città più lontane, sia nel caso con inizializzazione casuale.
   \item Furthest Insertion (lato negativo) non ha mostrato un miglioramento significativo nell'ottimizzazione da heap singolo a più heap associati ai nodi fuori dal tour (cosa che invece è avvenuta per Cheapest Insertion).
+  \item Furthest Insertion (lato negativo) trova ottime soluzioni per le istanze grandi ma non le migliori in quanto Cheapest Insertion trova soluzioni migliori in media.
   \item Furthest Insertion ha dei tempi accettabili (come nel caso di Cheapest Insertion) anche se altre euristiche sono risultate più veloci in modo coerente con la complessità computazionale analizzata (ma con qualità ottenute peggiori).
-  \item Furthest Insertion trova soluzioni di qualità molto alta in modo simile a Random Insertion, in modo del tutto inatteso in quanto Random Insertion (appunto) sceglie i nodi da inserire in modo casuale.
+  \item Furthest Insertion trova soluzioni di qualità molto alta (istanze piccole e medie) in modo simile a Random Insertion, in modo del tutto inatteso in quanto Random Insertion (appunto) sceglie i nodi da inserire in modo casuale.
 \end{legal}
 Questi risultati sono molto interessanti in quanto Furthest Insertion è proprio l'euristica mancante in letteratura, ad esempio nel "The Traveling Salesman" di G. Reinelt\cite{Reinelt}, possiamo trovare Nearest Insertion (6.2.1.1), varie versioni di Farthest Insertion (6.2.1.2), varie versioni di Cheapest Insertion (6.2.1.5) ma non Furthest Insertion.
 \subsection{Possibili sviluppi e estensioni}
