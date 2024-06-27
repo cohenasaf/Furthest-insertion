@@ -36,7 +36,7 @@
 \dept{Corso di Laurea in Informatica} 
 \anno{2023-2024}
 \matricola{975599}
-\relatore{Prof. Giovanni RIGHINI}
+\relatore{Chiar.mo Prof. Giovanni RIGHINI}
 %
 %        \submitdate{month year in which submitted to GPO}
 %		- date LaTeX'd if omitted
@@ -1578,10 +1578,22 @@ Possiamo allo stesso modo analizzare i tempi delle euristiche analizzate nella s
 I tempi sono coerenti con le considerazioni sulle complessità temporale fatte in precedenza: Nearest Neighbor risulta essere l'algoritmo più veloce con complessità $O(n^2)$ ma come visto in precedenza in media trova soluzioni di qualità bassa, Nearest Insertion e Farthest Insertion hanno un tempo molto simile in quanto entrambi sono algoritmi $O(n^2)$ e condividono molto del codice, mentre Cheapest Insertion e Furthest Insertion anche in questo caso ottengono tempi molto simili e coerenti con la loro complessità temporale (analizzata nelle sezioni precedenti). \newline Complessivamente (in sintesi) possiamo affermare che Furthest Insertion trova in media le soluzioni migliori ma richiede più tempo rispetto alle altre euristiche (escluso Cheapest Insertion dove i tempi sono molto simili).
 
 \section{Confronto tempi e qualità delle euristiche con istanze enormi}
-In questa sezione analizziamo il comportamento delle euristiche nel caso di istanze molto grandi (con un numero di città maggiore uguale a 10000), per motivi di tempo saranno analizzate un numero limitato di queste istanze enormi ovvero le istanze: rl11849, usa13509, brd14051, d15112, d18512. Per prima cosa è necessario ottenere il parametro m minimo per queste istanze per Cheapest Insertion versione 3, le dimensioni minime trovate sono:
+In questa sezione analizziamo il comportamento delle euristiche nel caso di istanze molto grandi (con un numero di città maggiore uguale a 10000), analizzeremo tutte le istanze restanti presenti nella libreria TSP-LIB fino alla istanza di dimensione pari a 14051 città (purtroppo 32 GB di memoria non bastano per le istanze d15112, d18512 che quindi non saranno incluse nelle analisi). Per ognuna di queste istanze, il parametro minimo per Cheapest Insertion è pari a 3. \newline
+\subsection{Qualità delle soluzioni trovate per istanze grandi}
+\includegraphics[width=1\textwidth]{../Grafici/18.png} \
+Da questi risultati possiamo notare come Nearest Neighbor risulti essere in molti contesti l'euristica peggiore, mentre la nuova euristica Furthest Insertion mostra ottimi risultati ma non in tutte le istanza. Possiamo, come visto per le prime 50 istanze da TSP-LIB, valutare la media delle qualità:
 \begin{myverbatim}
-DA COMPLETARE
+Nearest Neighbor ->              1.2425762400217724
+Nearest Insertion ->             1.2203917034573346
+Cheapest Insertion versione 3 -> 1.178938730708508
+Farthest Insertion ->            1.2690944168437173
+Furthest Insertion versione 2 -> 1.194741813758622
 \end{myverbatim}
+Possiamo quindi concludere che in media per le istanze grandi Furthest Insertion sia al secondo posto in termini di qualità delle soluzioni trovate rispetto a Cheapest Insertion.
+\subsection{Tempi necessari per la risoluzione di istanze grandi}
+Per quanto riguarda i tempi invece i risultati sono i seguenti: \newline
+\includegraphics[width=1\textwidth]{../Grafici/19.png} \
+Possiamo notare come i risultati siano totalmente in linea con i tempi per le istanze piccole. Nearest Neighbor si colloca nella fascia bassa (quindi è l'algoritmo più veloce) dopodiché sono presenti Farthest e Nearest Insertion e poi (tra le euristiche più lente) Cheapest e Furthest Insertion. Possiamo però notare come Furthest Insertion sia poco più veloce rispetto a Cheapest Insertion.
 
 \section{Analisi robustezza rispetto alla scelta delle città iniziali}
 Abbiamo visto che l'inizializzazione del tour consiste nel determinare la coppia di città più vicine per gli algoritmi Nearest Neighbor, Nearest Insertion e Cheapest Insertion e consiste nel determinare la coppia di città più lontane per Farthest e Furthest Insertion. Questa sezione analizza il variare dei tempi e delle qualità delle soluzioni trovate al variare delle città iniziali. Per fare questo (come visto nella sezione delle implementazioni) l'implementazione resta la stessa tranne per il fatto che le due città iniziali sono scelte casualmente. Chiaramente si deve garantire che siano due città diverse. Vediamo i risultati prima dal punto di vista delle qualità, poi dei tempi.

@@ -9,8 +9,8 @@ def testEuristicO(name, euristic, m):
     t.calculateCost()
     assert t.verifyTour()
     print("{:18s} costo: {:.2f}, qualità: {:.4f}, tempo: {:.6f} secondi".format(name, t.cost, t.cost / t.optimalSolution, et - st))
-    #return (t.cost / t.optimalSolution, et - st)
-    return t.cost / t.optimalSolution
+    return (t.cost / t.optimalSolution, et - st)
+    #return t.cost / t.optimalSolution
 
 def testEuristic(name, euristic):
     st = time.time()
@@ -19,8 +19,8 @@ def testEuristic(name, euristic):
     t.calculateCost()
     assert t.verifyTour()
     print("{:18s} costo: {:.2f}, qualità: {:.4f}, tempo: {:.6f} secondi".format(name, t.cost, t.cost / t.optimalSolution, et - st))
-    #return (t.cost / t.optimalSolution, et - st)
-    return t.cost / t.optimalSolution
+    return (t.cost / t.optimalSolution, et - st)
+    #return t.cost / t.optimalSolution
 
 
 dC = {"eil51": 1, "berlin52": 1, "st70": 2, "pr76": 1, "eil76": 1, "rat99": 1, "kroD100": 3, "kroA100": 1, "kroC100": 1, "kroB100": 1, "kroE100": 1, "rd100": 1, "eil101": 1, "lin105": 1, "pr107": 3, "pr124": 3, "bier127": 2, "ch130": 3, "pr136": 1, "pr144": 3, "kroA150": 3, "ch150": 1, "kroB150": 3, "pr152": 1, "u159": 3, "rat195": 1, "d198": 3, "kroA200": 1, "kroB200": 3, "ts225": 2, "tsp225": 3, "pr226": 1, "gil262": 1, "pr264": 3, "a280": 1, "pr299": 2, "lin318": 3, "linhp318": 3, "rd400": 3, "fl417": 1, "pr439": 2, "pcb442": 3, "d493": 1, "u574": 3, "rat575": 3, "p654": 3, "d657": 3, "u724": 3, "rat783": 3, "pr1002": 2}
@@ -34,7 +34,8 @@ NI = []
 CI = []
 FaI = []
 FuI = []
-for l in TSP_LIB[-5:]:
+for l in TSP_LIB[50:-5]:
+    print(time.ctime(time.time()))
     t = TSP(l, ignoraOpt=True)
     print()
     print("_________________")
@@ -60,32 +61,40 @@ for l in TSP_LIB[-5:]:
 
     #t.calculateOptimalCost()
 
-    #NN.append(testEuristic("nearestNeighbor", t.nearestNeighbor))
-    #NI.append(testEuristic("nearestInsertion", t.nearestInsertion))
-    #CI.append(testEuristicO("cheapestInsertion", t.cheapestInsertionOttimizzato, dC[t.name]))
-    #FaI.append(testEuristic("farthestInsertion", t.farthestInsertion))
-    #FuI.append(testEuristic("furthestInsertion", t.xfurthestInsertion))
+    NN.append(testEuristic("nearestNeighbor", t.nearestNeighbor))
+    NI.append(testEuristic("nearestInsertion", t.nearestInsertion))
+    CI.append(testEuristicO("cheapestInsertion", t.cheapestInsertionOttimizzato, 3))
+    FaI.append(testEuristic("farthestInsertion", t.farthestInsertion))
+    FuI.append(testEuristic("furthestInsertion", t.furthestInsertion))
 
     #cOn3.append(testEuristic("furthestInsertionOn3", t.furthestInsertionOn3))
     #c.append(testEuristic("furthestInsertion", t.furthestInsertion))
     #cO.append(testEuristicO("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato, dF[l]))
     #cA.append(testEuristic("furthestInsertionApprossimato", t.furthestInsertionApprossimato))
 
-    r = []
-    last_m = 1
-    for m in range(10, 0, -1):
-        r.append(testEuristicO("cheapestInsertionOttimizzato", t.cheapestInsertionOttimizzato, m))
-        if len(r) >= 2 and r[-1] != r[-2]:
-            last_m = m + 1
-            break
-    print(t.name, "->", last_m)
-    dF[t.name] = last_m
+    #r = []
+    #last_m = 1
+    #for m in range(5, 0, -1):
+    #    r.append(testEuristicO("cheapestInsertionOttimizzato", t.cheapestInsertionOttimizzato, m))
+    #    if len(r) >= 2 and r[-1] != r[-2]:
+    #        last_m = m + 1
+    #        break
+    #print(t.name, "->", last_m)
+    #dF[t.name] = last_m
     #ztestEuristic("cheapestInsertion", t.cheapestInsertion)
-    name_m.append((l, last_m))
+    #name_m.append((l, last_m))
 #print(name_m)
+print("QUALITA'")
+print([x[0] for x in NN])
+print([x[0] for x in NI])
+print([x[0] for x in CI])
+print([x[0] for x in FaI])
+print([x[0] for x in FuI])
 
-print(NN)
-print(NI)
-print(CI)
-print(FaI)
-print(FuI)
+
+print("TEMPI")
+print([x[1] for x in NN])
+print([x[1] for x in NI])
+print([x[1] for x in CI])
+print([x[1] for x in FaI])
+print([x[1] for x in FuI])

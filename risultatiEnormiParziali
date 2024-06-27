@@ -1,0 +1,23 @@
+_________________
+rl11849
+nearestNeighbor    costo: 1118751.54, qualità: 1.2117, tempo: 6.585783 secondi
+nearestInsertion   costo: 1151651.80, qualità: 1.2473, tempo: 87.007799 secondi
+cheapestInsertion  costo: 1101570.52, qualità: 1.1931, tempo: 466.330606 secondi
+farthestInsertion  costo: 1209961.59, qualità: 1.3105, tempo: 90.123573 secondi
+furthestInsertion  costo: 1133735.54, qualità: 1.2279, tempo: 288.466524 secondi
+
+_________________
+usa13509
+nearestNeighbor    costo: 24876103.61, qualità: 1.2449, tempo: 8.701452 secondi
+nearestInsertion   costo: 25220161.82, qualità: 1.2621, tempo: 110.600238 secondi
+cheapestInsertion  costo: 24295776.12, qualità: 1.2158, tempo: 569.742908 secondi
+farthestInsertion  costo: 26067016.34, qualità: 1.3045, tempo: 115.616847 secondi
+furthestInsertion  costo: 22984298.08, qualità: 1.1502, tempo: 399.386194 secondi
+
+_________________
+brd14051
+nearestNeighbor    costo: 577037.16, qualità: 1.2293, tempo: 10.264653 secondi
+nearestInsertion   costo: 575508.51, qualità: 1.2261, tempo: 120.857348 secondi
+cheapestInsertion  costo: 551114.65, qualità: 1.1741, tempo: 611.834154 secondi
+farthestInsertion  costo: 606547.51, qualità: 1.2922, tempo: 126.223603 secondi
+furthestInsertion  costo: 537803.28, qualità: 1.1458, tempo: 403.645425 secondi
