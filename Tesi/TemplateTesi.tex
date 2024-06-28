@@ -752,7 +752,7 @@ def cheapestInsertionOn3(self):
   self.calculateCost()
 \end{python}
 Dopodiché inizia il ciclo principale dell'euristica: finché il path non include tutti i nodi, si determina per ogni nodo v fuori dal tour il punto di inserimento ottimo $(i, j)$ fuori dal tour in modo da minimizzare il costo di inserimento, quindi si crea per ogni nodo v un record \lstinline![cost, v, l, r]! che contiene le informazioni: costo di inserimento, nodo da inserire \lstinline!v! tra i due nodi \lstinline!l! ed \lstinline!r!. Successivamente dalla lista \lstinline!l! di record viene selezionato il record con costo minore e si procede all'inserimento. \newline
-Questa implementazione di Cheapest Insertion risulta essere molto semplice, ma è inefficiente dal punto di vista della complessità temporale. Infatti sono presenti 3 cicli for che iterano al massimo n volte (riga 3, 5 e 7), alla riga 13 il metodo append alla lista \lstinline!ln! (lista dei nodi) che ha complessità pari a $O(1)$ e le istruzioni \lstinline!path.index(r)! e \lstinline!path.insert()! che hanno complessità pari a $O(n)$. Di conseguenza la complessità temporale è $O(n^3)$.\newline
+Questa implementazione di Cheapest Insertion risulta essere molto semplice, ma è inefficiente dal punto di vista della complessità temporale. Infatti sono presenti 3 cicli for che iterano al massimo n volte (riga 3, 5 e 7), alla riga 13 il metodo append alla lista \lstinline!ln! (lista dei nodi) e \lstinline!path.insert()! che hanno complessità pari a $O(1)$ e l'istruzione \lstinline!path.index(r)! e che ha complessità pari a $O(n)$. Di conseguenza la complessità temporale è $O(n^3)$.\newline
 In particolare l'inefficienza di questa implementazione, consiste nel fatto che ad ogni iterazione vengono ricalcolati i costi di inserimento ottimi per gli stessi nodi, infatti ad ogni iterazione solo un nodo viene inserito nel path, per tutti gli altri nodi fuori dal tour (che sono rimasti fuori dal tour) si ricalcolano esattamente gli stessi costi, con la differenza che un arco è stato rimosso (il punto di inserzione) e sono comparsi due nuovi archi. Per questo motivo nella prossima versione vedremo come memorizzare (e aggiornare) tutte queste informazioni al posto di ricalcolarle ogni volta.
 
 \subsection{Cheapest Insertion: versione 2}
@@ -1029,12 +1029,6 @@ def cheapestInsertionOttimizzato(self, m):
     ...
     for hp in h:
       ...
-      i = 0
-      while i < len(hp):
-        if hp[i][0] == np.inf:
-          del hp[i]
-        else:
-          i += 1           
       heapq.heapify(hp)
     for i in range(len(h)):
       h[i] = h[i][:m]
@@ -1042,8 +1036,8 @@ def cheapestInsertionOttimizzato(self, m):
   self.tour = path
   self.calculateCost()
 \end{python}
-In conclusione si eliminano dagli heap piccoli i record con costo infinito tramite istruzione \lstinline!del hp[i]! e si procede con il ripristino della struttura dello heap piccolo. \newline Importante notare l'istruzione alla riga 15: concluso l'aggiornamento di ogni heap, si procede limitando la dimensione degli heap piccoli a \lstinline!m!: questo parametro è necessario perché con \lstinline|m = n| gli heap piccoli \lstinline|hp| avrebbero nel caso peggiore una dimensione pari a \lstinline|n| e quindi si otterrebbe una complessità temporale pari a $O(n^3)$ (cicli alla riga 3, 5 e 8 o 14 tutti con un numero massimo di iterazioni pari a \lstinline|n|). Per questo motivo è necessario tenere il parametro m il più basso possibile in modo da limitare la complessità temporale, ma la complessità spaziale: infatti sarebbe necessario tenere in memoria $O(n^2)$ record, mentre limitando il parametro si avrebbe complessità spaziale pari a $O(nm)$. \newline
-Questa implementazione riduce la complessità temporale delle versioni precedenti da $O(n^3)$ a $O(n^2 * m)$ pur garantendo che, ad ogni iterazione, si selezioni il nodo che minimizza il costo di inserimento e si selezioni il punto di inserimento ottimo (nella versione approssimata vista in precedenza questa garanzia non c'era). \newline
+In conclusione si procede con il ripristino della struttura dello heap piccolo. \newline Importante notare l'istruzione alla riga 15: concluso l'aggiornamento di ogni heap, si procede limitando la dimensione degli heap piccoli a \lstinline!m!: questo parametro è necessario perché con \lstinline|m = n| gli heap piccoli \lstinline|hp| avrebbero nel caso peggiore una dimensione pari a \lstinline|n| e quindi si otterrebbe una complessità temporale pari a $O(n^3)$ (cicli alla riga 3, 5 e 8 o 14 tutti con un numero massimo di iterazioni pari a \lstinline|n|). Per questo motivo è necessario tenere il parametro m il più basso possibile in modo da limitare la complessità temporale, ma la complessità spaziale: infatti sarebbe necessario tenere in memoria $O(n^2)$ record, mentre limitando il parametro si avrebbe complessità spaziale pari a $O(nm)$. \newline
+Questa implementazione riduce la complessità temporale delle versioni precedenti da $O(n^3)$ a $O(n^2 * log(m))$ pur garantendo che, ad ogni iterazione, si selezioni il nodo che minimizza il costo di inserimento e si selezioni il punto di inserimento ottimo (nella versione approssimata vista in precedenza questa garanzia non c'era). \newline
 Nel prossimo capitolo analizzeremo le prestazioni di queste implementazioni, in particolare vedremo quest'ultima versione come si comporta al variare del parametro m.
 
 
@@ -1366,7 +1360,7 @@ def furthestInsertionOttimizzato(self, m):
   self.calculateCost()
 \end{python}
 La restante parte dell'implementazione è analoga alla versione 3 di Cheapest Insertion, con la differenza che è necessario mantenere il max-heap in modo che selezioni il record con costo di inserimento massimo (e non minimo) e gli heap interni come min-heap. Per ottenere questa proprietà, alla riga 41-43 si procede convertendo tutti  i valori negativi ad un valore positivo: in questo modo l'istruzione \lstinline!heapq.heapify(hp)! procederà a porre in prima posizione il nodo con costo minimo (e non massimo). Successivamente per fare in modo che lo heap principale \lstinline!h! operi come max-heap, è necessario che almeno tutti i costi nel primo record di ogni heap interno abbiano valore negativo, per questo motivo alla riga 50 il costo positivo viene convertito in un costo negativo. In questo modo, alla riga 53, l'istruzione \lstinline!heapq.heapify(h)! potrà operare correttamente generando un max-heap. \newline
-Da un punto di vista della complessità temporale, l'algoritmo ha un tempo (nel caso peggiore) pari a $O(n^2 * m)$ come già visto per la descrizione di Cheapest Insertion versione 3.
+Da un punto di vista della complessità temporale, l'algoritmo ha un tempo (nel caso peggiore) pari a $O(n^2 * log(m))$ come già visto per la descrizione di Cheapest Insertion versione 3.
 
 \subsection{Random Insertion}
 In questo capitolo verrà discussa l'implementazione di \nameref{ssec:RI}. Vedremo come di fatto è molto più semplice rispetto alle implementazioni viste prima in quanto bisogna:
@@ -1559,11 +1553,11 @@ Di seguito il grafico che mostra le qualità trovate dalle euristiche (asse y) p
 \includegraphics[width=1\textwidth]{../Grafici/7.png} \
 Premettendo che si vuole una qualità più vicina possibile a 1 (quindi un costo totale più vicino possibile a quello ottimo), da questo grafico possiamo notare più cose: innanzitutto Nearest Neighbor risulta essere in molti contesti l'euristica peggiore, ad esempio per quanto riguarda le prime 10 città (a sinistra) risulta essere molto in alto rispetto alle altre soluzioni trovate (quindi ha trovato soluzioni peggiori), inoltre vale lo stesso discorso per molte istanze grandi verso le migliaia di città (a destra nel grafico). Il discorso analogo ma invertito vale per Furthest Insertion (ovvero l'euristica nuova proposta in questa tesi): possiamo notare come le qualità trovate sia per istanze piccole che grandi sia molte volte la migliore, con soluzioni trovate nella fascia tra il 5\% e il 15\% peggiori rispetto all'ottimo. Questo risultato è molto interessante confrontato con le altre euristiche che sembrano restare nella fascia 15\%-25\%. Possiamo effettuare una media delle soluzioni trovate, ottenendo:
 \begin{myverbatim}
-Nearest Neighbor ->              1.2470046772916366
-Nearest Insertion ->             1.2156950870353294
-Cheapest Insertion versione 3 -> 1.1782082768488287
-Farthest Insertion ->            1.1910399037033677
-Furthest Insertion versione 2 -> 1.1066458949521236
+Nearest Neighbor ->              1.2470
+Nearest Insertion ->             1.2157
+Cheapest Insertion versione 3 -> 1.1782
+Farthest Insertion ->            1.1910
+Furthest Insertion versione 2 -> 1.1066
 \end{myverbatim}
 Ovvero in media (per le prime 50 città più piccole presenti su TSP-LIB) Furthest Insertion ottiene soluzioni di qualità significativamente superiore rispetto alle altre euristiche basate su inserzione (e anche rispetto a Nearest Neighbor). Questo risultato è particolarmente rilevante in quanto Furthest Insertion è proprio l'euristica mancante in letteratura. Per completezza possiamo anche valutare la varianza delle soluzioni trovate:
 \begin{myverbatim}
