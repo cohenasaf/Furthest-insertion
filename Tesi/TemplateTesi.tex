@@ -23,6 +23,7 @@
 \usepackage{fancyvrb}
 \usepackage{listings,lipsum}
 \usepackage{graphicx}
+\usepackage{lipsum}
 
 \newenvironment{teor}{\begin{myteor}\sl}{\end{myteor}}
 %
@@ -33,7 +34,7 @@
 \includegraphics{tesiSCIENZE_TECNOLOGIE.jpg}
 \title{Furthest Insertion: una nuova euristica per il TSP}
 \author{Asaf COHEN}
-\dept{Corso di Laurea in Informatica} 
+\dept{Corso di Laurea Triennale in Informatica} 
 \anno{2023-2024}
 \matricola{975599}
 \relatore{Chiar.mo Prof. Giovanni RIGHINI}
@@ -62,7 +63,7 @@
 \clearpage
 
 \prefacesection{Ringraziamenti}
-        {\hfill \Large {\sl dedicato a DA COMPLETARE\dots}}
+        { \Large {\sl DA COMPLETARE}}
 % 
 %			PREFAZIONE
 %
@@ -77,7 +78,7 @@ Il Problema del Commesso Viaggiatore (TSP) rappresenta una delle sfide più inte
 
 Il TSP è classificato come un problema NP-hard, il che significa che non esiste un algoritmo efficiente in grado di risolvere tutte le istanze del problema in tempo polinomiale. Di conseguenza, sono state sviluppate numerose euristiche e approcci approssimati per trovare soluzioni accettabili in un tempo ragionevole. Le euristiche sono strategie di ricerca che, pur non garantendo la soluzione ottima, sono in grado di produrre risultati soddisfacenti entro limiti temporali praticabili.
 
-In questa tesi, esploreremo una specifica euristica per il TSP chiamata Furthest Insertion: l'obiettivo principale sarà quello di presentare, analizzare e valutare l'efficacia di questa euristica attraverso run su istanze presenti su TSP-LIB e confronti con altre tecniche note.
+In questa tesi, esploreremo una specifica euristica per il TSP chiamata Furthest Insertion: l'obiettivo principale sarà quello di presentare, analizzare e valutare l'efficacia di questa euristica attraverso run su istanze presenti su TSP-LIB (ci limiteremo solo al TSP euclideo in 2 dimensioni dove i pesi degli archi sono le distanze tra i punti sul piano) e confronti con altre tecniche note.
 
 La scelta di concentrarsi su un'euristica per il TSP è motivata dalla necessità di affrontare problemi di dimensioni reali in contesti applicativi. Mentre le soluzioni esatte sono desiderabili per la loro precisione, spesso richiedono una potenza di calcolo eccessiva per problemi di grandi dimensioni. Le euristiche offrono un compromesso utile tra precisione e efficienza, consentendo di ottenere soluzioni praticabili che possono guidare decisioni reali.
 
@@ -428,7 +429,8 @@ Questo capitolo descrive l'implementazione di una classe Python chiamata "TSP" t
   \item Poter ottenere una soluzione valida per il problema tramite l'invocazione di un metodo che implementa una euristica tra quelle descritte precedentemente
   \item Ottenere i dati relativi alla qualità delle soluzioni e tempi dell'euristica
 \end{legal}
-Per il progetto è stata scelta la libreria TSP-LIB\footnote{http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/} come fonte di istanze per il TSP in quanto in letteratura è ampiamente utilizzata per testare e confrontare algoritmi e euristiche progettate per risolvere il TSP. Nel progetto, le istanze sono state tutte collocate nella directory "ALL-TSP" dove sono presenti due tipi di file: "NOME.tsp" e "NOME.opt.tour" dove la prima contiene i dati relativi all'istanza chiamata "NOME", mentre la seconda contiene la soluzione ottima sempre per quella istanza. Di seguito la struttura dei file di input:
+Per il progetto è stata scelta la libreria TSP-LIB\footnote{http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/} come fonte di istanze per il TSP in quanto in letteratura è ampiamente utilizzata per testare e confrontare algoritmi e euristiche progettate per risolvere il TSP. Ai fini del progetto, è importante sottolineare che ci limitiamo solo al caso di istanze TSP dove i dati forniti indicano le coordinate in due dimensioni (sul piano cartesiano) e i pesi degli archi del grafo sono le distanze tra i punti, quindi: $c_{ab} = \sqrt{(a_x - b_x)^2 + (a_y - b_y)^2}$ Nel progetto, le istanze sono state tutte collocate nella directory "ALL-TSP" dove sono presenti due tipi di file: "NOME.tsp" e "NOME.opt.tour" dove la prima contiene i dati relativi all'istanza chiamata "NOME", mentre la seconda contiene la soluzione ottima sempre per quella istanza. Di seguito la struttura dei file di input:
+
 
 \lstnewenvironment{myverbatim}[1][]{%
   \lstset{
@@ -709,7 +711,7 @@ def nearestInsertion(self):
   self.tour = path
   self.calculateCost()
 \end{python}
-Questo è il ciclo principale dell'euristica: prima di tutto tramite l'operazione \lstinline!heappop! viene estratto il nodo \lstinline!to_insert! come nodo candidato da inserire nel ciclo (in quanto ha distanza minima dal tour), successivamente viene effettuata una ricerca nel tour della posizione di inserimento migliore possibile. La posizione migliore deve minimizzare $c_{ir} + c_{rj} - c_{ij}$, quindi la variabile \lstinline!increase! definita alla riga 10. La scelta di memorizzare nella variabile \lstinline!best_position! il valore \lstinline!i + 1! e non \lstinline!i! è motivata dal fatto che il metodo \lstinline!insert(pos, n)! (con parametro pos e n) delle liste python sposta in avanti tutti gli elementi dalla posizione pos compresa per fare spazio alla variabile da inserire (n), di conseguenza una volta trovata la posizione migliore (tra le posizioni i e i+1), sarà necessario indicare la posizione i+1 per ottenere l'inserimento del nuovo arco tra la posizione i e la posizione i + 1\footnote{https://docs.python.org/3/tutorial/datastructures.html}. \newline Successivamente (dalla riga 20) viene aggiornato lo heap in quanto alla riga 17 viene modificato il path mentre lo heap fa ancora riferimento al path prima dell'inserimento. L'aggiornamento procede come segue: dato che lo heap contiene, per ogni nodo fuori dal tour, la distanza con il nodo più vicino all'interno del tour (quindi per ogni nodo fuori dal tour, mantiene la distanza minima con il tour), dato che è stato aggiunto un nuovo nodo nel tour, è necessario verificare per ogni elemento nello heap se il nuovo nodo aggiunto rappresenta un caso migliore rispetto a quanto precedentemente memorizzato nello heap, per questo motivo alla riga 21, nel caso in cui la distanza tra il nodo appena aggiunto e il nodo fuori dal path \lstinline!node! è migliore di quanto precedentemente memorizzato nello heap (\lstinline!cost!), allora è necessario aggiornare quel valore nello heap. \newline Successivamente è necessario effettuare l'operazione \lstinline!heapq.heapify(h)! in quanto l'aggiornamento potrebbe aver modificato la struttura dello heap. Alla fine dell'implementazione di Nearest Insertion è presente (come prima) l'aggiornamento della variabile self.tour (che memorizza il tour finale) e viene eseguito il metodo \lstinline!self.calculateCost()! come per le altre euristiche per ottenere il costo del percorso nella variabile  \lstinline!self.cost! come visto precedentemente nel capitolo dei metodi ausiliari. \newline
+Questo è il ciclo principale dell'euristica: prima di tutto tramite l'operazione \lstinline!heappop! viene estratto il nodo \lstinline!to_insert! come nodo candidato da inserire nel ciclo (in quanto ha distanza minima dal tour), successivamente viene effettuata una ricerca nel tour della posizione di inserimento migliore possibile. La posizione migliore deve minimizzare $c_{ir} + c_{rj} - c_{ij}$, quindi la variabile \lstinline!increase! definita alla riga 10.\newline Successivamente (dalla riga 20) viene aggiornato lo heap in quanto alla riga 17 viene modificato il path mentre lo heap fa ancora riferimento al path prima dell'inserimento. L'aggiornamento procede come segue: dato che lo heap contiene, per ogni nodo fuori dal tour, la distanza con il nodo più vicino all'interno del tour (quindi per ogni nodo fuori dal tour, mantiene la distanza minima con il tour), dato che è stato aggiunto un nuovo nodo nel tour, è necessario verificare per ogni elemento nello heap se il nuovo nodo aggiunto rappresenta un caso migliore rispetto a quanto precedentemente memorizzato nello heap, per questo motivo alla riga 21, nel caso in cui la distanza tra il nodo appena aggiunto e il nodo fuori dal path \lstinline!node! è migliore di quanto precedentemente memorizzato nello heap (\lstinline!cost!), allora è necessario aggiornare quel valore nello heap. \newline Successivamente è necessario effettuare l'operazione \lstinline!heapq.heapify(h)! in quanto l'aggiornamento potrebbe aver modificato la struttura dello heap. Alla fine dell'implementazione di Nearest Insertion è presente (come prima) l'aggiornamento della variabile self.tour (che memorizza il tour finale) e viene eseguito il metodo \lstinline!self.calculateCost()! come per le altre euristiche per ottenere il costo del percorso nella variabile  \lstinline!self.cost! come visto precedentemente nel capitolo dei metodi ausiliari. \newline
 La complessità temporale dell'implementazione è $O(n^2)$ dato che sono presenti solo due cicli for che iterano al massimo n volte, tutte le istruzioni nel ciclo interno hanno complessità pari a $O(1)$ e le istruzioni nel ciclo esterno hanno al massimo complessità $O(n)$.
 
 \subsection{Cheapest Insertion: versione 1}
@@ -790,7 +792,7 @@ def cheapestInsertion(self):
     in_path.add(to_ins)
     ...
 \end{python}
-Questo è il ciclo for (while) principale dell'euristica: viene selezionato dallo heap il nodo \lstinline!to_ins! e il punto di inserzione \lstinline!r!. Abbiamo visto come nello heap sono presenti le seguenti informazioni: \lstinline!(costo, nodo, l, r)! dove \lstinline!cost! indica il costo di inserzione del nodo \lstinline!nodo! se inserito nel modo migliore possibile e \lstinline!l! e \lstinline!r! sono i due nodi (presenti nel tour) tra i quali è necessario effettuare l'inserzione. Come visto nell'implementazione di nearest insertion, il metodo \lstinline!l.insert(pos, element)! sposta avanti tutti gli elementi dalla posizione \lstinline!pos! per fare spazio all'elemento da inserire, per questo motivo dallo heap è necessario ottenere solo il nodo \lstinline!r! (e non \lstinline!l!) in quanto basta sapere la posizione del nodo a destra (rispetto al punto di inserzione) da poter passare come argomento al metodo \lstinline!insert()!.
+Questo è il ciclo for (while) principale dell'euristica: viene selezionato dallo heap il nodo \lstinline!to_ins! e il punto di inserzione \lstinline!r!. Abbiamo visto come nello heap sono presenti le seguenti informazioni: \lstinline!(costo, nodo, l, r)! dove \lstinline!cost! indica il costo di inserzione del nodo \lstinline!nodo! se inserito nel modo migliore possibile e \lstinline!l! e \lstinline!r! sono i due nodi (presenti nel tour) tra i quali è necessario effettuare l'inserzione.
 \begin{python}
 def cheapestInsertion(self):
   ...
@@ -895,11 +897,11 @@ Le aggiunte sono:
 \end{legal}
 I risultati trovati sono (scegliendo alcune istanze dalla libreria TSP-LIB):
 \begin{myverbatim}
-berlin52 -> 0.9963898916967509
-kroB200 -> 0.9996959562176954
-rat575 -> 0.9990732159406858
-vm1084 -> 0.999213293590091
-u1817 -> 0.9980191593934437
+berlin52 -> 0.9963
+kroB200 -> 0.9997
+rat575 -> 0.9990
+vm1084 -> 0.9992
+u1817 -> 0.9980
 \end{myverbatim}
 Quindi è possibile affermare (con una probabilità molto alta) che l'arco con costo di inserzione minimo si trova nelle vicinanze del precedente arco con costo di inserzione minimo. Dopo questa osservazione è possibile applicare questa semplice modifica all'implementazione:
 \begin{python}
@@ -946,7 +948,7 @@ def cheapestInsertionOttimizzato(self, m):
         minDist = adj[i][j]
   in_path = {path[0], path[1]}
 \end{python}
-Come per le euristiche precedenti, inizialmente si seleziona la coppia delle città più vicine per inizializzare il tour. Il parametro \lstinline!m! aggiunto (riga 1) verrà descritto nelle prossime pagine.
+Come per le euristiche precedenti, inizialmente si seleziona la coppia di città più vicine per inizializzare il tour. Il parametro \lstinline!m! aggiunto (riga 1) verrà descritto nelle prossime pagine.
 \begin{python}
 def cheapestInsertionOttimizzato(self, m):
   ...
@@ -1551,7 +1553,7 @@ In questo capitolo andremo a confrontare i risultati delle euristiche implementa
   \item Farthest Insertion
   \item Furthest Insertion versione 2
 \end{legal}
-A differenza della sezione precedente, oltre ai tempi in questo caso le qualità trovate sono fondamentali nella valutazione delle euristiche. Ci limitiamo alla versione 3 di Cheapest Insertion versione 3 e Furthest Insertion versione 2 come visto nella sezione precedente. In questo caso analizzeremo qualità e tempi, ma sopratutto valuteremo anche le prestazioni su istanze enormi ($> 10000$ città). L'analisi delle versioni di randomInsertion e la robustezza delle euristiche riguardo l'inizializzazione sarà analizzata nei prossimi capitoli. Analizzeremo anche Nearest Neighbor anche se non è una euristica basata su inserzione per completezza.
+A differenza della sezione precedente, oltre ai tempi in questo caso le qualità trovate sono fondamentali nella valutazione delle euristiche. Ci limitiamo alla versione 3 di Cheapest Insertion e Furthest Insertion versione 2 come visto nella sezione precedente. In questo caso analizzeremo qualità e tempi, ma sopratutto valuteremo anche le prestazioni su istanze enormi ($> 10000$ città). L'analisi delle versioni di randomInsertion e la robustezza delle euristiche riguardo l'inizializzazione sarà analizzata nei prossimi capitoli. Analizzeremo anche Nearest Neighbor anche se non è una euristica basata su inserzione per completezza.
 \subsection{Analisi delle qualità delle euristiche}
 Di seguito il grafico che mostra le qualità trovate dalle euristiche (asse y) per le prime 50 istanze presenti in TSP-LIB ordinate per numero di città (asse x): \newline
 \includegraphics[width=1\textwidth]{../Grafici/7.png} \
@@ -1565,11 +1567,11 @@ Furthest Insertion versione 2 -> 1.1066458949521236
 \end{myverbatim}
 Ovvero in media (per le prime 50 città più piccole presenti su TSP-LIB) Furthest Insertion ottiene soluzioni di qualità significativamente superiore rispetto alle altre euristiche basate su inserzione (e anche rispetto a Nearest Neighbor). Questo risultato è particolarmente rilevante in quanto Furthest Insertion è proprio l'euristica mancante in letteratura. Per completezza possiamo anche valutare la varianza delle soluzioni trovate:
 \begin{myverbatim}
-Nearest Neighbor ->              0.0049800335629691375
-Nearest Insertion ->             0.0014584496204975638
-Cheapest Insertion versione 3 -> 0.0008967612647899936
-Farthest Insertion ->            0.0023611070924068247
-Furthest Insertion versione 2 -> 0.0012113120333807825
+Nearest Neighbor ->              0.004980
+Nearest Insertion ->             0.001458
+Cheapest Insertion versione 3 -> 0.000897
+Farthest Insertion ->            0.002361
+Furthest Insertion versione 2 -> 0.001211
 \end{myverbatim}
 Da questi risultati possiamo concludere che Furthest Insertion trova soluzioni con una varianza tra le più basse (Cheapest Insertion ha una varianza più bassa). L'elevata varianza di Nearest Neighbor può essere spiegata anche graficamente: si possono notare qualità molto lontane dall'ottimo (attorno al 40\%) e anche molto vicine (attorno al 5\%).
 \subsection{Analisi dei tempi delle euristiche}
@@ -1605,11 +1607,11 @@ Ora possiamo analizzare invece la varianza delle soluzioni trovate: vogliamo qui
 \includegraphics[width=1\textwidth]{../Grafici/10.png} \
 Possiamo notare come Nearest Neighbor ha una varianza elevata, quindi le soluzioni trovate distano molto dalla media (avvicinandosi o allontanandosi dall'ottimo). Dopodiché possiamo notare come Furthest Insertion abbia una varianza tra le più basse (possiamo forse affermare che abbia la varianza più bassa), andando a considerare la media delle varianze otteniamo:
 \begin{myverbatim}
-Nearest Neighbor ->              0.002681760251702191
-Nearest Insertion ->             0.0009059930614140123
-Cheapest Insertion versione 3 -> 0.00125661452221978
-Farthest Insertion ->            0.001547882691714873
-Furthest Insertion versione 2 -> 0.0005832323004466427
+Nearest Neighbor ->              0.00268
+Nearest Insertion ->             0.00091
+Cheapest Insertion versione 3 -> 0.00126
+Farthest Insertion ->            0.00155
+Furthest Insertion versione 2 -> 0.00058
 \end{myverbatim}
 Da questi risultati possiamo notare come Furthest Insertion abbia la varianza più bassa (in media) tra le euristiche analizzate: questo è un altro risultato interessante, ovvero non solo trova (in media) le soluzioni più vicine all'ottimo (con inizializzazione casuale e non) ma anche con una varianza bassa.
 \subsection{Robustezza dei tempi delle implementazioni}

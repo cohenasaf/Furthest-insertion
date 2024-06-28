@@ -21,20 +21,20 @@
 \contentsline {subsection}{\numberline {2.3.4}Euristica 3-Opt}{14}{subsection.2.3.4}%
 \contentsline {subsection}{\numberline {2.3.5}Euristica Lin-Kernighan}{14}{subsection.2.3.5}%
 \contentsline {chapter}{\numberline {3}Implementazione delle euristiche}{16}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Implementazione del costruttore della classe}{18}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Implementazione di metodi ausiliari per le euristiche}{20}{section.3.2}%
+\contentsline {section}{\numberline {3.1}Implementazione del costruttore della classe}{19}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Implementazione di metodi ausiliari per le euristiche}{21}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Implementazione delle euristiche}{22}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Nearest Neighbor}{22}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Nearest Insertion}{23}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Cheapest Insertion: versione 1}{25}{subsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.3.4}Cheapest Insertion: versione 2}{27}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.4}Cheapest Insertion: versione 2}{26}{subsection.3.3.4}%
 \contentsline {subsection}{\numberline {3.3.5}Cheapest Insertion: versione 3}{32}{subsection.3.3.5}%
 \contentsline {subsection}{\numberline {3.3.6}Farthest Insertion}{36}{subsection.3.3.6}%
 \contentsline {subsection}{\numberline {3.3.7}Furthest Insertion: versione 1}{38}{subsection.3.3.7}%
 \contentsline {subsection}{\numberline {3.3.8}Furthest Insertion: versione 2}{39}{subsection.3.3.8}%
 \contentsline {subsection}{\numberline {3.3.9}Furthest Insertion: versione 3}{42}{subsection.3.3.9}%
 \contentsline {subsection}{\numberline {3.3.10}Random Insertion}{45}{subsection.3.3.10}%
-\contentsline {subsection}{\numberline {3.3.11}Random Insertion: versione 2}{47}{subsection.3.3.11}%
+\contentsline {subsection}{\numberline {3.3.11}Random Insertion: versione 2}{46}{subsection.3.3.11}%
 \contentsline {subsection}{\numberline {3.3.12}Euristiche con inizializzazione casuale}{47}{subsection.3.3.12}%
 \contentsline {chapter}{\numberline {4}Analisi dei risultati}{49}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Confronto versioni Cheapest Insertion}{50}{section.4.1}%
