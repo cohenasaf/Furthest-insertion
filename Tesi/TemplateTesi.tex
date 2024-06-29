@@ -750,158 +750,146 @@ Per prima cosa il path viene inizializzato con la coppia di città più vicine p
           \If{$cost < record[0]$}
             \State $record \gets [cost, v, l, r]$
           \EndIf
-        \State aggiungi $record$ alla lista $ln$
         \EndFor
-        \State Aggiungi $record$ al $path$
+        \State $[\_, to\_ins, l, r] \gets min(ln)$
+        \State Inserisci $to\_ins$ tra $l$ e $r$ nel $path$
       \EndFor
     \EndWhile
     \State Calcola il costo del path trovato
   \end{algorithmic}
 \end{tcolorbox}
-Dopodiché inizia il ciclo principale dell'euristica: finché il path non include tutti i nodi, si determina per ogni nodo v fuori dal tour il punto di inserimento ottimo $(i, j)$ fuori dal tour in modo da minimizzare il costo di inserimento, quindi si crea per ogni nodo v un record \lstinline![cost, v, l, r]! che contiene le informazioni: costo di inserimento, nodo da inserire \lstinline!v! tra i due nodi \lstinline!l! ed \lstinline!r!. Successivamente dalla lista \lstinline!ln! di record viene selezionato il record con costo minore e si procede all'inserimento. \newline
-Questa implementazione di Cheapest Insertion risulta essere molto semplice, ma è inefficiente dal punto di vista della complessità temporale. Infatti sono presenti 3 cicli for che iterano al massimo n volte (riga 3, 5 e 7), alla riga 13 il metodo append alla lista \lstinline!ln! (lista dei nodi) e \lstinline!path.insert()! che hanno complessità pari a $O(1)$ e l'istruzione \lstinline!path.index(r)! e che ha complessità pari a $O(n)$. Di conseguenza la complessità temporale è $O(n^3)$.\newline
+Dopodiché inizia il ciclo principale dell'euristica: finché il path non include tutti i nodi, si determina per ogni nodo v fuori dal tour il punto di inserimento ottimo $(i, j)$ nel dal tour in modo da minimizzare il costo di inserimento, quindi si crea per ogni nodo v un record \lstinline![cost, v, l, r]! che contiene le informazioni: costo di inserimento, nodo da inserire \lstinline!v! tra i due nodi \lstinline!l! ed \lstinline!r!. Successivamente dalla lista \lstinline!ln! di record viene selezionato il record con costo minore e si procede all'inserimento. \newline
+Questa implementazione di Cheapest Insertion risulta essere molto semplice, ma è inefficiente dal punto di vista della complessità temporale. Infatti sono presenti 3 cicli for che iterano al massimo n volte (riga 2, 4 e 6). Dato che ci sono solo istruzioni con tempo $O(1)$, la complessità totale dell'algoritmo è $O(n^3)$ in quanto sono presenti 3 cicli che iterano fino a n volte. \newline
 In particolare l'inefficienza di questa implementazione, consiste nel fatto che ad ogni iterazione vengono ricalcolati i costi di inserimento ottimi per gli stessi nodi, infatti ad ogni iterazione solo un nodo viene inserito nel path, per tutti gli altri nodi fuori dal tour (che sono rimasti fuori dal tour) si ricalcolano esattamente gli stessi costi, con la differenza che un arco è stato rimosso (il punto di inserzione) e sono comparsi due nuovi archi. Per questo motivo nella prossima versione vedremo come memorizzare (e aggiornare) tutte queste informazioni al posto di ricalcolarle ogni volta.
 
 \subsection{Cheapest Insertion: versione 2}
-In questa versione di Cheapest Insertion (a differenza della versione precedente) si vuole utilizzare una struttura dati che possa mantenere, per ogni nodo fuori dal tour, il costo e il punto di inserzione ottimi. Per fare questo si può operare in modo analogo a Nearest Insertion, ovvero con uno heap: lo heap andrà a conservare le informazioni dette prima e ci consentirà di ottenere il record con costo minore in modo efficiente, con la differenza, però, che l'aggiornamento dello heap è indubbiamento più complesso: nel caso di Nearest Insertion bastava confrontare il vecchio nodo più vicino con il nuovo nodo aggiunto, in questo caso la struttura del path cambia con un inserimento e quindi, nel caso peggiore, sarà necessario ricalcolare completamente il punto di inserimento ottimo. Vediamo l'implementazione:
-\begin{python}
-def cheapestInsertion(self):
-  n = self.numCity
-  adj = np.array(self.adj)
-  path = [0, 0]
-
-  minDist = np.inf
-  for i in range(n):
-      for j in range(0, i):
-          if adj[i][j] < minDist:
-              path[0], path[1] = i, j
-              minDist = adj[i][j]
-  in_path = {path[0], path[1]}
-\end{python}
+In questa versione di Cheapest Insertion (a differenza della versione precedente) si vuole utilizzare una struttura dati che possa mantenere, per ogni nodo fuori dal tour, il costo e il punto di inserzione ottimi. Per fare questo si può operare in modo analogo a Nearest Insertion, ovvero con uno heap: lo heap andrà a conservare le informazioni dette prima e ci consentirà di ottenere il record con costo minore in modo efficiente, con la differenza, però, che l'aggiornamento dello heap è indubbiamente più complesso: nel caso di Nearest Insertion bastava confrontare il vecchio nodo più vicino con il nuovo nodo aggiunto, in questo caso la struttura del path cambia con un inserimento e quindi, nel caso peggiore, sarà necessario ricalcolare completamente il punto di inserimento ottimo. Vediamo l'implementazione:
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State $n \gets$ numero di città
+    \State $adj \gets$ matrice di adiacenza dell'istanza
+    \State $path \gets [0, 0]$
+    
+    \State $minDist \gets +\infty$
+    \For{$i \in \{0, 1, ..., n - 1\}$}
+      \For{$j \in \{0, 1, ..., i\}$}
+        \If{$adj[i][j] < minDist$}
+          \State $path[0] \gets i$
+          \State $path[1] \gets j$
+          \State $minDist \gets adj[i][j]$
+        \EndIf
+      \EndFor
+    \EndFor
+    \State ...
+  \end{algorithmic}
+\end{tcolorbox}
 La parte iniziale dell'implementazione è identica a Nearest Insertion: viene inizializzato il tour con la coppia di nodi più vicini presenti nell'istanza.
-\begin{python}
-def cheapestInsertion(self):
-  ...
-  h = []
-  for i in set(range(n)) - in_path:
-    cost = adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]
-    h.append((cost, i, path[0], path[1]))
-  heapq.heapify(h)
-\end{python}
-Come descritto prima, in questa versione viene inizializzato uno heap in modo analogo a Nearest Insertion, ma con una differenza: la chiave associata ad ogni nodo non è più la distanza minima con il tour ma il costo di inserimento (se inserito nel modo migliore possibile). In questo caso il costo di inserimento è semplice da ottenere in quanto nel tour sono presenti solo 2 nodi: dati gli unici due nodi presenti nel tour $a$ e $b$, il costo di inserimento del nodo $i$ sarà $c_{ai} + c_{ib} - c_{ab}$. Lo heap userà come valore chiave il costo (prima variabile della tupla) permettendo quindi di estrarre il nodo \lstinline!i! con costo minore. Nello heap vengono memorizzate anche i due nodi tra i quali dovrebbe avvenire l'inserimento (\lstinline!path[0]! e \lstinline!path[1]!) in quanto sono informazioni che saranno utili nella seconda parte dell'implementazione dell'euristica.
-\begin{python}
-def cheapestInsertion(self):
-  ...
-  while len(path) < n:
-    (_, to_ins, _, r) = heapq.heappop(h)
-    best_pos = path.index(r)
-    path.insert(best_pos, to_ins)
-    in_path.add(to_ins)
-    ...
-\end{python}
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State ...
+    \State Sia $h = []$ lo heap
+    \For{$i \not \in path$}
+      \State $cost \gets adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]$
+      \State Aggiungi $(cost, i, path[0], path[1])$ allo heap $h$
+    \EndFor
+    \State $heapify(h)$
+  \end{algorithmic}
+\end{tcolorbox}
+Come descritto prima, in questa versione viene inizializzato uno heap in modo analogo a Nearest Insertion, ma con una differenza: la chiave associata ad ogni nodo non è più la distanza minima con il tour ma il costo di inserimento (se inserito nel modo migliore possibile). In questo caso il costo di inserimento è semplice da ottenere in quanto nel tour sono presenti solo 2 nodi: dati gli unici due nodi presenti nel tour $a$ e $b$, il costo di inserimento del nodo $i$ sarà $c_{ai} + c_{ib} - c_{ab}$. Lo heap userà come valore chiave il costo (prima variabile della tupla) permettendo quindi di estrarre il nodo \lstinline!i! con costo minore. Nello heap vengono memorizzati anche i due nodi tra i quali dovrebbe avvenire l'inserimento (\lstinline!path[0]! e \lstinline!path[1]!) in quanto sono informazioni che saranno utili nella seconda parte dell'implementazione dell'euristica.
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State ...
+    \While{$len(path) < n$}
+      \State $(costo, to\_ins, l, r) = heappop(h)$
+      \State Sia $best\_pos$ il punto di inserzione $(l, r)$
+      \State Inserisci $to\_ins$ nel punto $best\_pos$
+      \State ...
+    \EndWhile
+  \end{algorithmic}
+\end{tcolorbox}
 Questo è il ciclo for (while) principale dell'euristica: viene selezionato dallo heap il nodo \lstinline!to_ins! e il punto di inserzione \lstinline!r!. Abbiamo visto come nello heap sono presenti le seguenti informazioni: \lstinline!(costo, nodo, l, r)! dove \lstinline!cost! indica il costo di inserzione del nodo \lstinline!nodo! se inserito nel modo migliore possibile e \lstinline!l! e \lstinline!r! sono i due nodi (presenti nel tour) tra i quali è necessario effettuare l'inserzione.
-\begin{python}
-def cheapestInsertion(self):
-  ...
-  while len(path) < n:
-    ...
-    for i, (cost, node, nodeLeft, nodeRight) in enumerate(h):
-      # costo di inserimento di node tra
-      # (path[(best_pos - 1) % len(path)], to_ins)
-      left_cost = adj[path[(best_pos - 1) % len(path)]][node] + \
-                  adj[node][to_ins] - \
-                  adj[path[(best_pos - 1) % len(path)]][to_ins]
-      # costo di inserimento di node tra 
-      # (to_ins, path[(best_pos + 1) % len(path)])
-      right_cost = adj[to_ins][node] + \
-                   adj[node][path[(best_pos + 1) % (len(path))]] - \
-                   adj[to_ins][path[(best_pos + 1) % (len(path))]]
-
-      # se ho inserito to_ins proprio tra nodeLeft e nodeRight:
-      # ricalcolo completamente il costo migliore
-      if node not in in_path and nodeLeft == path[(best_pos - 1) % \
-        len(path)] and nodeRight == path[(best_pos+1) % len(path)]:
-        best_cost = np.inf
-        posL, posR = -1, -1
-        for i2 in range(len(path)):
-          next_i = (i2 + 1) % len(path)
-          insertion_cost = adj[path[i2]][node] + \
-                           adj[node][path[next_i]] - \
-                           adj[path[i2]][path[next_i]]
-          if best_cost > insertion_cost:
-            best_cost, posL, posR = insertion_cost, i2, next_i
-        h[i] = (best_cost, node, path[posL], path[posR])
-        (cost, node, nodeLeft, nodeRight) = h[i]
-      # path[best_pos - 1] -- node -- to_ins
-      # se il nuovo arco a sinistra
-      # permette un inserimento migliore di cost, quindi:
-      if node not in in_path and left_cost < cost:
-        new_cost = left_cost
-        h[i] = (new_cost, node, \
-                path[(best_pos - 1) % len(path)], to_ins)
-        (cost, node, nodeLeft, nodeRight) = h[i]
-
-      # to_ins -- node -- path[best_pos + 1] 
-      # se il nuovo arco a destra
-      # permette un inserimento migliore di cost, quindi:
-      if node not in in_path and right_cost < cost:
-        new_cost = right_cost
-        h[i] = (new_cost, node, to_ins, \
-                path[(best_pos + 1) % (len(path))])
-    heapq.heapify(h)
-  self.tour = path
-  self.calculateCost()
-\end{python}
-Dalla riga 19 in poi avviene l'aggiornamento dello heap (in modo analogo a quanto visto con \nameref{ssec:NI}): dato che l'inserimento del nuovo nodo nel tour ha generato una modifica del tour (e quindi la cancellazione di un arco e l'inserimento di nuovi due archi) è necessario verificare che i valori presenti nello heap siano ancora rappresentativi del nuovo tour e, in caso contrario, aggiornare lo heap. Per ogni elemento nello heap, dati i valori \lstinline!node! (nodo da inserire), \lstinline!nodeLeft! e \lstinline!nodeRight! (nodi tra i quali andava inserito \lstinline!node!), i casi da considerare sono:
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State ...
+    \While{$len(path) < n$}
+      \State \dots
+      \For{$h_i \in h$}
+        \State $(cost, node, nodeLeft, nodeRight) \gets h_i$
+        \State $left \gets path[(best\_pos - 1) \mod len(path)]$
+        \State $right \gets path[(best\_pos + 1) \mod len(path)]$
+        \State $left\_cost \gets adj[left][node] + adj[node][to\_ins] - adj[left][to\_ins]$
+        \State $right\_cost \gets adj[to\_ins][node] + adj[node][right] - adj[to\_ins][right]$
+        \If{$node \not \in path \land nodeLeft = left \land nodeRight = right$}
+          \State $best\_cost \gets +\infty$
+          \State $posL \gets -1; posR \gets -1$
+          \For{$i2 \in \{0, 1, ..., len(path) - 1\}$}
+            \State $new \gets path[i2]$
+            \State $next \gets path[(i2 + 1) \mod len(path)]$
+            \State $ins\_cost \gets adj[new][node] + adj[node][next] - adj[new][next]$
+            \If{$best\_cost > insertion\_cost$}
+              \State $best\_cost, posL, posR \gets insertion\_cost, i2, next\_i$
+            \EndIf
+          \EndFor
+          \State $h_i \gets (best\_cost, node, path[posL], path[posR])$
+        \EndIf
+        \If{$node \not \in in\_path and left\_cost < cost$}
+          \State $new\_cost \gets left\_cost$
+          \State $h_i \gets (new\_cost, node, left, to\_ins)$
+        \EndIf
+        \If{$node \not \in path \land right\_cost < cosst$}
+          \State $new\_cost \gets right\_cost$
+          \State $h_i \gets (new\_cost, node, to\_ins, right)$
+        \EndIf
+      \EndFor
+      \State heapify(h)
+    \EndWhile
+    \State Calcola il costo del path trovato
+  \end{algorithmic}
+\end{tcolorbox}
+Dalla riga 4 in poi avviene l'aggiornamento dello heap (in modo analogo a quanto visto con \nameref{ssec:NI}): dato che l'inserimento del nuovo nodo nel tour ha generato una modifica del tour (e quindi la cancellazione di un arco e l'inserimento di nuovi due archi) è necessario verificare che i valori presenti nello heap siano ancora rappresentativi del nuovo tour e, in caso contrario, aggiornare lo heap. Per ogni elemento $h_i$ nello heap $h$, dati i valori \lstinline!node! (nodo da inserire), \lstinline!nodeLeft! e \lstinline!nodeRight! (nodi tra i quali andava inserito \lstinline!node!), i casi da considerare sono:
 \begin{legal}
-  \item Nel caso in cui \lstinline!nodeLeft! e \lstinline!nodeRight! corrispondono esattamente ai due nodi tra i quali è stato inserito il nodo \lstinline!to_ins! (nella prima parte del ciclo principale dell'algoritmo), allora è necessario ricalcolare per il nodo \lstinline!node! il costo e il punto di inserimento migliore, in quanto il vecchio arco è stato cancellato. (Riga 17-31).
-  \item In ogni altro caso il vecchio arco (tra \lstinline!nodeLeft! e \lstinline!nodeRight!) è rimasto intatto. A questo punto è necessario semplicemente verificare che i due nuovi archi generati dopo l'inserimento (quindi gli archi \lstinline!path[best_pos - 1]! - \lstinline!node! e \lstinline!node! - \lstinline!path[best_pos + 1]!) possano essere un caso di inserimento con costo minore rispetto a quello presente nello heap (riga 32-47).
+  \item (Riga 10) Nel caso in cui \lstinline!nodeLeft! e \lstinline!nodeRight! corrispondono esattamente ai due nodi tra i quali è stato inserito il nodo \lstinline!to_ins! (nella prima parte del ciclo principale dell'algoritmo), allora è necessario ricalcolare per il nodo \lstinline!node! il costo e il punto di inserimento migliore, in quanto il vecchio arco è stato cancellato. (Riga 10-22).
+  \item In ogni altro caso il vecchio arco (tra \lstinline!nodeLeft! e \lstinline!nodeRight!) è rimasto intatto. A questo punto è necessario semplicemente verificare che i due nuovi archi generati dopo l'inserimento (quindi gli archi \lstinline!path[best_pos - 1]! - \lstinline!node! e \lstinline!node! - \lstinline!path[best_pos + 1]!) possano essere un caso di inserimento con costo minore rispetto a quello presente nello heap (riga 22-30).
 \end{legal}
 Inoltre è importante notare come l'accesso agli elementi del tour avviene \lstinline!% len(tour)! in quanto il tour è una lista circolare.
-Successivamente (come per le altre euristiche), è necessario ripristinare la struttura dello heap con il metodo \lstinline!heapq.heapify(h)! e alla fine memorizzare il path finale nell'attributo \lstinline!self.tour! e calcolare il costo della soluzione trovata. \newline
-Questa seconda versione di cheapestInsertion ha complessità temporale $O(n^3)$ come per la prima versione, però con una differenza importante: il terzo ciclo interno (riga 23) viene eseguito solo se è vera la condizione precedente (riga 19), quindi il ricalcolo del punto di inserzione ottimo per il nodo avviene solo se necessario (quando si perde il punto di inserzione ottimo precedente) mentre nella prima versione di questa euristica si ricalcola il punto di inserzione ottimo per ogni nodo ad ogni iterazione. Vedremo nel prossimo capitolo come le prestazioni (tempi) di questa seconda implementazione è sempre migliore della prima. \newline
+Successivamente (come per le altre euristiche), è necessario ripristinare la struttura dello heap tramite \lstinline!heapify(h)! e alla fine calcolare il costo della soluzione trovata. \newline
+Questa seconda versione di cheapestInsertion ha complessità temporale $O(n^3)$ come per la prima versione, però con una differenza importante: il terzo ciclo interno (riga 13) viene eseguito solo se è vera la condizione precedente (riga 10), quindi il ricalcolo del punto di inserzione ottimo per il nodo avviene solo se necessario (quando si perde il punto di inserzione ottimo precedente) mentre nella prima versione di questa euristica si ricalcola il punto di inserzione ottimo per ogni nodo ad ogni iterazione. Vedremo nel prossimo capitolo come le prestazioni (tempi) di questa seconda implementazione è sempre migliore della prima.
+\subsection{Cheapest Insertion Versione 2 Approssimata}
 Una successiva possibile ottimizzazione può derivare dalla seguente osservazione: una volta che il punto di inserzione ottimo si perde perché è stato già inserito un nodo proprio in quel punto, può essere ragionevole pensare che il nuovo punto di inserimento ottimo sia vicino a quello appena perso. Per verificare (o smentire) questa ipotesi si può molto semplicemente contare il numero di volte che il nuovo punto di inserzione ottimo è "vicino" al precedente punto di inserzione e con "vicino" si può intendere ad esempio che sia uno dei due nuovi archi creati dall'inserzione precedente. Quindi dal punto di vista dell'implementazione:
-\begin{python}
-def cheapestInsertion(self):
-  ...
-  conteggio = 0
-  tot = 0
-  while len(path) < n:
-    ...
-\end{python}
-È possibile inizializzare due variabili conteggio e tot prima del ciclo principale dell'euristica.
-
-\begin{python}
-def cheapestInsertion(self):
-  ...
-  while len(path) < n:
-    ...
-    for i, (cost, node, nodeLeft, nodeRight) in enumerate(h):
-      ...
-      if node not in in_path and \
-         nodeLeft == path[(best_pos - 1) % len(path)] and \
-         nodeRight == path[(best_pos + 1) % len(path)]:
-        ...
-        for i2 in range(len(path)):
-          next_i = (i2 + 1) % len(path)
-          insertion_cost = adj[path[i2]][node] + \
-                           adj[node][path[next_i]] - \
-                           adj[path[i2]][path[next_i]]
-          if best_cost > insertion_cost:
-            best_cost, posL, posR = insertion_cost, i2, next_i
-        h[i] = (best_cost, node, path[posL], path[posR])
-        (cost, node, nodeLeft, nodeRight) = h[i]
-        if abs(posR - best_pos) <= 2:
-          conteggio += 1
-        tot += 1
-  ...
-  print(f"{self.name} -> {conteggio / tot}")
-\end{python}
-Le aggiunte sono:
-\begin{legal}
-  \item Riga 20: si verifica che la nuova posizione \lstinline!posR! sia "vicina" alla posizione di inserzione precedente, ovvero riga \lstinline!best_pos!, nel nostro caso che sia nell'intorno del punto \lstinline!best_pos! con raggio 2.
-  \item Riga 24: si stampa a schermo la percentuale trovata.
-\end{legal}
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State $conteggio \gets 0$
+    \State $tot \gets 0$
+    \State ...
+    \While{$len(path) < n$}
+      \State \dots
+      \For{$h_i \in h$}
+        \State ...
+        \If{$node \not \in path \land nodeLeft = left \land nodeRight = right$}
+          \State $best\_cost \gets +\infty$
+          \State $posL \gets -1; posR \gets -1$
+          \For{$i2 \in \{0, 1, ..., len(path) - 1\}$}
+            \State $new \gets path[i2]$
+            \State $next \gets path[(i2 + 1) \mod len(path)]$
+            \State $ins\_cost \gets adj[new][node] + adj[node][next] - adj[new][next]$
+            \If{$best\_cost > insertion\_cost$}
+              \State $best\_cost, posL, posR \gets insertion\_cost, i2, next\_i$
+            \EndIf
+          \EndFor
+          \State $h_i \gets (best\_cost, node, path[posL], path[posR])$
+          \If{$|posR - best\_pos| \leqq 2$}
+            \State $conteggio \gets conteggio + 1$
+          \EndIf
+            \State $tot \gets tot + 1$
+          \EndIf
+          \State ...
+        \EndFor
+        \State ...
+      \EndWhile
+      \State ...
+  \end{algorithmic}
+\end{tcolorbox}
+Possiamo notare le seguenti modifiche alla versione 2 presentata nella sezione precedente: aggiungiamo (alla riga 1 e 2) due variabili \lstinline!tot! e \lstinline!conteggio! che permetteranno di contare quante volte nuovo valore trovato si trovi "nelle vicinanze" del punto di inserzione del nodo precedente. Per questo motivo alla riga 20 e 21 è presente la condizione descritta prima: in questo caso stiamo considerando un punto di inserzione "vicino" al punto di inserzione del nodo precedente se dista al massimo 2 posizioni all'interno del path. Possiamo quindi ottenere una percentuale tramite $conteggio/tot$ e i risultati sono:
 I risultati trovati sono (scegliendo alcune istanze dalla libreria TSP-LIB):
 \begin{myverbatim}
 berlin52 -> 0.9963
@@ -910,72 +898,76 @@ rat575 -> 0.9990
 vm1084 -> 0.9992
 u1817 -> 0.9980
 \end{myverbatim}
-Quindi è possibile affermare (con una probabilità molto alta) che l'arco con costo di inserzione minimo si trova nelle vicinanze del precedente arco con costo di inserzione minimo. Dopo questa osservazione è possibile applicare questa semplice modifica all'implementazione:
-\begin{python}
-def cheapestInsertion(self, k):
-  ...
-  while len(path) < n:
-    ...
-    for i, (cost, node, nodeLeft, nodeRight) in enumerate(h):
-      ...
-      if node not in in_path and \
-         nodeLeft == path[(best_pos - 1) % len(path)] and \
-         nodeRight == path[(best_pos + 1) % len(path)]:
-        best_cost = np.inf
-        posL, posR = -1, -1
-        #for i2 in range(len(path)):
-        #  next_i = (i2 + 1) % len(path)
-        for f in range(best_pos - k, best_pos + k):
-          i2 = f % len(path)
-          next_i = (i2 + 1) % len(path)
-          insertion_cost = adj[path[i2]][node] + \
-                           adj[node][path[next_i]] - \
-                           adj[path[i2]][path[next_i]]
-          if best_cost > insertion_cost:
-            best_cost, posL, posR = insertion_cost, i2, next_i
-        h[i] = (best_cost, node, path[posL], path[posR])
-        (cost, node, nodeLeft, nodeRight) = h[i]
-        ...
-\end{python}
-La modifica (riga 14, alla riga 12 è presente la versione precedente) consiste nel ridurre lo spazio di ricerca da tutto il path al solo intorno (di raggio k) attorno al punto \lstinline!best_pos!, k è un parametro (riga 1) che può assumere valore 2, 3 o anche 4 ad esempio. Questa modifica rappresenta una ottimizzazione rilevante soprattutto nel caso di istanze molto grandi (con migliaia o decine di migliaia di città): in quel caso al posto di iterare su tutto il path, si itera solo per le 3-4 città attorno al punto di inserzione ottimo precedente, tuttavia è importante sottolineare che la complessità di questa implementazione è $O(n^2)$ ma non garantisce la scelta del punto ottimo di inserzione: infatti è sempre presente una probabilità $\leq 1$ nella quale il punto di inserzione ottimo per un determinato nodo sia fuori dallo spazio di ricerca. Per questo motivo questa versione "approssimata" di Cheapest Insertion opera in modo molto simile alla versione 2 (in termini di qualità delle soluzioni) ma non allo stesso modo.
+Quindi è possibile affermare (con una probabilità molto alta, superiore al 99\%) che l'arco con costo di inserzione minimo si trova nelle vicinanze del precedente arco con costo di inserzione minimo. Dopo questa osservazione è possibile applicare questa semplice modifica all'implementazione:
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2 Approssimata, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State ...
+    \While{$len(path) < n$}
+      \State \dots
+      \For{$h_i \in h$}
+        \State ...
+        \If{$node \not \in path \land nodeLeft = left \land nodeRight = right$}
+          \State $best\_cost \gets +\infty$
+          \State $posL \gets -1; posR \gets -1$
+          \For{$i2 \in \{best\_pos - k, best\_pos - k + 1, ..., best\_pos + k\}$}
+            \State $new \gets path[i2]$
+            \State $next \gets path[(i2 + 1) \mod len(path)]$
+            \State $ins\_cost \gets adj[new][node] + adj[node][next] - adj[new][next]$
+            \If{$best\_cost > insertion\_cost$}
+              \State $best\_cost, posL, posR \gets insertion\_cost, i2, next\_i$
+            \EndIf
+          \EndFor
+          \State $h_i \gets (best\_cost, node, path[posL], path[posR])$
+        \EndIf
+        \State ...
+      \EndFor
+      \State ...
+    \EndWhile
+    \State ...
+  \end{algorithmic}
+\end{tcolorbox}
+La modifica (riga 9) consiste nel ridurre lo spazio di ricerca da tutto il path al solo intorno (di raggio k) attorno al punto \lstinline!best_pos!, k è un parametro del metodo che può assumere valore 2, 3 o anche 4 ad esempio. Questa modifica rappresenta una ottimizzazione rilevante soprattutto nel caso di istanze molto grandi (con migliaia o decine di migliaia di città): in quel caso al posto di iterare su tutto il path, si itera solo per le 3-4 città attorno al punto di inserzione ottimo precedente, tuttavia è importante sottolineare che la complessità di questa implementazione è $O(n^2)$ ma non garantisce la scelta del punto ottimo di inserzione: infatti è sempre presente una probabilità $\leq 1$ nella quale il punto di inserzione ottimo per un determinato nodo sia fuori dallo spazio di ricerca. Per questo motivo questa versione "approssimata" di Cheapest Insertion opera in modo molto simile alla versione 2 (in termini di qualità delle soluzioni) ma non allo stesso modo.
 
 \subsection{Cheapest Insertion: versione 3}
 In questa ultima versione di Cheapest Insertion si riesce (finalmente) a ridurre la complessità computazionale rispetto alle due versioni precedenti. Nella versione 2 abbiamo visto una implementazione con un heap che tiene traccia per ogni nodo del punto di inserzione ottimo, inoltre abbiamo visto come questa informazione non sia sufficiente nel caso in cui il punto di inserzione ottimo si perda dopo l'inserimento di un altro nodo. L'idea per questa ultima implementazione quindi sarebbe quella di tenere traccia per ogni nodo anche di altre posizioni di inserzione sub-ottime che possono subentrare nel caso appunto la posizione ottima si perda. Per implementare questa idea quindi è necessario avere più heap (uno associato ad ogni nodo fuori dallo heap) ed è necessario avere una struttura dati che consenta di associare, ad ogni arco presente nel tour, tutti i record che fanno riferimento a quell'arco in modo da poterli eliminare nel caso in cui, appunto, l'arco scompare dal path. Per fare questo ho deciso di utilizzare un dizionario che associa coppie di interi (archi) a liste di record. Vediamo l'implementazione:
-\begin{python}
-def cheapestInsertionOttimizzato(self, m):
-  n = self.numCity
-  adj = np.array(self.adj)
-  path = [0, 0]
-
-  minDist = np.inf
-  for i in range(n):
-    for j in range(0, i):
-      if adj[i][j] < minDist:
-        path[0], path[1] = i, j
-        minDist = adj[i][j]
-  in_path = {path[0], path[1]}
-\end{python}
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State $n \gets$ numero di città
+    \State $adj \gets$ matrice di adiacenza dell'istanza
+    \State $path \gets [0, 0]$
+    
+    \State $minDist \gets +\infty$
+    \For{$i \in \{0, 1, ..., n - 1\}$}
+      \For{$j \in \{0, 1, ..., i\}$}
+        \If{$adj[i][j] < minDist$}
+          \State $path[0] \gets i$
+          \State $path[1] \gets j$
+          \State $minDist \gets adj[i][j]$
+        \EndIf
+      \EndFor
+    \EndFor
+    \State ...
+  \end{algorithmic}
+\end{tcolorbox}
 Come per le euristiche precedenti, inizialmente si seleziona la coppia di città più vicine per inizializzare il tour. Il parametro \lstinline!m! aggiunto (riga 1) verrà descritto nelle prossime pagine.
-\begin{python}
-def cheapestInsertionOttimizzato(self, m):
-  ...
-  # heap principale
-  h = []
-  # dizionario che associa ogni arco (i, j) nel tour
-  # alla lista dei record che puntano all'arco (i, j)
-  d = dict()
-  d[(path[0], path[1])] = []
-  d[(path[1], path[0])] = []
-  for i in set(range(n)) - in_path:
-    cost = adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]
-    h_i = [cost, i, path[0], path[1]]
-    h_i2 = [cost, i, path[1], path[0]]
-    h.append([h_i, h_i2])
-    d[(path[0], path[1])].append(h_i)
-    d[(path[1], path[0])].append(h_i2)
-  heapq.heapify(h)
-\end{python}
-Successivamente si inizializzano le due strutture dati principali dell'euristica: lo heap principale (che andrà a contenere i vari heap dei nodi fuori dal path) e il dizionario descritto precedentemente che viene inizializzato con la coppia di città città più vicine. Dopodiché per ogni nodo fuori dal path, si inizializza lo heap specifico di ogni nodo (riga 12-13) che contiene inizialmente gli unici due inserimenti possibili: tra l'arco \lstinline!path[0]! - \lstinline!path[1]! oppure tra l'arco \lstinline!path[1]! - \lstinline!path[0]!, inoltre si aggiungono i nuovi record alla lista degli archi \lstinline!path[0]! - \lstinline!path[1]! e \lstinline!path[1]! - \lstinline!path[0]! del dizionario. Alla fine, si procede con la costruzione dello heap tramite istruzione \lstinline!heapq.heapify(h)!. Importante specificare che in questa fase non è necessaria l'istruzione \lstinline!heapq.heapify(h_i)! per ogni piccolo heap dei nodi fuori dal tour, in quanto per ora sono solo presenti due record con lo stesso costo.
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State ..
+    \State Sia $h$ lo heap principale
+    \State sia $d$ il dizionario che associa $(i, j)$ a liste di record che puntano a $(i, j)$
+    \State Si inizializzano $d[(path[0], path[1])]$ e $d[(path[1], path[0])]$ con due liste vuote
+    \For{$i \not \in path$}
+      \State $cost \gets adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]$
+      \State $h\_i \gets [cost, i, path[0], path[1]]$
+      \State $h\_i2 \gets [cost, i, path[1], path[0]]$
+      \State Aggiungi $[h\_i, h\_i2]$ allo heap $h$
+      \State Aggiungi $h\_i$ a $d[(path[0], path[1])]$
+      \State Aggiungi $h\_i2$ a $d[(path[1], path[0])]$
+    \EndFor
+    \State heapify(h)
+  \end{algorithmic}
+\end{tcolorbox}
+Successivamente si inizializzano le due strutture dati principali dell'euristica: lo heap principale (che andrà a contenere i vari heap dei nodi fuori dal path) e il dizionario descritto precedentemente che viene inizializzato con la coppia di città città più vicine. Dopodiché per ogni nodo fuori dal path, si inizializza lo heap specifico di ogni nodo (riga 7-8) che contiene inizialmente gli unici due inserimenti possibili: tra l'arco \lstinline!path[0]! - \lstinline!path[1]! oppure tra l'arco \lstinline!path[1]! - \lstinline!path[0]!, inoltre si aggiungono i nuovi record alla lista degli archi \lstinline!path[0]! - \lstinline!path[1]! e \lstinline!path[1]! - \lstinline!path[0]! del dizionario. Alla fine, si procede con la costruzione dello heap tramite istruzione \lstinline!heapify(h)!. Importante specificare che in questa fase non è necessaria l'istruzione \lstinline!heapify(h_i)! per ogni piccolo heap dei nodi fuori dal tour, in quanto per ora sono solo presenti due record con lo stesso costo.
 \begin{python}
 def cheapestInsertionOttimizzato(self, m):
   ...
