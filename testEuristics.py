@@ -36,6 +36,11 @@ name_m = []
 #CI = []
 #FaI = []
 #FuI = []
+
+cOn3 = []
+c = []
+cO = []
+cA = []
 for l in TSP_LIB[:50]:
     print(time.ctime(time.time()))
     t = TSP(l, ignoraOpt=True)
@@ -69,27 +74,27 @@ for l in TSP_LIB[:50]:
     #FaI.append(testEuristic("farthestInsertion", t.farthestInsertion))
     #FuI.append(testEuristic("furthestInsertion", t.furthestInsertion))
 
-    #cOn3.append(testEuristic("furthestInsertionOn3", t.furthestInsertionOn3))
-    #c.append(testEuristic("furthestInsertion", t.furthestInsertion))
-    #cO.append(testEuristicO("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato, dF[l]))
-    #cA.append(testEuristic("furthestInsertionApprossimato", t.furthestInsertionApprossimato))
+    cOn3.append(testEuristic("cheapestInsertionOn3", t.cheapestInsertionOn3))
+    c.append(testEuristic("cheapestInsertion", t.cheapestInsertion))
+    cO.append(testEuristicO("cheapestInsertionOttimizzato", t.cheapestInsertionOttimizzato, dC2[l]))
+    cA.append(testEuristic("cheapestInsertionApprossimato", t.cheapestInsertionApprossimato))
 
 
     #testEuristic("furthestInsertionOn3", t.furthestInsertionOn3)
     #testEuristic("furthestInsertion", t.furthestInsertion)
     #testEuristicO("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato, 4)
 
-    r = []
-    last_m = 1
-    for m in range(8, 0, -1):
-        r.append(testEuristicO("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato, m))
-        if len(r) >= 2 and r[-1] != r[-2]:
-            last_m = m + 1
-            break
-    print(t.name, "->", last_m)
-    dF2[t.name] = last_m
+    #r = []
+    #last_m = 1
+    #for m in range(8, 0, -1):
+    #    r.append(testEuristicO("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato, m))
+    #    if len(r) >= 2 and r[-1] != r[-2]:
+    #        last_m = m + 1
+    #        break
+    #print(t.name, "->", last_m)
+    #dF2[t.name] = last_m
     #testEuristic("cheapestInsertion", t.cheapestInsertion)
-    name_m.append((l, last_m))
+    #name_m.append((l, last_m))
 #print(name_m)
 
 print(dF2)

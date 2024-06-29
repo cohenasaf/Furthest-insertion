@@ -378,16 +378,13 @@ class TSP:
         d[(path[1], path[0])] = []
         for i in set(range(n)) - in_path:
             cost = adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]
-            h_i = [-cost, i, path[0], path[1]]
+            h_i = [cost, i, path[0], path[1]]
             h_i2 = [cost, i, path[1], path[0]]
             h.append([h_i, h_i2])
             d[(path[0], path[1])].append(h_i)
             d[(path[1], path[0])].append(h_i2)
         heapq.heapify(h)
-        
-        # riporto i costi ad un valore positivo
-        for hp in h:
-            hp[0][0] *= -1
+
 
         while len(path) < n:
             # prelevo dallo heap principale lo heap con costo migliore
@@ -463,7 +460,7 @@ class TSP:
         # Inizializza le distanze minime e le città più vicine per ogni città non nel percorso
         h = []
         for i in set(range(n)) - in_path:
-            h.append((min(distances[path[0], i], distances[path[1], i]), i))
+            h.append((-min(distances[path[0], i], distances[path[1], i]), i))
         heapq.heapify(h)
 
         while len(path) < n:
