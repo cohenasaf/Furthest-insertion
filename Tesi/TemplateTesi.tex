@@ -843,7 +843,7 @@ Questo è il ciclo for (while) principale dell'euristica: viene selezionato dall
           \State $new\_cost \gets left\_cost$
           \State $h_i \gets (new\_cost, node, left, to\_ins)$
         \EndIf
-        \If{$node \not \in path \land right\_cost < cosst$}
+        \If{$node \not \in path \land right\_cost < cost$}
           \State $new\_cost \gets right\_cost$
           \State $h_i \gets (new\_cost, node, to\_ins, right)$
         \EndIf
@@ -861,6 +861,7 @@ Dalla riga 4 in poi avviene l'aggiornamento dello heap (in modo analogo a quanto
 Inoltre è importante notare come l'accesso agli elementi del tour avviene \lstinline!% len(tour)! in quanto il tour è una lista circolare.
 Successivamente (come per le altre euristiche), è necessario ripristinare la struttura dello heap tramite \lstinline!heapify(h)! e alla fine calcolare il costo della soluzione trovata. \newline
 Questa seconda versione di cheapestInsertion ha complessità temporale $O(n^3)$ come per la prima versione, però con una differenza importante: il terzo ciclo interno (riga 13) viene eseguito solo se è vera la condizione precedente (riga 10), quindi il ricalcolo del punto di inserzione ottimo per il nodo avviene solo se necessario (quando si perde il punto di inserzione ottimo precedente) mentre nella prima versione di questa euristica si ricalcola il punto di inserzione ottimo per ogni nodo ad ogni iterazione. Vedremo nel prossimo capitolo come le prestazioni (tempi) di questa seconda implementazione è sempre migliore della prima.
+
 \subsection{Cheapest Insertion Versione 2 Approssimata}
 Una successiva possibile ottimizzazione può derivare dalla seguente osservazione: una volta che il punto di inserzione ottimo si perde perché è stato già inserito un nodo proprio in quel punto, può essere ragionevole pensare che il nuovo punto di inserimento ottimo sia vicino a quello appena perso. Per verificare (o smentire) questa ipotesi si può molto semplicemente contare il numero di volte che il nuovo punto di inserzione ottimo è "vicino" al precedente punto di inserzione e con "vicino" si può intendere ad esempio che sia uno dei due nuovi archi creati dall'inserzione precedente. Quindi dal punto di vista dell'implementazione:
 \begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
@@ -1152,219 +1153,202 @@ Come descritto nei capitoli precedenti, la complessità temporale di questo algo
 
 \subsection{Furthest Insertion: versione 2}
 Come nel caso della versione 2 di Cheapest Insertion, si può evitare di ricalcolare totalmente il punto di inserzione ottimo con uno heap, con una differenza importante: lo heap deve operare come un max-heap e non come un min-heap, ovvero deve selezionare ad ogni iterazione il nodo con costo di inserzione massimo (se inserito nel modo migliore possibile). Vediamo l'implementazione:
-\begin{python}
-def furthestInsertion(self):
-  n = self.numCity
-  adj = np.array(self.adj)
-  path = [0, 0]
-
-  maxDist = 0
-  for i in range(n):
-      for j in range(0, i):
-          if adj[i][j] > maxDist:
-              path[0], path[1] = i, j
-              maxDist = adj[i][j]
-  in_path = {path[0], path[1]}
-\end{python}
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State $n \gets$ numero di città
+    \State $adj \gets$ matrice di adiacenza dell'istanza
+    \State $path \gets [0, 0]$
+    
+    \State $maxDis \gets 0$
+    \For{$i \in \{0, 1, ..., n - 1\}$}
+      \For{$j \in \{0, 1, ..., i\}$}
+        \If{$adj[i][j] > maxDist$}
+          \State $path[0] \gets i$
+          \State $path[1] \gets j$
+          \State $maxDist \gets adj[i][j]$
+        \EndIf
+      \EndFor
+    \EndFor
+    \State ...
+  \end{algorithmic}
+\end{tcolorbox}
 Inizialmente l'euristica determina la coppia di nodi più lontani (come visto prima).
-\begin{python}
-def furthestInsertion(self):
-  ...
-  h = []
-  for i in set(range(n)) - in_path:
-    cost = adj[path[0]][i] + \
-           adj[i][path[1]] - \
-           adj[path[0]][path[1]]
-    h.append((-cost, i, path[0], path[1]))
-  heapq.heapify(h)
-\end{python}
-Esattamente come nel caso di farthest insertion, viene inizializzato lo heap con costi negativi in modo da poter successivamente selezionare le città con costo di inserimento più alto, per questo motivo il costo nella tupla aggiunta allo heap presenta un segno negativo (riga 8).
-\begin{python}
-def furthestInsertion(self):
-  ...
-  while len(path) < n:
-    # Ottieni dallo heap la citta' 
-    # che minimizza il minor costo di inserimento
-    (_, to_ins, _, r) = heapq.heappop(h)
-    best_pos = path.index(r)
-    path.insert(best_pos, to_ins)
-    in_path.add(to_ins)
-    ...
-\end{python}
-Questo è il ciclo principale dell'euristica: viene selezionato dallo heap il nodo \lstinline!to_ins! ovvero il nodo che massimizza il costo di inserimento se inserito nel modo migliore possibile; successivamente (dalla riga 6 alla 17) viene effettuata una ricerca del punto di inserimento nel path, in modo da minimizzare il costo di inserimento (in modo identico a cheapest insertion).
-\begin{python}
-def furthestInsertion(self):
-  ...
-  while len(path) < n:
-    ...
-    for i, (cost, node, nodeLeft, nodeRight) in enumerate(h):
-      cost *= -1
-      # costo di inserimento di node tra 
-      # (path[(best_pos - 1) % len(path)], to_ins)
-      left_cost = adj[path[(best_pos - 1) % len(path)]][node] + \
-                  adj[node][to_ins] - \
-                  adj[path[(best_pos - 1) % len(path)]][to_ins]
-      # costo di inserimento di node tra 
-      # (to_ins, path[(best_pos + 1) % len(path)])
-      right_cost = adj[to_ins][node] + \
-                   adj[node][path[(best_pos + 1) % (len(path))]] - \
-                   adj[to_ins][path[(best_pos + 1) % (len(path))]]
-
-      # se ho inserito to_ins proprio tra nodeLeft e nodeRight:
-      # ricalcolo completamente il costo migliore
-      if node not in in_path and \
-         nodeLeft == path[(best_pos - 1) % len(path)] and \
-         nodeRight == path[(best_pos + 1) % len(path)]:
-        best_cost = np.inf
-        posL, posR = -1, -1
-        for i2 in range(len(path)):
-          next_i = (i2 + 1) % len(path)
-          insertion_cost = adj[path[i2]][node] + \
-                           adj[node][path[next_i]] - \
-                           adj[path[i2]][path[next_i]]
-          if best_cost > insertion_cost:
-            best_cost, posL, posR = insertion_cost, i2, next_i
-        h[i] = (-best_cost, node, path[posL], path[posR])
-        (cost, node, nodeLeft, nodeRight) = h[i]
-        cost *= -1
-      # path[best_pos - 1] -- node -- to_ins
-      # se il nuovo arco a sinistra 
-      # permette un inserimento migliore di cost, quindi:
-                  
-      if node not in in_path and left_cost < cost:
-        new_cost = left_cost
-        h[i] = (-new_cost, node, \
-                path[(best_pos - 1) % len(path)], to_ins)
-        (cost, node, nodeLeft, nodeRight) = h[i]
-        cost *= -1
-
-      # to_ins -- node -- path[best_pos + 1] 
-      # se il nuovo arco a destra
-      # permette un inserimento migliore di cost, quindi:
-      if node not in in_path and right_cost < cost:
-        new_cost = right_cost
-        h[i] = (-new_cost, node, to_ins, \
-                path[(best_pos + 1) % (len(path))])
-    heapq.heapify(h)
-  self.tour = path
-  self.calculateCost()
-
-self.tour = path
-self.calculateCost()
-\end{python}
-Dalla riga 5 in poi avviene l'aggiornamento dello heap in modo del tutto analogo a cheapest insertion. Le modifiche per tenere aggiornato lo heap con costi negativi sono le seguenti:
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State ...
+    \State Sia $h = []$ lo heap
+    \For{$i \not \in path$}
+      \State $cost \gets adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]$
+      \State Aggiungi $(-cost, i, path[0], path[1])$ allo heap $h$
+    \EndFor
+    \State $heapify(h)$
+  \end{algorithmic}
+\end{tcolorbox}
+Esattamente come nel caso di farthest insertion, viene inizializzato lo heap con costi negativi in modo da poter successivamente selezionare le città con costo di inserimento più alto, per questo motivo il costo nella tupla aggiunta allo heap presenta un segno negativo (riga 5).
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State ...
+    \While{$len(path) < n$}
+      \State $(costo, to\_ins, l, r) = heappop(h)$
+      \State Sia $best\_pos$ il punto di inserzione $(l, r)$
+      \State Inserisci $to\_ins$ nel punto $best\_pos$
+      \State ...
+    \EndWhile
+  \end{algorithmic}
+\end{tcolorbox}
+Questo è il ciclo principale dell'euristica: viene selezionato dallo heap il nodo \lstinline!to_ins! ovvero il nodo che massimizza il costo di inserimento se inserito nel modo migliore possibile.
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State ...
+    \While{$len(path) < n$}
+      \State \dots
+      \For{$h_i \in h$}
+        \State $(cost, node, nodeLeft, nodeRight) \gets h_i$
+        \State $cost = cost * -1$
+        \State $left \gets path[(best\_pos - 1) \mod len(path)]$
+        \State $right \gets path[(best\_pos + 1) \mod len(path)]$
+        \State $left\_cost \gets adj[left][node] + adj[node][to\_ins] - adj[left][to\_ins]$
+        \State $right\_cost \gets adj[to\_ins][node] + adj[node][right] - adj[to\_ins][right]$
+        \If{$node \not \in path \land nodeLeft = left \land nodeRight = right$}
+          \State $best\_cost \gets +\infty$
+          \State $posL \gets -1; posR \gets -1$
+          \For{$i2 \in \{0, 1, ..., len(path) - 1\}$}
+            \State $new \gets path[i2]$
+            \State $next \gets path[(i2 + 1) \mod len(path)]$
+            \State $ins\_cost \gets adj[new][node] + adj[node][next] - adj[new][next]$
+            \If{$best\_cost > insertion\_cost$}
+              \State $best\_cost, posL, posR \gets insertion\_cost, i2, next\_i$
+            \EndIf
+          \EndFor
+          \State $h_i \gets (-best\_cost, node, path[posL], path[posR])$
+        \EndIf
+        \If{$node \not \in in\_path and left\_cost < cost$}
+          \State $new\_cost \gets left\_cost$
+          \State $h_i \gets (-new\_cost, node, left, to\_ins)$
+        \EndIf
+        \If{$node \not \in path \land right\_cost < cost$}
+          \State $new\_cost \gets right\_cost$
+          \State $h_i \gets (-new\_cost, node, to\_ins, right)$
+        \EndIf
+      \EndFor
+      \State heapify(h)
+    \EndWhile
+    \State Calcola il costo del path trovato
+  \end{algorithmic}
+\end{tcolorbox}
+Dalla riga 4 in poi avviene l'aggiornamento dello heap in modo del tutto analogo a cheapest insertion. Le modifiche per tenere aggiornato lo heap con costi negativi sono le seguenti:
 \begin{legal}
   \item Riga 6: è presente l'istruzione \lstinline!cost *= -1! in modo da riportare il costo negativo presente nello heap in un costo positivo, questo sarà utile successivamente (righe 23 e 30) dove il nuovo costo deve essere confrontato con il vecchio costo.
-  \item Righe 31, 40 e 50: i nuovi costi devono essere inserito con costo negativo nello heap, per questo motivo le variabili \lstinline!new_cost! vengono moltiplicate per -1.
-  \item Inoltre alla riga 43 è presente l'istruzione \lstinline!cost *= -1! per riportare la variabile \lstinline!cost! ad un valore positivo in quanto alla riga 48, la condizione \lstinline!right_cost < cost! necessita che la variabile cost sia positiva (altrimenti la condizione risulterebbe sempre falsa).
+  \item Righe 22, 26 e 30: i nuovi costi devono essere inserito con costo negativo nello heap, per questo motivo le variabili \lstinline!new_cost! vengono moltiplicate per -1.
 \end{legal}
 La restante parte dell'implementazione è del tutto identica a cheapest insertion. \newline
 Le considerazioni riguardo la complessità temporale di questa implementazioni sono le stesse della versione 2 di Cheapest Insertion, ovvero mantiene un tempo pari a $O(n^3)$ nel peggiore dei casi, ma nella pratica ha delle prestazioni (tempi) sempre migliori rispetto alla prima versione in quanto il terzo ciclo interno viene eseguito solo in certi casi e quindi non sempre.
 
 \subsection{Furthest Insertion: versione 3}
 Esattamente come nel caso della versione 3 di Cheapest Insertion, è possibile implementare una versione di Furthest Insertion con complessità minore di $O(n^3)$. Questa implementazione quindi condivide molto del codice visto nella versione 3 di Cheapest Insertion, con la differenza che lo heap principale deve operare come un max-heap (in modo da selezionare il nodo con costo maggiore) mentre gli heap interni devono continuare ad operare come dei min-heap in modo da selezionare, per un determinato nodo fuori dal tour, il punto di inserimento che minimizza il costo di inserzione. Vediamo l'implementazione:
-\begin{python}
-def furthestInsertionOttimizzato(self, m):
-  n = self.numCity
-  adj = np.array(self.adj)
-  path = [0, 0]
-
-  maxDist = -1
-  for i in range(n):
-    for j in range(0, i):
-      if adj[i][j] > maxDist:
-        path[0], path[1] = i, j
-        maxDist = adj[i][j]
-  in_path = {path[0], path[1]}
-\end{python}
-Si inizializza il path con la coppia di città più lontane.
-\begin{python}
-def furthestInsertionOttimizzato(self, m):
-  ...
-  h = []
-  d = dict()
-  d[(path[0], path[1])] = []
-  d[(path[1], path[0])] = []
-  for i in set(range(n)) - in_path:
-    cost = adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]
-    h_i = [-cost, i, path[0], path[1]]
-    h_i2 = [-cost, i, path[1], path[0]]
-    h.append([h_i, h_i2])
-    d[(path[0], path[1])].append(h_i)
-    d[(path[1], path[0])].append(h_i2)
-  heapq.heapify(h)
-\end{python}
-Successivamente si inizializzano le due strutture dati fondamentali dell'implementazione, ovvero lo heap principale e il dizionario (come per la versione 3 di Cheapest Insertion) con la differenza che i costi vengono inizializzati come negativi in modo da consentire allo heap principale \lstinline!h! di selezionare il record con costo di inserimento maggiore.
-\begin{python}
-def furthestInsertionOttimizzato(self, m):
-  ...
-  while len(path) < n:
-    h_i = heapq.heappop(h)
-    (_, to_ins, l, r) = heapq.heappop(h_i)
-
-    best_pos = path.index(r)
-    path.insert(best_pos, to_ins)
-    in_path.add(to_ins)
-\end{python}
-Dalla terza riga inizia il ciclo principale dell'euristica: dallo heap \lstinline!h! si preleva il record con costo di inserimento massimo, dopodiché si procede con l'inserimento del nodo nel path.
-\begin{python}
-def furthestInsertionOttimizzato(self, m):
-  ...
-  while len(path) < n:
-    ...
-    for p in d[(l, r)]:
-      p[0] = np.inf
-    for hp in h:
-      node = hp[0][1]
-
-      # sx: path[(best_pos - 1) % len(path)]
-      # node
-      # dx: path[best_pos]
-      sx = path[(best_pos - 1) % len(path)]
-      dx = path[best_pos]
-      newCost = adj[sx][node] + \
-                adj[node][dx] - \
-                adj[sx][dx]
-      l = [newCost, node, sx, dx]
-      if (sx, dx) not in d:
-        d[(sx, dx)] = [l]
-      else:
-        d[(sx, dx)].append(l)
-      hp.append(l)
-
-      # sx: path[best_pos]
-      # node
-      # dx: path[(best_pos + 1) % len(path)]
-      sx = path[best_pos]
-      dx = path[(best_pos + 1) % len(path)]
-      newCost = adj[sx][node] + \
-                adj[node][dx] - \
-                adj[sx][dx]
-      l = [newCost, node, sx, dx]
-      if (sx, dx) not in d:
-        d[(sx, dx)] = [l]
-      else:
-        d[(sx, dx)].append(l)
-      hp.append(l)
-
-      i = 0
-      for p in hp:
-        if p[0] < 0:
-          p[0] *= -1
-      while i < len(hp):
-        if hp[i][0] == np.inf:
-          del hp[i]
-        else:
-          i += 1
-      heapq.heapify(hp)
-      hp[0][0] *= -1
-    for i in range(len(h)):
-      h[i] = h[i][:m]
-    heapq.heapify(h)
-  self.tour = path
-  self.calculateCost()
-\end{python}
-La restante parte dell'implementazione è analoga alla versione 3 di Cheapest Insertion, con la differenza che è necessario mantenere il max-heap in modo che selezioni il record con costo di inserimento massimo (e non minimo) e gli heap interni come min-heap. Per ottenere questa proprietà, alla riga 41-43 si procede convertendo tutti  i valori negativi ad un valore positivo: in questo modo l'istruzione \lstinline!heapq.heapify(hp)! procederà a porre in prima posizione il nodo con costo minimo (e non massimo). Successivamente per fare in modo che lo heap principale \lstinline!h! operi come max-heap, è necessario che almeno tutti i costi nel primo record di ogni heap interno abbiano valore negativo, per questo motivo alla riga 50 il costo positivo viene convertito in un costo negativo. In questo modo, alla riga 53, l'istruzione \lstinline!heapq.heapify(h)! potrà operare correttamente generando un max-heap. \newline
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State $n \gets$ numero di città
+    \State $adj \gets$ matrice di adiacenza dell'istanza
+    \State $path \gets [0, 0]$
+    
+    \State $maxDist \gets -1$
+    \For{$i \in \{0, 1, ..., n - 1\}$}
+      \For{$j \in \{0, 1, ..., i\}$}
+        \If{$adj[i][j] > maxDist$}
+          \State $path[0] \gets i$
+          \State $path[1] \gets j$
+          \State $maxDist \gets adj[i][j]$
+        \EndIf
+      \EndFor
+    \EndFor
+    \State ...
+  \end{algorithmic}
+\end{tcolorbox}
+Come per le altre versioni, si inizializza il path con la coppia delle città più lontane.
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State ..
+    \State Sia $h$ lo heap principale
+    \State sia $d$ il dizionario che associa $(i, j)$ a liste di record che puntano a $(i, j)$
+    \State Si inizializzano $d[(path[0], path[1])]$ e $d[(path[1], path[0])]$ con due liste vuote
+    \For{$i \not \in path$}
+      \State $cost \gets adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]$
+      \State $h\_i \gets [-cost, i, path[0], path[1]]$
+      \State $h\_i2 \gets [cost, i, path[1], path[0]]$
+      \State Aggiungi $[h\_i, h\_i2]$ allo heap $h$
+      \State Aggiungi $h\_i$ a $d[(path[0], path[1])]$
+      \State Aggiungi $h\_i2$ a $d[(path[1], path[0])]$
+    \EndFor
+    \State heapify(h)
+    \For{$hp \in h$}
+      \State $hp[0][0] = hp[0][0] * -1$
+    \EndFor
+  \end{algorithmic}
+\end{tcolorbox}
+Successivamente si inizializzano le due strutture dati fondamentali dell'implementazione, ovvero lo heap principale e il dizionario (come per la versione 3 di Cheapest Insertion) con la differenza che il costo del primo record viene inizializzato come negativo in modo da consentire allo heap principale \lstinline!h! di selezionare il record con costo di inserimento maggiore (basta che risulti negativo solo il primo record). Successivamente riporto i costi negativi (avevamo modificato solo i primi di ogni heap piccolo) ad un costo positivo.
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State \dots
+    \While{$len(path) < n$}
+      \State $h\_i \gets heappop(h)$
+      \State $(costo, to\_ins, l, r) \gets heappop(h\_i)$
+      \State Sia $best\_pos$ posizione $(l, r)$
+      \State Inserisci $to\_ins$ nella posizione $best\_pos$
+      \For{$p \in d[(l, r)]$}
+        \State Cancella $p$ assegnando costo $+\infty$
+      \EndFor
+      \State ...
+    \EndWhile
+  \end{algorithmic}
+\end{tcolorbox}
+Dalla terza riga inizia il ciclo principale dell'euristica: dallo heap \lstinline!h! si preleva il record con costo di inserimento massimo, dopodiché si procede con l'inserimento del nodo nel path, inoltre si procede alla cancellazione dei record che puntano all'arco appena eliminato assegnando costo infinito.
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State ...
+    \While{$len(path) < n$}
+      \State \dots
+      \For{$hp \in h$}
+        \State $node \gets hp[0][1]$
+        \State $sx \gets path[(best\_pos - 1) \mod len(path)]$
+        \Comment{Inserimento a sinistra}
+        \State $dx \gets path[best\_pos]$
+        \State $newCost \gets adj[sx][node] + adj[node][dx] - adj[sx][dx]$
+        \State $l \gets [newCost, node, sx, dx]$
+        \If{$(sx, dx) \not \in d$}:
+        \State d[(sx, dx)] = [l]
+        \Else{}:
+        \State Aggiungi $l$ a $d[(sx, dx)]$
+        \EndIf
+        \State Aggiungi $l$ ad $hp$
+        
+        \State $sx \gets path[best\_pos]$
+        \Comment{Inserimento a destra}
+        \State $dx \gets path[(best\_pos + 1) \mod len(path)]$
+        \State $newCost \gets adj[sx][node] + adj[node][dx] - adj[sx][dx]$
+        \State $l \gets [newCost, node, sx, dx]$
+        \If{$(sx, dx) \not \in d$}:
+            \State d[(sx, dx)] = [l]
+        \Else{}:
+            \State Aggiungi $l$ a $d[(sx, dx)]$
+        \EndIf
+        \State Aggiungi $l$ ad $hp$
+        \State heapify(hp)
+        \Comment{$O(log(m))$}
+        \State $hp[0][0] \gets hp[0][0] * -1$
+      \EndFor
+      \For{$hp \in h$}
+        \State limita la dimensione di $hp$ al valore $m$
+      \EndFor
+      \State heapify(h)
+      \For{$hp \in h$}
+        \State $hp[0][0] \gets hp[0][0] * -1$
+      \EndFor
+    \EndWhile
+    \State Determina il costo del path trovato
+  \end{algorithmic}
+\end{tcolorbox}
+La restante parte dell'implementazione è analoga alla versione 3 di Cheapest Insertion, con la differenza che è necessario mantenere il max-heap in modo che selezioni il record con costo di inserimento massimo (e non minimo) e gli heap interni come min-heap. Per ottenere questa proprietà, si fa in modo che quando operi l'istruzione \lstinline!heapify! per gli heap piccoli tutti i costi siano positivi, mentre quando opera \lstinline!heapify! sullo heap principale, tutti i costi in prima posizione di ogni heap piccolo (solo i primi) devono risultare negativi, per questo motivo alla riga 34 si procede riportando i valori negativi ad un valore positivo (solo per i costi nel primo record di ogni heap piccolo). \newline
 Da un punto di vista della complessità temporale, l'algoritmo ha un tempo (nel caso peggiore) pari a $O(n^2 * log(m))$ come già visto per la descrizione di Cheapest Insertion versione 3.
 
 \subsection{Random Insertion}
@@ -1374,15 +1358,15 @@ In questo capitolo verrà discussa l'implementazione di \nameref{ssec:RI}. Vedre
   \item Inserirlo nel modo migliore possibile
 \end{legal}
 Di seguito il metodo:
-\begin{python}
-def randomInsertion(self):
-  n = self.numCity
-  distances = np.array(self.adj)
-  path = [0]
-  in_path = {0}
-  notInPath = [x for x in range(1, n)]
-  random.shuffle(notInPath)
-\end{python}
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Random Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State Sia $n$ il numero di città presenti nell'istanza
+    \State Sia $distances$ la matrice di adiacenza
+    \State Si inizializza $path \gets [0]$
+    \State Sia $notInPath$ una lista contenente gli altri nodi, quindi $[1, 2, ..., n - 1]$
+    \State Applica il metodo \lstinline!shuffle! per mescolare casualmente $notInPath$
+  \end{algorithmic}
+\end{tcolorbox}
 L'euristica inizialmente sceglie come primo nodo arbitrario il nodo 0. Successivamente 
 per quanto riguarda il primo punto discusso prima (scegliere casualmente il nodo da inserire), sono presenti due strade possibili:
 \begin{legal}
