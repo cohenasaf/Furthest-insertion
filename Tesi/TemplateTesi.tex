@@ -636,7 +636,7 @@ def verifyTour(self):
 Il metodo \lstinline!verifyTour()! consente di testare la correttezza del tour trovato dall'euristica, è quindi pensato per essere verificato (tramite un \lstinline!assert!). Il metodo si limita a verificare che ogni nodo deve essere presente nel tour esattamente una volta sola, il metodo chiaramente non garantisce la presenza di altri errori nell'implementazione dell'euristica. Questo metodo quindi consente di verificare se il tour trovato è almeno una soluzione valida per il problema.
 
 \section{Implementazione delle euristiche}
-In questo capitolo, descriveremo l'implementazione delle euristiche per la risoluzione del TSP, in particolare verranno implementate le euristiche costruttive presentate nei capitoli 2.1 e 2.2.
+In questo capitolo, descriveremo l'implementazione delle euristiche per la risoluzione del TSP, in particolare verranno implementate le euristiche costruttive presentate nei capitoli 2.1 e 2.2. Tutte le implementazioni nel linguaggio Python possono essere trovate nel seguente repository \href{https://github.com/cohenasaf/Furthest-insertion}{GitHub}, le implementazioni nelle prossime sezioni saranno discusse in forma di pseudocodice.
 
 \subsection{Nearest Neighbor}
 L'euristica \nameref{sec:NN} (NN) costruisce un tour partendo da una città arbitraria, dopodiché sceglie di aggiungere al tour la città più vicina all'ultima città aggiunta al tour. Di seguito viene riportato il codice per questa euristica.
@@ -659,8 +659,8 @@ L'euristica \nameref{sec:NN} (NN) costruisce un tour partendo da una città arbi
     \State calcola il costo del tour trovato
   \end{algorithmic}
 \end{tcolorbox}
-Per semplicità ho scelto la prima città (nodo 0) come città iniziale arbitraria, dopodiché finché sono presenti nodi da aggiungere al tour, si cerca un nodo j non ancora visitato che sia il più vicino possibile all'ultimo nodo aggiunto al tour (\lstinline!self.tour[-1]!), inoltre sono presenti gli insiemi (set) visited e nonVisited che tengono traccia dei nodi presenti o non presenti nel tour. Alla fine viene calcolato il costo del tour trovato tramite il metodo \lstinline!self.calculateCost()!. \newline
-Dal punto di vista della complessità temporale, l'implementazione ha tempo pari a $O(n^2)$ in quanto tutte le istruzioni hanno un tempo pari a $O(1)$ tranne le istruzioni nelle righe 12, 13 e 14 per le quali il tempo medio corrisponde a $O(1)$ ma nel caso peggiore il tempo corrisponde a $O(n)$\footnote{https://wiki.python.org/moin/TimeComplexity}. Di conseguenza, considerando i due cicli for alla riga 5 e 8, la complessità generale è pari a $O(n^2)$.
+Per semplicità ho scelto la prima città (nodo 0) come città iniziale arbitraria, dopodiché finché sono presenti nodi da aggiungere al tour, si cerca un nodo j non ancora visitato che sia il più vicino possibile all'ultimo nodo aggiunto al tour, inoltre alla fine viene calcolato il costo del tour trovato. \newline
+Dal punto di vista della complessità temporale, l'implementazione ha tempo pari a $O(n^2)$ in quanto tutte le istruzioni hanno un tempo pari a $O(1)$. Di conseguenza, considerando i due cicli alla riga 3 e 5, la complessità generale è pari a $O(n^2)$.
 \subsection{Nearest Insertion}
 Nelle prossime sezioni verrà discussa l'implementazione delle euristiche costruttive basate su inserzione, a partire da \nameref{ssec:NI}.
 \begin{python}
