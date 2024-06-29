@@ -1579,11 +1579,11 @@ In questa sezione analizziamo il comportamento delle euristiche nel caso di ista
 \includegraphics[width=1\textwidth]{../Grafici/18.png} \
 Da questi risultati possiamo notare come Nearest Neighbor risulti essere in molti contesti l'euristica peggiore, mentre la nuova euristica Furthest Insertion mostra ottimi risultati ma non in tutte le istanza. Possiamo, come visto per le prime 50 istanze da TSP-LIB, valutare la media delle qualità:
 \begin{myverbatim}
-Nearest Neighbor ->              1.2425762400217724
-Nearest Insertion ->             1.2203917034573346
-Cheapest Insertion versione 3 -> 1.178938730708508
-Farthest Insertion ->            1.2690944168437173
-Furthest Insertion versione 2 -> 1.194741813758622
+Nearest Neighbor ->              1.2426
+Nearest Insertion ->             1.2204
+Cheapest Insertion versione 3 -> 1.1789
+Farthest Insertion ->            1.2691
+Furthest Insertion versione 2 -> 1.1947
 \end{myverbatim}
 Possiamo quindi concludere che in media per le istanze grandi Furthest Insertion sia al secondo posto in termini di qualità delle soluzioni trovate rispetto a Cheapest Insertion.
 \subsection{Tempi necessari per la risoluzione di istanze grandi}
@@ -1626,6 +1626,41 @@ In questo grafico andiamo a considerare la varianza delle qualità delle soluzio
 Per quanto riguarda invece la media dei tempi, possiamo notare che la prima versione richiede sempre più tempo rispetto alla seconda in modo coerente con il fatto che la prima versione effettua una ricerca nel tour alla ricerca della posizione ottima, quindi con complessità pari a $O(n)$ mentre la seconda sceglie casualmente un punto di inserzione, la scelta casuale con istruzione \lstinline!random.randint(a, b)! ha complessità temporale pari a $O(1)$\footnote{https://docs.python.org/3/library/random.html}.\newline
 \includegraphics[width=1\textwidth]{../Grafici/17.png} \
 Invece per la varianza dei tempi, notiamo anche qui che la seconda versione ha una varianza bassissima per i tempi in quanto le istruzioni necessarie dipendono poco dalla dimensione dell'input (\lstinline!random.randint(0, n)! ha complessità $O(1)$ indipendentemente dalla dimensione di n). \newline
+
+\section{Analisi risultati su Istanze Casuali}
+Per completezza, sono stati ottenuti i risultati su istanze casuali, ovvero istanze dove la matrice di adiacenza è ottenuta casualmente. Inoltre si verifica che valga la disuguaglianza triangolare, ovvero che il costo $c_{ij}$ per una coppia generica di nodi $i$ e $j$, non può mai essere strettamente maggiore della somma di $c_{ik}$ e $c_{kj}$ (detto in altre parole, un lato di un triangolo non degenere non può mai essere maggiore della somma degli altri due lati), in tal caso si assegna un nuovo costo che verifichi la disuguaglianza. Di seguito il codice che genera la matrice casuale:
+\begin{python}
+def generate_adjacency_matrix(self, n, max_weight=100):
+  self.numCity = n
+  D = np.random.randint(1, max_weight + 1, size=(n, n)) 
+  D = (D + D.T) / 2
+  np.fill_diagonal(D, 0)
+  for k in range(n):
+    for i in range(n):
+      for j in range(n):
+        if D[i][j] > D[i][k] + D[k][j]:
+          D[i][j] = D[i][k] + D[k][j]
+  self.adj = D
+\end{python}
+\subsection{Analisi media delle qualità e dei tempi}
+Sono stati ottenuti i risultati su 20 iterazioni (sempre con istanze casuali) di istanze con dimensione da 50 incluso a 100 escluso. Per ogni dimensione delle città (50, 51...) è stata ottenuta la media e la varianza delle 20 iterazioni per quanto riguarda la qualità trovata e i tempi. \newline
+\includegraphics[width=1\textwidth]{../Grafici/20.png} \
+Possiamo notare come (sorprendentemente) Nearest Neighbor per istanze casuali trovi, in media, soluzioni di qualità migliore rispetto alle euristiche basate su inserzione. Invece possiamo notare qualità medie simili tra le euristiche basate su inserzione. Le qualità mostrate nel grafico sono "assolute" in quanto (essendo istanze generate casualmente) non è nota la soluzione ottima. \newline
+\includegraphics[width=1\textwidth]{../Grafici/21.png} \
+I risultati sui tempi medi sono coerenti con i risultati visti nelle sezioni precedenti, ovvero Nearest Neighbor risulta essere l'euristica più veloce, al secondo posto sono presenti Farthest e Nearest Insertion e poi Furthest e Cheapest Insertion.
+\subsection{Analisi varianza delle qualità e dei tempi}
+\includegraphics[width=1\textwidth]{../Grafici/22.png} \
+Adesso invece valutiamo la varianza dei risultati ottenuti, possiamo notare una varianza molto alta: questo può essere spiegabile in quanto due istanze generate casualmente (anche con la stessa dimensione) risultano essere molto diverse e quindi si ottengono soluzioni di qualità molto diverse. La media delle varianze risulta essere:
+\begin{myverbatim}
+Nearest Neighbor ->              2748.17
+Nearest Insertion ->             3147.33
+Cheapest Insertion versione 3 -> 2779.54
+Farthest Insertion ->            3145.07
+Furthest Insertion versione 2 -> 3429.82
+\end{myverbatim}
+Quindi Nearest Neighbor ottiene una varianza media più bassa mentre Furthest una varianza media più alta. \newline
+\includegraphics[width=1\textwidth]{../Grafici/23.png} \
+Per quanto riguarda invece la varianza dei tempi, possiamo notare, nell'ordine dalla varianza più bassa a quella più alta, i seguenti risultati: Nearest Neighbor, 
 
 \chapter{Conclusioni}
 Si può concludere la tesi riassumendo i risultati trovati:

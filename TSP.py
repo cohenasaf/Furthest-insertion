@@ -7,7 +7,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class TSP:
-    def __init__(self, name, ignoraOpt=False):
+    def __init__(self, name, ignoraOpt=False, random=False, n=1):
+        if random:
+            self.generate_adjacency_matrix(n)
+            return
         self.ignoraOpt = ignoraOpt
         self.openTSP(name)
         self.name = name
@@ -79,6 +82,19 @@ class TSP:
                     continue
                 else:
                     self.adj[i][j] = self.adj[j][i] = random.randint(0, 1000)
+
+    def generate_adjacency_matrix(self, n, max_weight=100):
+        self.numCity = n
+        D = np.random.randint(1, max_weight + 1, size=(n, n)) 
+        D = (D + D.T) / 2
+        np.fill_diagonal(D, 0)
+        for k in range(n):
+            for i in range(n):
+                for j in range(n):
+                    if D[i][j] > D[i][k] + D[k][j]:
+                        D[i][j] = D[i][k] + D[k][j]
+        self.adj = D
+
         
     def calculateCost(self):
         self.cost = 0
@@ -362,12 +378,16 @@ class TSP:
         d[(path[1], path[0])] = []
         for i in set(range(n)) - in_path:
             cost = adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]
-            h_i = [cost, i, path[0], path[1]]
+            h_i = [-cost, i, path[0], path[1]]
             h_i2 = [cost, i, path[1], path[0]]
             h.append([h_i, h_i2])
             d[(path[0], path[1])].append(h_i)
             d[(path[1], path[0])].append(h_i2)
         heapq.heapify(h)
+        
+        # riporto i costi ad un valore positivo
+        for hp in h:
+            hp[0][0] *= -1
 
         while len(path) < n:
             # prelevo dallo heap principale lo heap con costo migliore
@@ -416,14 +436,7 @@ class TSP:
                     d[(sx, dx)].append(l)
                 hp.append(l)
 
-                # elimino dallo heap del nodo
-                # i riferimenti con costo infinito
-                i = 0
-                while i < len(hp):
-                    if hp[i][0] == np.inf:
-                        del hp[i]
-                    else:
-                        i += 1           
+                # O(n^2 * log(n))         
                 heapq.heapify(hp)
             # la dimensione massima dello heap del nodo è m
             # quindi rimuovo tutti i nodi da (m+1) in poi
@@ -665,11 +678,15 @@ class TSP:
         for i in set(range(n)) - in_path:
             cost = adj[path[0]][i] + adj[i][path[1]] - adj[path[0]][path[1]]
             h_i = [-cost, i, path[0], path[1]]
-            h_i2 = [-cost, i, path[1], path[0]]
+            h_i2 = [cost, i, path[1], path[0]]
             h.append([h_i, h_i2])
             d[(path[0], path[1])].append(h_i)
             d[(path[1], path[0])].append(h_i2)
         heapq.heapify(h)
+
+        # riporto i costi ad un valore positivo
+        for hp in h:
+            hp[0][0] *= -1
 
         while len(path) < n:
             h_i = heapq.heappop(h)
@@ -713,18 +730,9 @@ class TSP:
                 else:
                     d[(sx, dx)].append(l)
                 hp.append(l)
-
-                i = 0
-                # riporto i costi negati a positivi
-                for p in hp:
-                    if p[0] < 0:
-                        p[0] *= -1
-                while i < len(hp):
-                    if hp[i][0] == np.inf:
-                        del hp[i]
-                    else:
-                        i += 1
-                # ora lo heap mantiene i costi migliori (più bassi)    
+                
+                # ora lo heap mantiene i costi migliori (più bassi)
+                # O(n^2 * log(n))
                 heapq.heapify(hp)
                 # converto solo il costo migliore (più basso) ad
                 # un valore negativo: in questo modo lo heap principale
@@ -735,6 +743,8 @@ class TSP:
             # ottengo la struttura max-heap
             # solo il primo record ha costo negativo
             heapq.heapify(h)
+            for hp in h:
+                hp[0][0] *= -1
         self.tour = path
         self.calculateCost()
 

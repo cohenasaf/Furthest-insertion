@@ -1,6 +1,8 @@
 from TSP import TSP
+import numpy as np
 import sys
 import time
+
 
 def testEuristicO(name, euristic, m):
     st = time.time()
@@ -8,9 +10,9 @@ def testEuristicO(name, euristic, m):
     et = time.time()
     t.calculateCost()
     assert t.verifyTour()
-    print("{:18s} costo: {:.2f}, qualità: {:.4f}, tempo: {:.6f} secondi".format(name, t.cost, t.cost / t.optimalSolution, et - st))
+    #print("{:18s} costo: {:.2f}, qualità: {:.4f}, tempo: {:.6f} secondi".format("random", t.cost, t.cost, et - st))
     #return (t.cost / t.optimalSolution, et - st)
-    return t.cost / t.optimalSolution
+    return (t.cost, et - st)
 
 def testEuristic(name, euristic):
     st = time.time()
@@ -18,8 +20,8 @@ def testEuristic(name, euristic):
     et = time.time()
     t.calculateCost()
     assert t.verifyTour()
-    print("{:18s} costo: {:.2f}, qualità: {:.4f}, tempo: {:.6f} secondi".format(name, t.cost, t.cost / t.optimalSolution, et - st))
-    return (t.cost / t.optimalSolution, et - st)
+    #print("{:18s} costo: {:.2f}, qualità: {:.4f}, tempo: {:.6f} secondi".format("random", t.cost, t.cost, et - st))
+    return (t.cost, et - st)
     #return t.cost / t.optimalSolution
 
 
@@ -31,19 +33,17 @@ dF2 = {'eil51': 3, 'berlin52': 3, 'st70': 3, 'pr76': 3, 'eil76': 6, 'rat99': 3, 
 TSP_LIB = ['eil51', 'berlin52', 'st70', 'pr76', 'eil76', 'rat99', 'kroD100', 'kroA100', 'kroC100', 'kroB100', 'kroE100', 'rd100', 'eil101', 'lin105', 'pr107', 'pr124', 'bier127', 'ch130', 'pr136', 'pr144', 'kroA150', 'ch150', 'kroB150', 'pr152', 'u159', 'rat195', 'd198', 'kroA200', 'kroB200', 'ts225', 'tsp225', 'pr226', 'gil262', 'pr264', 'a280', 'pr299', 'lin318', 'linhp318', 'rd400', 'fl417', 'pr439', 'pcb442', 'd493', 'u574', 'rat575', 'p654', 'd657', 'u724', 'rat783', 'pr1002', 'u1060', 'vm1084', 'pcb1173', 'd1291', 'rl1304', 'rl1323', 'nrw1379', 'fl1400', 'u1432', 'fl1577', 'd1655', 'vm1748', 'u1817', 'rl1889', 'd2103', 'u2152', 'u2319', 'pr2392', 'pcb3038', 'fl3795', 'fnl4461', 'rl5915', 'rl5934', 'rl11849', 'usa13509', 'brd14051', 'd15112', 'd18512']
 name_m = []
 
-#NN = []
-#NI = []
-#CI = []
-#FaI = []
-#FuI = []
-for l in TSP_LIB[:50]:
-    print(time.ctime(time.time()))
-    t = TSP(l, ignoraOpt=True)
+NN = []
+NI = []
+CI = []
+FaI = []
+FuI = []
+for i in range(50, 100):
     print()
     print("_________________")
-    print(t.name)
+    print(f"random {i}")
 
-    t.calculateOptimalCost()
+    #t.calculateOptimalCost()
 
     #testEuristic("randomInsertion", t.randomInsertion)
     #testEuristic("nearestNeighbor", t.nearestNeighbor)
@@ -63,11 +63,40 @@ for l in TSP_LIB[:50]:
 
     #t.calculateOptimalCost()
 
-    #NN.append(testEuristic("nearestNeighbor", t.nearestNeighbor))
-    #NI.append(testEuristic("nearestInsertion", t.nearestInsertion))
-    #CI.append(testEuristicO("cheapestInsertion", t.cheapestInsertionOttimizzato, 3))
-    #FaI.append(testEuristic("farthestInsertion", t.farthestInsertion))
-    #FuI.append(testEuristic("furthestInsertion", t.furthestInsertion))
+    NN2q = []
+    NN2t = []
+    NI2q = []
+    NI2t = []
+    CI2q = []
+    CI2t = []
+    FaI2q = []
+    FaI2t = []
+    FuI2q = []
+    FuI2t = []
+
+    for j in range(20):
+        t = TSP("", random=True, n=i)
+        (q, tmp) = testEuristic("nearestNeighbor", t.nearestNeighbor)
+        NN2q.append(q)
+        NN2t.append(tmp)
+        (q, tmp) = testEuristic("nearestInsertion", t.nearestInsertion)
+        NI2q.append(q)
+        NI2t.append(tmp)
+        (q, tmp) = testEuristicO("cheapestInsertion", t.cheapestInsertionOttimizzato, 6)
+        CI2q.append(q)
+        CI2t.append(tmp)
+        (q, tmp) = testEuristic("farthestInsertion", t.farthestInsertion)
+        FaI2q.append(q)
+        FaI2t.append(tmp)
+        (q, tmp) = testEuristic("furthestInsertion", t.furthestInsertion)
+        FuI2q.append(q)
+        FuI2t.append(tmp)
+    
+    NN.append((np.var(NN2q), np.var(NN2t)))
+    NI.append((np.var(NI2q), np.var(NI2t)))
+    CI.append((np.var(CI2q), np.var(CI2t)))
+    FaI.append((np.var(FaI2q), np.var(FaI2t)))
+    FuI.append((np.var(FuI2q), np.var(FuI2t)))
 
     #cOn3.append(testEuristic("furthestInsertionOn3", t.furthestInsertionOn3))
     #c.append(testEuristic("furthestInsertion", t.furthestInsertion))
@@ -77,33 +106,31 @@ for l in TSP_LIB[:50]:
 
     #testEuristic("furthestInsertionOn3", t.furthestInsertionOn3)
     #testEuristic("furthestInsertion", t.furthestInsertion)
-    #testEuristicO("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato, 4)
+    #testEuristicO("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato, 5)
 
-    r = []
-    last_m = 1
-    for m in range(8, 0, -1):
-        r.append(testEuristicO("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato, m))
-        if len(r) >= 2 and r[-1] != r[-2]:
-            last_m = m + 1
-            break
-    print(t.name, "->", last_m)
-    dF2[t.name] = last_m
+    #r = []
+    #last_m = 1
+    #for m in range(8, 0, -1):
+    #    r.append(testEuristicO("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato, m))
+    #    if len(r) >= 2 and r[-1] != r[-2]:
+    #        last_m = m + 1
+    #        break
+    #print("random", "->", last_m)
     #testEuristic("cheapestInsertion", t.cheapestInsertion)
-    name_m.append((l, last_m))
-#print(name_m)
+#print("random"_m)
 
-print(dF2)
-#print("QUALITA'")
-#print([x[0] for x in NN])
-#print([x[0] for x in NI])
-#print([x[0] for x in CI])
-#print([x[0] for x in FaI])
-#print([x[0] for x in FuI])
+#print(dF2)
+print("QUALITA'")
+print([x[0] for x in NN])
+print([x[0] for x in NI])
+print([x[0] for x in CI])
+print([x[0] for x in FaI])
+print([x[0] for x in FuI])
 
 
-#print("TEMPI")
-#print([x[1] for x in NN])
-#print([x[1] for x in NI])
-#print([x[1] for x in CI])
-#print([x[1] for x in FaI])
-#print([x[1] for x in FuI])
+print("TEMPI")
+print([x[1] for x in NN])
+print([x[1] for x in NI])
+print([x[1] for x in CI])
+print([x[1] for x in FaI])
+print([x[1] for x in FuI])

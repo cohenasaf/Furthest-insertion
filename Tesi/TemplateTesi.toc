@@ -55,5 +55,8 @@
 \contentsline {subsection}{\numberline {4.5.1}Robustezza della qualità della soluzione delle implementazioni}{60}{subsection.4.5.1}%
 \contentsline {subsection}{\numberline {4.5.2}Robustezza dei tempi delle implementazioni}{62}{subsection.4.5.2}%
 \contentsline {section}{\numberline {4.6}Analisi risultati medi e varianza di Random Insertion}{63}{section.4.6}%
-\contentsline {chapter}{\numberline {5}Conclusioni}{67}{chapter.5}%
-\contentsline {subsection}{\numberline {5.0.1}Possibili sviluppi e estensioni}{68}{subsection.5.0.1}%
+\contentsline {section}{\numberline {4.7}Analisi risultati su Istanze Casuali}{66}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Analisi media delle qualità e dei tempi}{67}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Analisi varianza delle qualità e dei tempi}{68}{subsection.4.7.2}%
+\contentsline {chapter}{\numberline {5}Conclusioni}{69}{chapter.5}%
+\contentsline {subsection}{\numberline {5.0.1}Possibili sviluppi e estensioni}{70}{subsection.5.0.1}%
