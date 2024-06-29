@@ -122,6 +122,12 @@ INPUT /usr/share/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
 INPUT /usr/share/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
 INPUT /usr/share/texmf-dist/tex/latex/base/ifthen.sty
 INPUT /usr/share/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/share/texmf-dist/tex/latex/algorithms/algorithm.sty
+INPUT /usr/share/texmf-dist/tex/latex/algorithms/algorithm.sty
+INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+INPUT /usr/share/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
 INPUT /usr/share/texmf-dist/tex/latex/pythonhighlight/pythonhighlight.sty
 INPUT /usr/share/texmf-dist/tex/latex/pythonhighlight/pythonhighlight.sty
 INPUT /usr/share/texmf-dist/tex/latex/listings/listings.sty
@@ -143,12 +149,6 @@ INPUT /usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg
 INPUT /usr/share/texmf-dist/tex/latex/graphics/mathcolor.ltx
 INPUT /usr/share/texmf-dist/tex/latex/graphics/mathcolor.ltx
 INPUT /usr/share/texmf-dist/tex/latex/graphics/mathcolor.ltx
-INPUT /usr/share/texmf-dist/tex/latex/algorithms/algorithm.sty
-INPUT /usr/share/texmf-dist/tex/latex/algorithms/algorithm.sty
-INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
-INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
-INPUT /usr/share/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
-INPUT /usr/share/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
 INPUT /usr/share/texmf-dist/tex/latex/enumitem/enumitem.sty
 INPUT /usr/share/texmf-dist/tex/latex/enumitem/enumitem.sty
 INPUT /usr/share/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty

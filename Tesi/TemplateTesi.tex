@@ -12,8 +12,9 @@
 \usepackage{tesi}
 \usepackage[utf8]{inputenc}
 \usepackage{algorithmicx}
-\usepackage{pythonhighlight}
 \usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{pythonhighlight}
 \usepackage{algpseudocode}
 \usepackage{enumitem}
 \usepackage{tcolorbox}
@@ -636,25 +637,28 @@ Il metodo \lstinline!verifyTour()! consente di testare la correttezza del tour t
 
 \section{Implementazione delle euristiche}
 In questo capitolo, descriveremo l'implementazione delle euristiche per la risoluzione del TSP, in particolare verranno implementate le euristiche costruttive presentate nei capitoli 2.1 e 2.2.
+
 \subsection{Nearest Neighbor}
 L'euristica \nameref{sec:NN} (NN) costruisce un tour partendo da una città arbitraria, dopodiché sceglie di aggiungere al tour la città più vicina all'ultima città aggiunta al tour. Di seguito viene riportato il codice per questa euristica.
-\begin{python}
-def nearestNeighbor(self):
-  self.tour = [0]
-  visited = set([0])
-  notVisited = set(range(1, self.numCity))
-  while len(self.tour) < self.numCity:
-    cost = np.inf
-    j = -1
-    for j2 in notVisited:
-      if self.adj[self.tour[-1]][j2] < cost:
-        cost = self.adj[self.tour[-1]][j2]
-        j = j2
-    self.tour.append(j)
-    visited.add(j)
-    notVisited.remove(j)
-  self.calculateCost()
-\end{python}
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Neighbor, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State $tour = [0]$
+    \State $n$ = numero di città
+    \While{\texttt{len(tour) != n}}
+        \State cost = $\infty$
+        \State j = -1
+        \For{\texttt{$j_2 \not \in tour$}}
+          \State last = ultima città in tour
+          \If{\texttt{adj[last][$j_2$] < cost}}
+            \State cost = adj[last][$j_2$]
+            \State j = $j_2$
+          \EndIf
+        \EndFor
+        \State aggiungi j in fondo al tour
+    \EndWhile
+    \State calcola il costo del tour trovato
+  \end{algorithmic}
+\end{tcolorbox}
 Per semplicità ho scelto la prima città (nodo 0) come città iniziale arbitraria, dopodiché finché sono presenti nodi da aggiungere al tour, si cerca un nodo j non ancora visitato che sia il più vicino possibile all'ultimo nodo aggiunto al tour (\lstinline!self.tour[-1]!), inoltre sono presenti gli insiemi (set) visited e nonVisited che tengono traccia dei nodi presenti o non presenti nel tour. Alla fine viene calcolato il costo del tour trovato tramite il metodo \lstinline!self.calculateCost()!. \newline
 Dal punto di vista della complessità temporale, l'implementazione ha tempo pari a $O(n^2)$ in quanto tutte le istruzioni hanno un tempo pari a $O(1)$ tranne le istruzioni nelle righe 12, 13 e 14 per le quali il tempo medio corrisponde a $O(1)$ ma nel caso peggiore il tempo corrisponde a $O(n)$\footnote{https://wiki.python.org/moin/TimeComplexity}. Di conseguenza, considerando i due cicli for alla riga 5 e 8, la complessità generale è pari a $O(n^2)$.
 \subsection{Nearest Insertion}
