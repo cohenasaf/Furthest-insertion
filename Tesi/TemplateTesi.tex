@@ -1361,7 +1361,7 @@ Di seguito il metodo:
 \begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Random Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
   \begin{algorithmic}[1]
     \State Sia $n$ il numero di città presenti nell'istanza
-    \State Sia $distances$ la matrice di adiacenza
+    \State Sia $dist$ la matrice di adiacenza
     \State Si inizializza $path \gets [0]$
     \State Sia $notInPath$ una lista contenente gli altri nodi, quindi $[1, 2, ..., n - 1]$
     \State Applica il metodo \lstinline!shuffle! per mescolare casualmente $notInPath$
@@ -1373,66 +1373,67 @@ per quanto riguarda il primo punto discusso prima (scegliere casualmente il nodo
   \item Inizializzare una lista \lstinline![1, 2, ..., n]! tramite il metodo \lstinline!range(1 ,n)! e poi nel ciclo principale dell'euristica selezionare casualmente un nodo dalla lista per poi rimuoverlo tramite il metodo \lstinline!notInPath.remove(i)! (dove i è l'elemento da rimuovere) o tramite istruzione \lstinline!del notInPath[pos]! dove pos è la posizione dell'elemento da rimuovere.
   \item Inizializzare una lista \lstinline![1, 2, ..., n]! tramite il metodo \lstinline!range(1 ,n)!, mescolare la lista tramite metodo \lstinline!random.shuffle(notInPath)! e poi procedere con la selezione del nodo casuale tramite \lstinline!notInPath.pop()!.
 \end{legal}
-Da un punto di vista della complessità temporale, ho scelto la seconda strada in quanto rimuovere un elemento dalla lista (tramite \lstinline!del! oppure \lstinline!remove!) richiede un tempo $O(n)$ (dove n è la lunghezza della lista), mentre il metodo \lstinline!l.pop()! ha complessità temporale $O(1)$\footnote{https://wiki.python.org/moin/TimeComplexity}. Per questo motivo (contando il ciclo principale dell'euristica) il primo metodo richiederebbe in un tempo $O(n^2)$ (n iterazioni per il ciclo principale, O(n) per l'istruzione \lstinline!remove! o \lstinline!del!), mentre il secondo metodo richiederebbe un tempo $O(n)$ (n iterazioni per il ciclo principale e poi solo $O(1)$ per il metodo \lstinline!notInPath.pop()!). Inoltre l'implementazione del metodo \lstinline!random.shuffle()!\footnote{https://hg.python.org/cpython/file/2e8b28dbc395/Lib/random.py alla riga 276} utilizza il l'algoritmo Fisher-Yates shuffle\cite{knuthart}, ovvero un algoritmo che opera in tempo $O(n)$.
-\begin{python}
-def randomInsertion(self):
-  ...
-  while len(path) < n:
-    to_insert = notInPath.pop()
-    best_increase = np.inf
-    best_position = None
-    for i in range(len(path)):
-      next_i = (i + 1) % len(path)
-      increase = distances[path[i], to_insert] + \
-                 distances[to_insert, path[next_i]] - \
-                 distances[path[i], path[next_i]]
-      if increase < best_increase:
-        best_increase = increase
-        best_position = next_i
-
-    path.insert(best_position, to_insert)
-    in_path.add(to_insert)
-
-  self.tour = path
-  self.calculateCost()
-\end{python}
+Da un punto di vista della complessità temporale, ho scelto la seconda strada in quanto rimuovere un elemento dalla lista (tramite \lstinline!del! oppure \lstinline!remove!) richiede un tempo $O(n)$ (dove n è la lunghezza della lista), mentre il metodo \lstinline!l.pop()! ha complessità temporale $O(1)$\footnote{https://wiki.python.org/moin/TimeComplexity}. Per questo motivo (contando il ciclo principale dell'euristica) il primo metodo richiederebbe in un tempo $O(n^2)$ (n iterazioni per il ciclo principale, O(n) per l'istruzione \lstinline!remove! o \lstinline!del!), mentre il secondo metodo richiederebbe un tempo $O(n)$ (n iterazioni per il ciclo principale e poi solo $O(1)$ per il metodo \lstinline!notInPath.pop()!). Inoltre l'implementazione del metodo \lstinline!random.shuffle()!\footnote{https://hg.python.org/cpython/file/2e8b28dbc395/Lib/random.py alla riga 276} utilizza il l'algoritmo Fisher-Yates shuffle\cite{knuthart}, ovvero un algoritmo che opera in tempo $O(n)$. Di conseguenza la restante parte dell'implementazione è:
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Random Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{algorithmic}[1]
+  \State \dots
+  \While{$len(path) < n$}
+    \State $to\_ins \gets notInPath.pop()$
+    \State $best\_increase \gets +\infty$
+    \State $best\_position \gets (-1, -1)$
+    \For{$i \in \{0, 1, ..., len(path) - 1\}$}
+      \State $next\_i \gets (i + 1) \mod len(path)$
+      \State $node \gets path[i]$
+      \State $next \gets path[next\_i]$
+      \State $increase \gets dist[node, to\_ins] + dist[to\_ins, next] - dist[node, next]$
+      \If{$increase < best\_increase$}
+        \State $best\_increase \gets increase$
+        \State $best\_position \gets next\_i$
+      \EndIf
+    \EndFor
+    \State Inserisci $to\_ins$ nella posizione $best\_position$
+  \EndWhile
+  \State Determina il costo del path trovato
+\end{algorithmic}
+\end{tcolorbox}
 Come discusso precedentemente, il ciclo principale dell'algoritmo procede estraendo il nodo casuale (riga 4), successivamente viene effettuata una ricerca della posizione migliore dove inserire il nodo casuale. Voglio sottolineare come questo metodo non sia "completamente casuale", ma solo la parte della selezione del nodo fuori dal tuor è casuale, mentre la parte relativa all'inserimento all'interno del tour opera scegliendo il punto di inserzione che minimizzi il costo di inserimento. \newline
 In conclusione sono presenti le stesse istruzioni viste nelle altre euristiche (calcolo del costo).
 
 \subsection{Random Insertion: versione 2}
 Per completezza, ho implementato anche una versione di random insertion dove non solo la scelta del nodo da inserire nel tour avviene casualmente, ma anche il punto di inserzione viene scelto casualmente, di seguito l'implementazione:
-\begin{python}
-def randomInsertion2(self):
-    notInTour = [x for x in range(self.numCity)]
-    random.shuffle(notInTour)
-    tour = [notInTour.pop()]
-    for i in notInTour:
-      tour.insert(random.randint(0, len(tour) - 1), i)
-    self.tour = tour
-    self.calculateCost()
-\end{python}
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Random Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State Sia $notInTour$ la lista di tutti i nodi $\{0, 1, ..., n - 1\}$
+    \State Applica il metodo $shuffle$ a $notInTour$
+    \State Inizializza il $tour$ con $notIntour.pop()$
+    \For{$i \in notInTour$}
+      \State Inserisci $i$ in un punto casuale nel $tour$
+    \EndFor
+    \State Calcola il costo del path trovato
+  \end{algorithmic}
+  \end{tcolorbox}
 In questa versione dell'algoritmo, la prima parte è identica alla prima versione di random insertion (scelta casuale del nodo tramite una lista \lstinline!notInTour! mescolata casualmente), mentre la seconda (ciclo principale) effettua un inserimento nel tour tramite istruzione \lstinline|tour.insert(pos)| dove la posizione (pos) viene scelta casualmente tramite il metodo \lstinline|random.randint()|.
 
 \subsection{Euristiche con inizializzazione casuale}
 Le euristiche viste nelle sezioni precedenti prevedono come inizializzazione del tour la coppia delle città più vicine per cheapest insertion e nearest insertion mentre prevedono la coppia delle città più lontane per farthest insertion e furthest insertion. Nel successivo capitolo verrà analizzata anche la robustezza delle euristiche implementate rispetto all'inizializzazione, per questo motivo nella classe TSP sono presenti 4 varianti delle euristiche descritte nelle sezioni precedenti dove le due città iniziali vengono scelte casualmente. Le 4 euristiche prendono il nome di NOMEInsertionRandomStart dove al posto di "NOME" è presente il nome dell'euristica (nearest, cheapest ...). Di seguito la descrizione della parte diversa:
-\begin{python}
-def nearestInsertionRandomStart(self):
-  n = self.numCity
-  distances = np.array(self.adj)
-  path = [random.randint(0, n - 1), random.randint(0, n - 1)]
-  while path[0] == path[1]:
-    path = [random.randint(0, n - 1), random.randint(0, n - 1)]
-  in_path = {path[0], path[1]}
-  ...
-\end{python}
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Insertion Random Start, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State Sia $n$ il numero di città presenti nell'istanza
+    \State Sia $dist$ la matrice di adiacenza
+    \State Inizializza $path$ con $[a, b] : a, b \in \{0, 1, ..., n - 1\} \land a \neq b$
+    \State ...
+  \end{algorithmic}
+  \end{tcolorbox}
 In questo caso è stato selezionato nearestInsertionRandomStart a titolo di esempio (nelle altre 4 implementazioni il codice è lo stesso): vengono scelte due città casuali come prime due città nel tour. Successivamente (righe 5-6) è necessario ripetere il processo nel caso in cui le due città scelte corrispondano alla stessa città. Una volta selezionati i primi due nodi casualmente, l'euristica può continuare normalmente come visto prima.
 Lo stesso criterio è stato applicato anche per nearestNeighbor, di seguito solo la prima istruzione dell'implementazione di nearestNeighborRandomStart:
-\begin{python}
-def nearestNeighborRandomStart(self):
-  self.tour = [random.randint(0, self.numCity - 1)]
-  visited = set([self.tour[0]])
-  ...
-\end{python}
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Neighbor Random Start, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+  \begin{algorithmic}[1]
+    \State Sia $n$ il numero di città presenti nell'istanza
+    \State Sia $dist$ la matrice di adiacenza
+    \State Inizializza $path$ con una città casuale $a \in \{0, 1, ..., n - 1\}$
+    \State ...
+  \end{algorithmic}
+  \end{tcolorbox}
 In questa variante (come per le euristiche basate su inserzione) il tour viene inizializzato con una città casuale (da 0 a $n - 1$), inoltre viene aggiunto nodo casuale scelto nella riga precedente al set \lstinline!visited! (mentre nell'implementazione di nearest nearestNeighbor viene aggiunto direttamente 0). La restante parte dell'implementazione è completamente uguale all'implementazione di nearestNeighbor.
 
 \chapter{Analisi dei risultati}
