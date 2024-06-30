@@ -1,0 +1,2 @@
+# Furthest Insertion
+In questo repository è presente il codice relativo all'implementazione e analisi di alcune euristiche basate su inserzione per il problema del Commesso Viaggiatore (TSP). Le istanze sono state ottenute da **[TSP-LIB](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/)*, il progetto si limita ad analizzare istanze con coordinate cartesiane (2 dimensioni).
