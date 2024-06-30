@@ -3,3 +3,5 @@ In questo repository è presente il progetto di tesi (laurea triennale in inform
 - Tesi: tutti i sorgenti latex per la tesi triennale in informatica e il pdf
 - ALL-TSP: tutte le istanze TSP per il progetto (ottenuti da [TSP-LIB](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/))
 - Grafici: tutti i sorgenti Python e i PNG generati per la tesi
+
+Inoltre TSP.py contiene l'implementazione della classe TSP la quale contiene tutte le implementazioni delle euristiche analizzate (metodi)
