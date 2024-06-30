@@ -16,7 +16,7 @@ plt.figure(figsize=(13, 6))
 plt.plot(x, y1, marker='o', color='blue', label='Furthest Insertion versione 1 O(n^3)')
 plt.plot(x, y2, marker='s', color='red', label='Furthest Insertion versione 2 O(n^3)')
 plt.plot(x, y3, marker='^', color='green', label='Furthest Insertion versione 3')
-plt.plot(x, y4, marker='d', color='purple', label='Furthest Insertion versione 2 Approssimata')
+#plt.plot(x, y4, marker='d', color='purple', label='Furthest Insertion versione 2 Approssimata')
 
 plt.xticks(rotation=45)
 plt.xlabel('Prime 50 istanze TSP da TSP-LIB')
@@ -27,7 +27,7 @@ plt.legend()  # Show legend based on labels
 
 plt.grid(True)
 plt.tight_layout()
-plt.savefig("/home/asaf/Desktop/Furthest-insertion/Grafici/6.png")
+plt.savefig("/home/asaf/Desktop/Furthest-insertion/Grafici/6_2.png")
 plt.show()
 
 

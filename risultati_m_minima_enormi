@@ -1,0 +1,289 @@
+[asaf@asaf Furthest-insertion]$ python determinare_m_minima_enormi.py 
+
+_________________
+Sun Jun 30 16:57:49 2024
+u1060
+m = 8 -> cheapestInsertionOttimizzato costo: 270856.57, qualità: 1.2087, tempo: 2.265723 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 270856.57, qualità: 1.2087, tempo: 2.254135 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 270856.57, qualità: 1.2087, tempo: 2.143721 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 270856.57, qualità: 1.2087, tempo: 2.149766 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 270856.57, qualità: 1.2087, tempo: 2.280490 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 270856.57, qualità: 1.2087, tempo: 2.152906 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 270081.05, qualità: 1.2052, tempo: 2.107587 secondi
+Cheapest u1060 -> 3
+
+_________________
+Sun Jun 30 16:58:04 2024
+vm1084
+m = 8 -> cheapestInsertionOttimizzato costo: 277046.26, qualità: 1.1578, tempo: 2.600914 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 277046.26, qualità: 1.1578, tempo: 2.492820 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 277046.26, qualità: 1.1578, tempo: 2.678237 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 277046.26, qualità: 1.1578, tempo: 2.286170 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 277046.26, qualità: 1.1578, tempo: 2.446201 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 277046.26, qualità: 1.1578, tempo: 2.410648 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 276902.97, qualità: 1.1572, tempo: 2.288046 secondi
+Cheapest vm1084 -> 3
+
+_________________
+Sun Jun 30 16:58:22 2024
+pcb1173
+m = 8 -> cheapestInsertionOttimizzato costo: 69025.09, qualità: 1.2133, tempo: 3.063517 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 69025.09, qualità: 1.2133, tempo: 2.854143 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 69025.09, qualità: 1.2133, tempo: 2.870044 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 69025.09, qualità: 1.2133, tempo: 2.536581 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 69025.09, qualità: 1.2133, tempo: 2.821503 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 69025.09, qualità: 1.2133, tempo: 2.859261 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 68962.88, qualità: 1.2122, tempo: 2.766415 secondi
+Cheapest pcb1173 -> 3
+
+_________________
+Sun Jun 30 16:58:42 2024
+d1291
+m = 8 -> cheapestInsertionOttimizzato costo: 58896.76, qualità: 1.1594, tempo: 3.609466 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 58896.76, qualità: 1.1594, tempo: 3.417171 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 58896.76, qualità: 1.1594, tempo: 3.350110 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 58896.76, qualità: 1.1594, tempo: 3.077341 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 58896.76, qualità: 1.1594, tempo: 3.465433 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 58896.76, qualità: 1.1594, tempo: 3.285542 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 58896.76, qualità: 1.1594, tempo: 3.198623 secondi
+m = 1 -> cheapestInsertionOttimizzato costo: 59074.26, qualità: 1.1629, tempo: 3.124807 secondi
+Cheapest d1291 -> 2
+
+_________________
+Sun Jun 30 16:59:09 2024
+rl1304
+m = 8 -> cheapestInsertionOttimizzato costo: 315579.38, qualità: 1.2476, tempo: 3.872026 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 315579.38, qualità: 1.2476, tempo: 3.569950 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 315579.38, qualità: 1.2476, tempo: 3.443099 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 315579.38, qualità: 1.2476, tempo: 3.270933 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 315579.38, qualità: 1.2476, tempo: 3.480780 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 315579.38, qualità: 1.2476, tempo: 3.541206 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 315596.19, qualità: 1.2477, tempo: 3.338929 secondi
+Cheapest rl1304 -> 3
+
+_________________
+Sun Jun 30 16:59:34 2024
+rl1323
+m = 8 -> cheapestInsertionOttimizzato costo: 336512.24, qualità: 1.2454, tempo: 3.880171 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 336512.24, qualità: 1.2454, tempo: 3.735004 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 336512.24, qualità: 1.2454, tempo: 3.645865 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 336512.24, qualità: 1.2454, tempo: 3.480804 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 336512.24, qualità: 1.2454, tempo: 3.661275 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 336512.24, qualità: 1.2454, tempo: 3.587116 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 336627.07, qualità: 1.2458, tempo: 3.463031 secondi
+Cheapest rl1323 -> 3
+
+_________________
+Sun Jun 30 17:00:00 2024
+nrw1379
+m = 8 -> cheapestInsertionOttimizzato costo: 66195.67, qualità: 1.1688, tempo: 4.136132 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 66195.67, qualità: 1.1688, tempo: 4.001738 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 66195.67, qualità: 1.1688, tempo: 3.857318 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 66195.67, qualità: 1.1688, tempo: 3.815769 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 66195.67, qualità: 1.1688, tempo: 3.941662 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 66195.67, qualità: 1.1688, tempo: 3.956059 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 66234.73, qualità: 1.1694, tempo: 3.881360 secondi
+Cheapest nrw1379 -> 3
+
+_________________
+Sun Jun 30 17:00:28 2024
+fl1400
+m = 8 -> cheapestInsertionOttimizzato costo: 23209.71, qualità: 1.1532, tempo: 4.167620 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 23209.71, qualità: 1.1532, tempo: 4.059088 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 23209.71, qualità: 1.1532, tempo: 3.933134 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 23209.71, qualità: 1.1532, tempo: 3.727813 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 23209.71, qualità: 1.1532, tempo: 4.113943 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 23209.71, qualità: 1.1532, tempo: 4.067724 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 23209.71, qualità: 1.1532, tempo: 3.906100 secondi
+m = 1 -> cheapestInsertionOttimizzato costo: 23371.67, qualità: 1.1612, tempo: 3.774920 secondi
+Cheapest fl1400 -> 2
+
+_________________
+Sun Jun 30 17:01:00 2024
+u1432
+m = 8 -> cheapestInsertionOttimizzato costo: 172870.01, qualità: 1.1301, tempo: 4.429210 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 172870.01, qualità: 1.1301, tempo: 4.384197 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 172870.01, qualità: 1.1301, tempo: 4.135752 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 172870.01, qualità: 1.1301, tempo: 4.032110 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 172870.01, qualità: 1.1301, tempo: 4.263686 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 172870.01, qualità: 1.1301, tempo: 4.261119 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 172870.01, qualità: 1.1301, tempo: 4.115875 secondi
+m = 1 -> cheapestInsertionOttimizzato costo: 172870.01, qualità: 1.1301, tempo: 4.055482 secondi
+Cheapest u1432 -> 1
+
+_________________
+Sun Jun 30 17:01:35 2024
+fl1577
+m = 8 -> cheapestInsertionOttimizzato costo: 26171.03, qualità: 1.1763, tempo: 5.469907 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 26171.03, qualità: 1.1763, tempo: 5.206463 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 26171.03, qualità: 1.1763, tempo: 5.208538 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 26171.03, qualità: 1.1763, tempo: 4.754433 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 26171.03, qualità: 1.1763, tempo: 5.235982 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 26171.03, qualità: 1.1763, tempo: 5.064831 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 26171.03, qualità: 1.1763, tempo: 4.975444 secondi
+m = 1 -> cheapestInsertionOttimizzato costo: 26146.11, qualità: 1.1752, tempo: 4.863164 secondi
+Cheapest fl1577 -> 2
+
+_________________
+Sun Jun 30 17:02:16 2024
+d1655
+m = 8 -> cheapestInsertionOttimizzato costo: 72919.98, qualità: 1.1737, tempo: 6.328659 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 72919.98, qualità: 1.1737, tempo: 5.752791 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 72919.98, qualità: 1.1737, tempo: 5.579659 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 72919.98, qualità: 1.1737, tempo: 5.310364 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 72919.98, qualità: 1.1737, tempo: 5.502125 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 72919.98, qualità: 1.1737, tempo: 5.846116 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 72919.98, qualità: 1.1737, tempo: 5.604932 secondi
+m = 1 -> cheapestInsertionOttimizzato costo: 72922.30, qualità: 1.1737, tempo: 5.568606 secondi
+Cheapest d1655 -> 2
+
+_________________
+Sun Jun 30 17:03:03 2024
+vm1748
+m = 8 -> cheapestInsertionOttimizzato costo: 401251.43, qualità: 1.1922, tempo: 6.778398 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 401251.43, qualità: 1.1922, tempo: 6.825167 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 401251.43, qualità: 1.1922, tempo: 6.465560 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 401251.43, qualità: 1.1922, tempo: 6.409408 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 401251.43, qualità: 1.1922, tempo: 6.844207 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 401251.43, qualità: 1.1922, tempo: 6.641112 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 401251.43, qualità: 1.1922, tempo: 6.621321 secondi
+m = 1 -> cheapestInsertionOttimizzato costo: 400527.84, qualità: 1.1901, tempo: 6.356464 secondi
+Cheapest vm1748 -> 2
+
+_________________
+Sun Jun 30 17:03:57 2024
+u1817
+m = 8 -> cheapestInsertionOttimizzato costo: 66992.92, qualità: 1.1712, tempo: 7.147757 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 66992.92, qualità: 1.1712, tempo: 7.017272 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 66992.92, qualità: 1.1712, tempo: 6.889651 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 66992.92, qualità: 1.1712, tempo: 6.725627 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 66992.92, qualità: 1.1712, tempo: 7.023120 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 66992.92, qualità: 1.1712, tempo: 7.080208 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 66992.92, qualità: 1.1712, tempo: 7.033594 secondi
+m = 1 -> cheapestInsertionOttimizzato costo: 66992.92, qualità: 1.1712, tempo: 6.347806 secondi
+Cheapest u1817 -> 1
+
+_________________
+Sun Jun 30 17:04:53 2024
+rl1889
+m = 8 -> cheapestInsertionOttimizzato costo: 381290.85, qualità: 1.2046, tempo: 8.200195 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 381290.85, qualità: 1.2046, tempo: 7.799558 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 381290.85, qualità: 1.2046, tempo: 7.632876 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 381290.85, qualità: 1.2046, tempo: 7.329128 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 381290.85, qualità: 1.2046, tempo: 7.771404 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 381290.85, qualità: 1.2046, tempo: 7.783930 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 386604.69, qualità: 1.2214, tempo: 7.183190 secondi
+Cheapest rl1889 -> 3
+
+_________________
+Sun Jun 30 17:05:48 2024
+d2103
+m = 8 -> cheapestInsertionOttimizzato costo: 87020.06, qualità: 1.0817, tempo: 10.060057 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 87020.06, qualità: 1.0817, tempo: 9.713979 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 87020.06, qualità: 1.0817, tempo: 9.012262 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 87020.06, qualità: 1.0817, tempo: 8.980966 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 87020.06, qualità: 1.0817, tempo: 9.609654 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 87020.06, qualità: 1.0817, tempo: 9.390864 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 87020.06, qualità: 1.0817, tempo: 9.217754 secondi
+m = 1 -> cheapestInsertionOttimizzato costo: 87020.06, qualità: 1.0817, tempo: 9.269455 secondi
+Cheapest d2103 -> 1
+
+_________________
+Sun Jun 30 17:07:04 2024
+u2152
+m = 8 -> cheapestInsertionOttimizzato costo: 76189.28, qualità: 1.1858, tempo: 10.464691 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 76189.28, qualità: 1.1858, tempo: 9.894243 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 76189.28, qualità: 1.1858, tempo: 9.776191 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 76189.28, qualità: 1.1858, tempo: 8.944521 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 76189.28, qualità: 1.1858, tempo: 9.603245 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 76189.28, qualità: 1.1858, tempo: 10.269249 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 76189.28, qualità: 1.1858, tempo: 9.388530 secondi
+m = 1 -> cheapestInsertionOttimizzato costo: 76388.37, qualità: 1.1889, tempo: 9.479176 secondi
+Cheapest u2152 -> 2
+
+_________________
+Sun Jun 30 17:08:24 2024
+u2319
+m = 8 -> cheapestInsertionOttimizzato costo: 259318.28, qualità: 1.1070, tempo: 12.702091 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 259318.28, qualità: 1.1070, tempo: 11.591837 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 259318.28, qualità: 1.1070, tempo: 11.369897 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 259318.28, qualità: 1.1070, tempo: 10.976790 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 259318.28, qualità: 1.1070, tempo: 11.680390 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 259318.28, qualità: 1.1070, tempo: 11.877189 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 259318.28, qualità: 1.1070, tempo: 11.375918 secondi
+m = 1 -> cheapestInsertionOttimizzato costo: 259318.28, qualità: 1.1070, tempo: 11.126653 secondi
+Cheapest u2319 -> 1
+
+_________________
+Sun Jun 30 17:09:58 2024
+pr2392
+m = 8 -> cheapestInsertionOttimizzato costo: 458977.67, qualità: 1.2141, tempo: 13.298891 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 458977.67, qualità: 1.2141, tempo: 12.535157 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 458977.67, qualità: 1.2141, tempo: 12.208639 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 458977.67, qualità: 1.2141, tempo: 11.384633 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 458977.67, qualità: 1.2141, tempo: 12.327626 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 458977.67, qualità: 1.2141, tempo: 12.397940 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 458579.07, qualità: 1.2131, tempo: 11.818989 secondi
+Cheapest pr2392 -> 3
+
+_________________
+Sun Jun 30 17:11:26 2024
+pcb3038
+m = 8 -> cheapestInsertionOttimizzato costo: 160934.98, qualità: 1.1688, tempo: 22.499974 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 160934.98, qualità: 1.1688, tempo: 21.201793 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 160934.98, qualità: 1.1688, tempo: 20.381902 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 160934.98, qualità: 1.1688, tempo: 19.594279 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 160934.98, qualità: 1.1688, tempo: 20.856395 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 160934.98, qualità: 1.1688, tempo: 20.998216 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 161267.29, qualità: 1.1712, tempo: 20.126841 secondi
+Cheapest pcb3038 -> 3
+
+_________________
+Sun Jun 30 17:13:55 2024
+fl3795
+m = 8 -> cheapestInsertionOttimizzato costo: 32355.07, qualità: 1.1245, tempo: 36.508259 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 32355.07, qualità: 1.1245, tempo: 33.015475 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 32355.07, qualità: 1.1245, tempo: 33.938047 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 32355.07, qualità: 1.1245, tempo: 30.105094 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 32355.07, qualità: 1.1245, tempo: 32.093556 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 32355.07, qualità: 1.1245, tempo: 32.861250 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 32355.07, qualità: 1.1245, tempo: 31.985814 secondi
+m = 1 -> cheapestInsertionOttimizzato costo: 32355.07, qualità: 1.1245, tempo: 30.675736 secondi
+Cheapest fl3795 -> 1
+
+_________________
+Sun Jun 30 17:18:22 2024
+fnl4461
+m = 8 -> cheapestInsertionOttimizzato costo: 213478.51, qualità: 1.1693, tempo: 52.577572 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 213478.51, qualità: 1.1693, tempo: 47.297709 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 213478.51, qualità: 1.1693, tempo: 49.615901 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 213478.51, qualità: 1.1693, tempo: 47.731045 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 213478.51, qualità: 1.1693, tempo: 48.150824 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 213478.51, qualità: 1.1693, tempo: 49.900530 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 213203.90, qualità: 1.1678, tempo: 49.449356 secondi
+Cheapest fnl4461 -> 3
+
+_________________
+Sun Jun 30 17:24:15 2024
+rl5915
+m = 8 -> cheapestInsertionOttimizzato costo: 678669.95, qualità: 1.2001, tempo: 95.274621 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 678669.95, qualità: 1.2001, tempo: 92.394078 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 678669.95, qualità: 1.2001, tempo: 89.568064 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 678669.95, qualità: 1.2001, tempo: 80.636581 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 678669.95, qualità: 1.2001, tempo: 93.459587 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 678669.95, qualità: 1.2001, tempo: 86.726515 secondi
+^Nm = 2 -> cheapestInsertionOttimizzato costo: 678046.70, qualità: 1.1990, tempo: 85.729952 secondi
+Cheapest rl5915 -> 3
+
+_________________
+Sun Jun 30 17:34:49 2024
+rl5934
+m = 8 -> cheapestInsertionOttimizzato costo: 676207.17, qualità: 1.2161, tempo: 100.107160 secondi
+m = 7 -> cheapestInsertionOttimizzato costo: 676207.17, qualità: 1.2161, tempo: 102.673585 secondi
+m = 6 -> cheapestInsertionOttimizzato costo: 676207.17, qualità: 1.2161, tempo: 88.268358 secondi
+m = 5 -> cheapestInsertionOttimizzato costo: 676207.17, qualità: 1.2161, tempo: 83.801808 secondi
+m = 4 -> cheapestInsertionOttimizzato costo: 676207.17, qualità: 1.2161, tempo: 91.070950 secondi
+m = 3 -> cheapestInsertionOttimizzato costo: 676207.17, qualità: 1.2161, tempo: 95.179834 secondi
+m = 2 -> cheapestInsertionOttimizzato costo: 676258.17, qualità: 1.2162, tempo: 81.360568 secondi
+Cheapest rl5934 -> 3
+

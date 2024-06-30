@@ -460,8 +460,9 @@ class TSP:
         # Inizializza le distanze minime e le città più vicine per ogni città non nel percorso
         h = []
         for i in set(range(n)) - in_path:
-            h.append((-min(distances[path[0], i], distances[path[1], i]), i))
+            h.append((min(distances[path[0], i], distances[path[1], i]), i))
         heapq.heapify(h)
+       
 
         while len(path) < n:
             # Trova la città non inserita più vicina a qualsiasi città nel percorso
@@ -930,16 +931,7 @@ class TSP:
                     d[(sx, dx)] = [l]
                 else:
                     d[(sx, dx)].append(l)
-                hp.append(l)
-
-                # elimino dallo heap del nodo
-                # i riferimenti con costo infinito
-                i = 0
-                while i < len(hp):
-                    if hp[i][0] == np.inf:
-                        del hp[i]
-                    else:
-                        i += 1           
+                hp.append(l)    
                 heapq.heapify(hp)
             # la dimensione massima dello heap del nodo è m
             # quindi rimuovo tutti i nodi da (m+1) in poi
@@ -962,7 +954,7 @@ class TSP:
         # Inizializza le distanze minime e le città più vicine per ogni città non nel percorso
         h = []
         for i in set(range(n)) - in_path:
-            h.append((min(distances[path[0], i], distances[path[1], i]), i))
+            h.append((-min(distances[path[0], i], distances[path[1], i]), i))
         heapq.heapify(h)
 
         while len(path) < n:
