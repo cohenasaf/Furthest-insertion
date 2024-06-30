@@ -25,6 +25,7 @@
 \usepackage{listings,lipsum}
 \usepackage{graphicx}
 \usepackage{lipsum}
+\tcbuselibrary{listings,breakable}
 
 \newenvironment{teor}{\begin{myteor}\sl}{\end{myteor}}
 %
@@ -178,7 +179,7 @@ Lo stato dell'arte degli algoritmi esatti per il TSP non sono i generici branch-
 \newlist{legal}{enumerate}{10}
 \setlist[legal]{label*=\arabic*.}
 
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
 \begin{legal}
   \item Aggiungi il problema iniziale $ILP$ alla lista dei problemi attivi $L$.
   \item Sia $x^* = null$ e $v^* = -\infty$
@@ -206,7 +207,7 @@ Come discusso nel capitolo 2, i metodi esatti consentono di ottenere soluzioni o
 Nearest Neighbor è probabilmente l'euristica costruttiva più semplice per il TSP: si costruisce il tour selezionando sempre la città più vicina all'ultima appena aggiunta al tour. Appartiene alla categoria delle euristiche costruttive in quanto aggiunge via via nuove città al tour (soluzione parziale) senza modificare il tour costruito fino a quel punto. L'algoritmo è il seguente:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
 \begin{legal}
   \item Seleziona un nodo arbitrario j, sia l = j e L = $\{1, 2, ..., n\} \setminus \{j\}$.
   \item Finché $L \neq \emptyset$:
@@ -224,7 +225,7 @@ Nearest Neighbor è una euristica con complessità temporale pari a $O(n^2)$ in 
 Le euristiche basate su inserzione appartengono alla categoria delle euristiche costruttive ma a differenza di Nearest Neighbor la soluzione viene costruita in un modo differente: si inizia da un piccolo tour (che include 2 o 1 città) il quale viene via via esteso includendo i nodi (città) non ancora aggiunti al tour. In questo tipo di euristiche la differenza fondamentale che le distingue sarà il criterio con il quale si aggiungono nuove città al tour e dove queste città devono essere inserite nel tour. Una qualunque euristica basata su inserzione quindi presenta la seguente struttura:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
 \begin{legal}
   \item Seleziona una città o due città arbitrarie come tour iniziale $T$. Sia $L$ l'insieme delle città che sono fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
@@ -242,7 +243,7 @@ Questo schema permette di ottenere un ciclo Hamiltoniano e quindi un percorso va
 Nearest Insertion seleziona come nodo da inserire nel tour il nodo più vicino ad un qualunque nodo già inserito nel tour e lo inserisce nella posizione che minimizza il costo di inserimento. Di seguito l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
   \begin{legal}
     \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
     \item Finché $L \neq \emptyset$:
@@ -259,7 +260,7 @@ Nearest Insertion seleziona come nodo da inserire nel tour il nodo più vicino a
 Cheapest Insertion opera in modo diverso da Nearest Insertion: il criterio di selezione non è più il nodo più vicino al tour, ma diventa il nodo che produce il minor aumento del costo del tour se inserito (quindi minimizza il costo di inserzione). Una volta selezionato, il nodo viene inserito nel modo migliore possibile, quindi minimizzando il costo di inserimento. Di seguito l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
   \begin{legal}
     \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
     \item Finché $L \neq \emptyset$:
@@ -277,7 +278,7 @@ Cheapest Insertion opera in modo diverso da Nearest Insertion: il criterio di se
 Farthest Insertion opera in analogo a Nearest Insertion in quanto il criterio di selezione del nodo da inserire è basato sulla distanza dal tour, ma differenza di Nearest Insertion però viene scelto il nodo più lontano dal tour al posto del più vicino. Il passo di inserzione avviene invece allo stesso modo rispetto a Nearest Insertion: viene quindi scelta la posizione che minimizza il costo di inserzione. Vediamo l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
 \begin{legal}
   \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
@@ -294,7 +295,7 @@ Farthest Insertion opera in analogo a Nearest Insertion in quanto il criterio di
 L'obbiettivo della tesi consiste nel proporre un nuovo algoritmo chiamato Furthest Insertion: allo stesso modo in cui Farthest Insertion opera in modo analogo a Nearest Insertion, Furthest Insertion opera in modo analogo a Cheapest Insertion. Il passo di selezione consiste nel selezionare il nodo che massimizza il costo di inserzione, in fase di inserimento però il nodo viene inserito in modo da minimizzare il costo di inserimento. Di seguito l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
 \begin{legal}
   \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
@@ -312,7 +313,7 @@ L'obbiettivo della tesi consiste nel proporre un nuovo algoritmo chiamato Furthe
 Random Insertion seleziona casualmente il nodo da inserire nel tour, successivamente però sceglie il punto di inserimento in modo da minimizzare il costo di inserimento (esattamente come per Nearest Insertion). Di seguito l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
 \begin{legal}
   \item Sia $T$ il tour iniziale definito da una città casuale. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
@@ -640,7 +641,7 @@ In questo capitolo, descriveremo l'implementazione delle euristiche per la risol
 
 \subsection{Nearest Neighbor}
 L'euristica \nameref{sec:NN} (NN) costruisce un tour partendo da una città arbitraria, dopodiché sceglie di aggiungere al tour la città più vicina all'ultima città aggiunta al tour. Di seguito viene riportato il codice per questa euristica.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Neighbor, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Neighbor, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State $tour = [0]$
     \State $n$ = numero di città
@@ -664,7 +665,7 @@ Dal punto di vista della complessità temporale, l'implementazione ha tempo pari
 
 \subsection{Nearest Insertion}
 Nelle prossime sezioni verrà discussa l'implementazione delle euristiche costruttive basate su inserzione, a partire da \nameref{ssec:NI}.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State $path = [0, 0]$
     \State $n$ = numero di città
@@ -692,7 +693,7 @@ Nelle prossime sezioni verrà discussa l'implementazione delle euristiche costru
 \end{tcolorbox}
 Per prima cosa, l'euristica inizializza il tour con la coppia di città più vicine presenti nell'istanza TSP, viene quindi cercato l'arco $(i, j)$ con costo più basso e inizializzato il path (posizione 0 e 1) con questi due nodi.
 Successivamente vengono inizializzate le distanze minime e le città più vicine per ogni città non nel percorso. Dato che Nearest Insertion dovrà determinare il nodo fuori dal ciclo con distanza minore rispetto ad un nodo qualunque nel ciclo, ho deciso di utilizzare uno heap (tramite il modulo \lstinline!heapq!) con il quale sarà possibile tenere traccia dei nodi fuori dal ciclo e la loro distanza minima con il tour.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ...
     \While{$len(path) < n$}
@@ -727,7 +728,7 @@ La complessità temporale dell'implementazione è $O(n^2)$ dato che sono present
 
 \subsection{Cheapest Insertion: versione 1}
 Nelle prossime sezioni discutiamo l'implementazione di \nameref{ssec:CI} che, come abbiamo visto nel secondo capitolo, seleziona i nodi in modo da minimizzare il costo di inserimento (al posto di selezionare i nodi più vicini al tour come visto con nearest insertion). Sono state implementate 3 versioni di questa euristica, iniziamo dalla versione peggiore dal punto di vista della complessità computazionale.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State $n \gets$ numero di città
     \State $adj \gets$ matrice di adiacenza dell'istanza
@@ -747,7 +748,7 @@ Nelle prossime sezioni discutiamo l'implementazione di \nameref{ssec:CI} che, co
   \end{algorithmic}
 \end{tcolorbox}
 Per prima cosa il path viene inizializzato con la coppia di città più vicine presenti nell'istanza TSP.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ...
     \While{$len(path) < n$}
@@ -776,7 +777,7 @@ In particolare l'inefficienza di questa implementazione, consiste nel fatto che 
 
 \subsection{Cheapest Insertion: versione 2}
 In questa versione di Cheapest Insertion (a differenza della versione precedente) si vuole utilizzare una struttura dati che possa mantenere, per ogni nodo fuori dal tour, il costo e il punto di inserzione ottimi. Per fare questo si può operare in modo analogo a Nearest Insertion, ovvero con uno heap: lo heap andrà a conservare le informazioni dette prima e ci consentirà di ottenere il record con costo minore in modo efficiente, con la differenza, però, che l'aggiornamento dello heap è indubbiamente più complesso: nel caso di Nearest Insertion bastava confrontare il vecchio nodo più vicino con il nuovo nodo aggiunto, in questo caso la struttura del path cambia con un inserimento e quindi, nel caso peggiore, sarà necessario ricalcolare completamente il punto di inserimento ottimo. Vediamo l'implementazione:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State $n \gets$ numero di città
     \State $adj \gets$ matrice di adiacenza dell'istanza
@@ -796,7 +797,7 @@ In questa versione di Cheapest Insertion (a differenza della versione precedente
   \end{algorithmic}
 \end{tcolorbox}
 La parte iniziale dell'implementazione è identica a Nearest Insertion: viene inizializzato il tour con la coppia di nodi più vicini presenti nell'istanza.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ...
     \State Sia $h = []$ lo heap
@@ -808,7 +809,7 @@ La parte iniziale dell'implementazione è identica a Nearest Insertion: viene in
   \end{algorithmic}
 \end{tcolorbox}
 Come descritto prima, in questa versione viene inizializzato uno heap in modo analogo a Nearest Insertion, ma con una differenza: la chiave associata ad ogni nodo non è più la distanza minima con il tour ma il costo di inserimento (se inserito nel modo migliore possibile). In questo caso il costo di inserimento è semplice da ottenere in quanto nel tour sono presenti solo 2 nodi: dati gli unici due nodi presenti nel tour $a$ e $b$, il costo di inserimento del nodo $i$ sarà $c_{ai} + c_{ib} - c_{ab}$. Lo heap userà come valore chiave il costo (prima variabile della tupla) permettendo quindi di estrarre il nodo \lstinline!i! con costo minore. Nello heap vengono memorizzati anche i due nodi tra i quali dovrebbe avvenire l'inserimento (\lstinline!path[0]! e \lstinline!path[1]!) in quanto sono informazioni che saranno utili nella seconda parte dell'implementazione dell'euristica.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ...
     \While{$len(path) < n$}
@@ -820,7 +821,7 @@ Come descritto prima, in questa versione viene inizializzato uno heap in modo an
   \end{algorithmic}
 \end{tcolorbox}
 Questo è il ciclo for (while) principale dell'euristica: viene selezionato dallo heap il nodo \lstinline!to_ins! e il punto di inserzione \lstinline!r!. Abbiamo visto come nello heap sono presenti le seguenti informazioni: \lstinline!(costo, nodo, l, r)! dove \lstinline!cost! indica il costo di inserzione del nodo \lstinline!nodo! se inserito nel modo migliore possibile e \lstinline!l! e \lstinline!r! sono i due nodi (presenti nel tour) tra i quali è necessario effettuare l'inserzione.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ...
     \While{$len(path) < n$}
@@ -870,7 +871,7 @@ Questa seconda versione di cheapestInsertion ha complessità temporale $O(n^3)$ 
 
 \subsection{Cheapest Insertion versione 2 Approssimata}
 Una successiva possibile ottimizzazione può derivare dalla seguente osservazione: una volta che il punto di inserzione ottimo si perde perché è stato già inserito un nodo proprio in quel punto, può essere ragionevole pensare che il nuovo punto di inserimento ottimo sia vicino a quello appena perso. Per verificare (o smentire) questa ipotesi si può molto semplicemente contare il numero di volte che il nuovo punto di inserzione ottimo è "vicino" al precedente punto di inserzione e con "vicino" si può intendere ad esempio che sia uno dei due nuovi archi creati dall'inserzione precedente. Quindi dal punto di vista dell'implementazione:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State $conteggio \gets 0$
     \State $tot \gets 0$
@@ -913,7 +914,7 @@ vm1084 -> 0.9992
 u1817 -> 0.9980
 \end{myverbatim}
 Quindi è possibile affermare (con una probabilità molto alta, superiore al 99\%) che l'arco con costo di inserzione minimo si trova nelle vicinanze del precedente arco con costo di inserzione minimo. Dopo questa osservazione è possibile applicare questa semplice modifica all'implementazione:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2 Approssimata, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 2 Approssimata, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ...
     \While{$len(path) < n$}
@@ -944,7 +945,7 @@ La modifica (riga 9) consiste nel ridurre lo spazio di ricerca da tutto il path 
 
 \subsection{Cheapest Insertion: versione 3}
 In questa ultima versione di Cheapest Insertion si riesce (finalmente) a ridurre la complessità computazionale rispetto alle due versioni precedenti. Nella versione 2 abbiamo visto una implementazione con un heap che tiene traccia per ogni nodo del punto di inserzione ottimo, inoltre abbiamo visto come questa informazione non sia sufficiente nel caso in cui il punto di inserzione ottimo si perda dopo l'inserimento di un altro nodo. L'idea per questa ultima implementazione quindi sarebbe quella di tenere traccia per ogni nodo anche di altre posizioni di inserzione sub-ottime che possono subentrare nel caso appunto la posizione ottima si perda. Per implementare questa idea quindi è necessario avere più heap (uno associato ad ogni nodo fuori dallo heap) ed è necessario avere una struttura dati che consenta di associare, ad ogni arco presente nel tour, tutti i record che fanno riferimento a quell'arco in modo da poterli eliminare nel caso in cui, appunto, l'arco scompare dal path. Per fare questo ho deciso di utilizzare un dizionario che associa coppie di interi (archi) a liste di record. Vediamo l'implementazione:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State $n \gets$ numero di città
     \State $adj \gets$ matrice di adiacenza dell'istanza
@@ -964,7 +965,7 @@ In questa ultima versione di Cheapest Insertion si riesce (finalmente) a ridurre
   \end{algorithmic}
 \end{tcolorbox}
 Come per le euristiche precedenti, inizialmente si seleziona la coppia di città più vicine per inizializzare il tour. Il parametro \lstinline!m! aggiunto (riga 1) verrà descritto nelle prossime pagine.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ..
     \State Sia $h$ lo heap principale
@@ -982,7 +983,7 @@ Come per le euristiche precedenti, inizialmente si seleziona la coppia di città
   \end{algorithmic}
 \end{tcolorbox}
 Successivamente si inizializzano le due strutture dati principali dell'euristica: lo heap principale (che andrà a contenere i vari heap dei nodi fuori dal path) e il dizionario descritto precedentemente che viene inizializzato con la coppia di città città più vicine. Dopodiché per ogni nodo fuori dal path, si inizializza lo heap specifico di ogni nodo (riga 7-8) che contiene inizialmente gli unici due inserimenti possibili: tra l'arco \lstinline!path[0]! - \lstinline!path[1]! oppure tra l'arco \lstinline!path[1]! - \lstinline!path[0]!, inoltre si aggiungono i nuovi record alla lista degli archi \lstinline!path[0]! - \lstinline!path[1]! e \lstinline!path[1]! - \lstinline!path[0]! del dizionario. Alla fine, si procede con la costruzione dello heap tramite istruzione \lstinline!heapify(h)!. Importante specificare che in questa fase non è necessaria l'istruzione \lstinline!heapify(h_i)! per ogni piccolo heap dei nodi fuori dal tour, in quanto per ora sono solo presenti due record con lo stesso costo.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State \dots
     \While{$len(path) < n$}
@@ -998,7 +999,7 @@ Successivamente si inizializzano le due strutture dati principali dell'euristica
   \end{algorithmic}
 \end{tcolorbox}
 Dalla riga 2 inizia il ciclo principale dell'euristica: si seleziona dallo heap principale \lstinline!h! lo heap specifico di un determinato nodo fuori dal tour \lstinline!h_i!, dallo heap piccolo si estrae il record \lstinline!(costo, to_ins, l, r)! nel quale sono presenti le informazioni utili per l'inserimento: il nodo da inserire \lstinline!to_ins! e i due nodi \lstinline!l! ed \lstinline!r! tra i quali va inserito il nodo, mentre il primo elemento (il costo) può essere scartato e quindi poi si procede all'inserimento del nodo tra \lstinline!l! ed \lstinline!r!. Importante notare come il modulo \lstinline!heapq! effettua dei confronti tra record andando a usare come chiave l'elemento in prima posizione nel record, nel nostro caso il costo. Inoltre nel caso dello heap principale \lstinline!h!, l'elemento chiave diventa il costo presente nel primo record di ogni lista, quindi le liste di record vengono confrontate considerando solo il costo del primo record di ogni lista. A questo punto è necessario cancellare tutti i record che puntano all'arco $(l, r)$: per ottenere questo risultato ho deciso di assegnare costo infinito ai record associati a quell'arco: in questo modo si evita che possano essere estratti (alla riga 8) record con archi che non sono più presenti nel path.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \While{$len(path) < n$}
       \State \dots
@@ -1040,7 +1041,7 @@ In conclusione si procede con il ripristino della struttura dello heap piccolo (
 
 \subsection{Cheapest Insertion versione 3 approssimata}
 Abbiamo visto, nella sezione precedente, come siamo riusciti a ridurre la complessità temporale a $O(n^2) \cdot log(n)$, però è possibile operare con una ulteriore ottimizzazione: è possibile limitare la dimensione degli heap piccoli ad una dimensione $m < n$: per ogni istanza, deve essere presente una soglia $m_{ott} < n$ sotto la quale non si può più garantire la scelta del nodo che minimizza il costo di inserimento (e del punto di inserzione). Per ogni istanza, quindi, è necessario trovare questo valore $m_{ott}$ a partire da $n$ scendendo finché la qualità trovata resta invariata. Di seguito l'algoritmo con la variazione:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3 Approssimata, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3 Approssimata, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \While{$len(path) < n$}
       \State \dots
@@ -1059,7 +1060,7 @@ Possiamo notare come alla riga 6, dopo aver aggiornato gli heap piccoli aggiunge
 
 \subsection{Farthest Insertion}
 In questa sezione discutiamo l'implementazione di \nameref{ssec:FaI}. L'implementazione di questa euristica condivide molto del codice già discusso nella implementazione di Nearest Insertion, sono però presenti delle piccole modifiche che consentono di selezionare il nodo più lontano al posto del nodo più vicino (al tour), di seguito l'implementazione:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Farthest Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Farthest Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State $n \gets$ numero di città
     \State $adj \gets$ matrice di adiacenza dell'istanza
@@ -1087,7 +1088,7 @@ In questa sezione discutiamo l'implementazione di \nameref{ssec:FaI}. L'implemen
   \end{tcolorbox}
 L'euristica inizializza il tour con la coppia di città più lontane (a differenza della coppia di città più vicine nel caso di Nearest Insertion) presenti nell'istanza TSP, viene quindi cercato l'arco $(i, j)$ con costo più alto e inizializzato il path (posizione 0 e 1) con questi due nodi.
 In modo del tutto analogo a Nearest Insertion, viene inizializzato uno heap il quale conterrà il costo di inserimento se il nodo viene inserito nel modo migliore possibile. Dato che il metodo heappop all'interno del modulo \lstinline!heapq! restituisce l'elemento più piccolo (quindi il nostro heap h opera come un min-heap) e dato che per Farthest Insertion è necessario prelevare il nodo con il costo maggiore (e non minore), ogni distanza inserita nello heap (primo elemento di ogni tupla) verrà inserita con valore negativo: con questa semplice modifica il min-heap si comporterà come un max-heap e restituirà (tramite il metodo \lstinline!heapq.heappop(h)!) il nodo con distanza maggiore dal tour. Per questo motivo il codice è identico a nearest insertion, con la differenza che alla riga 18 è presente un segno meno all'interno del record $(distance, node)$.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Farthest Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Farthest Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State \dots
     \While{$len(path) < n$}
@@ -1127,7 +1128,7 @@ La complessità temporale di questa implementazione è la stessa di Nearest Inse
 
 \subsection{Furthest Insertion: versione 1}
 Nelle seguenti sezioni discutiamo l'implementazione di \nameref{ssec:FuI} ovvero la nuova euristica proposta in questa tesi. Nella precedente sezione abbiamo visto come farthest insertion condivide molto del codice di nearest insertion con delle piccole modifiche che consentono di selezionare il nodo più lontano al posto del nodo più vicino. Allo stesso modo furthest insertion condivide molto del codice di cheapest insertion, verranno di seguito presentate le piccole (ma importanti) modifiche rispetto alle tre versioni di Cheapest Insertion che consentono di selezionare il nodo che, se inserito in modo da minimizzare il costo di inserzione, ha costo di inserimento massimo. Come nel caso di Cheapest Insertion, vediamo le tre versioni in ordine dalla peggiore alla migliore dal punto di vista della complessità computazionale:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State $n \gets$ numero di città
     \State $adj \gets$ matrice di adiacenza dell'istanza
@@ -1146,7 +1147,7 @@ Nelle seguenti sezioni discutiamo l'implementazione di \nameref{ssec:FuI} ovvero
   \end{algorithmic}
 \end{tcolorbox}
 Come per visto nell'implementazione di Farthest Insertion, si seleziona la coppia di nodi più lontana per inizializzare il path. 
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \While{$len(path) < n$}
       \State $ln \gets []$
@@ -1173,7 +1174,7 @@ Come descritto nei capitoli precedenti, la complessità temporale di questo algo
 
 \subsection{Furthest Insertion: versione 2}
 Come nel caso della versione 2 di Cheapest Insertion, si può evitare di ricalcolare totalmente il punto di inserzione ottimo con uno heap, con una differenza importante: lo heap deve operare come un max-heap e non come un min-heap, ovvero deve selezionare ad ogni iterazione il nodo con costo di inserzione massimo (se inserito nel modo migliore possibile). Vediamo l'implementazione:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State $n \gets$ numero di città
     \State $adj \gets$ matrice di adiacenza dell'istanza
@@ -1193,7 +1194,7 @@ Come nel caso della versione 2 di Cheapest Insertion, si può evitare di ricalco
   \end{algorithmic}
 \end{tcolorbox}
 Inizialmente l'euristica determina la coppia di nodi più lontani (come visto prima).
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ...
     \State Sia $h = []$ lo heap
@@ -1205,7 +1206,7 @@ Inizialmente l'euristica determina la coppia di nodi più lontani (come visto pr
   \end{algorithmic}
 \end{tcolorbox}
 Esattamente come nel caso di farthest insertion, viene inizializzato lo heap con costi negativi in modo da poter successivamente selezionare le città con costo di inserimento più alto, per questo motivo il costo nella tupla aggiunta allo heap presenta un segno negativo (riga 5).
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ...
     \While{$len(path) < n$}
@@ -1217,7 +1218,7 @@ Esattamente come nel caso di farthest insertion, viene inizializzato lo heap con
   \end{algorithmic}
 \end{tcolorbox}
 Questo è il ciclo principale dell'euristica: viene selezionato dallo heap il nodo \lstinline!to_ins! ovvero il nodo che massimizza il costo di inserimento se inserito nel modo migliore possibile.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ...
     \While{$len(path) < n$}
@@ -1267,7 +1268,7 @@ Le considerazioni riguardo la complessità temporale di questa implementazioni s
 
 \subsection{Furthest Insertion versione 2 Approssimata}
 Come visto con Cheapest Insertion, è possibile ridurre lo spazio di ricerca (riga 14 dell'ultimo box) all'intorno $(best\_pos - k, best\_pos + k)$ dove k rappresenta il raggio dell'intorno. La versione risultante è la seguente:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 2 Approssimata, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 2 Approssimata, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ...
     \While{$len(path) < n$}
@@ -1298,7 +1299,7 @@ La modifica risulta essere la stessa vista per Cheapest Insertion versione 2 app
 
 \subsection{Furthest Insertion: versione 3}
 Esattamente come nel caso della versione 3 di Cheapest Insertion, è possibile implementare una versione di Furthest Insertion con complessità minore di $O(n^3)$. Questa implementazione quindi condivide molto del codice visto nella versione 3 di Cheapest Insertion, con la differenza che lo heap principale deve operare come un max-heap (in modo da selezionare il nodo con costo maggiore) mentre gli heap interni devono continuare ad operare come dei min-heap in modo da selezionare, per un determinato nodo fuori dal tour, il punto di inserimento che minimizza il costo di inserzione. Vediamo l'implementazione:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State $n \gets$ numero di città
     \State $adj \gets$ matrice di adiacenza dell'istanza
@@ -1318,7 +1319,7 @@ Esattamente come nel caso della versione 3 di Cheapest Insertion, è possibile i
   \end{algorithmic}
 \end{tcolorbox}
 Come per le altre versioni, si inizializza il path con la coppia delle città più lontane.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ..
     \State Sia $h$ lo heap principale
@@ -1339,7 +1340,7 @@ Come per le altre versioni, si inizializza il path con la coppia delle città pi
   \end{algorithmic}
 \end{tcolorbox}
 Successivamente si inizializzano le due strutture dati fondamentali dell'implementazione, ovvero lo heap principale e il dizionario (come per la versione 3 di Cheapest Insertion) con la differenza che il costo del primo record viene inizializzato come negativo in modo da consentire allo heap principale \lstinline!h! di selezionare il record con costo di inserimento maggiore (basta che risulti negativo solo il primo record). Successivamente riporto i costi negativi (avevamo modificato solo i primi di ogni heap piccolo) ad un costo positivo.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State \dots
     \While{$len(path) < n$}
@@ -1356,7 +1357,7 @@ Successivamente si inizializzano le due strutture dati fondamentali dell'impleme
   \end{algorithmic}
 \end{tcolorbox}
 Dalla terza riga inizia il ciclo principale dell'euristica: dallo heap \lstinline!h! si preleva il record con costo di inserimento massimo, dopodiché si procede con l'inserimento del nodo nel path, inoltre si procede alla cancellazione dei record che puntano all'arco appena eliminato assegnando costo infinito.
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ...
     \While{$len(path) < n$}
@@ -1403,7 +1404,7 @@ Da un punto di vista della complessità temporale, l'algoritmo ha un tempo (nel 
 
 \subsection{Furthest Insertion versione 3 approssimata}
 Anche in questo caso (come per la versione 3 approssimata di Cheapest Insertion), possiamo limitare la dimensione degli heap piccoli:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ...
     \While{$len(path) < n$}
@@ -1432,7 +1433,7 @@ In questo capitolo verrà discussa l'implementazione di \nameref{ssec:RI}. Vedre
   \item Inserirlo nel modo migliore possibile
 \end{legal}
 Di seguito il metodo:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Random Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Random Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State Sia $n$ il numero di città presenti nell'istanza
     \State Sia $dist$ la matrice di adiacenza
@@ -1448,7 +1449,7 @@ per quanto riguarda il primo punto discusso prima (scegliere casualmente il nodo
   \item Inizializzare una lista \lstinline![1, 2, ..., n]! tramite il metodo \lstinline!range(1 ,n)!, mescolare la lista tramite metodo \lstinline!random.shuffle(notInPath)! e poi procedere con la selezione del nodo casuale tramite \lstinline!notInPath.pop()!.
 \end{legal}
 Da un punto di vista della complessità temporale, ho scelto la seconda strada in quanto rimuovere un elemento dalla lista (tramite \lstinline!del! oppure \lstinline!remove!) richiede un tempo $O(n)$ (dove n è la lunghezza della lista), mentre il metodo \lstinline!l.pop()! ha complessità temporale $O(1)$\footnote{https://wiki.python.org/moin/TimeComplexity}. Per questo motivo (contando il ciclo principale dell'euristica) il primo metodo richiederebbe in un tempo $O(n^2)$ (n iterazioni per il ciclo principale, O(n) per l'istruzione \lstinline!remove! o \lstinline!del!), mentre il secondo metodo richiederebbe un tempo $O(n)$ (n iterazioni per il ciclo principale e poi solo $O(1)$ per il metodo \lstinline!notInPath.pop()!). Inoltre l'implementazione del metodo \lstinline!random.shuffle()!\footnote{https://hg.python.org/cpython/file/2e8b28dbc395/Lib/random.py alla riga 276} utilizza il l'algoritmo Fisher-Yates shuffle\cite{knuthart}, ovvero un algoritmo che opera in tempo $O(n)$. Di conseguenza la restante parte dell'implementazione è:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Random Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Random Insertion Versione 1, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
 \begin{algorithmic}[1]
   \State \dots
   \While{$len(path) < n$}
@@ -1475,7 +1476,7 @@ In conclusione sono presenti le stesse istruzioni viste nelle altre euristiche (
 
 \subsection{Random Insertion: versione 2}
 Per completezza, ho implementato anche una versione di random insertion dove non solo la scelta del nodo da inserire nel tour avviene casualmente, ma anche il punto di inserzione viene scelto casualmente, di seguito l'implementazione:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Random Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Random Insertion Versione 2, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State Sia $notInTour$ la lista di tutti i nodi $\{0, 1, ..., n - 1\}$
     \State Applica il metodo $shuffle$ a $notInTour$
@@ -1490,7 +1491,7 @@ In questa versione dell'algoritmo, la prima parte è identica alla prima version
 
 \subsection{Euristiche con inizializzazione casuale}
 Le euristiche viste nelle sezioni precedenti prevedono come inizializzazione del tour la coppia delle città più vicine per cheapest insertion e nearest insertion mentre prevedono la coppia delle città più lontane per farthest insertion e furthest insertion. Nel successivo capitolo verrà analizzata anche la robustezza delle euristiche implementate rispetto all'inizializzazione, per questo motivo nella classe TSP sono presenti 4 varianti delle euristiche descritte nelle sezioni precedenti dove le due città iniziali vengono scelte casualmente. Le 4 euristiche prendono il nome di NOMEInsertionRandomStart dove al posto di "NOME" è presente il nome dell'euristica (nearest, cheapest ...). Di seguito la descrizione della parte diversa:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Insertion Random Start, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Insertion Random Start, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State Sia $n$ il numero di città presenti nell'istanza
     \State Sia $dist$ la matrice di adiacenza
@@ -1500,7 +1501,7 @@ Le euristiche viste nelle sezioni precedenti prevedono come inizializzazione del
   \end{tcolorbox}
 In questo caso è stato selezionato nearestInsertionRandomStart a titolo di esempio (nelle altre 4 implementazioni il codice è lo stesso): vengono scelte due città casuali come prime due città nel tour. Successivamente (righe 5-6) è necessario ripetere il processo nel caso in cui le due città scelte corrispondano alla stessa città. Una volta selezionati i primi due nodi casualmente, l'euristica può continuare normalmente come visto prima.
 Lo stesso criterio è stato applicato anche per nearestNeighbor, di seguito solo la prima istruzione dell'implementazione di nearestNeighborRandomStart:
-\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Neighbor Random Start, coltitle=black, fonttitle=\bfseries, colbacktitle=white]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Neighbor Random Start, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State Sia $n$ il numero di città presenti nell'istanza
     \State Sia $dist$ la matrice di adiacenza
@@ -1518,10 +1519,10 @@ In questo capitolo si analizzano i risultati trovati dalle euristiche precedente
 \end{legal}
 Per completezza, di seguito sono indicate le caratteristiche tecniche dell'elaboratore con il quale sono stati ottenuti i risultati (solo i dettagli tecnici rilevanti):
 \begin{myverbatim}
-CPU: Intel(R) Core(TM) i5-10400F CPU (12) @ 2.90GHz
-GPU: NVIDIA GeForce GTX 1650
-RAM: 32 GB DDR4
-SO: Arch Linux x86_64
+CPU:    Intel(R) Core(TM) i5-10400F CPU (12) @ 2.90GHz
+GPU:    NVIDIA GeForce GTX 1650
+RAM:    32 GB DDR4
+SO:     Arch Linux x86_64
 Kernel: Linux 6.9.6-arch1-1
 \end{myverbatim}
 Tutti i tempi trovati in questo capitolo fanno riferimento esclusivamente al tempo relativo all'euristica analizzata, tutti i tempi precedenti (importazione dell'istanza TSP, calcolo della matrice di adiacenza...) sono esclusi dal tempo finale. Per ottenere solo i tempi relativi all'euristica, tutti i test seguono questa struttura:
