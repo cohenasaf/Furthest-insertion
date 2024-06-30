@@ -1542,33 +1542,28 @@ Prima di confrontare le varie euristiche tra di loro, ho deciso di confrontare l
 \subsection{Dimensione ottimale degli heap per la versione 3}
 Per prima cosa è necessario determinare la dimensione minima del parametro m (ovvero la dimensione oltre la quale si perdono punti di inserimento sub-ottimi che ad un certo punto dell'esecuzione dell'euristica diventavano il punto di inserimento ottimo) in modo da ottenere la stessa soluzione rispetto a dimensioni maggiori ma migliorando i tempi in quanto si riduce il parametro m della complessità $O(n^2 \cdot log(m))$. Per determinare la dimensione minima, si può scrivere un semplice script che itera l'esecuzione dell'euristica fino a quando la qualità della soluzione inizia a cambiare, ad esempio:
 \begin{myverbatim}
-eil51
-m = 10, cost: 474.00, quality: 1.1127, time: 0.005203s
-m = 9, cost: 474.00, quality: 1.1127, time: 0.004842s
-m = 8, cost: 474.00, quality: 1.1127, time: 0.005032s
-m = 7, cost: 474.00, quality: 1.1127, time: 0.004893s
-m = 6, cost: 474.00, quality: 1.1127, time: 0.004403s
-m = 5, cost: 474.00, quality: 1.1127, time: 0.004187s
-m = 4, cost: 474.00, quality: 1.1127, time: 0.004054s
-m = 3, cost: 474.00, quality: 1.1127, time: 0.003813s
-m = 2, cost: 474.00, quality: 1.1127, time: 0.003639s
-m = 1, cost: 474.00, quality: 1.1127, time: 0.003410s
-m minima: 1
+m = 8 -> cost: 474.00, quality: 1.1127, time: 0.003978s
+m = 7 -> cost: 474.00, quality: 1.1127, time: 0.003748s
+m = 6 -> cost: 474.00, quality: 1.1127, time: 0.003632s
+m = 5 -> cost: 474.00, quality: 1.1127, time: 0.003647s
+m = 4 -> cost: 474.00, quality: 1.1127, time: 0.003484s
+m = 3 -> cost: 474.00, quality: 1.1127, time: 0.003652s
+m = 2 -> cost: 474.00, quality: 1.1127, time: 0.003275s
+m = 1 -> cost: 474.00, quality: 1.1127, time: 0.003155s
+Cheapest eil51 -> 1
 \end{myverbatim}
-In questo esempio possiamo notare come al variare della dimensione degli heap \lstinline!m!, la qualità trovata resta la stessa, addirittura fino a dimensione 1. Questo indica che non è realmente necessario, per ogni nodo fuori dal tour, uno heap ma (per questa specifica istanza) basta un solo record che indica la posizione ottima. Si può notare come il tempo si riduce al ridursi di \lstinline!m! in modo coerente con la complessità temporale. \newline
+In questo esempio possiamo notare come al variare della dimensione degli heap \lstinline!m!, la quality trovata resta la stessa, addirittura fino a dimensione 1. Questo indica che non è realmente necessario, per ogni nodo fuori dal tour, uno heap ma (per questa specifica istanza) basta un solo record che indica la posizione ottima. Si può notare come il time si riduce al ridursi di \lstinline!m! in modo coerente con la complessità timerale. \newline
 Andando a considerare altre istanze possiamo trovare che la dimensione minima di \lstinline!m! resta bassa (attorno ad 1 o 3), ad esempio:
 \begin{myverbatim}
 pr144
-m = 10, cost: 73220.17, quality: 1.2508, time: 0.046640s
-m = 9, cost: 73220.17, quality: 1.2508, time: 0.043555s
-m = 8, cost: 73220.17, quality: 1.2508, time: 0.042367s
-m = 7, cost: 73220.17, quality: 1.2508, time: 0.050120s
-m = 6, cost: 73220.17, quality: 1.2508, time: 0.037900s
-m = 5, cost: 73220.17, quality: 1.2508, time: 0.035765s
-m = 4, cost: 73220.17, quality: 1.2508, time: 0.034044s
-m = 3, cost: 73220.17, quality: 1.2508, time: 0.031981s
-m = 2, cost: 70289.97, quality: 1.2008, time: 0.041121s
-m minima: 3
+m = 8 -> cost: 73220.17, quality: 1.2508, time: 0.032970s
+m = 7 -> cost: 73220.17, quality: 1.2508, time: 0.045978s
+m = 6 -> cost: 73220.17, quality: 1.2508, time: 0.031315s
+m = 5 -> cost: 73220.17, quality: 1.2508, time: 0.030179s
+m = 4 -> cost: 73220.17, quality: 1.2508, time: 0.029308s
+m = 3 -> cost: 73220.17, quality: 1.2508, time: 0.029944s
+m = 2 -> cost: 73413.09, quality: 1.2541, time: 0.040187s
+Cheapest pr144 -> 3
 \end{myverbatim}
 In questo secondo esempio invece possiamo notare come la soluzione trovata con parametro \lstinline!m = 2! cambia rispetto ai casi $m > 2$, per questo motivo la dimensione minima del parametro è 3. È possibile determinare il parametro m minimo per ogni istanza in modo semplice con uno script, di seguito la rappresentazione tramite grafico:\newline
 \includegraphics[width=1\textwidth]{../Grafici/1.png} \

@@ -43,24 +43,24 @@
 \contentsline {chapter}{\numberline {4}Analisi dei risultati}{53}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Confronto versioni Cheapest Insertion}{54}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Dimensione ottimale degli heap per la versione 3}{54}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Analisi dei tempi delle versioni di Cheapest Insertion}{56}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Analisi delle qualità delle versioni di Cheapest Insertion}{57}{subsection.4.1.3}%
-\contentsline {section}{\numberline {4.2}Confronto versioni Furthest Insertion}{58}{section.4.2}%
+\contentsline {subsection}{\numberline {4.1.2}Analisi dei tempi delle versioni di Cheapest Insertion}{55}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Analisi delle qualità delle versioni di Cheapest Insertion}{56}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Confronto versioni Furthest Insertion}{57}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Dimensione ottimale degli heap per la versione 3 }{58}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Analisi dei tempi delle versioni di Furthest Insertion}{59}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Analisi delle qualità delle versioni di Furthest Insertion}{60}{subsection.4.2.3}%
-\contentsline {section}{\numberline {4.3}Confronto tempi e qualità delle euristiche}{61}{section.4.3}%
+\contentsline {subsection}{\numberline {4.2.2}Analisi dei tempi delle versioni di Furthest Insertion}{58}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Analisi delle qualità delle versioni di Furthest Insertion}{59}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Confronto tempi e qualità delle euristiche}{60}{section.4.3}%
 \contentsline {subsection}{\numberline {4.3.1}Analisi delle qualità delle euristiche}{61}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Analisi dei tempi delle euristiche}{63}{subsection.4.3.2}%
-\contentsline {section}{\numberline {4.4}Confronto tempi e qualità delle euristiche con istanze enormi}{64}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Qualità delle soluzioni trovate per istanze grandi}{64}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Tempi necessari per la risoluzione di istanze grandi}{65}{subsection.4.4.2}%
-\contentsline {section}{\numberline {4.5}Analisi robustezza rispetto alla scelta delle città iniziali}{65}{section.4.5}%
+\contentsline {subsection}{\numberline {4.3.2}Analisi dei tempi delle euristiche}{62}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Confronto tempi e qualità delle euristiche con istanze enormi}{63}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Qualità delle soluzioni trovate per istanze grandi}{63}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Tempi necessari per la risoluzione di istanze grandi}{64}{subsection.4.4.2}%
+\contentsline {section}{\numberline {4.5}Analisi robustezza rispetto alla scelta delle città iniziali}{64}{section.4.5}%
 \contentsline {subsection}{\numberline {4.5.1}Robustezza della qualità della soluzione delle implementazioni}{65}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}Robustezza dei tempi delle implementazioni}{67}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.2}Robustezza dei tempi delle implementazioni}{66}{subsection.4.5.2}%
 \contentsline {section}{\numberline {4.6}Analisi risultati medi e varianza di Random Insertion}{68}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Analisi risultati su Istanze Casuali}{71}{section.4.7}%
-\contentsline {subsection}{\numberline {4.7.1}Analisi media delle qualità e dei tempi}{72}{subsection.4.7.1}%
-\contentsline {subsection}{\numberline {4.7.2}Analisi varianza delle qualità e dei tempi}{73}{subsection.4.7.2}%
-\contentsline {chapter}{\numberline {5}Conclusioni}{75}{chapter.5}%
-\contentsline {subsection}{\numberline {5.0.1}Possibili sviluppi e estensioni}{76}{subsection.5.0.1}%
+\contentsline {section}{\numberline {4.7}Analisi risultati su Istanze Casuali}{70}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Analisi media delle qualità e dei tempi}{71}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Analisi varianza delle qualità e dei tempi}{72}{subsection.4.7.2}%
+\contentsline {chapter}{\numberline {5}Conclusioni}{74}{chapter.5}%
+\contentsline {subsection}{\numberline {5.0.1}Possibili sviluppi e estensioni}{75}{subsection.5.0.1}%
