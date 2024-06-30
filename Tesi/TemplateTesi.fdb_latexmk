@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1719767069.84554 "/home/asaf/Desktop/Furthest-insertion/Tesi/TemplateTesi.tex" "TemplateTesi.pdf" "TemplateTesi" 1719767074.58284 0
+["pdflatex"] 1719770305.00274 "/home/asaf/Desktop/Furthest-insertion/Tesi/TemplateTesi.tex" "TemplateTesi.pdf" "TemplateTesi" 1719770311.5595 0
   "../Grafici/1.png" 1719753260.99378 56752 6375ebf483d41bc63ff114be4f411300 ""
   "../Grafici/10.png" 1719766508.18888 236788 0925be525b0748c13ac997a3b91a166b ""
   "../Grafici/11.png" 1719766662.78683 139043 e4de5369988f912c31621022c46d889f ""
@@ -24,7 +24,7 @@
   "../Grafici/7.png" 1719758639.86517 224922 7744fa334ec6548de09f14bf1a5416f7 ""
   "../Grafici/8.png" 1719759031.72881 143237 6fceb66c4ff67e360593d8177efb8353 ""
   "../Grafici/9.png" 1719766352.63768 210115 d8ea40c906fae474ef55ec8c2b3b635b ""
-  "/home/asaf/Desktop/Furthest-insertion/Tesi/TemplateTesi.tex" 1719767069.59766 146164 a371f64c8135dc9a6096229337ec26a6 ""
+  "/home/asaf/Desktop/Furthest-insertion/Tesi/TemplateTesi.tex" 1719770304.44413 146164 0637bf9feec1596ecc06d23ac51a8ea2 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1716849630 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1716849630 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1716849630 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -224,10 +224,10 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1716849630 41588 b43d3e860a4f94167ee1e725ff526a72 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1716895134.18076 325518 3dff2bac5bde75cd7e600320ce8a00d6 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1716895133 7114513 ca9093e815e83f5f5284c2291c74e7a5 ""
-  "TemplateTesi.aux" 1719767074.48075 10723 70949678b1b329f090ff470498548a2a "pdflatex"
-  "TemplateTesi.out" 1719767074.48408 14937 b03691869fbec99af279afd9501b492d "pdflatex"
-  "TemplateTesi.tex" 1719767069.59766 146164 a371f64c8135dc9a6096229337ec26a6 ""
-  "TemplateTesi.toc" 1719767074.48408 6438 4d1caf918a093ea1b3af7549cade3cd2 "pdflatex"
+  "TemplateTesi.aux" 1719770310.80665 10723 5d14f9ab98b7d121ae0c1dfcb8e237ac "pdflatex"
+  "TemplateTesi.out" 1719770310.80999 14937 0fc800933a44fb0d8bd23937962bf8c3 "pdflatex"
+  "TemplateTesi.tex" 1719770304.44413 146164 0637bf9feec1596ecc06d23ac51a8ea2 ""
+  "TemplateTesi.toc" 1719770310.80999 6438 4e3c21c1a3e3617b3bf8c1b8885ed71d "pdflatex"
   "tesi.sty" 1719522760.23972 9349 e2ee555769e554f1503cbecb66d56ae3 ""
   "tesiSCIENZE_TECNOLOGIE.jpg" 1719322217.55253 151126 6aaf40e13c5552fffc380ab31d9b98c8 ""
   (generated)
