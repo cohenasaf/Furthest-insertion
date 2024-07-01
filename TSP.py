@@ -253,9 +253,6 @@ class TSP:
                     posL, posR = -1, -1
                     for i2 in range(len(path)):
                         next_i = (i2 + 1) % len(path)
-                    #for f in range(best_pos - 3, best_pos + 3):
-                    #    i2 = f % len(path)
-                        #next_i = (i2 + 1) % len(path)
                         insertion_cost = adj[path[i2]][node] + adj[node][path[next_i]] - adj[path[i2]][path[next_i]]
                         if best_cost > insertion_cost:
                             best_cost, posL, posR = insertion_cost, i2, next_i
@@ -460,7 +457,7 @@ class TSP:
         # Inizializza le distanze minime e le città più vicine per ogni città non nel percorso
         h = []
         for i in set(range(n)) - in_path:
-            h.append((min(distances[path[0], i], distances[path[1], i]), i))
+            h.append((-min(distances[path[0], i], distances[path[1], i]), i))
         heapq.heapify(h)
        
 
