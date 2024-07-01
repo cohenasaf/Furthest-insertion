@@ -550,7 +550,8 @@ Questa prima parte del metodo permette di aprire il file relativo all'istanza TS
 \begin{python}
 def openTSP(self, name):
   ...
-  self.adj = [[0 for _ in range(self.numCity)] for _ in range(self.numCity)]
+  self.adj = [[0 for _ in range(self.numCity)] \
+               for _ in range(self.numCity)]
   for i in range(self.numCity):
     for j in range(i):
       if i == j:
@@ -645,17 +646,17 @@ L'euristica \nameref{sec:NN} (NN) costruisce un tour partendo da una città arbi
   \begin{algorithmic}[1]
     \State $tour = [0]$
     \State $n$ = numero di città
-    \While{\texttt{len(tour) < n}}
-        \State cost = $+\infty$
-        \State j = -1
+    \While{$len(tour) < n$}
+        \State $cost = +\infty$
+        \State $j = -1$
         \For{\texttt{$j_2 \not \in tour$}}
-          \State last = ultima città nel $tour$
-          \If{\texttt{adj[last][$j_2$] < cost}}
-            \State cost = adj[last][$j_2$]
-            \State j = $j_2$
+          \State $last$ = ultima città nel $tour$
+          \If{\texttt{$adj[last][j_2] < cost$}}
+            \State $cost$ = adj[last][$j_2$]
+            \State $j$ = $j_2$
           \EndIf
         \EndFor
-        \State aggiungi j in fondo al tour
+        \State Aggiungi $j$ in fondo al tour
     \EndWhile
     \State Calcola il costo del tour trovato
   \end{algorithmic}
@@ -671,13 +672,13 @@ Nelle prossime sezioni verrà discussa l'implementazione delle euristiche costru
     \State $n$ = numero di città
     \State $adj$ = matrice di adiacenza
 
-    \State minDist = $+\infty$
+    \State $minDist = +\infty$
     \For{$i \in \{0, 1, 2, ..., n - 1\}$}
       \For{$j \in \{0, 1, 2, ..., i - 1\}$}
         \If{$adj[i][j] < minDist$}
-          \State \texttt{path[0] = i}
-          \State \texttt{path[1] = j}
-          \State \texttt{minDist = adj[i][j]}
+          \State \texttt{$path[0] = i$}
+          \State \texttt{$path[1] = j$}
+          \State \texttt{$minDist = adj[i][j]$}
         \EndIf
       \EndFor
     \EndFor
@@ -692,7 +693,7 @@ Nelle prossime sezioni verrà discussa l'implementazione delle euristiche costru
   \end{algorithmic}
 \end{tcolorbox}
 Per prima cosa, l'euristica inizializza il tour con la coppia di città più vicine presenti nell'istanza TSP, viene quindi cercato l'arco $(i, j)$ con costo più basso e inizializzato il path (posizione 0 e 1) con questi due nodi.
-Successivamente vengono inizializzate le distanze minime e le città più vicine per ogni città non nel percorso. Dato che Nearest Insertion dovrà determinare il nodo fuori dal ciclo con distanza minore rispetto ad un nodo qualunque nel ciclo, ho deciso di utilizzare uno heap (tramite il modulo \lstinline!heapq!) con il quale sarà possibile tenere traccia dei nodi fuori dal ciclo e la loro distanza minima con il tour.
+Successivamente vengono inizializzate le distanze minime e le città più vicine per ogni città non nel percorso. Dato che Nearest Insertion dovrà determinare il nodo fuori dal ciclo con distanza minore rispetto ad un nodo qualunque nel ciclo, si utilizza uno heap (tramite il modulo \lstinline!heapq!) con il quale sarà possibile tenere traccia dei nodi fuori dal ciclo e la loro distanza minima con il tour.
 \begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State ...
@@ -723,7 +724,7 @@ Successivamente vengono inizializzate le distanze minime e le città più vicine
     \State Calcola il costo del tour trovato
   \end{algorithmic}
   \end{tcolorbox}
-Questo è il ciclo principale dell'euristica: prima di tutto (tramite l'operazione \lstinline!heappop! nel linguaggio Python) viene estratto il nodo \lstinline!to_ins! come nodo candidato da inserire nel ciclo (in quanto ha distanza minima dal tour), successivamente viene effettuata una ricerca nel tour della posizione di inserimento migliore possibile. La posizione migliore deve minimizzare $c_{ir} + c_{rj} - c_{ij}$, quindi la variabile \lstinline!increase! definita alla riga 11.\newline Successivamente (dalla riga 18) viene aggiornato lo heap in quanto alla riga 17 viene modificato il path mentre lo heap fa ancora riferimento al path prima dell'inserimento. L'aggiornamento procede come segue: dato che lo heap contiene, per ogni nodo fuori dal tour, la distanza con il nodo più vicino all'interno del tour (quindi per ogni nodo fuori dal tour, mantiene la distanza minima con il tour), dato che è stato aggiunto un nuovo nodo nel tour, è necessario verificare per ogni elemento nello heap se il nuovo nodo aggiunto rappresenta un caso migliore rispetto a quanto precedentemente memorizzato nello heap, per questo motivo alla riga 17, nel caso in cui la distanza tra il nodo appena aggiunto e il nodo fuori dal path \lstinline!node! è migliore di quanto precedentemente memorizzato nello heap (\lstinline!cost!), allora è necessario aggiornare quel valore nello heap. \newline Successivamente è necessario effettuare l'operazione heapify (nel linguaggio Python: \lstinline!heapq.heapify(h)!) in quanto l'aggiornamento potrebbe aver modificato la struttura dello heap. Alla fine dell'implementazione di Nearest Insertion è presente (come prima) l'aggiornamento della variabile self.tour (che memorizza il tour finale) e viene calcolato il costo del percorso (abbiamo visto nel capitolo sui metodi ausiliari il metodo \lstinline!TSP.calculateCost()!). \newline
+Questo è il ciclo principale dell'euristica: prima di tutto (tramite l'operazione \lstinline!heappop! nel linguaggio Python) viene estratto il nodo \lstinline!to_ins! come nodo candidato da inserire nel ciclo (in quanto ha distanza minima dal tour), successivamente viene effettuata una ricerca nel tour della posizione di inserimento migliore possibile. La posizione migliore deve minimizzare $c_{ir} + c_{rj} - c_{ij}$, quindi la variabile \lstinline!increase! definita alla riga 11.\newline Successivamente (dalla riga 18) viene aggiornato lo heap in quanto alla riga 17 viene modificato il path mentre lo heap fa ancora riferimento al path prima dell'inserimento. L'aggiornamento procede come segue: dato che lo heap contiene, per ogni nodo fuori dal tour, la distanza con il nodo più vicino all'interno del tour (quindi per ogni nodo fuori dal tour, mantiene la distanza minima con il tour), dato che è stato aggiunto un nuovo nodo nel tour, è necessario verificare per ogni elemento nello heap se il nuovo nodo aggiunto rappresenta un caso migliore rispetto a quanto precedentemente memorizzato nello heap, per questo motivo alla riga 19, nel caso in cui la distanza tra il nodo appena aggiunto e il nodo fuori dal path \lstinline!node! è migliore di quanto precedentemente memorizzato nello heap (\lstinline!cost!), allora è necessario aggiornare quel valore nello heap. \newline Successivamente è necessario effettuare l'operazione heapify (nel linguaggio Python: \lstinline!heapq.heapify(h)!) in quanto l'aggiornamento potrebbe aver modificato la struttura dello heap. Alla fine dell'implementazione di Nearest Insertion (come prima) si calcola il costo del path trovato (utilizzando il metodo ausiliario descritto nella sezione precedente \lstinline!calculateCost()!). \newline
 La complessità temporale dell'implementazione è $O(n^2)$ dato che sono presenti solo due cicli for che iterano al massimo n volte, tutte le istruzioni nel ciclo interno hanno complessità pari a $O(1)$ e le istruzioni nel ciclo esterno hanno al massimo complessità $O(n)$.
 
 \subsection{Cheapest Insertion: versione 1}
@@ -806,6 +807,7 @@ La parte iniziale dell'implementazione è identica a Nearest Insertion: viene in
       \State Aggiungi $(cost, i, path[0], path[1])$ allo heap $h$
     \EndFor
     \State $heapify(h)$
+    \State ...
   \end{algorithmic}
 \end{tcolorbox}
 Come descritto prima, in questa versione viene inizializzato uno heap in modo analogo a Nearest Insertion, ma con una differenza: la chiave associata ad ogni nodo non è più la distanza minima con il tour ma il costo di inserimento (se inserito nel modo migliore possibile). In questo caso il costo di inserimento è semplice da ottenere in quanto nel tour sono presenti solo 2 nodi: dati gli unici due nodi presenti nel tour $a$ e $b$, il costo di inserimento del nodo $i$ sarà $c_{ai} + c_{ib} - c_{ab}$. Lo heap userà come valore chiave il costo (prima variabile della tupla) permettendo quindi di estrarre il nodo \lstinline!i! con costo minore. Nello heap vengono memorizzati anche i due nodi tra i quali dovrebbe avvenire l'inserimento (\lstinline!path[0]! e \lstinline!path[1]!) in quanto sono informazioni che saranno utili nella seconda parte dell'implementazione dell'euristica.
@@ -818,6 +820,7 @@ Come descritto prima, in questa versione viene inizializzato uno heap in modo an
       \State Inserisci $to\_ins$ nel punto $best\_pos$
       \State ...
     \EndWhile
+    \State ...
   \end{algorithmic}
 \end{tcolorbox}
 Questo è il ciclo for (while) principale dell'euristica: viene selezionato dallo heap il nodo \lstinline!to_ins! e il punto di inserzione \lstinline!r!. Abbiamo visto come nello heap sono presenti le seguenti informazioni: \lstinline!(costo, nodo, l, r)! dove \lstinline!cost! indica il costo di inserzione del nodo \lstinline!nodo! se inserito nel modo migliore possibile e \lstinline!l! e \lstinline!r! sono i due nodi (presenti nel tour) tra i quali è necessario effettuare l'inserzione.
@@ -860,10 +863,10 @@ Questo è il ciclo for (while) principale dell'euristica: viene selezionato dall
     \State Calcola il costo del path trovato
   \end{algorithmic}
 \end{tcolorbox}
-Dalla riga 4 in poi avviene l'aggiornamento dello heap (in modo analogo a quanto visto con \nameref{ssec:NI}): dato che l'inserimento del nuovo nodo nel tour ha generato una modifica del tour (e quindi la cancellazione di un arco e l'inserimento di nuovi due archi) è necessario verificare che i valori presenti nello heap siano ancora rappresentativi del nuovo tour e, in caso contrario, aggiornare lo heap. Per ogni elemento $h_i$ nello heap $h$, dati i valori \lstinline!node! (nodo da inserire), \lstinline!nodeLeft! e \lstinline!nodeRight! (nodi tra i quali andava inserito \lstinline!node!), i casi da considerare sono:
+Dalla riga 4 in poi avviene l'aggiornamento dello heap in modo analogo a quanto visto con \nameref{ssec:NI} con una differenza fondamentale: nel caso di Nearest Insertion l'aggiornamento era semplice dato che era solo necessario confrontare il valore memorizzato nello heap con la nuova distanza con il nodo appena aggiunto allo heap, in questo caso invece bisogna tenere in considerazione che, l'inserimento del nuovo nodo nel tour ha generato una modifica del tour (e quindi la cancellazione di un arco e l'inserimento di nuovi due archi) e quindi è necessario verificare che i valori presenti nello heap siano ancora rappresentativi del nuovo tour e, in caso contrario, aggiornare lo heap. Per ogni elemento $h_i$ nello heap $h$, dati i valori \lstinline!node! (nodo da inserire), \lstinline!nodeLeft! e \lstinline!nodeRight! (nodi tra i quali andava inserito \lstinline!node!), i casi da considerare sono:
 \begin{legal}
   \item (Riga 10) Nel caso in cui \lstinline!nodeLeft! e \lstinline!nodeRight! corrispondono esattamente ai due nodi tra i quali è stato inserito il nodo \lstinline!to_ins! (nella prima parte del ciclo principale dell'algoritmo), allora è necessario ricalcolare per il nodo \lstinline!node! il costo e il punto di inserimento migliore, in quanto il vecchio arco è stato cancellato. (Riga 10-22).
-  \item In ogni altro caso il vecchio arco (tra \lstinline!nodeLeft! e \lstinline!nodeRight!) è rimasto intatto. A questo punto è necessario semplicemente verificare che i due nuovi archi generati dopo l'inserimento (quindi gli archi \lstinline!path[best_pos - 1]! - \lstinline!node! e \lstinline!node! - \lstinline!path[best_pos + 1]!) possano essere un caso di inserimento con costo minore rispetto a quello presente nello heap (riga 23-30).
+  \item In ogni altro caso il vecchio arco (tra \lstinline!nodeLeft! e \lstinline!nodeRight!) è rimasto intatto. A questo punto è necessario semplicemente verificare che i due nuovi archi generati dopo l'inserimento possano essere un caso di inserimento con costo minore rispetto a quello presente nello heap (riga 23-30).
 \end{legal}
 Inoltre è importante notare come l'accesso agli elementi del tour avviene \lstinline!% len(tour)! in quanto il tour è una lista circolare.
 Successivamente (come per le altre euristiche), è necessario ripristinare la struttura dello heap tramite \lstinline!heapify(h)! e alla fine calcolare il costo della soluzione trovata. \newline
@@ -996,6 +999,7 @@ Successivamente si inizializzano le due strutture dati principali dell'euristica
       \EndFor
       \State ...
     \EndWhile
+    \State ...
   \end{algorithmic}
 \end{tcolorbox}
 Dalla riga 2 inizia il ciclo principale dell'euristica: si seleziona dallo heap principale \lstinline!h! lo heap specifico di un determinato nodo fuori dal tour \lstinline!h_i!, dallo heap piccolo si estrae il record \lstinline!(costo, to_ins, l, r)! nel quale sono presenti le informazioni utili per l'inserimento: il nodo da inserire \lstinline!to_ins! e i due nodi \lstinline!l! ed \lstinline!r! tra i quali va inserito il nodo, mentre il primo elemento (il costo) può essere scartato e quindi poi si procede all'inserimento del nodo tra \lstinline!l! ed \lstinline!r!. Importante notare come il modulo \lstinline!heapq! effettua dei confronti tra record andando a usare come chiave l'elemento in prima posizione nel record, nel nostro caso il costo. Inoltre nel caso dello heap principale \lstinline!h!, l'elemento chiave diventa il costo presente nel primo record di ogni lista, quindi le liste di record vengono confrontate considerando solo il costo del primo record di ogni lista. A questo punto è necessario cancellare tutti i record che puntano all'arco $(l, r)$: per ottenere questo risultato ho deciso di assegnare costo infinito ai record associati a quell'arco: in questo modo si evita che possano essere estratti (alla riga 8) record con archi che non sono più presenti nel path.
@@ -1037,7 +1041,7 @@ Dalla riga 2 inizia il ciclo principale dell'euristica: si seleziona dallo heap 
   \end{algorithmic}
 \end{tcolorbox}
 Una volta inserito il nodo nel tour, si procede con l'aggiornamento del dizionario e degli heap associati ai nodi fuori dal tour, ovvero: per ogni heap "piccolo" presente nello heap principale, si procede aggiungendo (allo heap piccolo) i due nuovi record relativi ai due nuovi archi creati: nelle righe 5-14 si procede con l'arco a sinistra e con le righe 15-24 con l'arco a destra. In più si aggiornano i dizionari con i nuovi archi creati aggiungendo i riferimenti ai nuovi record (righe 12 e 22).
-In conclusione si procede con il ripristino della struttura dello heap piccolo (riga 25). \newline In questa versione, finalmente riusciamo a ridurre la complessità temporale dell'algoritmo a $O(n^2 * log(n))$ in quanto tutte le istruzioni hanno complessità temporale $O(1)$ eccetto per i due cicli for che iterano fino a n volte ed eccetto l'istruzione $heapify(hp)$ che, per ogni heap del nodo, opera ricostruendo la struttura dello heap.
+In conclusione si procede con il ripristino della struttura dello heap piccolo (riga 25). \newline In questa versione, finalmente riusciamo a ridurre la complessità temporale dell'algoritmo a $O(n^2 \cdot log(n))$ in quanto tutte le istruzioni hanno complessità temporale $O(1)$ eccetto per i due cicli for che iterano fino a n volte ed eccetto l'istruzione $heapify(hp)$ che, per ogni heap del nodo, opera ricostruendo la struttura dello heap.
 
 \subsection{Cheapest Insertion versione 3 Approssimata}
 Abbiamo visto, nella sezione precedente, come siamo riusciti a ridurre la complessità temporale a $O(n^2 \cdot log(n))$, però è possibile operare con una ulteriore ottimizzazione: è possibile limitare la dimensione degli heap piccoli ad una dimensione $m < n$: per ogni istanza, deve essere presente una soglia $m_{ott} < n$ sotto la quale non si può più garantire la scelta del nodo che minimizza il costo di inserimento (e del punto di inserzione). Per ogni istanza, quindi, è necessario trovare questo valore $m_{ott}$ a partire da $n$ scendendo finché la qualità trovata resta invariata. Di seguito l'algoritmo con la variazione:
@@ -1087,7 +1091,7 @@ In questa sezione discutiamo l'implementazione di \nameref{ssec:FaI}. L'implemen
   \end{algorithmic}
   \end{tcolorbox}
 L'euristica inizializza il tour con la coppia di città più lontane (a differenza della coppia di città più vicine nel caso di Nearest Insertion) presenti nell'istanza TSP, viene quindi cercato l'arco $(i, j)$ con costo più alto e inizializzato il path (posizione 0 e 1) con questi due nodi.
-In modo del tutto analogo a Nearest Insertion, viene inizializzato uno heap il quale conterrà il costo di inserimento se il nodo viene inserito nel modo migliore possibile. Dato che il metodo heappop all'interno del modulo \lstinline!heapq! restituisce l'elemento più piccolo (quindi il nostro heap h opera come un min-heap) e dato che per Farthest Insertion è necessario prelevare il nodo con il costo maggiore (e non minore), ogni distanza inserita nello heap (primo elemento di ogni tupla) verrà inserita con valore negativo: con questa semplice modifica il min-heap si comporterà come un max-heap e restituirà (tramite il metodo \lstinline!heapq.heappop(h)!) il nodo con distanza maggiore dal tour. Per questo motivo il codice è identico a nearest insertion, con la differenza che alla riga 18 è presente un segno meno all'interno del record $(distance, node)$.
+In modo del tutto analogo a Nearest Insertion, viene inizializzato uno heap il quale conterrà il costo di inserimento se il nodo viene inserito nel modo migliore possibile. Dato che il metodo heappop all'interno del modulo \lstinline!heapq! restituisce l'elemento più piccolo (quindi il nostro heap h opera come un min-heap) e dato che per Farthest Insertion è necessario prelevare il nodo con il costo maggiore (e non minore), ogni distanza inserita nello heap (primo elemento di ogni tupla) verrà inserita con valore negativo: con questa semplice modifica il min-heap si comporterà come un max-heap e restituirà (tramite il metodo \lstinline!heapq.heappop(h)!) il nodo con distanza maggiore dal tour. Per questo motivo il codice è identico a Nearest Insertion, con la differenza che alla riga 18 è presente un segno meno all'interno del record $(distance, node)$.
 \begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Farthest Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State \dots
@@ -1263,7 +1267,7 @@ Dalla riga 4 in poi avviene l'aggiornamento dello heap in modo del tutto analogo
   \item Riga 6: è presente l'istruzione $cost = cost \cdot -1$ in modo da riportare il costo negativo presente nello heap in un costo positivo, questo sarà utile successivamente (righe 24 e 28) dove il nuovo costo deve essere confrontato con il vecchio costo.
   \item Righe 22, 26 e 30: i nuovi costi devono essere inserito con costo negativo nello heap, per questo motivo le variabili \lstinline!new_cost! vengono moltiplicate per -1.
 \end{legal}
-La restante parte dell'implementazione è del tutto identica a cheapest insertion. \newline
+La restante parte dell'implementazione è del tutto identica a Cheapest Insertion. \newline
 Le considerazioni riguardo la complessità temporale di questa implementazioni sono le stesse della versione 2 di Cheapest Insertion, ovvero mantiene un tempo pari a $O(n^3)$ nel peggiore dei casi, ma nella pratica ha delle prestazioni (tempi) sempre migliori rispetto alla prima versione in quanto il terzo ciclo interno viene eseguito solo in certi casi e quindi non sempre.
 
 \subsection{Furthest Insertion versione 2 Approssimata}
@@ -1339,7 +1343,7 @@ Come per le altre versioni, si inizializza il path con la coppia delle città pi
     \EndFor
   \end{algorithmic}
 \end{tcolorbox}
-Successivamente si inizializzano le due strutture dati fondamentali dell'implementazione, ovvero lo heap principale e il dizionario (come per la versione 3 di Cheapest Insertion) con la differenza che il costo del primo record viene inizializzato come negativo in modo da consentire allo heap principale \lstinline!h! di selezionare il record con costo di inserimento maggiore (basta che risulti negativo solo il primo record). Successivamente riporto i costi negativi (avevamo modificato solo i primi di ogni heap piccolo) ad un costo positivo.
+Successivamente si inizializzano le due strutture dati fondamentali dell'implementazione, ovvero lo heap principale e il dizionario (come per la versione 3 di Cheapest Insertion) con la differenza che il costo del primo record viene inizializzato come negativo in modo da consentire allo heap principale \lstinline!h! di selezionare il record con costo di inserimento maggiore (basta che risulti negativo solo il costo del primo record). Successivamente i costi negativi (avevamo modificato solo i primi di ogni heap piccolo) vengono riconvertiti ad un valore positivo in modo da consentire agli heap piccoli di operare correttamente come min-heap.
 \begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion Versione 3, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{algorithmic}[1]
     \State \dots
@@ -1399,7 +1403,7 @@ Dalla terza riga inizia il ciclo principale dell'euristica: dallo heap \lstinlin
     \State Determina il costo del path trovato
   \end{algorithmic}
 \end{tcolorbox}
-La restante parte dell'implementazione è analoga alla versione 3 di Cheapest Insertion, con la differenza che è necessario mantenere il max-heap in modo che selezioni il record con costo di inserimento massimo (e non minimo) e gli heap interni come min-heap. Per ottenere questa proprietà, si fa in modo che quando operi l'istruzione \lstinline!heapify! per gli heap piccoli tutti i costi siano positivi, mentre quando opera \lstinline!heapify! sullo heap principale, tutti i costi in prima posizione di ogni heap piccolo (solo i primi) devono risultare negativi, per questo motivo alla riga 34 si procede riportando i valori negativi ad un valore positivo (solo per i costi nel primo record di ogni heap piccolo). \newline
+La restante parte dell'implementazione è analoga alla versione 3 di Cheapest Insertion, con la differenza che è necessario mantenere il max-heap in modo che selezioni il record con costo di inserimento massimo (e non minimo) e gli heap interni come min-heap. Per ottenere questa proprietà, si fa in modo che quando operi l'istruzione \lstinline!heapify! per gli heap piccoli tutti i costi siano positivi, mentre quando opera \lstinline!heapify! sullo heap principale, tutti i costi in prima posizione di ogni heap piccolo (solo i primi) devono risultare negativi, per questo motivo alla riga 30-31 si procede riportando i valori negativi ad un valore positivo (solo per i costi nel primo record di ogni heap piccolo). \newline
 Da un punto di vista della complessità temporale, l'algoritmo ha un tempo (nel caso peggiore) pari a $O(n^2 \cdot log(n))$ come già visto per la descrizione di Cheapest Insertion versione 3.
 
 \subsection{Furthest Insertion versione 3 Approssimata}
@@ -1523,7 +1527,7 @@ CPU:    Intel(R) Core(TM) i5-10400F CPU (12) @ 2.90GHz
 GPU:    NVIDIA GeForce GTX 1650
 RAM:    32 GB DDR4
 SO:     Arch Linux x86_64
-Kernel: Linux 6.9.6-arch1-1
+Kernel: Linux 6.9.7-arch1-1
 \end{myverbatim}
 Tutti i tempi trovati in questo capitolo fanno riferimento esclusivamente al tempo relativo all'euristica analizzata, tutti i tempi precedenti (importazione dell'istanza TSP, calcolo della matrice di adiacenza...) sono esclusi dal tempo finale. Per ottenere solo i tempi relativi all'euristica, tutti i test seguono questa struttura:
 \begin{python}
@@ -1637,7 +1641,7 @@ Possiamo allo stesso modo analizzare i tempi delle euristiche analizzate nella s
 I tempi sono coerenti con le considerazioni sulle complessità temporale fatte in precedenza: Nearest Neighbor risulta essere l'algoritmo più veloce con complessità $O(n^2)$ ma come visto in precedenza in media trova soluzioni di qualità bassa, Nearest Insertion e Farthest Insertion hanno un tempo molto simile in quanto entrambi sono algoritmi $O(n^2)$ e condividono molto del codice, mentre Cheapest Insertion e Furthest Insertion anche in questo caso ottengono tempi molto simili e coerenti con la loro complessità temporale (analizzata nelle sezioni precedenti). \newline Complessivamente (in sintesi) possiamo affermare che Furthest Insertion trova in media ottime soluzioni (non le migliori) ma richiede più tempo rispetto alle altre euristiche (escluso Cheapest Insertion dove i tempi sono molto simili).
 
 \section{Confronto tempi e qualità delle euristiche con istanze enormi}
-In questa sezione analizziamo il comportamento delle euristiche nel caso di istanze molto grandi (con un numero di città maggiore uguale a 10000), analizzeremo tutte le istanze restanti presenti nella libreria TSP-LIB fino alla istanza di dimensione pari a 14051 città (purtroppo 32 GB di memoria non bastano per le istanze d15112, d18512 che quindi non saranno incluse nelle analisi). Per ognuna di queste istanze, il parametro minimo per Cheapest Insertion è pari a 3. \newline
+In questa sezione analizziamo il comportamento delle euristiche nel caso di istanze molto grandi (con un numero di città maggiore uguale a 10000), analizzeremo tutte le istanze restanti presenti nella libreria TSP-LIB fino alla istanza di dimensione pari a 14051 città. Per ognuna di queste istanze, il parametro minimo per Cheapest Insertion è pari a 3. \newline
 \subsection{Qualità delle soluzioni trovate per istanze grandi}
 \includegraphics[width=1\textwidth]{../Grafici/18.png} \
 Da questi risultati possiamo notare come Nearest Neighbor risulti essere in molti contesti l'euristica peggiore, mentre la nuova euristica Furthest Insertion mostra ottimi risultati ma non in tutte le istanza. Possiamo, come visto per le prime 50 istanze da TSP-LIB, valutare la media delle qualità:
@@ -1729,7 +1733,7 @@ Per quanto riguarda invece la varianza dei tempi, possiamo notare, nell'ordine d
 Si può concludere la tesi riassumendo i risultati trovati:
 \begin{legal}
   \item Furthest Insertion (ovvero la nuova euristica proposta in questa tesi) si colloca al secondo posto dal punto di vista delle qualità trovate (Farthest Insertion) e quindi trova soluzioni di qualità migliore rispetto altre euristiche basate su inserzione (quindi meglio di Cheapest Insertion e Nearest Insertion) per le istanze piccole e medie e soluzioni migliori di Nearest Neighbor.
-  \item Furthest Insertion e Farthest Insertion trova soluzioni di qualità migliore anche con l'inizializzazione del tour casuale in confronto alle altre euristiche basate su inserzione (sempre con inizializzazione casuale).
+  \item Furthest Insertion e Farthest Insertion trovano soluzioni di qualità migliore anche con l'inizializzazione del tour casuale in confronto alle altre euristiche basate su inserzione (sempre con inizializzazione casuale).
   \item Furthest Insertion ha una varianza più bassa per quanto riguarda la qualità delle soluzioni, sia nel caso con inizializzazione con la coppia di città più lontane, sia nel caso con inizializzazione casuale.
   \item Furthest Insertion (lato negativo) non ha mostrato un miglioramento significativo nell'ottimizzazione da heap singolo a più heap associati ai nodi fuori dal tour (cosa che invece è avvenuta per Cheapest Insertion).
   \item Furthest Insertion (lato negativo) trova ottime soluzioni per le istanze grandi ma non le migliori in quanto Cheapest Insertion trova soluzioni migliori in media.
@@ -1741,10 +1745,10 @@ Questi risultati sono molto interessanti in quanto Furthest Insertion è proprio
 \subsection{Possibili sviluppi e estensioni}
 Sicuramente sarebbe interessante estendere il progetto nei seguenti campi:
 \begin{legal}
-  \item Implementare altre euristiche (ad esempio non basate su inserzione) e confrontarle con la nuova euristica proposta in questa tesi
+  \item Implementare altre euristiche (ad esempio non basate su inserzione) e confrontarle con la nuova euristica proposta in questa tesi.
   \item Come visto nel capitolo delle implementazioni, il progetto si limita a istanze con coordinate euclidee in due dimensioni. Può essere interessante estendere il progetto ad istanze a 3 dimensioni o istanze con distanze diverse dalla distanza euclidea in due dimensioni, ad esempio con la distanza di Čebyšëv e confrontare le prestazioni dell'euristica al variare del parametro $k$\footnote{https://www.researchgate.net/publication/311633774\_Chebyshev\_Distance}, oppure ad esempio la distanza di Manhattan\footnote{https://xlinux.nist.gov/dads/HTML/manhattanDistance.html}.
   \item Implementare gli stessi algoritmi in altri linguaggi di programmazione (come C, C++ o Java), confrontare eventuali lati negativi, positivi e le prestazioni
-\end{legal}
+\end{legal}.
  
 %
 %			BIBLIOGRAFIA

@@ -31,14 +31,14 @@
 \contentsline {subsection}{\numberline {3.3.5}Cheapest Insertion versione 2 Approssimata}{31}{subsection.3.3.5}%
 \contentsline {subsection}{\numberline {3.3.6}Cheapest Insertion: versione 3}{33}{subsection.3.3.6}%
 \contentsline {subsection}{\numberline {3.3.7}Cheapest Insertion versione 3 Approssimata}{37}{subsection.3.3.7}%
-\contentsline {subsection}{\numberline {3.3.8}Farthest Insertion}{37}{subsection.3.3.8}%
+\contentsline {subsection}{\numberline {3.3.8}Farthest Insertion}{38}{subsection.3.3.8}%
 \contentsline {subsection}{\numberline {3.3.9}Furthest Insertion: versione 1}{40}{subsection.3.3.9}%
 \contentsline {subsection}{\numberline {3.3.10}Furthest Insertion: versione 2}{41}{subsection.3.3.10}%
 \contentsline {subsection}{\numberline {3.3.11}Furthest Insertion versione 2 Approssimata}{44}{subsection.3.3.11}%
 \contentsline {subsection}{\numberline {3.3.12}Furthest Insertion: versione 3}{45}{subsection.3.3.12}%
 \contentsline {subsection}{\numberline {3.3.13}Furthest Insertion versione 3 Approssimata}{48}{subsection.3.3.13}%
 \contentsline {subsection}{\numberline {3.3.14}Random Insertion}{49}{subsection.3.3.14}%
-\contentsline {subsection}{\numberline {3.3.15}Random Insertion: versione 2}{50}{subsection.3.3.15}%
+\contentsline {subsection}{\numberline {3.3.15}Random Insertion: versione 2}{51}{subsection.3.3.15}%
 \contentsline {subsection}{\numberline {3.3.16}Euristiche con inizializzazione casuale}{51}{subsection.3.3.16}%
 \contentsline {chapter}{\numberline {4}Analisi dei risultati}{53}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Confronto versioni Cheapest Insertion}{54}{section.4.1}%
