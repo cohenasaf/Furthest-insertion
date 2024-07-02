@@ -69,7 +69,9 @@ for l in TSP_LIB[:1]:
     NN.append(testEuristic("nearestNeighbor", t.nearestNeighbor))
     NI.append(testEuristic("nearestInsertion", t.nearestInsertion))
     CI.append(testEuristicO("cheapestInsertion", t.cheapestInsertionOttimizzato, 3))
+    CI.append(testEuristicO("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato, 3))
     FaI.append(testEuristic("farthestInsertion", t.farthestInsertion))
+    FaI.append(testEuristic("furthestInsertionRandomStart", t.furthestInsertionRandomStart))
     FuI.append(testEuristic("furthestInsertion", t.furthestInsertion))
 
     #cOn3.append(testEuristic("cheapestInsertionOn3", t.cheapestInsertionOn3))
