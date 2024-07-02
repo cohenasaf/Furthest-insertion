@@ -26,7 +26,7 @@ plt.plot(x, y5, marker='*', color='orange', label='Furthest Insertion versione 2
 plt.xticks(rotation=45)
 plt.xlabel('Prime 50 istanze TSP da TSP-LIB')
 plt.ylabel('Qualità medie trovate')
-plt.yscale('log')
+#plt.yscale('log')
 plt.title('Qualità delle soluzioni trovate')
 plt.legend()  # Show legend based on labels
 

@@ -1719,15 +1719,16 @@ I risultati sui tempi medi sono coerenti con i risultati visti nelle sezioni pre
 \includegraphics[width=1\textwidth]{../Grafici/22.png} \
 Adesso invece valutiamo la varianza dei risultati ottenuti, possiamo notare una varianza molto alta: questo può essere spiegabile in quanto due istanze generate casualmente (anche con la stessa dimensione) risultano essere molto diverse e quindi si ottengono soluzioni di qualità molto diverse. La media delle varianze risulta essere:
 \begin{myverbatim}
-Nearest Neighbor ->              2748.17
-Nearest Insertion ->             3147.33
-Cheapest Insertion versione 3 -> 2779.54
-Farthest Insertion ->            3145.07
-Furthest Insertion versione 2 -> 3429.82
+Nearest Neighbor ->              2958.68
+Nearest Insertion ->             3175.12
+Cheapest Insertion versione 3 -> 3015.10
+Farthest Insertion ->            3356.24
+Furthest Insertion versione 2 -> 3568.44
 \end{myverbatim}
 Quindi Nearest Neighbor ottiene una varianza media più bassa mentre Furthest una varianza media più alta. \newline
 \includegraphics[width=1\textwidth]{../Grafici/23.png} \
-Per quanto riguarda invece la varianza dei tempi, possiamo notare, nell'ordine dalla varianza più bassa a quella più alta, i seguenti risultati: Nearest Neighbor, 
+Per quanto riguarda invece la varianza dei tempi, possiamo notare, nell'ordine dalla varianza più bassa a quella più alta, i seguenti risultati: Nearest Neighbor, Nearest e Farthest Insertion e poi Furthest e Cheapest Insertion. \newline
+Possiamo quindi concludere che, per le istanze generate casualmente, in media Nearest Neighbor si comporta meglio rispetto alle altre euristiche analizzate.
 
 \chapter{Conclusioni}
 Si può concludere la tesi riassumendo i risultati trovati:
@@ -1736,9 +1737,10 @@ Si può concludere la tesi riassumendo i risultati trovati:
   \item Furthest Insertion e Farthest Insertion trovano soluzioni di qualità migliore anche con l'inizializzazione del tour casuale in confronto alle altre euristiche basate su inserzione (sempre con inizializzazione casuale).
   \item Furthest Insertion ha una varianza più bassa per quanto riguarda la qualità delle soluzioni, sia nel caso con inizializzazione con la coppia di città più lontane, sia nel caso con inizializzazione casuale.
   \item Furthest Insertion (lato negativo) non ha mostrato un miglioramento significativo nell'ottimizzazione da heap singolo a più heap associati ai nodi fuori dal tour (cosa che invece è avvenuta per Cheapest Insertion).
-  \item Furthest Insertion (lato negativo) trova ottime soluzioni per le istanze grandi ma non le migliori in quanto Cheapest Insertion trova soluzioni migliori in media.
+  \item Furthest Insertion (lato negativo) trova buone soluzioni per le istanze enormi ma Cheapest Insertion trova soluzioni migliori in media.
   \item Furthest Insertion ha dei tempi accettabili (come nel caso di Cheapest Insertion) anche se altre euristiche sono risultate più veloci in modo coerente con la complessità computazionale analizzata (ma con qualità ottenute peggiori).
-  \item Furthest Insertion trova soluzioni di qualità molto alta (istanze piccole e medie) in modo simile a Random Insertion, in modo del tutto inatteso in quanto Random Insertion (appunto) sceglie i nodi da inserire in modo casuale.
+  \item Random Insertion trova soluzioni di qualità molto buona, in linea con Farthest e Furthest Insertion in modo del tutto inatteso in quanto, appunto, Random Insertion seleziona i nodi in modo casuale.
+  \item Nel caso di istanze generate casualmente, Nearest Neighbor trova soluzioni migliori rispetto alle altre euristiche (inclusa Furthest Insertion).
 \end{legal}
 Questi risultati sono molto interessanti in quanto Furthest Insertion è proprio l'euristica mancante in letteratura, ad esempio nel "The Traveling Salesman" di G. Reinelt\cite{Reinelt}, possiamo trovare Nearest Insertion (6.2.1.1), varie versioni di Farthest Insertion (6.2.1.2), varie versioni di Cheapest Insertion (6.2.1.5) ma non Furthest Insertion.
 
@@ -1746,7 +1748,7 @@ Questi risultati sono molto interessanti in quanto Furthest Insertion è proprio
 Sicuramente sarebbe interessante estendere il progetto nei seguenti campi:
 \begin{legal}
   \item Implementare altre euristiche (ad esempio non basate su inserzione) e confrontarle con la nuova euristica proposta in questa tesi.
-  \item Come visto nel capitolo delle implementazioni, il progetto si limita a istanze con coordinate euclidee in due dimensioni e ad istanze generate casualmente (garantendo comunque la disuguaglianza triangolare). Può essere interessante estendere il progetto ad istanze a 3 dimensioni o istanze con distanze diverse dalla distanza euclidea in due dimensioni, ad esempio con la distanza di Čebyšëv e confrontare le prestazioni dell'euristica al variare del parametro $k$\footnote{https://www.researchgate.net/publication/311633774\_Chebyshev\_Distance}, oppure ad esempio la distanza di Manhattan\footnote{https://xlinux.nist.gov/dads/HTML/manhattanDistance.html}.
+  \item Può essere interessante estendere il progetto ad istanze a 3 dimensioni o istanze con distanze diverse dalla distanza euclidea in due dimensioni, ad esempio con la distanza di Čebyšëv e confrontare le prestazioni dell'euristica al variare del parametro $k$\footnote{https://www.researchgate.net/publication/311633774\_Chebyshev\_Distance}, oppure ad esempio la distanza di Manhattan\footnote{https://xlinux.nist.gov/dads/HTML/manhattanDistance.html}.
   \item Implementare gli stessi algoritmi in altri linguaggi di programmazione (come C, C++ o Java), confrontare eventuali lati negativi, positivi e le prestazioni
 \end{legal}.
  
@@ -1792,11 +1794,7 @@ salesman heuristic, Department of Computer Science, Roskilde Universit, 13 April
 \bibitem{knuthart}
 Donald E. Knuth, The Art of Computer Programming: Volume 2 (Seminumerical Algorithms), Addison-Wesley Professional, 1997, Capitolo 3
 \bibitem{Rosenkrantz}
-Daniel J. Rosenkrantz, An Analysis of Several Heuristics for the Traveling Salesman Problem, University at Albany, The State University of New York, 1977
+Daniel J. Rosenkrantz, Richard E. Stearns, Philip M. Lewis II, An Analysis of Several Heuristics for the Traveling Salesman Problem, SIAM Journal on Computing, 1977
 
-
-%\bibitem{gotti91}
-%M. Gotti, I linguaggi specialistici, Firenze, La Nuova Italia, 1991.
 \end{thebibliography}
-% 
 \end{document}

@@ -43,26 +43,6 @@ for i in range(50, 100):
     print("_________________")
     print(f"random {i}")
 
-    #t.calculateOptimalCost()
-
-    #testEuristic("randomInsertion", t.randomInsertion)
-    #testEuristic("nearestNeighbor", t.nearestNeighbor)
-    #testEuristic("nearestInsertion", t.nearestInsertion)
-    #testEuristic("cheapestInsertionOn3           ", t.cheapestInsertionOn3)
-    #testEuristicO("cheapestInsertionOttimizzato   ", t.cheapestInsertionOttimizzato, 3)
-    #testEuristic("cheapestInsertionOn3              ", t.cheapestInsertionOn3)
-    #testEuristic("cheapestInsertion              ", t.cheapestInsertion)
-    #testEuristic("cheapestInsertionApprossimato              ", t.cheapestInsertionApprossimato)
-    #testEuristicO("cheapestInsertionOttimizzato              ", t.cheapestInsertionOttimizzato, 2)
-    #testEuristic("cheapestInsertionOttimizzato", t.cheapestInsertionOttimizzato, 4)
-    #testEuristic("farthestInsertion", t.farthestInsertion)
-    #testEuristic("furthestInsertion           ", t.furthestInsertion)
-    #testEuristic("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato)
-
-    #testEuristic("nearestNeighbourRandom", t.nearestInsertionRandomStart)
-
-    #t.calculateOptimalCost()
-
     NN2q = []
     NN2t = []
     NI2q = []
@@ -92,45 +72,37 @@ for i in range(50, 100):
         FuI2q.append(q)
         FuI2t.append(tmp)
     
-    NN.append((np.var(NN2q), np.var(NN2t)))
-    NI.append((np.var(NI2q), np.var(NI2t)))
-    CI.append((np.var(CI2q), np.var(CI2t)))
-    FaI.append((np.var(FaI2q), np.var(FaI2t)))
-    FuI.append((np.var(FuI2q), np.var(FuI2t)))
-
-    #cOn3.append(testEuristic("furthestInsertionOn3", t.furthestInsertionOn3))
-    #c.append(testEuristic("furthestInsertion", t.furthestInsertion))
-    #cO.append(testEuristicO("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato, dF[l]))
-    #cA.append(testEuristic("furthestInsertionApprossimato", t.furthestInsertionApprossimato))
-
-
-    #testEuristic("furthestInsertionOn3", t.furthestInsertionOn3)
-    #testEuristic("furthestInsertion", t.furthestInsertion)
-    #testEuristicO("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato, 5)
-
-    #r = []
-    #last_m = 1
-    #for m in range(8, 0, -1):
-    #    r.append(testEuristicO("furthestInsertionOttimizzato", t.furthestInsertionOttimizzato, m))
-    #    if len(r) >= 2 and r[-1] != r[-2]:
-    #        last_m = m + 1
-    #        break
-    #print("random", "->", last_m)
-    #testEuristic("cheapestInsertion", t.cheapestInsertion)
-#print("random"_m)
+    NN.append((np.mean(NN2q), np.var(NN2q), np.mean(NN2t), np.var(NN2t)))
+    NI.append((np.mean(NI2q), np.var(NI2q), np.mean(NI2t), np.var(NI2t)))
+    CI.append((np.mean(CI2q), np.var(CI2q), np.mean(CI2t), np.var(CI2t)))
+    FaI.append((np.mean(FaI2q), np.var(FaI2q), np.mean(FaI2t), np.var(FaI2t)))
+    FuI.append((np.mean(FuI2q), np.var(FuI2q), np.mean(FuI2t), np.var(FuI2t)))
 
 #print(dF2)
-print("QUALITA'")
+print("MEDIA QUALITA'")
 print([x[0] for x in NN])
 print([x[0] for x in NI])
 print([x[0] for x in CI])
 print([x[0] for x in FaI])
 print([x[0] for x in FuI])
 
-
-print("TEMPI")
+print("VAR QUALITA'")
 print([x[1] for x in NN])
 print([x[1] for x in NI])
 print([x[1] for x in CI])
 print([x[1] for x in FaI])
 print([x[1] for x in FuI])
+
+print("MEDIA TEMPI'")
+print([x[2] for x in NN])
+print([x[2] for x in NI])
+print([x[2] for x in CI])
+print([x[2] for x in FaI])
+print([x[2] for x in FuI])
+
+print("VAR TEMPI'")
+print([x[3] for x in NN])
+print([x[3] for x in NI])
+print([x[3] for x in CI])
+print([x[3] for x in FaI])
+print([x[3] for x in FuI])
