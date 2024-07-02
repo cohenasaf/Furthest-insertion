@@ -1622,35 +1622,44 @@ I tempi sono coerenti con le considerazioni sulle complessità temporale fatte i
 In questa sezione analizziamo il comportamento delle euristiche nel caso di istanze molto grandi (con un numero di città maggiore uguale a 10000), analizzeremo tutte le istanze restanti presenti nella libreria TSP-LIB fino alla istanza di dimensione pari a 14051 città. Per ognuna di queste istanze, il parametro minimo per Cheapest Insertion è pari a 3. \newline
 \subsection{Qualità delle soluzioni trovate per istanze grandi}
 \includegraphics[width=1\textwidth]{../Grafici/18.png} \
-Da questi risultati possiamo notare come Nearest Neighbor risulti essere in molti contesti l'euristica peggiore, mentre la nuova euristica Furthest Insertion mostra ottimi risultati ma non in tutte le istanza. Possiamo, come visto per le prime 50 istanze da TSP-LIB, valutare la media delle qualità:
+Da questi risultati possiamo notare come Nearest Neighbor risulti essere in molti contesti l'euristica peggiore, mentre Farthest Insertion risulta essere la migliore. Inoltre Furthest Insertion sembra essere al secondo posto dopo Farthest Insertion dal punto di vista delle qualità trovate, infatti la media delle qualità è:
 \begin{myverbatim}
-Nearest Neighbor ->              1.2357
-Nearest Insertion ->             1.2276
-Cheapest Insertion versione 3 -> 1.1752
-Farthest Insertion ->            1.2765
-Furthest Insertion versione 2 -> 1.1893
+Nearest Neighbor ->              1.2426
+Nearest Insertion ->             1.2204
+Cheapest Insertion versione 3 -> 1.1789
+Farthest Insertion ->            1.1598
+Furthest Insertion versione 2 -> 1.1943
 \end{myverbatim}
+Mentre invece la varianza della qualità per le istanze enormi risulta essere:
+\begin{myverbatim}
+Nearest Neighbor ->              0.00292
+Nearest Insertion ->             0.00222
+Cheapest Insertion versione 3 -> 0.00148
+Farthest Insertion ->            0.00231
+Furthest Insertion versione 2 -> 0.00378  
+\end{myverbatim}
+La varianza delle qualità per le istanze enormi risulta essere molto passa per Cheapest insertion e la più alta per Furthest Insertion. \newline
 Possiamo quindi concludere che in media per le istanze grandi Furthest Insertion sia al secondo posto in termini di qualità delle soluzioni trovate rispetto a Cheapest Insertion.
 \subsection{Tempi necessari per la risoluzione di istanze grandi}
 Per quanto riguarda i tempi invece i risultati sono i seguenti: \newline
 \includegraphics[width=1\textwidth]{../Grafici/19.png} \
-Possiamo notare come i risultati siano totalmente in linea con i tempi per le istanze piccole. Nearest Neighbor si colloca nella fascia bassa (quindi è l'algoritmo più veloce) dopodiché sono presenti Farthest e Nearest Insertion e poi (tra le euristiche più lente) Cheapest e Furthest Insertion. Possiamo però notare come Furthest Insertion sia poco più veloce rispetto a Cheapest Insertion.
+Possiamo notare come i risultati siano totalmente in linea con i tempi per le istanze piccole: Nearest Neighbor risulta essere l'euristica più veloce, Farthest e Nearest Insertion risultano avere lo stesso tempo per ogni istanza (peggiore di Nearest Neighbor) mentre le euristiche più lente sono Cheapest e Furthest, dove però Furthest Insertion risulta essere leggermente più veloce di Cheapest Insertion.
 
 \section{Analisi robustezza rispetto alla scelta delle città iniziali}
 Abbiamo visto che l'inizializzazione del tour consiste nel determinare la coppia di città più vicine per gli algoritmi Nearest Neighbor, Nearest Insertion e Cheapest Insertion e consiste nel determinare la coppia di città più lontane per Farthest e Furthest Insertion. Questa sezione analizza il variare dei tempi e delle qualità delle soluzioni trovate al variare delle città iniziali. Per fare questo (come visto nella sezione delle implementazioni) l'implementazione resta la stessa tranne per il fatto che le due città iniziali sono scelte casualmente. Chiaramente si deve garantire che siano due città diverse. Vediamo i risultati prima dal punto di vista delle qualità, poi dei tempi.
 \subsection{Robustezza della qualità della soluzione delle implementazioni}
 Per prima cosa valutiamo la robustezza della qualità della soluzione, quindi iteriamo 100 volte (con un seed diverso per i numeri casuali) su ognuna delle prime 50 istanze da TSP-LIB in ordine di dimensione, ho deciso di limitarmi alle sole prime 30 città in quanto iterare 100 volte sull'esecuzione di tutte e 5 le euristiche richiede molto tempo. Per prima cosa considero la media delle soluzioni trovate per ogni istanza e per ogni algoritmo: \newline
 \includegraphics[width=1\textwidth]{../Grafici/9.png} \
-I risultati medi sono coerenti con i risultati ottenuti inizializzando il tour con la coppia di città più vicine/lontane: Furthest Insertion (nelle 50 città analizzate) e Farthest Insertion trovano in media un percorso migliore rispetto alle altre euristiche analizzate, trovando soluzioni tra 5\% e il 15\%, mentre le altre euristiche si collocano nel range 10\%-25\% (o 30\% nel caso di Nearest Neighbor). Inoltre in particolare Nearest Neighbor trova soluzioni (in media) peggiori rispetto alle altre euristiche. \newline 
+I risultati medi sono coerenti con i risultati ottenuti inizializzando il tour con la coppia di città più vicine/lontane: Furthest Insertion (nelle 50 città analizzate) e Farthest Insertion trovano in media un percorso migliore rispetto alle altre euristiche analizzate, trovando soluzioni tra 3-4\% e il 15\%, mentre le altre euristiche si collocano nel range 13-14\%-25\% (o 30\% nel caso di Nearest Neighbor). Inoltre in particolare Nearest Neighbor trova soluzioni (in media) peggiori rispetto alle altre euristiche. \newline 
 Ora possiamo analizzare invece la varianza delle soluzioni trovate: vogliamo quindi sapere quanto le soluzioni sia allontanano dal valore medio trovato prima al variare dell'inizializzazione. Di seguito il grafico: \newline
 \includegraphics[width=1\textwidth]{../Grafici/10.png} \
-Possiamo notare come Nearest Neighbor ha una varianza elevata, quindi le soluzioni trovate distano molto dalla media (avvicinandosi o allontanandosi dall'ottimo). Dopodiché possiamo notare come Furthest Insertion e Farthest Insertion abbiano una varianza tra le più basse (possiamo forse affermare che abbia la varianza più bassa), andando a considerare la media delle varianze otteniamo:
+Possiamo notare come Nearest Neighbor ha una varianza elevata, quindi le soluzioni trovate distano molto dalla media (avvicinandosi o allontanandosi dall'ottimo). Dopodiché possiamo notare come Furthest Insertion e Farthest Insertion abbiano una varianza tra le più basse, andando a considerare la media delle varianze otteniamo:
 \begin{myverbatim}
-Nearest Neighbor ->              0.00203
-Nearest Insertion ->             0.00069
-Cheapest Insertion versione 3 -> 0.00088
-Farthest Insertion ->            0.00042
-Furthest Insertion versione 2 -> 0.00044
+Nearest Neighbor ->              0.002190
+Nearest Insertion ->             0.000709
+Cheapest Insertion versione 3 -> 0.000909
+Farthest Insertion ->            0.000431
+Furthest Insertion versione 2 -> 0.000426
 \end{myverbatim}
 Da questi risultati possiamo notare come Furthest Insertion e Farthest Insertion abbiano la varianza più bassa (in media) tra le euristiche analizzate: questo è un altro risultato interessante, ovvero non solo trovano (in media) le soluzioni più vicine all'ottimo (con inizializzazione casuale e non) ma anche con una varianza bassa.
 \subsection{Robustezza dei tempi delle implementazioni}
@@ -1659,6 +1668,7 @@ In questa sezione vogliamo invece vedere come variano i tempi delle implementazi
 Anche in questo caso, i risultati non si allontano molto dai risultati ottenuti con l'inizializzazione delle città più vicine/lontane: Nearest Neighbor si conferma come euristica più veloce, dopodiché Nearest Insertion e Farthest Insertion ottengono tempi medi molto simili e infine Cheapest Insertion e Furthest Insertion ottengono tempi medi molto simili (i peggiori in modo coerente con la complessità temporale).  \newline
 \includegraphics[width=1\textwidth]{../Grafici/12.png} \
 Dal punto di vista invece della varianza dei tempi, possiamo notare una varianza molto bassa per i tempi per Nearest Neighbor, dopo (in ordine) una varianza bassa per Nearest Insertion e Farthest Insertion, poi Furthest Insertion con una varianza relativamente alta e infine Cheapest Insertion versione 3 con la varianza più alta per quanto riguarda i tempi.
+
 \section{Analisi risultati medi e varianza di Random Insertion}
 In questa sezione analizziamo le due versioni implementate di Random Insertion: la prima sceglie casualmente il nodo da inserire ma poi procede inserendolo nel punto che minimizza il costo di inserzione, mentre invece la seconda versione prende ancora casualmente un nodo da inserire ma poi lo inserisce casualmente. Di seguito il grafico che compara le qualità medie per le prime 50 istanze (sempre in ordine di dimensione) con 100 iterazioni per istanza: \newline
 \includegraphics[width=1\textwidth]{../Grafici/13.png} \
@@ -1697,11 +1707,11 @@ I risultati sui tempi medi sono coerenti con i risultati visti nelle sezioni pre
 \includegraphics[width=1\textwidth]{../Grafici/22.png} \
 Adesso invece valutiamo la varianza dei risultati ottenuti, possiamo notare una varianza molto alta: questo può essere spiegabile in quanto due istanze generate casualmente (anche con la stessa dimensione) risultano essere molto diverse e quindi si ottengono soluzioni di qualità molto diverse. La media delle varianze risulta essere:
 \begin{myverbatim}
-Nearest Neighbor ->              2958.68
-Nearest Insertion ->             3175.12
-Cheapest Insertion versione 3 -> 3015.10
-Farthest Insertion ->            3356.24
-Furthest Insertion versione 2 -> 3568.44
+Nearest Neighbor ->              2969.98
+Nearest Insertion ->             3288.40
+Cheapest Insertion versione 3 -> 3256.91
+Farthest Insertion ->            3468.87
+Furthest Insertion versione 2 -> 3677.23
 \end{myverbatim}
 Quindi Nearest Neighbor ottiene una varianza media più bassa mentre Furthest una varianza media più alta. \newline
 \includegraphics[width=1\textwidth]{../Grafici/23.png} \
