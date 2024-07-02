@@ -1,0 +1,213 @@
+Tue Jul  2 14:35:30 2024
+
+_________________
+u1060
+nearestNeighbor    costo: 285039.39, qualità: 1.2720, tempo: 0.033741 secondi
+nearestInsertion   costo: 277586.63, qualità: 1.2387, tempo: 0.614735 secondi
+cheapestInsertionOttimizzato costo: 270856.57, qualità: 1.2087, tempo: 2.175210 secondi
+farthestInsertion  costo: 252329.91, qualità: 1.1260, tempo: 0.598611 secondi
+furthestInsertion  costo: 256595.86, qualità: 1.1450, tempo: 2.065184 secondi
+Tue Jul  2 14:35:36 2024
+
+_________________
+vm1084
+nearestNeighbor    costo: 301466.48, qualità: 1.2598, tempo: 0.041448 secondi
+nearestInsertion   costo: 280120.45, qualità: 1.1706, tempo: 0.656906 secondi
+cheapestInsertionOttimizzato costo: 277046.26, qualità: 1.1578, tempo: 2.371755 secondi
+farthestInsertion  costo: 270083.20, qualità: 1.1287, tempo: 0.670170 secondi
+furthestInsertion  costo: 272527.24, qualità: 1.1389, tempo: 2.272039 secondi
+Tue Jul  2 14:35:42 2024
+
+_________________
+pcb1173
+nearestNeighbor    costo: 70277.94, qualità: 1.2353, tempo: 0.046831 secondi
+nearestInsertion   costo: 72908.31, qualità: 1.2815, tempo: 0.761353 secondi
+cheapestInsertionOttimizzato costo: 69025.09, qualità: 1.2133, tempo: 2.785990 secondi
+farthestInsertion  costo: 66067.97, qualità: 1.1613, tempo: 0.743643 secondi
+furthestInsertion  costo: 66999.11, qualità: 1.1777, tempo: 2.473106 secondi
+Tue Jul  2 14:35:49 2024
+
+_________________
+d1291
+nearestNeighbor    costo: 60356.46, qualità: 1.1881, tempo: 0.059935 secondi
+nearestInsertion   costo: 62442.96, qualità: 1.2292, tempo: 0.919083 secondi
+cheapestInsertionOttimizzato costo: 58896.76, qualità: 1.1594, tempo: 3.482632 secondi
+farthestInsertion  costo: 62893.28, qualità: 1.2380, tempo: 0.909709 secondi
+furthestInsertion  costo: 66292.59, qualità: 1.3049, tempo: 3.544298 secondi
+Tue Jul  2 14:35:58 2024
+
+_________________
+rl1304
+nearestNeighbor    costo: 339797.47, qualità: 1.3433, tempo: 0.072531 secondi
+nearestInsertion   costo: 320202.28, qualità: 1.2659, tempo: 0.948792 secondi
+cheapestInsertionOttimizzato costo: 315579.38, qualità: 1.2476, tempo: 3.549603 secondi
+farthestInsertion  costo: 303058.27, qualità: 1.1981, tempo: 0.945267 secondi
+furthestInsertion  costo: 312578.19, qualità: 1.2357, tempo: 3.297125 secondi
+Tue Jul  2 14:36:08 2024
+
+_________________
+rl1323
+nearestNeighbor    costo: 332094.97, qualità: 1.2291, tempo: 0.072702 secondi
+nearestInsertion   costo: 351719.54, qualità: 1.3017, tempo: 0.977124 secondi
+cheapestInsertionOttimizzato costo: 336512.24, qualità: 1.2454, tempo: 3.766378 secondi
+farthestInsertion  costo: 323521.58, qualità: 1.1973, tempo: 0.981362 secondi
+furthestInsertion  costo: 342290.97, qualità: 1.2668, tempo: 3.279857 secondi
+Tue Jul  2 14:36:17 2024
+
+_________________
+nrw1379
+nearestNeighbor    costo: 70015.46, qualità: 1.2362, tempo: 0.085020 secondi
+nearestInsertion   costo: 69079.66, qualità: 1.2197, tempo: 1.048108 secondi
+cheapestInsertionOttimizzato costo: 66195.67, qualità: 1.1688, tempo: 4.004879 secondi
+farthestInsertion  costo: 63506.66, qualità: 1.1213, tempo: 1.045771 secondi
+furthestInsertion  costo: 64019.00, qualità: 1.1303, tempo: 3.553831 secondi
+Tue Jul  2 14:36:27 2024
+
+_________________
+fl1400
+nearestNeighbor    costo: 27477.58, qualità: 1.3652, tempo: 0.080737 secondi
+nearestInsertion   costo: 24314.55, qualità: 1.2081, tempo: 1.086462 secondi
+cheapestInsertionOttimizzato costo: 23209.71, qualità: 1.1532, tempo: 3.964149 secondi
+farthestInsertion  costo: 21199.89, qualità: 1.0533, tempo: 1.092903 secondi
+furthestInsertion  costo: 22159.47, qualità: 1.1010, tempo: 4.410855 secondi
+Tue Jul  2 14:36:38 2024
+
+_________________
+u1432
+nearestNeighbor    costo: 188815.01, qualità: 1.2343, tempo: 0.081698 secondi
+nearestInsertion   costo: 175670.02, qualità: 1.1484, tempo: 1.144688 secondi
+cheapestInsertionOttimizzato costo: 172870.01, qualità: 1.1301, tempo: 4.464155 secondi
+farthestInsertion  costo: 172340.19, qualità: 1.1266, tempo: 1.138887 secondi
+furthestInsertion  costo: 174689.97, qualità: 1.1420, tempo: 3.752379 secondi
+Tue Jul  2 14:36:49 2024
+
+_________________
+fl1577
+nearestNeighbor    costo: 29658.07, qualità: 1.3330, tempo: 0.099671 secondi
+nearestInsertion   costo: 27379.19, qualità: 1.2306, tempo: 1.401167 secondi
+cheapestInsertionOttimizzato costo: 26171.03, qualità: 1.1763, tempo: 5.048908 secondi
+farthestInsertion  costo: 26286.74, qualità: 1.1815, tempo: 1.377530 secondi
+furthestInsertion  costo: 27871.58, qualità: 1.2527, tempo: 8.322800 secondi
+Tue Jul  2 14:37:06 2024
+
+_________________
+d1655
+nearestNeighbor    costo: 74403.84, qualità: 1.1976, tempo: 0.105128 secondi
+nearestInsertion   costo: 75259.36, qualità: 1.2114, tempo: 1.523789 secondi
+cheapestInsertionOttimizzato costo: 72919.98, qualità: 1.1737, tempo: 5.915703 secondi
+farthestInsertion  costo: 73045.14, qualità: 1.1757, tempo: 1.534216 secondi
+furthestInsertion  costo: 74304.82, qualità: 1.1960, tempo: 5.186271 secondi
+Tue Jul  2 14:37:21 2024
+
+_________________
+vm1748
+nearestNeighbor    costo: 408090.71, qualità: 1.2125, tempo: 0.138205 secondi
+nearestInsertion   costo: 407554.99, qualità: 1.2110, tempo: 1.715819 secondi
+cheapestInsertionOttimizzato costo: 401251.43, qualità: 1.1922, tempo: 6.467451 secondi
+farthestInsertion  costo: 373175.79, qualità: 1.1088, tempo: 1.710069 secondi
+furthestInsertion  costo: 382158.25, qualità: 1.1355, tempo: 6.420958 secondi
+Tue Jul  2 14:37:39 2024
+
+_________________
+u1817
+nearestNeighbor    costo: 71718.86, qualità: 1.2538, tempo: 0.123716 secondi
+nearestInsertion   costo: 69937.58, qualità: 1.2227, tempo: 1.861837 secondi
+cheapestInsertionOttimizzato costo: 66992.92, qualità: 1.1712, tempo: 7.249311 secondi
+farthestInsertion  costo: 68497.01, qualità: 1.1975, tempo: 1.849579 secondi
+furthestInsertion  costo: 71106.27, qualità: 1.2431, tempo: 6.258890 secondi
+Tue Jul  2 14:37:57 2024
+
+_________________
+rl1889
+nearestNeighbor    costo: 400684.64, qualità: 1.2658, tempo: 0.143366 secondi
+nearestInsertion   costo: 395002.50, qualità: 1.2479, tempo: 2.037672 secondi
+cheapestInsertionOttimizzato costo: 381290.85, qualità: 1.2046, tempo: 7.539055 secondi
+farthestInsertion  costo: 366589.26, qualità: 1.1581, tempo: 2.040542 secondi
+furthestInsertion  costo: 386086.19, qualità: 1.2197, tempo: 7.319719 secondi
+Tue Jul  2 14:38:17 2024
+
+_________________
+d2103
+nearestNeighbor    costo: 86751.58, qualità: 1.0783, tempo: 0.178557 secondi
+nearestInsertion   costo: 86197.53, qualità: 1.0714, tempo: 2.477292 secondi
+cheapestInsertionOttimizzato costo: 87020.06, qualità: 1.0817, tempo: 9.422322 secondi
+farthestInsertion  costo: 98761.32, qualità: 1.2276, tempo: 2.499445 secondi
+furthestInsertion  costo: 103406.38, qualità: 1.2853, tempo: 8.840490 secondi
+Tue Jul  2 14:38:41 2024
+
+_________________
+u2152
+nearestNeighbor    costo: 78771.40, qualità: 1.2260, tempo: 0.186764 secondi
+nearestInsertion   costo: 78511.49, qualità: 1.2219, tempo: 2.641494 secondi
+cheapestInsertionOttimizzato costo: 76189.28, qualità: 1.1858, tempo: 10.019305 secondi
+farthestInsertion  costo: 76992.52, qualità: 1.1983, tempo: 2.627325 secondi
+furthestInsertion  costo: 78971.14, qualità: 1.2291, tempo: 8.737259 secondi
+Tue Jul  2 14:39:07 2024
+
+_________________
+u2319
+nearestNeighbor    costo: 278783.31, qualità: 1.1901, tempo: 0.225178 secondi
+nearestInsertion   costo: 269280.44, qualità: 1.1495, tempo: 3.018988 secondi
+cheapestInsertionOttimizzato costo: 259318.28, qualità: 1.1070, tempo: 12.014163 secondi
+farthestInsertion  costo: 250384.27, qualità: 1.0688, tempo: 3.016842 secondi
+furthestInsertion  costo: 248402.24, qualità: 1.0604, tempo: 10.024091 secondi
+Tue Jul  2 14:39:36 2024
+
+_________________
+pr2392
+nearestNeighbor    costo: 461207.49, qualità: 1.2200, tempo: 0.210438 secondi
+nearestInsertion   costo: 470015.03, qualità: 1.2433, tempo: 3.161763 secondi
+cheapestInsertionOttimizzato costo: 458977.67, qualità: 1.2141, tempo: 12.676614 secondi
+farthestInsertion  costo: 431573.48, qualità: 1.1416, tempo: 3.268692 secondi
+furthestInsertion  costo: 446480.25, qualità: 1.1811, tempo: 10.865245 secondi
+Tue Jul  2 14:40:08 2024
+
+_________________
+pcb3038
+nearestNeighbor    costo: 175572.75, qualità: 1.2751, tempo: 0.348758 secondi
+nearestInsertion   costo: 169469.99, qualità: 1.2308, tempo: 5.309282 secondi
+cheapestInsertionOttimizzato costo: 160934.98, qualità: 1.1688, tempo: 20.693270 secondi
+farthestInsertion  costo: 158541.53, qualità: 1.1514, tempo: 5.369136 secondi
+furthestInsertion  costo: 161283.24, qualità: 1.1713, tempo: 17.457356 secondi
+Tue Jul  2 14:40:59 2024
+
+_________________
+fl3795
+nearestNeighbor    costo: 36841.40, qualità: 1.2805, tempo: 0.563833 secondi
+nearestInsertion   costo: 33434.70, qualità: 1.1621, tempo: 8.278769 secondi
+cheapestInsertionOttimizzato costo: 32355.07, qualità: 1.1245, tempo: 33.366832 secondi
+farthestInsertion  costo: 34205.36, qualità: 1.1888, tempo: 8.178553 secondi
+furthestInsertion  costo: 35728.38, qualità: 1.2418, tempo: 43.826011 secondi
+Tue Jul  2 14:42:37 2024
+
+_________________
+fnl4461
+nearestNeighbor    costo: 227156.61, qualità: 1.2442, tempo: 0.936290 secondi
+nearestInsertion   costo: 223165.89, qualità: 1.2224, tempo: 11.681865 secondi
+cheapestInsertionOttimizzato costo: 213478.51, qualità: 1.1693, tempo: 45.806844 secondi
+farthestInsertion  costo: 204131.55, qualità: 1.1181, tempo: 11.798090 secondi
+furthestInsertion  costo: 208760.52, qualità: 1.1435, tempo: 38.184721 secondi
+Tue Jul  2 14:44:31 2024
+
+_________________
+rl5915
+nearestNeighbor    costo: 707498.63, qualità: 1.2510, tempo: 1.567388 secondi
+nearestInsertion   costo: 711112.07, qualità: 1.2574, tempo: 20.528300 secondi
+cheapestInsertionOttimizzato costo: 678669.95, qualità: 1.2001, tempo: 81.762909 secondi
+farthestInsertion  costo: 697756.98, qualità: 1.2338, tempo: 20.422810 secondi
+furthestInsertion  costo: 720690.09, qualità: 1.2744, tempo: 71.730388 secondi
+Tue Jul  2 14:47:56 2024
+
+_________________
+rl5934
+nearestNeighbor    costo: 683806.00, qualità: 1.2298, tempo: 1.552821 secondi
+nearestInsertion   costo: 694334.13, qualità: 1.2487, tempo: 20.941196 secondi
+cheapestInsertionOttimizzato costo: 676207.17, qualità: 1.2161, tempo: 85.146414 secondi
+farthestInsertion  costo: 673659.97, qualità: 1.2115, tempo: 20.755733 secondi
+furthestInsertion  costo: 695016.11, qualità: 1.2499, tempo: 71.696849 secondi
+Tue Jul  2 14:51:25 2024
+
+_________________
+rl11849
+nearestNeighbor    costo: 1118751.54, qualità: 1.2117, tempo: 6.725117 secondi
+nearestInsertion   costo: 1151651.80, qualità: 1.2473, tempo: 85.921492 secondi

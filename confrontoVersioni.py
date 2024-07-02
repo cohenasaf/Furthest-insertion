@@ -44,10 +44,10 @@ for l in TSP_LIB[:50]:
 
     t.calculateOptimalCost()
 
-    cOn3.append(testEuristic("cheapestInsertionOn3", t.cheapestInsertionOn3))
-    c.append(testEuristic("cheapestInsertion", t.cheapestInsertion))
-    cO.append(testEuristicO("cheapestInsertionOttimizzato", t.cheapestInsertionOttimizzato, dC[l]))
-    cA.append(testEuristic("cheapestInsertionApprossimato", t.cheapestInsertionApprossimato))
+    #cOn3.append(testEuristic("cheapestInsertionOn3", t.cheapestInsertionOn3))
+    #c.append(testEuristic("cheapestInsertion", t.cheapestInsertion))
+    #cO.append(testEuristicO("cheapestInsertionOttimizzato", t.cheapestInsertionOttimizzato, dC[l]))
+    #cA.append(testEuristic("cheapestInsertionApprossimato", t.cheapestInsertionApprossimato))
 
     fOn3.append(testEuristic("furthestInsertionOn3", t.furthestInsertionOn3))
     f.append(testEuristic("farthestInsertion", t.furthestInsertion))
