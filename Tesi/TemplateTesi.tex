@@ -1721,14 +1721,12 @@ Possiamo quindi concludere che, per le istanze generate casualmente, in media Ne
 \chapter{Conclusioni}
 Si può concludere la tesi riassumendo i risultati trovati:
 \begin{legal}
-  \item Furthest Insertion (ovvero la nuova euristica proposta in questa tesi) si colloca al secondo posto dal punto di vista delle qualità trovate (Farthest Insertion) e quindi trova soluzioni di qualità migliore rispetto altre euristiche basate su inserzione (quindi meglio di Cheapest Insertion e Nearest Insertion) per le istanze piccole e medie e soluzioni migliori di Nearest Neighbor.
-  \item Furthest Insertion e Farthest Insertion trovano soluzioni di qualità migliore anche con l'inizializzazione del tour casuale in confronto alle altre euristiche basate su inserzione (sempre con inizializzazione casuale).
-  \item Furthest Insertion ha una varianza più bassa per quanto riguarda la qualità delle soluzioni, sia nel caso con inizializzazione con la coppia di città più lontane, sia nel caso con inizializzazione casuale.
-  \item Furthest Insertion (lato negativo) non ha mostrato un miglioramento significativo nell'ottimizzazione da heap singolo a più heap associati ai nodi fuori dal tour (cosa che invece è avvenuta per Cheapest Insertion).
-  \item Furthest Insertion (lato negativo) trova buone soluzioni per le istanze enormi ma Cheapest Insertion trova soluzioni migliori in media.
-  \item Furthest Insertion ha dei tempi accettabili (come nel caso di Cheapest Insertion) anche se altre euristiche sono risultate più veloci in modo coerente con la complessità computazionale analizzata (ma con qualità ottenute peggiori).
-  \item Random Insertion trova soluzioni di qualità molto buona, in linea con Farthest e Furthest Insertion in modo del tutto inatteso in quanto, appunto, Random Insertion seleziona i nodi in modo casuale.
-  \item Nel caso di istanze generate casualmente, Nearest Neighbor trova soluzioni migliori rispetto alle altre euristiche (inclusa Furthest Insertion).
+  \item Furthest Insertion versione 3 approssimata necessita una $m_{ott}$ più alta rispetto a Cheapest Insertion versione 3 approssimata: per questo motivo l'ottimizzazione non ha portato ad un significativo miglioramento dei tempi per quanto riguarda Furthest Insertion mentre lo ha portato per Cheapest Insertion.
+  \item Il confronto sulle prime 50 istanze ha mostrato come Farthest Insertion risulta essere la migliore euristica per quanto riguarda le qualità trovate, Furthest Insertion risulta essere la seconda, Nearest Neighbor invece risulta essere la peggiore.
+  \item Per quanto riguarda i tempi, Nearest Neighbor risulta essere l'euristica più veloce, subito dopo ci sono Farthest e Nearest Insertion e le euristiche più lente sono Cheapest e Furthest Insertion (in modo coerente con la complessità temporale)
+  \item Per quanto riguarda le istanze enormi (da 1000 a 14 mila città) sono stati trovati risultati simili alle istanze piccole: Farthest e Furthest sono le migliori euristiche e Nearest Neighbor la peggiore.
+  \item Random Insertion trova soluzioni buone, come Furthest e Farthest insertion in modo inatteso in quanto, appunto, sceglie i nodi da inserire casualmente.
+  \item Nel caso di istanze generate casualmente, Nearest Neighbor risulta essere l'euristica migliore (in contrasto con i risultati trovati prima) mentre le altre euristiche si sono comportate in modo simile tra loro.
 \end{legal}
 Questi risultati sono molto interessanti in quanto Furthest Insertion è proprio l'euristica mancante in letteratura, ad esempio nel "The Traveling Salesman" di G. Reinelt\cite{Reinelt}, possiamo trovare Nearest Insertion (6.2.1.1), varie versioni di Farthest Insertion (6.2.1.2), varie versioni di Cheapest Insertion (6.2.1.5) ma non Furthest Insertion.
 
