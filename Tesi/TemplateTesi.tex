@@ -25,6 +25,7 @@
 \usepackage{listings,lipsum}
 \usepackage{graphicx}
 \usepackage{lipsum}
+\usepackage[a-2b,mathxmp]{pdfx}[2018/12/22]
 \tcbuselibrary{listings,breakable}
 
 \newenvironment{teor}{\begin{myteor}\sl}{\end{myteor}}
@@ -202,12 +203,12 @@ Lo stato dell'arte degli algoritmi esatti per il TSP non sono i generici branch-
 Come già detto in precedenza, questo approccio è attualmente lo stato dell'arte per risolvere il TSP all'ottimo. In letteratura esistono varie implementazioni di algoritmi branch-and-cut per il TSP\cite{Branch and Cut Algoritmhs}, sono presenti anche all'interno di risolutori MILP come ad esempio CPLEX. Questo approccio risulta migliore rispetto all'approccio brute-force, ma resta comunque non applicabile su istanze TSP con migliaia di città.
 
 \chapter{Euristiche per il TSP}
-Come discusso nel capitolo 2, i metodi esatti consentono di ottenere soluzioni ottime per il problema del TSP, ma il tempo per ottenere queste soluzioni aumenta esponenzialmente all'aumentare del numero di città presenti nell'istanza. Per affrontare il TSP, sono stati sviluppati numerosi approcci euristici, ovvero metodi che, pur non garantendo la soluzione ottimale, offrono soluzioni di buona qualità in tempi ragionevoli. Le euristiche sono fondamentali per applicazioni pratiche dove la rapidità di calcolo è essenziale. In questo capitolo esploreremo diverse tecniche euristiche, come le euristiche costruttive, che costruiscono una soluzione passo dopo passo a partire da una soluzione parziale, vedremo in particolare sulle euristiche basate su inserzione (Furthest Insertion fa parte di questa categoria) e poi "improvement euristics" ovvero le euristiche basate su meccanismi che consentono di "migliorare" la soluzione parziale trovata modificando il tour.
+Come discusso nel capitolo 2, i metodi esatti consentono di ottenere soluzioni ottime per il problema del TSP, ma il tempo per ottenere queste soluzioni aumenta esponenzialmente all'aumentare del numero di città presenti nell'istanza. Per affrontare il TSP, sono stati sviluppati numerosi approcci euristici, ovvero metodi che, pur non garantendo la soluzione ottimale, offrono soluzioni di buona qualità in tempi ragionevoli. Le euristiche sono fondamentali per applicazioni pratiche dove la rapidità di calcolo è essenziale. In questo capitolo esploreremo diverse tecniche euristiche, come le euristiche costruttive, che costruiscono una soluzione passo dopo passo a partire da una soluzione parziale, vedremo in particolare sulle euristiche basate su inserzione (Furthest Insertion fa parte di questa categoria) e poi le euristiche basate su ricerca locale, ovvero basate su meccanismi che consentono di "migliorare" la soluzione parziale trovata modificando il tour.
 \section{Nearest Neighbor} \label{sec:NN}
 Nearest Neighbor è probabilmente l'euristica costruttiva più semplice per il TSP: si costruisce il tour selezionando sempre la città più vicina all'ultima appena aggiunta al tour. Appartiene alla categoria delle euristiche costruttive in quanto aggiunge via via nuove città al tour (soluzione parziale) senza modificare il tour costruito fino a quel punto. L'algoritmo è il seguente:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Neighbor, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
 \begin{legal}
   \item Seleziona un nodo arbitrario j, sia l = j e L = $\{1, 2, ..., n\} \setminus \{j\}$.
   \item Finché $L \neq \emptyset$:
@@ -225,8 +226,8 @@ Nearest Neighbor è una euristica con complessità temporale pari a $O(n^2)$ in 
 Le euristiche basate su inserzione appartengono alla categoria delle euristiche costruttive ma a differenza di Nearest Neighbor la soluzione viene costruita in un modo differente: si inizia da un piccolo tour (che include 2 o 1 città) il quale viene via via esteso includendo i nodi (città) non ancora aggiunti al tour. In questo tipo di euristiche la differenza fondamentale che le distingue sarà il criterio con il quale si aggiungono nuove città al tour e dove queste città devono essere inserite nel tour. Una qualunque euristica basata su inserzione quindi presenta la seguente struttura:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
-\begin{legal}
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Euristica generica basata su inserzione, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
+  \begin{legal}
   \item Seleziona una città o due città arbitrarie come tour iniziale $T$. Sia $L$ l'insieme delle città che sono fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
   \begin{legal}
@@ -243,7 +244,7 @@ Questo schema permette di ottenere un ciclo Hamiltoniano e quindi un percorso va
 Nearest Insertion seleziona come nodo da inserire nel tour il nodo più vicino ad un qualunque nodo già inserito nel tour e lo inserisce nella posizione che minimizza il costo di inserimento. Di seguito l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Nearest Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{legal}
     \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
     \item Finché $L \neq \emptyset$:
@@ -260,7 +261,7 @@ Nearest Insertion seleziona come nodo da inserire nel tour il nodo più vicino a
 Cheapest Insertion opera in modo diverso da Nearest Insertion: il criterio di selezione non è più il nodo più vicino al tour, ma diventa il nodo che produce il minor aumento del costo del tour se inserito (quindi minimizza il costo di inserzione). Una volta selezionato, il nodo viene inserito nel modo migliore possibile, quindi minimizzando il costo di inserimento. Di seguito l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Cheapest Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{legal}
     \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
     \item Finché $L \neq \emptyset$:
@@ -278,7 +279,7 @@ Cheapest Insertion opera in modo diverso da Nearest Insertion: il criterio di se
 Farthest Insertion opera in analogo a Nearest Insertion in quanto il criterio di selezione del nodo da inserire è basato sulla distanza dal tour, ma differenza di Nearest Insertion però viene scelto il nodo più lontano dal tour al posto del più vicino. Il passo di inserzione avviene invece allo stesso modo rispetto a Nearest Insertion: viene quindi scelta la posizione che minimizza il costo di inserzione. Vediamo l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Farthest Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
 \begin{legal}
   \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
@@ -295,7 +296,7 @@ Farthest Insertion opera in analogo a Nearest Insertion in quanto il criterio di
 L'obbiettivo della tesi consiste nel proporre un nuovo algoritmo chiamato Furthest Insertion: allo stesso modo in cui Farthest Insertion opera in modo analogo a Nearest Insertion, Furthest Insertion opera in modo analogo a Cheapest Insertion. Il passo di selezione consiste nel selezionare il nodo che massimizza il costo di inserzione, in fase di inserimento però il nodo viene inserito in modo da minimizzare il costo di inserimento. Di seguito l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Furthest Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
 \begin{legal}
   \item Sia $T$ il tour iniziale definito dalla coppia delle città più lontane. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
@@ -313,7 +314,7 @@ L'obbiettivo della tesi consiste nel proporre un nuovo algoritmo chiamato Furthe
 Random Insertion seleziona casualmente il nodo da inserire nel tour, successivamente però sceglie il punto di inserimento in modo da minimizzare il costo di inserimento (esattamente come per Nearest Insertion). Di seguito l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners, breakable]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Random Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
 \begin{legal}
   \item Sia $T$ il tour iniziale definito da una città casuale. Sia $L$ l'insieme delle città fuori dal tour, quindi: $L = \{1, 2, ..., n\} \setminus T$.
   \item Finché $L \neq \emptyset$:
@@ -334,7 +335,7 @@ Le euristiche basate su ricerca locale\cite{Local Search} sono euristiche che im
 Questa euristica permette di migliorare un tour rimuovendo un nodo e inserendolo nel tour nel modo migliore possibile. Di seguito la procedura:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Node Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
 \begin{legal}
   \item Sia $T$ il tour (anche parziale).
   \item Ripeti finché il tour $T$ resta invariato:
@@ -350,7 +351,7 @@ La procedura richiede tempo $O(n^2)$ in quanto per ogni nodo (n volte) è necess
 In modo analogo a Node Insertion, questa euristica permette di migliorare un tour rimuovendo un arco (a differenza del nodo di prima) e inserendolo nel tour nel modo migliore possibile. Di seguito la procedura:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Edge Insertion, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
 \begin{legal}
   \item Sia $T$ il tour (anche parziale).
   \item Ripeti finché il tour $T$ resta invariato:
@@ -366,7 +367,8 @@ La procedura richiede tempo $O(n^2)$ in modo del tutto analogo a Node Insertion.
 L'algoritmo 2-Opt\cite{2OPT} consente di eliminare due archi e di riconnetterli in un modo diverso, andando quindi a modificare il tour. Questa euristica deriva dall'osservazione empirica per cui due archi che si incrociano possono essere sempre riorganizzati in modo da non incrociarsi e questo produce sempre una riduzione della lunghezza totale del tour. La procedura consente di ridurre la lunghezza del tour riorganizzando una coppia di archi anche quando non si incrociano. Si nota che è sempre possibile ricombinarli in un unico modo diverso. Di seguito la procedura 2-Opt:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=2-Opt, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
+
 \begin{legal}
   \item Sia $T$ il tour (anche parziale).
   \item Ripeti finché il tour $T$ resta invariato:
@@ -381,7 +383,7 @@ L'algoritmo 2-Opt\cite{2OPT} consente di eliminare due archi e di riconnetterli 
 L'euristica 3-Opt è un'estensione dell'euristica vista precedentemente: al posto di eliminare due archi per ricombinarli in modo diverso, in questa euristica sono 3 gli archi che l'euristica rimuove e ricombina in modo diverso. A differenza di 2-Opt sono 8 i modi diversi in cui possono essere ricombinati questi archi\footnote{http://tsp-basics.blogspot.com/2017/03/3-opt-move.html} (includendo anche la configurazione in cui gli archi restano immutati). Vediamo l'algoritmo:
 
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=3-Opt, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{legal}
     \item Sia $T$ il tour.
     \item Per ogni nodo $i \in V$, sia $N(i)$ un insieme di nodi.
@@ -398,7 +400,7 @@ La scelta di ridurre l'insieme dei nodi $V$ a $N(i)$ è necessario in quanto ana
 L'algoritmo Lin-Kernighan (LK)\cite{LK} è una delle migliori euristiche per risolvere il TSP. Appartiene alla classe degli algoritmi di ricerca locale, che prendono come input un tour (ciclo hamiltoniano) e tentano di migliorarlo cercando nella sua vicinanza un tour più corto, e una volta trovato ripetono il processo da quel nuovo tour, fino a incontrare un minimo locale.
 L'algoritmo LK è stato sviluppato da Serge Lin e Brian Kernighan nel 1971 ed è stato dimostrato essere molto efficace per risolvere istanze di TSP di medie e grandi dimensioni. È spesso utilizzato come componente di algoritmi ibridi per il TSP, combinandolo con altre tecniche di ricerca per ottenere risultati ancora migliori. Di seguito una descrizione ad alto livello dell'algoritmo:
 \setlist[legal]{label*=\arabic*.}
-\begin{tcolorbox}[colframe=black,colback=white,boxrule=0.5pt, sharp corners]
+\begin{tcolorbox}[colframe=black, colback=white, boxrule=0.5pt, title=Lin-Kernighan, coltitle=black, fonttitle=\bfseries, colbacktitle=white, breakable]
   \begin{legal}
     \item Sia $T$ il tour iniziale, può essere generato casualmente oppure tramite altre euristiche come Nearest Neighbor. Sia $S$ la soluzione migliore fino a questo momento.
     \item Ripeti finché il tour $T$ resta invariato (e quindi è stato trovato un minimo locale):
@@ -1521,7 +1523,7 @@ Dove l'euristica passata come parametro è l'euristica da analizzare (qualità e
 
 \section{Confronto versioni Cheapest Insertion}
 Prima di confrontare le varie euristiche tra di loro, ho deciso di confrontare le varie versioni di Cheapest Insertion in modo da ottenere la versione che complessivamente (in media) ottiene i tempi migliori, la stessa varrà per Furthest Insertion (la prossima sezione). \newline
-\subsection{Dimensione ottimale degli heap per la versione 3}
+\subsection{Dimensione ottimale degli heap per la versione 3} 
 Per prima cosa è necessario determinare la dimensione minima del parametro m (ovvero la dimensione oltre la quale si perdono punti di inserimento sub-ottimi che ad un certo punto dell'esecuzione dell'euristica diventavano il punto di inserimento ottimo) in modo da ottenere la stessa soluzione rispetto a dimensioni maggiori ma migliorando i tempi in quanto si riduce il parametro m della complessità $O(n^2 \cdot log(m))$. Per determinare la dimensione minima, si può scrivere un semplice script che itera l'esecuzione dell'euristica fino a quando la qualità della soluzione inizia a cambiare, ad esempio:
 \begin{myverbatim}
 m = 8 -> cost: 474.00, quality: 1.1127, time: 0.003978s
@@ -1534,7 +1536,7 @@ m = 2 -> cost: 474.00, quality: 1.1127, time: 0.003275s
 m = 1 -> cost: 474.00, quality: 1.1127, time: 0.003155s
 Cheapest eil51 -> 1
 \end{myverbatim}
-In questo esempio possiamo notare come al variare della dimensione degli heap \lstinline!m!, la quality trovata resta la stessa, addirittura fino a dimensione 1. Questo indica che non è realmente necessario, per ogni nodo fuori dal tour, uno heap ma (per questa specifica istanza) basta un solo record che indica la posizione ottima. Si può notare come il time si riduce al ridursi di \lstinline!m! in modo coerente con la complessità timerale. \newline
+In questo esempio possiamo notare come al variare della dimensione degli heap \lstinline!m!, la quality trovata resta la stessa, addirittura fino a dimensione 1. Questo indica che non è realmente necessario, per ogni nodo fuori dal tour, uno heap ma (per questa specifica istanza) basta un solo record che indica la posizione ottima. Si può notare come il time si riduce al ridursi di \lstinline!m! in modo coerente con la complessità temporale. \newline
 Andando a considerare altre istanze possiamo trovare che la dimensione minima di \lstinline!m! resta bassa (attorno ad 1 o 3), ad esempio:
 \begin{myverbatim}
 pr144
